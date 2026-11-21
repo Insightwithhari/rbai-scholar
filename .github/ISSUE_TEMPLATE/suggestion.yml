@@ -1,0 +1,27 @@
+name: Suggestion
+description: An idea for a new feature, a filter, more papers, or a better answer.
+title: "Suggestion: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: How would it help you?
+      description: An example search, and what you would like it to return, helps a lot.
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where would you use it?
+      options:
+        - ChatGPT or Claude
+        - Cursor, VS Code or another MCP app
+        - REST API (my own code)
+        - The RBAi Scholar web page
+        - The benchmark in this repository
+        - Somewhere else

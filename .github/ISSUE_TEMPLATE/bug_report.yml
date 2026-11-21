@@ -1,0 +1,57 @@
+name: Something didn't work
+description: A search, a tool, the sign-in or a page in this repository didn't work as it should.
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Please don't paste an API key, a sign-in code or a token.
+        For a security problem, use the **Security** tab instead (see SECURITY.md).
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where did it happen?
+      options:
+        - ChatGPT
+        - Claude (website, desktop app or phone)
+        - Claude Code
+        - Cursor
+        - VS Code
+        - Another MCP app
+        - REST API (my own code)
+        - The RBAi Scholar web page
+        - This repository (docs, examples or benchmark)
+    validations:
+      required: true
+  - type: textarea
+    id: what-you-did
+    attributes:
+      label: What did you do?
+      description: The question or search you sent, or the tool you called, with any filters.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened instead?
+      description: Include the error message or the note in the answer, if there was one.
+    validations:
+      required: true
+  - type: input
+    id: when
+    attributes:
+      label: When did it happen?
+      description: Date and time, with your time zone. It helps us find it in our records.
+      placeholder: 21 Nov 2026, 14:30 IST
+  - type: checkboxes
+    id: no-secrets
+    attributes:
+      label: Before you send
+      options:
+        - label: I haven't included an API key, a sign-in code or a token.
+          required: true

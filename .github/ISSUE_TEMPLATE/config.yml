@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem
+    url: https://github.com/Insightwithhari/rbai-scholar/security/advisories/new
+    about: Please report security problems privately here, not in a public issue.
+  - name: Free key, plan or key reset
+    url: https://thedreamlabinnovations.com/rbai-scholar
+    about: Get a free key, check your plan, or regenerate your key on the RBAi Scholar page.

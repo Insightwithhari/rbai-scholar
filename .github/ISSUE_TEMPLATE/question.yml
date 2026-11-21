@@ -1,0 +1,29 @@
+name: Question
+description: Ask how to do something with RBAi Scholar or its benchmark.
+title: "Question: "
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Which app or tool is it about?
+      options:
+        - ChatGPT or Claude
+        - Cursor, VS Code or another MCP app
+        - REST API (my own code)
+        - The RBAi Scholar web page
+        - The benchmark in this repository
+        - Something else
+  - type: checkboxes
+    id: no-secrets
+    attributes:
+      label: Before you send
+      options:
+        - label: I haven't included an API key, a sign-in code or a token.
+          required: true
