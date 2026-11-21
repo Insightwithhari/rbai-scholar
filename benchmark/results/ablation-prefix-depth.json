@@ -1,0 +1,299 @@
+{
+  "ran_at": "2026-09-15T14:58:00.892Z",
+  "transport": "production MCP (streamable-http JSON-RPC)",
+  "method": "depth reproduced by requesting topK=50 and judging only the top 10; encoding reproduced by sending the instruction-prefixed string as the query",
+  "confound_note": "Prefixed arms also feed the prefix to the server-side lexical term. Production uses plainto_tsquery, measured at ~0 for normal queries, so the effect should be negligible but is not exactly zero.",
+  "instruction_task": "Given a biomedical research question, retrieve paper abstracts that answer it",
+  "cutoff": 10,
+  "n_queries": 120,
+  "arms": [
+    {
+      "id": "A_raw_k10",
+      "prefix": false,
+      "topK": 10,
+      "label": "raw query, topK=10 (production baseline)"
+    },
+    {
+      "id": "B_raw_k50",
+      "prefix": false,
+      "topK": 50,
+      "label": "raw query, topK=50 (depth only)"
+    },
+    {
+      "id": "C_prefix_k10",
+      "prefix": true,
+      "topK": 10,
+      "label": "instruction-prefixed query, topK=10 (encoding only)"
+    },
+    {
+      "id": "D_prefix_k50",
+      "prefix": true,
+      "topK": 50,
+      "label": "prefixed + topK=50 (both changes)"
+    }
+  ],
+  "summary": {
+    "A_raw_k10": {
+      "label": "raw query, topK=10 (production baseline)",
+      "prefix": false,
+      "topK": 10,
+      "n": 120,
+      "hit_at_1": 0.1583,
+      "hit_at_1_ci": [
+        0.1,
+        0.225
+      ],
+      "hit_at_10": 0.4417,
+      "hit_at_10_ci": [
+        0.3583,
+        0.5333
+      ],
+      "mrr": 0.2404,
+      "mrr_ci": [
+        0.178,
+        0.3075
+      ],
+      "errors": 0,
+      "latency_ms": {
+        "p50": 3945,
+        "p95": 10135,
+        "max": 16110
+      },
+      "by_stratum": {
+        "cit-000-009": {
+          "n": 24,
+          "hit_at_1": 0.0417,
+          "hit_at_10": 0.25
+        },
+        "cit-010-049": {
+          "n": 24,
+          "hit_at_1": 0.0417,
+          "hit_at_10": 0.3333
+        },
+        "cit-050-199": {
+          "n": 24,
+          "hit_at_1": 0.125,
+          "hit_at_10": 0.5417
+        },
+        "cit-200-999": {
+          "n": 24,
+          "hit_at_1": 0.2083,
+          "hit_at_10": 0.4167
+        },
+        "cit-1000-up": {
+          "n": 24,
+          "hit_at_1": 0.375,
+          "hit_at_10": 0.6667
+        }
+      }
+    },
+    "B_raw_k50": {
+      "label": "raw query, topK=50 (depth only)",
+      "prefix": false,
+      "topK": 50,
+      "n": 120,
+      "hit_at_1": 0.1417,
+      "hit_at_1_ci": [
+        0.0833,
+        0.2083
+      ],
+      "hit_at_10": 0.475,
+      "hit_at_10_ci": [
+        0.3833,
+        0.5667
+      ],
+      "mrr": 0.2413,
+      "mrr_ci": [
+        0.1819,
+        0.3056
+      ],
+      "errors": 1,
+      "latency_ms": {
+        "p50": 5316,
+        "p95": 14139,
+        "max": 19328
+      },
+      "by_stratum": {
+        "cit-000-009": {
+          "n": 24,
+          "hit_at_1": 0.0417,
+          "hit_at_10": 0.2917
+        },
+        "cit-010-049": {
+          "n": 24,
+          "hit_at_1": 0.0417,
+          "hit_at_10": 0.5
+        },
+        "cit-050-199": {
+          "n": 24,
+          "hit_at_1": 0.1667,
+          "hit_at_10": 0.4583
+        },
+        "cit-200-999": {
+          "n": 24,
+          "hit_at_1": 0.125,
+          "hit_at_10": 0.3333
+        },
+        "cit-1000-up": {
+          "n": 24,
+          "hit_at_1": 0.3333,
+          "hit_at_10": 0.7917
+        }
+      }
+    },
+    "C_prefix_k10": {
+      "label": "instruction-prefixed query, topK=10 (encoding only)",
+      "prefix": true,
+      "topK": 10,
+      "n": 120,
+      "hit_at_1": 0.2167,
+      "hit_at_1_ci": [
+        0.15,
+        0.2917
+      ],
+      "hit_at_10": 0.5833,
+      "hit_at_10_ci": [
+        0.4917,
+        0.675
+      ],
+      "mrr": 0.3442,
+      "mrr_ci": [
+        0.2753,
+        0.416
+      ],
+      "errors": 0,
+      "latency_ms": {
+        "p50": 2769,
+        "p95": 7654,
+        "max": 10289
+      },
+      "by_stratum": {
+        "cit-000-009": {
+          "n": 24,
+          "hit_at_1": 0.0833,
+          "hit_at_10": 0.375
+        },
+        "cit-010-049": {
+          "n": 24,
+          "hit_at_1": 0.125,
+          "hit_at_10": 0.5833
+        },
+        "cit-050-199": {
+          "n": 24,
+          "hit_at_1": 0.2083,
+          "hit_at_10": 0.5
+        },
+        "cit-200-999": {
+          "n": 24,
+          "hit_at_1": 0.1667,
+          "hit_at_10": 0.5833
+        },
+        "cit-1000-up": {
+          "n": 24,
+          "hit_at_1": 0.5,
+          "hit_at_10": 0.875
+        }
+      }
+    },
+    "D_prefix_k50": {
+      "label": "prefixed + topK=50 (both changes)",
+      "prefix": true,
+      "topK": 50,
+      "n": 120,
+      "hit_at_1": 0.2333,
+      "hit_at_1_ci": [
+        0.1583,
+        0.3083
+      ],
+      "hit_at_10": 0.6,
+      "hit_at_10_ci": [
+        0.5083,
+        0.6833
+      ],
+      "mrr": 0.353,
+      "mrr_ci": [
+        0.2831,
+        0.4258
+      ],
+      "errors": 0,
+      "latency_ms": {
+        "p50": 3981,
+        "p95": 10561,
+        "max": 18160
+      },
+      "by_stratum": {
+        "cit-000-009": {
+          "n": 24,
+          "hit_at_1": 0.0833,
+          "hit_at_10": 0.4583
+        },
+        "cit-010-049": {
+          "n": 24,
+          "hit_at_1": 0.2917,
+          "hit_at_10": 0.5417
+        },
+        "cit-050-199": {
+          "n": 24,
+          "hit_at_1": 0.2083,
+          "hit_at_10": 0.5
+        },
+        "cit-200-999": {
+          "n": 24,
+          "hit_at_1": 0.125,
+          "hit_at_10": 0.5833
+        },
+        "cit-1000-up": {
+          "n": 24,
+          "hit_at_1": 0.4583,
+          "hit_at_10": 0.9167
+        }
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "comparison": "B_raw_k50 vs A_raw_k10",
+      "isolates": "retrieval depth alone",
+      "delta_hit_at_1": -0.0167,
+      "delta_hit_at_10": 0.0333,
+      "delta_mrr": 0.0009,
+      "mcnemar_wins": "8-4",
+      "mcnemar_p": 0.387695,
+      "permutation_p_mrr": 0.971101,
+      "mcnemar_p_holm": 0.387695
+    },
+    {
+      "comparison": "C_prefix_k10 vs A_raw_k10",
+      "isolates": "query encoding alone",
+      "delta_hit_at_1": 0.0583,
+      "delta_hit_at_10": 0.1417,
+      "delta_mrr": 0.1038,
+      "mcnemar_wins": "19-2",
+      "mcnemar_p": 0.000221,
+      "permutation_p_mrr": 0.00075,
+      "mcnemar_p_holm": 0.000663
+    },
+    {
+      "comparison": "D_prefix_k50 vs A_raw_k10",
+      "isolates": "both changes vs baseline",
+      "delta_hit_at_1": 0.075,
+      "delta_hit_at_10": 0.1583,
+      "delta_mrr": 0.1126,
+      "mcnemar_wins": "21-2",
+      "mcnemar_p": 0.000066,
+      "permutation_p_mrr": 0.00025,
+      "mcnemar_p_holm": 0.000264
+    },
+    {
+      "comparison": "D_prefix_k50 vs B_raw_k50",
+      "isolates": "encoding on top of depth",
+      "delta_hit_at_1": 0.0917,
+      "delta_hit_at_10": 0.125,
+      "delta_mrr": 0.1117,
+      "mcnemar_wins": "17-2",
+      "mcnemar_p": 0.000729,
+      "permutation_p_mrr": 0.00005,
+      "mcnemar_p_holm": 0.001458
+    }
+  ]
+}

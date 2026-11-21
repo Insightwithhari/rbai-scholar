@@ -1,0 +1,2961 @@
+{
+  "schema_version": "openalex-rank20/1",
+  "run_at": "2026-09-19T08:21:54.229Z",
+  "source": "results-final/depth50-retrieval.json",
+  "source_run_at": "2026-09-18T17:16:29.854Z",
+  "n_questions": 86,
+  "depth": 50,
+  "question": "Why do openalex_semantic and openalex_combined_semantic report Hit@20 identical to Hit@50 while returning a mean of 45.92 results?",
+  "what_relevance_score_is": "OpenAlex's own relevance_score field, selected in the request and stored verbatim by scripts/openalex-records.mjs (w.relevance_score ?? null). Hits are stored in the order the API returned them; nothing in our pipeline re-sorts them. For search.semantic the values sit in a narrow band just below and above 1.0, consistent with an embedding similarity; for keyword search they are BM25-scale, in the hundreds.",
+  "hypotheses": {
+    "H1_score_collapses_at_rank_20": {
+      "supported": false,
+      "evidence": "relevance_score is monotonically non-increasing across all 50 ranks in every OpenAlex arm, with zero monotonicity breaks. There is no discontinuity at 20. What the semantic arms do show is saturation: mean score falls 1.1529 -> 0.9164 over ranks 1-20 and only 0.9164 -> 0.8936 over ranks 20-50, a 2.22% relative decline across the tail against 27.1% for the keyword control. Consecutive-rank gaps flatten by 17.78x. So the tail is weakly ordered, not unordered, and saturation alone does not produce a hard zero."
+    },
+    "H2_null_or_zero_scores_past_20": {
+      "supported": false,
+      "evidence": "Zero null and zero zero-valued relevance_score values in any band of any OpenAlex arm: 3949 scored slots for openalex_semantic, all populated."
+    },
+    "H3_tail_is_recycled_or_off_population": {
+      "supported": "partly — not recycled, but off-population",
+      "evidence": "No document repeats inside any list and no pair of questions shares a single tail document, so nothing is being recycled or dumped. The composition, however, changes sharply with depth. For openalex_semantic, mean citations fall 155.51 (ranks 1-10) -> 1.24 (ranks 21-50), median 0, with 75.91% of tail documents uncited; 85.24% carry no PMID and 35.35% carry neither DOI nor PMID. The keyword control over the same depth stays inside the indexed journal literature: 265.92 mean citations, 15.13% without a PMID, 1.79% unmatchable."
+    },
+    "H4_our_per_page_handling": {
+      "supported": false,
+      "evidence": "The request is a single page, per-page=<depth>, with no cursor and no second call, so there is nothing to re-order. Lists are not capped at 20: 86/86 openalex_semantic lists exceed 20 results and every list reaches rank 25. The shortfall behind the 45.92 mean begins in the far tail, not at 20, so it cannot manufacture a rank-20 boundary. Live control: per-page=50 returns the same first twenty, in the same order, with the same scores, as per-page=20. Our request shape does not create the boundary."
+    },
+    "H5_targets_present_but_unmatchable": {
+      "supported": "no — the identifier rule is conservative but it did not hide a tail recovery",
+      "evidence": "No recorded miss contains its target by DOI or by PMID, so the scorer is faithful to its own rule. A normalised-title sweep over all 50 ranks flagged 2 of 60 misses, of which 3 sit past rank 20. Inspecting them settles the question: not one is the target's own record — every flagged hit is a separate OpenAlex work with a different DOI. The tail case is a zero-citation duplicate of a 1,866-citation article, carrying a minted non-publisher DOI and appearing three times in the same list under three different identifiers, which is an instance of the mechanism rather than a scoring failure. The head case is a same-title journal record with a different DOI and PMID at rank 1, which does not bear on the tail at all. The ceiling is nonetheless real in principle: 35.35% of semantic tail slots carry neither identifier, so identifier matching is structurally blind to about a third of the tail, and the surprise calculation is reported both with and without that discount."
+    }
+  },
+  "plateau_surprise": {
+    "reference_ratio_finds_21_50_per_find_11_20": 0.82,
+    "reference_arms": [
+      {
+        "arm": "rbai_semantic",
+        "ratio": 0.75
+      },
+      {
+        "arm": "rbai_keyword",
+        "ratio": 0.67
+      },
+      {
+        "arm": "rbai_hybrid",
+        "ratio": 0.5
+      },
+      {
+        "arm": "pubmed_keyword",
+        "ratio": 1
+      },
+      {
+        "arm": "openalex_keyword",
+        "ratio": 1.2
+      }
+    ],
+    "finds_by_band": {
+      "openalex_semantic": {
+        "band_1_10": 20,
+        "band_11_20": 5,
+        "band_21_50": 0,
+        "max_rank_found": 20
+      },
+      "openalex_combined_semantic": {
+        "band_1_10": 27,
+        "band_11_20": 4,
+        "band_21_50": 0,
+        "max_rank_found": 19
+      },
+      "openalex_keyword": {
+        "band_1_10": 64,
+        "band_11_20": 5,
+        "band_21_50": 6,
+        "max_rank_found": 50
+      },
+      "openalex_combined_keyword": {
+        "band_1_10": 6,
+        "band_11_20": 1,
+        "band_21_50": 0,
+        "max_rank_found": 15
+      },
+      "rbai_semantic": {
+        "band_1_10": 48,
+        "band_11_20": 8,
+        "band_21_50": 6,
+        "max_rank_found": 48
+      },
+      "rbai_keyword": {
+        "band_1_10": 68,
+        "band_11_20": 3,
+        "band_21_50": 2,
+        "max_rank_found": 33
+      },
+      "rbai_hybrid": {
+        "band_1_10": 66,
+        "band_11_20": 8,
+        "band_21_50": 4,
+        "max_rank_found": 46
+      },
+      "pubmed_keyword": {
+        "band_1_10": 67,
+        "band_11_20": 3,
+        "band_21_50": 3,
+        "max_rank_found": 32
+      }
+    },
+    "semantic_arm_tests": {
+      "openalex_semantic": {
+        "finds_in_11_20": 5,
+        "finds_in_21_50": 0,
+        "max_rank_found": 20,
+        "expected_finds_in_21_50": 4.12,
+        "expected_finds_visible_to_scorer": 2.66,
+        "poisson_p_of_observing_zero": 0.0163,
+        "poisson_p_of_observing_zero_after_scorer_discount": 0.0698
+      },
+      "openalex_combined_semantic": {
+        "finds_in_11_20": 4,
+        "finds_in_21_50": 0,
+        "max_rank_found": 19,
+        "expected_finds_in_21_50": 3.29,
+        "expected_finds_visible_to_scorer": 2.14,
+        "poisson_p_of_observing_zero": 0.0371,
+        "poisson_p_of_observing_zero_after_scorer_discount": 0.1172
+      }
+    },
+    "caveat": "The reference ratio is an empirical extrapolation from six other arms, not a model of OpenAlex. It sets the order of magnitude of the surprise, not a precise p."
+  },
+  "deepest_find_by_arm": {
+    "openalex_semantic": {
+      "finds": 25,
+      "deepest_find": 20,
+      "deepest_three": [
+        20,
+        18,
+        14
+      ]
+    },
+    "openalex_combined_semantic": {
+      "finds": 31,
+      "deepest_find": 19,
+      "deepest_three": [
+        19,
+        19,
+        15
+      ]
+    },
+    "openalex_keyword": {
+      "finds": 75,
+      "deepest_find": 50,
+      "deepest_three": [
+        50,
+        37,
+        26
+      ]
+    },
+    "openalex_combined_keyword": {
+      "finds": 7,
+      "deepest_find": 15,
+      "deepest_three": [
+        15,
+        2,
+        1
+      ]
+    },
+    "rbai_semantic": {
+      "finds": 62,
+      "deepest_find": 48,
+      "deepest_three": [
+        48,
+        46,
+        32
+      ]
+    },
+    "rbai_keyword": {
+      "finds": 73,
+      "deepest_find": 33,
+      "deepest_three": [
+        33,
+        21,
+        13
+      ]
+    },
+    "rbai_hybrid": {
+      "finds": 78,
+      "deepest_find": 46,
+      "deepest_three": [
+        46,
+        27,
+        26
+      ]
+    },
+    "pubmed_keyword": {
+      "finds": 73,
+      "deepest_find": 32,
+      "deepest_three": [
+        32,
+        21,
+        21
+      ]
+    }
+  },
+  "is_rank_20_a_real_boundary": {
+    "answer": "no — there is no discontinuity at 20 in any measurable quantity",
+    "evidence": "The deepest successful find is rank 20 for openalex_semantic and rank 19 for openalex_combined_semantic, so the two arms do not in fact stop at the same rank. Because the run reports Hit@1, @10, @20 and @50 and nothing between, both appear to plateau \"at exactly 20\". The score curve is smooth and monotone through the boundary and the composition gradient is smooth as well. What is real is a saturation region that has set in by roughly rank 20; where precisely it sets in is not resolvable from 25 and 31 finds."
+  },
+  "arms": {
+    "openalex_semantic": {
+      "role": "subject",
+      "score_profile": {
+        "arm": "openalex_semantic",
+        "slots": 3949,
+        "null_scores": 0,
+        "zero_scores": 0,
+        "monotonicity_breaks": {},
+        "monotone_throughout": true,
+        "mean_score_at_1": 1.1529,
+        "mean_score_at_10": 0.961,
+        "mean_score_at_20": 0.9164,
+        "mean_score_at_50": 0.8936,
+        "total_span_1_to_50": 0.2593,
+        "share_of_span_before_rank_20": 0.9121,
+        "mean_consecutive_gap_1_20": 0.0124,
+        "mean_consecutive_gap_21_50": 0.0007,
+        "gap_flattening_ratio": 17.78,
+        "relative_decline_21_to_50_pct": 2.22,
+        "mean_tail_share_of_score_drop": 0.0906,
+        "per_rank": [
+          {
+            "rank": 1,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.1529,
+            "median_score": 1.1667
+          },
+          {
+            "rank": 2,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.1045,
+            "median_score": 1.106
+          },
+          {
+            "rank": 3,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0704,
+            "median_score": 1.0615
+          },
+          {
+            "rank": 4,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0426,
+            "median_score": 1.0362
+          },
+          {
+            "rank": 5,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0235,
+            "median_score": 1.0134
+          },
+          {
+            "rank": 6,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0067,
+            "median_score": 1.0047
+          },
+          {
+            "rank": 7,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9924,
+            "median_score": 0.9819
+          },
+          {
+            "rank": 8,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9791,
+            "median_score": 0.9675
+          },
+          {
+            "rank": 9,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9696,
+            "median_score": 0.9578
+          },
+          {
+            "rank": 10,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.961,
+            "median_score": 0.9459
+          },
+          {
+            "rank": 11,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9533,
+            "median_score": 0.9375
+          },
+          {
+            "rank": 12,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9469,
+            "median_score": 0.9331
+          },
+          {
+            "rank": 13,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9419,
+            "median_score": 0.9265
+          },
+          {
+            "rank": 14,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9368,
+            "median_score": 0.9233
+          },
+          {
+            "rank": 15,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9322,
+            "median_score": 0.9219
+          },
+          {
+            "rank": 16,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9286,
+            "median_score": 0.9198
+          },
+          {
+            "rank": 17,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9246,
+            "median_score": 0.9186
+          },
+          {
+            "rank": 18,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9212,
+            "median_score": 0.9154
+          },
+          {
+            "rank": 19,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9183,
+            "median_score": 0.9149
+          },
+          {
+            "rank": 20,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9164,
+            "median_score": 0.9144
+          },
+          {
+            "rank": 21,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9139,
+            "median_score": 0.911
+          },
+          {
+            "rank": 22,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9118,
+            "median_score": 0.9104
+          },
+          {
+            "rank": 23,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9101,
+            "median_score": 0.9096
+          },
+          {
+            "rank": 24,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9086,
+            "median_score": 0.9088
+          },
+          {
+            "rank": 25,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9071,
+            "median_score": 0.9078
+          },
+          {
+            "rank": 26,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9062,
+            "median_score": 0.9061
+          },
+          {
+            "rank": 27,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9051,
+            "median_score": 0.9054
+          },
+          {
+            "rank": 28,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9038,
+            "median_score": 0.9043
+          },
+          {
+            "rank": 29,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9028,
+            "median_score": 0.9027
+          },
+          {
+            "rank": 30,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9018,
+            "median_score": 0.9016
+          },
+          {
+            "rank": 31,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9008,
+            "median_score": 0.901
+          },
+          {
+            "rank": 32,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9,
+            "median_score": 0.9007
+          },
+          {
+            "rank": 33,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.8994,
+            "median_score": 0.9
+          },
+          {
+            "rank": 34,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.8985,
+            "median_score": 0.8987
+          },
+          {
+            "rank": 35,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.898,
+            "median_score": 0.8983
+          },
+          {
+            "rank": 36,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.8975,
+            "median_score": 0.8979
+          },
+          {
+            "rank": 37,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.8968,
+            "median_score": 0.8978
+          },
+          {
+            "rank": 38,
+            "lists_reaching": 84,
+            "scored": 84,
+            "null_scores": 0,
+            "mean_score": 0.8962,
+            "median_score": 0.8968
+          },
+          {
+            "rank": 39,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 0.8956,
+            "median_score": 0.8963
+          },
+          {
+            "rank": 40,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 0.8951,
+            "median_score": 0.8955
+          },
+          {
+            "rank": 41,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 0.8944,
+            "median_score": 0.8953
+          },
+          {
+            "rank": 42,
+            "lists_reaching": 77,
+            "scored": 77,
+            "null_scores": 0,
+            "mean_score": 0.8941,
+            "median_score": 0.8952
+          },
+          {
+            "rank": 43,
+            "lists_reaching": 74,
+            "scored": 74,
+            "null_scores": 0,
+            "mean_score": 0.8943,
+            "median_score": 0.8954
+          },
+          {
+            "rank": 44,
+            "lists_reaching": 69,
+            "scored": 69,
+            "null_scores": 0,
+            "mean_score": 0.8941,
+            "median_score": 0.8954
+          },
+          {
+            "rank": 45,
+            "lists_reaching": 62,
+            "scored": 62,
+            "null_scores": 0,
+            "mean_score": 0.8934,
+            "median_score": 0.895
+          },
+          {
+            "rank": 46,
+            "lists_reaching": 55,
+            "scored": 55,
+            "null_scores": 0,
+            "mean_score": 0.8931,
+            "median_score": 0.8945
+          },
+          {
+            "rank": 47,
+            "lists_reaching": 47,
+            "scored": 47,
+            "null_scores": 0,
+            "mean_score": 0.8936,
+            "median_score": 0.8946
+          },
+          {
+            "rank": 48,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 0.895,
+            "median_score": 0.898
+          },
+          {
+            "rank": 49,
+            "lists_reaching": 26,
+            "scored": 26,
+            "null_scores": 0,
+            "mean_score": 0.8943,
+            "median_score": 0.8991
+          },
+          {
+            "rank": 50,
+            "lists_reaching": 13,
+            "scored": 13,
+            "null_scores": 0,
+            "mean_score": 0.8936,
+            "median_score": 0.8973
+          }
+        ]
+      },
+      "band_composition": [
+        {
+          "band": "1-10",
+          "slots": 860,
+          "unmatchable_no_doi_no_pmid_pct": 5,
+          "no_doi_pct": 7.79,
+          "no_pmid_pct": 21.86,
+          "thin_or_missing_abstract_pct": 34.42,
+          "mean_year": 2008.79,
+          "mean_citations": 155.51,
+          "median_citations": 52,
+          "zero_citation_pct": 5.93,
+          "top_types": [
+            "article 90.35%",
+            "conference-paper 1.63%",
+            "conference-abstract 1.4%",
+            "review 1.4%",
+            "preprint 1.28%"
+          ]
+        },
+        {
+          "band": "11-20",
+          "slots": 860,
+          "unmatchable_no_doi_no_pmid_pct": 19.53,
+          "no_doi_pct": 22.67,
+          "no_pmid_pct": 52.91,
+          "thin_or_missing_abstract_pct": 51.05,
+          "mean_year": 2011.49,
+          "mean_citations": 12.25,
+          "median_citations": 4,
+          "zero_citation_pct": 30.81,
+          "top_types": [
+            "article 79.42%",
+            "preprint 4.77%",
+            "dissertation 3.6%",
+            "conference-paper 3.14%",
+            "book-chapter 2.56%"
+          ]
+        },
+        {
+          "band": "21-50",
+          "slots": 2229,
+          "unmatchable_no_doi_no_pmid_pct": 35.35,
+          "no_doi_pct": 38.18,
+          "no_pmid_pct": 85.24,
+          "thin_or_missing_abstract_pct": 56.26,
+          "mean_year": 2012.04,
+          "mean_citations": 1.24,
+          "median_citations": 0,
+          "zero_citation_pct": 75.91,
+          "top_types": [
+            "article 60.66%",
+            "dissertation 7.85%",
+            "other 6.59%",
+            "conference-paper 6.15%",
+            "preprint 5.56%"
+          ]
+        }
+      ],
+      "recycling": {
+        "arm": "openalex_semantic",
+        "lists": 86,
+        "lists_with_duplicate_openalex_id": 0,
+        "lists_with_duplicate_doi": 0,
+        "tied_score_slots_head_pct": 0.12,
+        "tied_score_slots_tail_pct": 0.72,
+        "cross_query_overlap_head_1_20": {
+          "mean": 0.000007,
+          "pairs": 3655,
+          "pairs_sharing_any_document": 1
+        },
+        "cross_query_overlap_tail_21_50": {
+          "mean": 0.000018,
+          "pairs": 3655,
+          "pairs_sharing_any_document": 3
+        }
+      },
+      "page_shape": {
+        "arm": "openalex_semantic",
+        "mean_returned": 45.92,
+        "min_returned": 25,
+        "max_returned": 50,
+        "lists_returning_exactly_50": 13,
+        "lists_returning_exactly_20": 0,
+        "lists_returning_20_or_fewer": 0,
+        "lists_returning_more_than_20": 86,
+        "first_rank_not_reached_by_every_list": 26,
+        "returned_count_histogram": {
+          "25": 1,
+          "37": 1,
+          "38": 4,
+          "41": 3,
+          "42": 3,
+          "43": 5,
+          "44": 7,
+          "45": 7,
+          "46": 8,
+          "47": 15,
+          "48": 6,
+          "49": 13,
+          "50": 13
+        }
+      },
+      "target_audit": {
+        "arm": "openalex_semantic",
+        "misses_recorded": 61,
+        "misses_with_a_known_target_title": 60,
+        "target_actually_present_by_doi": 0,
+        "target_actually_present_by_pmid": 0,
+        "target_present_by_title_only": 2,
+        "title_only_matches_that_are_the_target_record": 0,
+        "title_only_matches_in_tail_21_50": 3,
+        "tail_title_matches_mean_citations": 0,
+        "title_only_match_detail": [
+          {
+            "target_id": "cit-1000-up-17",
+            "target_doi": "10.3389/fpls.2012.00222",
+            "target_pmid": "23060891",
+            "copies_in_list": 3,
+            "matches": [
+              {
+                "rank": 27,
+                "doi": "10.60692/113z3-cz457",
+                "pmid": null,
+                "openalex_id": "https://openalex.org/W6920701816",
+                "year": 2012,
+                "citations": 0,
+                "journal": "Greater South Information System",
+                "is_target_record": false
+              },
+              {
+                "rank": 29,
+                "doi": "10.60692/mznyv-rp590",
+                "pmid": null,
+                "openalex_id": "https://openalex.org/W6939086461",
+                "year": 2012,
+                "citations": 0,
+                "journal": "Greater South Information System",
+                "is_target_record": false
+              },
+              {
+                "rank": 42,
+                "doi": null,
+                "pmid": null,
+                "openalex_id": "https://openalex.org/W7112138624",
+                "year": 2012,
+                "citations": 0,
+                "journal": "Conicet",
+                "is_target_record": false
+              }
+            ]
+          },
+          {
+            "target_id": "cit-1000-up-23",
+            "target_doi": "10.1056/nejmoa040933",
+            "target_pmid": "15215484",
+            "copies_in_list": 2,
+            "matches": [
+              {
+                "rank": 1,
+                "doi": "10.1056/nejm200409023511018",
+                "pmid": "15342814",
+                "openalex_id": "https://openalex.org/W1503169157",
+                "year": 2004,
+                "citations": 133,
+                "journal": "New England Journal of Medicine",
+                "is_target_record": false
+              },
+              {
+                "rank": 11,
+                "doi": "10.1016/s0084-3954(07)70193-8",
+                "pmid": null,
+                "openalex_id": "https://openalex.org/W2326650749",
+                "year": 2006,
+                "citations": 2,
+                "journal": "Yearbook of Pediatrics",
+                "is_target_record": false
+              }
+            ]
+          }
+        ]
+      },
+      "tail_exposure": {
+        "slots_ranks_1_20": 1720,
+        "slots_ranks_21_50": 2229,
+        "tail_to_head_slot_ratio": 1.3
+      },
+      "by_citation_stratum": [
+        {
+          "stratum": "000-009",
+          "questions": 16,
+          "found_1_10": 2,
+          "found_11_20": 1,
+          "found_21_50": 0,
+          "missed": 13
+        },
+        {
+          "stratum": "010-049",
+          "questions": 19,
+          "found_1_10": 2,
+          "found_11_20": 3,
+          "found_21_50": 0,
+          "missed": 14
+        },
+        {
+          "stratum": "050-199",
+          "questions": 17,
+          "found_1_10": 6,
+          "found_11_20": 1,
+          "found_21_50": 0,
+          "missed": 10
+        },
+        {
+          "stratum": "1000-up",
+          "questions": 15,
+          "found_1_10": 5,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 10
+        },
+        {
+          "stratum": "200-999",
+          "questions": 19,
+          "found_1_10": 5,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 14
+        }
+      ]
+    },
+    "openalex_combined_semantic": {
+      "role": "subject",
+      "score_profile": {
+        "arm": "openalex_combined_semantic",
+        "slots": 3949,
+        "null_scores": 0,
+        "zero_scores": 0,
+        "monotonicity_breaks": {},
+        "monotone_throughout": true,
+        "mean_score_at_1": 1.1617,
+        "mean_score_at_10": 0.9706,
+        "mean_score_at_20": 0.9206,
+        "mean_score_at_50": 0.8929,
+        "total_span_1_to_50": 0.2688,
+        "share_of_span_before_rank_20": 0.8969,
+        "mean_consecutive_gap_1_20": 0.0127,
+        "mean_consecutive_gap_21_50": 0.0009,
+        "gap_flattening_ratio": 14.78,
+        "relative_decline_21_to_50_pct": 2.71,
+        "mean_tail_share_of_score_drop": 0.1015,
+        "per_rank": [
+          {
+            "rank": 1,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.1617,
+            "median_score": 1.1814
+          },
+          {
+            "rank": 2,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.1176,
+            "median_score": 1.1289
+          },
+          {
+            "rank": 3,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0875,
+            "median_score": 1.082
+          },
+          {
+            "rank": 4,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0615,
+            "median_score": 1.0537
+          },
+          {
+            "rank": 5,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0382,
+            "median_score": 1.0379
+          },
+          {
+            "rank": 6,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0181,
+            "median_score": 1.01
+          },
+          {
+            "rank": 7,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 1.0016,
+            "median_score": 0.99
+          },
+          {
+            "rank": 8,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9888,
+            "median_score": 0.9754
+          },
+          {
+            "rank": 9,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.979,
+            "median_score": 0.9654
+          },
+          {
+            "rank": 10,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9706,
+            "median_score": 0.9503
+          },
+          {
+            "rank": 11,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9614,
+            "median_score": 0.9421
+          },
+          {
+            "rank": 12,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9551,
+            "median_score": 0.9368
+          },
+          {
+            "rank": 13,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9482,
+            "median_score": 0.9285
+          },
+          {
+            "rank": 14,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9439,
+            "median_score": 0.9261
+          },
+          {
+            "rank": 15,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9392,
+            "median_score": 0.9235
+          },
+          {
+            "rank": 16,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9345,
+            "median_score": 0.9212
+          },
+          {
+            "rank": 17,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9298,
+            "median_score": 0.9192
+          },
+          {
+            "rank": 18,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9271,
+            "median_score": 0.9174
+          },
+          {
+            "rank": 19,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9236,
+            "median_score": 0.9155
+          },
+          {
+            "rank": 20,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9206,
+            "median_score": 0.9148
+          },
+          {
+            "rank": 21,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9178,
+            "median_score": 0.9137
+          },
+          {
+            "rank": 22,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9154,
+            "median_score": 0.9121
+          },
+          {
+            "rank": 23,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9132,
+            "median_score": 0.9112
+          },
+          {
+            "rank": 24,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 0.9115,
+            "median_score": 0.9099
+          },
+          {
+            "rank": 25,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9101,
+            "median_score": 0.9091
+          },
+          {
+            "rank": 26,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9089,
+            "median_score": 0.908
+          },
+          {
+            "rank": 27,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.907,
+            "median_score": 0.9072
+          },
+          {
+            "rank": 28,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9052,
+            "median_score": 0.9051
+          },
+          {
+            "rank": 29,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9032,
+            "median_score": 0.9028
+          },
+          {
+            "rank": 30,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9021,
+            "median_score": 0.9014
+          },
+          {
+            "rank": 31,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9011,
+            "median_score": 0.9006
+          },
+          {
+            "rank": 32,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.9004,
+            "median_score": 0.9
+          },
+          {
+            "rank": 33,
+            "lists_reaching": 85,
+            "scored": 85,
+            "null_scores": 0,
+            "mean_score": 0.8998,
+            "median_score": 0.8994
+          },
+          {
+            "rank": 34,
+            "lists_reaching": 84,
+            "scored": 84,
+            "null_scores": 0,
+            "mean_score": 0.8989,
+            "median_score": 0.8988
+          },
+          {
+            "rank": 35,
+            "lists_reaching": 83,
+            "scored": 83,
+            "null_scores": 0,
+            "mean_score": 0.8983,
+            "median_score": 0.8982
+          },
+          {
+            "rank": 36,
+            "lists_reaching": 83,
+            "scored": 83,
+            "null_scores": 0,
+            "mean_score": 0.8976,
+            "median_score": 0.898
+          },
+          {
+            "rank": 37,
+            "lists_reaching": 82,
+            "scored": 82,
+            "null_scores": 0,
+            "mean_score": 0.8971,
+            "median_score": 0.8976
+          },
+          {
+            "rank": 38,
+            "lists_reaching": 82,
+            "scored": 82,
+            "null_scores": 0,
+            "mean_score": 0.8963,
+            "median_score": 0.8972
+          },
+          {
+            "rank": 39,
+            "lists_reaching": 82,
+            "scored": 82,
+            "null_scores": 0,
+            "mean_score": 0.8957,
+            "median_score": 0.8968
+          },
+          {
+            "rank": 40,
+            "lists_reaching": 81,
+            "scored": 81,
+            "null_scores": 0,
+            "mean_score": 0.8953,
+            "median_score": 0.8964
+          },
+          {
+            "rank": 41,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 0.8945,
+            "median_score": 0.8956
+          },
+          {
+            "rank": 42,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 0.8941,
+            "median_score": 0.8947
+          },
+          {
+            "rank": 43,
+            "lists_reaching": 77,
+            "scored": 77,
+            "null_scores": 0,
+            "mean_score": 0.8942,
+            "median_score": 0.8948
+          },
+          {
+            "rank": 44,
+            "lists_reaching": 71,
+            "scored": 71,
+            "null_scores": 0,
+            "mean_score": 0.8947,
+            "median_score": 0.8958
+          },
+          {
+            "rank": 45,
+            "lists_reaching": 67,
+            "scored": 67,
+            "null_scores": 0,
+            "mean_score": 0.8944,
+            "median_score": 0.8963
+          },
+          {
+            "rank": 46,
+            "lists_reaching": 53,
+            "scored": 53,
+            "null_scores": 0,
+            "mean_score": 0.8931,
+            "median_score": 0.8957
+          },
+          {
+            "rank": 47,
+            "lists_reaching": 45,
+            "scored": 45,
+            "null_scores": 0,
+            "mean_score": 0.8942,
+            "median_score": 0.8975
+          },
+          {
+            "rank": 48,
+            "lists_reaching": 34,
+            "scored": 34,
+            "null_scores": 0,
+            "mean_score": 0.8945,
+            "median_score": 0.8997
+          },
+          {
+            "rank": 49,
+            "lists_reaching": 25,
+            "scored": 25,
+            "null_scores": 0,
+            "mean_score": 0.8931,
+            "median_score": 0.9021
+          },
+          {
+            "rank": 50,
+            "lists_reaching": 11,
+            "scored": 11,
+            "null_scores": 0,
+            "mean_score": 0.8929,
+            "median_score": 0.8952
+          }
+        ]
+      },
+      "band_composition": [
+        {
+          "band": "1-10",
+          "slots": 860,
+          "unmatchable_no_doi_no_pmid_pct": 3.26,
+          "no_doi_pct": 6.74,
+          "no_pmid_pct": 20.12,
+          "thin_or_missing_abstract_pct": 30.81,
+          "mean_year": 2007.94,
+          "mean_citations": 181.04,
+          "median_citations": 62.5,
+          "zero_citation_pct": 4.3,
+          "top_types": [
+            "article 91.74%",
+            "preprint 1.86%",
+            "book-chapter 1.28%",
+            "other 1.16%",
+            "review 1.16%"
+          ]
+        },
+        {
+          "band": "11-20",
+          "slots": 860,
+          "unmatchable_no_doi_no_pmid_pct": 18.37,
+          "no_doi_pct": 20.93,
+          "no_pmid_pct": 52.79,
+          "thin_or_missing_abstract_pct": 48.95,
+          "mean_year": 2011.25,
+          "mean_citations": 15.81,
+          "median_citations": 6,
+          "zero_citation_pct": 30.7,
+          "top_types": [
+            "article 75.93%",
+            "conference-paper 4.88%",
+            "preprint 3.6%",
+            "dissertation 3.26%",
+            "book-chapter 3.14%"
+          ]
+        },
+        {
+          "band": "21-50",
+          "slots": 2229,
+          "unmatchable_no_doi_no_pmid_pct": 34.9,
+          "no_doi_pct": 37.86,
+          "no_pmid_pct": 84.39,
+          "thin_or_missing_abstract_pct": 53.84,
+          "mean_year": 2012.17,
+          "mean_citations": 1.45,
+          "median_citations": 0,
+          "zero_citation_pct": 75.33,
+          "top_types": [
+            "article 63.89%",
+            "dissertation 7.09%",
+            "other 6.01%",
+            "conference-paper 5.43%",
+            "preprint 4.89%"
+          ]
+        }
+      ],
+      "recycling": {
+        "arm": "openalex_combined_semantic",
+        "lists": 86,
+        "lists_with_duplicate_openalex_id": 0,
+        "lists_with_duplicate_doi": 1,
+        "tied_score_slots_head_pct": 0.35,
+        "tied_score_slots_tail_pct": 1.48,
+        "cross_query_overlap_head_1_20": {
+          "mean": 0.000007,
+          "pairs": 3655,
+          "pairs_sharing_any_document": 1
+        },
+        "cross_query_overlap_tail_21_50": {
+          "mean": 0.000011,
+          "pairs": 3655,
+          "pairs_sharing_any_document": 2
+        }
+      },
+      "page_shape": {
+        "arm": "openalex_combined_semantic",
+        "mean_returned": 45.92,
+        "min_returned": 24,
+        "max_returned": 50,
+        "lists_returning_exactly_50": 11,
+        "lists_returning_exactly_20": 0,
+        "lists_returning_20_or_fewer": 0,
+        "lists_returning_more_than_20": 86,
+        "first_rank_not_reached_by_every_list": 25,
+        "returned_count_histogram": {
+          "24": 1,
+          "33": 1,
+          "34": 1,
+          "36": 1,
+          "39": 1,
+          "40": 1,
+          "42": 3,
+          "43": 6,
+          "44": 4,
+          "45": 14,
+          "46": 8,
+          "47": 11,
+          "48": 9,
+          "49": 14,
+          "50": 11
+        }
+      },
+      "target_audit": {
+        "arm": "openalex_combined_semantic",
+        "misses_recorded": 55,
+        "misses_with_a_known_target_title": 54,
+        "target_actually_present_by_doi": 0,
+        "target_actually_present_by_pmid": 0,
+        "target_present_by_title_only": 2,
+        "title_only_matches_that_are_the_target_record": 0,
+        "title_only_matches_in_tail_21_50": 3,
+        "tail_title_matches_mean_citations": 0,
+        "title_only_match_detail": [
+          {
+            "target_id": "cit-1000-up-17",
+            "target_doi": "10.3389/fpls.2012.00222",
+            "target_pmid": "23060891",
+            "copies_in_list": 3,
+            "matches": [
+              {
+                "rank": 34,
+                "doi": "10.60692/113z3-cz457",
+                "pmid": null,
+                "openalex_id": "https://openalex.org/W6920701816",
+                "year": 2012,
+                "citations": 0,
+                "journal": "Greater South Information System",
+                "is_target_record": false
+              },
+              {
+                "rank": 37,
+                "doi": null,
+                "pmid": null,
+                "openalex_id": "https://openalex.org/W7112138624",
+                "year": 2012,
+                "citations": 0,
+                "journal": "Conicet",
+                "is_target_record": false
+              },
+              {
+                "rank": 42,
+                "doi": "10.60692/mznyv-rp590",
+                "pmid": null,
+                "openalex_id": "https://openalex.org/W6939086461",
+                "year": 2012,
+                "citations": 0,
+                "journal": "Greater South Information System",
+                "is_target_record": false
+              }
+            ]
+          },
+          {
+            "target_id": "cit-1000-up-23",
+            "target_doi": "10.1056/nejmoa040933",
+            "target_pmid": "15215484",
+            "copies_in_list": 2,
+            "matches": [
+              {
+                "rank": 2,
+                "doi": "10.1056/nejm200409023511018",
+                "pmid": "15342814",
+                "openalex_id": "https://openalex.org/W1503169157",
+                "year": 2004,
+                "citations": 133,
+                "journal": "New England Journal of Medicine",
+                "is_target_record": false
+              },
+              {
+                "rank": 14,
+                "doi": "10.1016/s0084-3954(07)70193-8",
+                "pmid": null,
+                "openalex_id": "https://openalex.org/W2326650749",
+                "year": 2006,
+                "citations": 2,
+                "journal": "Yearbook of Pediatrics",
+                "is_target_record": false
+              }
+            ]
+          }
+        ]
+      },
+      "tail_exposure": {
+        "slots_ranks_1_20": 1720,
+        "slots_ranks_21_50": 2229,
+        "tail_to_head_slot_ratio": 1.3
+      },
+      "by_citation_stratum": [
+        {
+          "stratum": "000-009",
+          "questions": 16,
+          "found_1_10": 2,
+          "found_11_20": 1,
+          "found_21_50": 0,
+          "missed": 13
+        },
+        {
+          "stratum": "010-049",
+          "questions": 19,
+          "found_1_10": 4,
+          "found_11_20": 3,
+          "found_21_50": 0,
+          "missed": 12
+        },
+        {
+          "stratum": "050-199",
+          "questions": 17,
+          "found_1_10": 8,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 9
+        },
+        {
+          "stratum": "1000-up",
+          "questions": 15,
+          "found_1_10": 6,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 9
+        },
+        {
+          "stratum": "200-999",
+          "questions": 19,
+          "found_1_10": 7,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 12
+        }
+      ]
+    },
+    "openalex_keyword": {
+      "role": "control",
+      "score_profile": {
+        "arm": "openalex_keyword",
+        "slots": 3905,
+        "null_scores": 0,
+        "zero_scores": 0,
+        "monotonicity_breaks": {},
+        "monotone_throughout": true,
+        "mean_score_at_1": 661.2144,
+        "mean_score_at_10": 214.4551,
+        "mean_score_at_20": 160.1568,
+        "mean_score_at_50": 116.0865,
+        "total_span_1_to_50": 545.1279,
+        "share_of_span_before_rank_20": 0.9192,
+        "mean_consecutive_gap_1_20": 26.3715,
+        "mean_consecutive_gap_21_50": 1.4884,
+        "gap_flattening_ratio": 17.72,
+        "relative_decline_21_to_50_pct": 27.1,
+        "mean_tail_share_of_score_drop": 0.12,
+        "per_rank": [
+          {
+            "rank": 1,
+            "lists_reaching": 86,
+            "scored": 86,
+            "null_scores": 0,
+            "mean_score": 661.2144,
+            "median_score": 406.7674
+          },
+          {
+            "rank": 2,
+            "lists_reaching": 84,
+            "scored": 84,
+            "null_scores": 0,
+            "mean_score": 411.0557,
+            "median_score": 261.2307
+          },
+          {
+            "rank": 3,
+            "lists_reaching": 82,
+            "scored": 82,
+            "null_scores": 0,
+            "mean_score": 348.2926,
+            "median_score": 231.3699
+          },
+          {
+            "rank": 4,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 315.1264,
+            "median_score": 202.4814
+          },
+          {
+            "rank": 5,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 285.5797,
+            "median_score": 192.64
+          },
+          {
+            "rank": 6,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 261.5052,
+            "median_score": 176.9784
+          },
+          {
+            "rank": 7,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 246.1139,
+            "median_score": 164.4574
+          },
+          {
+            "rank": 8,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 234.6008,
+            "median_score": 157.5746
+          },
+          {
+            "rank": 9,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 223.8299,
+            "median_score": 154.3379
+          },
+          {
+            "rank": 10,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 214.4551,
+            "median_score": 149.4977
+          },
+          {
+            "rank": 11,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 206.8566,
+            "median_score": 130.3918
+          },
+          {
+            "rank": 12,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 200.112,
+            "median_score": 126.7003
+          },
+          {
+            "rank": 13,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 192.1139,
+            "median_score": 124.1345
+          },
+          {
+            "rank": 14,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 187.2252,
+            "median_score": 121.4261
+          },
+          {
+            "rank": 15,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 182.2302,
+            "median_score": 120.046
+          },
+          {
+            "rank": 16,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 176.8894,
+            "median_score": 112.4073
+          },
+          {
+            "rank": 17,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 173.2736,
+            "median_score": 109.9173
+          },
+          {
+            "rank": 18,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 168.5622,
+            "median_score": 108.3615
+          },
+          {
+            "rank": 19,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 164.4546,
+            "median_score": 108.0663
+          },
+          {
+            "rank": 20,
+            "lists_reaching": 80,
+            "scored": 80,
+            "null_scores": 0,
+            "mean_score": 160.1568,
+            "median_score": 106.7373
+          },
+          {
+            "rank": 21,
+            "lists_reaching": 79,
+            "scored": 79,
+            "null_scores": 0,
+            "mean_score": 159.2514,
+            "median_score": 107.524
+          },
+          {
+            "rank": 22,
+            "lists_reaching": 79,
+            "scored": 79,
+            "null_scores": 0,
+            "mean_score": 156.7494,
+            "median_score": 105.6446
+          },
+          {
+            "rank": 23,
+            "lists_reaching": 78,
+            "scored": 78,
+            "null_scores": 0,
+            "mean_score": 155.6715,
+            "median_score": 97.867
+          },
+          {
+            "rank": 24,
+            "lists_reaching": 78,
+            "scored": 78,
+            "null_scores": 0,
+            "mean_score": 152.6078,
+            "median_score": 94.5593
+          },
+          {
+            "rank": 25,
+            "lists_reaching": 78,
+            "scored": 78,
+            "null_scores": 0,
+            "mean_score": 150.3252,
+            "median_score": 89.2769
+          },
+          {
+            "rank": 26,
+            "lists_reaching": 77,
+            "scored": 77,
+            "null_scores": 0,
+            "mean_score": 149.6,
+            "median_score": 90.122
+          },
+          {
+            "rank": 27,
+            "lists_reaching": 77,
+            "scored": 77,
+            "null_scores": 0,
+            "mean_score": 147.1491,
+            "median_score": 85.5379
+          },
+          {
+            "rank": 28,
+            "lists_reaching": 77,
+            "scored": 77,
+            "null_scores": 0,
+            "mean_score": 144.4802,
+            "median_score": 83.3201
+          },
+          {
+            "rank": 29,
+            "lists_reaching": 77,
+            "scored": 77,
+            "null_scores": 0,
+            "mean_score": 142.0104,
+            "median_score": 81.3312
+          },
+          {
+            "rank": 30,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 141.4762,
+            "median_score": 86.8979
+          },
+          {
+            "rank": 31,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 138.5692,
+            "median_score": 85.4457
+          },
+          {
+            "rank": 32,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 136.7938,
+            "median_score": 84.5566
+          },
+          {
+            "rank": 33,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 135.2602,
+            "median_score": 83.232
+          },
+          {
+            "rank": 34,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 133.5692,
+            "median_score": 82.9713
+          },
+          {
+            "rank": 35,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 132.0773,
+            "median_score": 82.1364
+          },
+          {
+            "rank": 36,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 130.8168,
+            "median_score": 81.9159
+          },
+          {
+            "rank": 37,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 129.2482,
+            "median_score": 81.1312
+          },
+          {
+            "rank": 38,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 127.9085,
+            "median_score": 80.5038
+          },
+          {
+            "rank": 39,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 126.7092,
+            "median_score": 80.1637
+          },
+          {
+            "rank": 40,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 125.6193,
+            "median_score": 78.558
+          },
+          {
+            "rank": 41,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 124.3153,
+            "median_score": 77.2884
+          },
+          {
+            "rank": 42,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 122.8784,
+            "median_score": 74.4936
+          },
+          {
+            "rank": 43,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 121.9859,
+            "median_score": 74.2655
+          },
+          {
+            "rank": 44,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 120.8054,
+            "median_score": 73.4253
+          },
+          {
+            "rank": 45,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 119.6373,
+            "median_score": 73.1821
+          },
+          {
+            "rank": 46,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 118.5748,
+            "median_score": 72.4738
+          },
+          {
+            "rank": 47,
+            "lists_reaching": 76,
+            "scored": 76,
+            "null_scores": 0,
+            "mean_score": 117.5332,
+            "median_score": 71.5472
+          },
+          {
+            "rank": 48,
+            "lists_reaching": 75,
+            "scored": 75,
+            "null_scores": 0,
+            "mean_score": 118.1691,
+            "median_score": 77.0881
+          },
+          {
+            "rank": 49,
+            "lists_reaching": 75,
+            "scored": 75,
+            "null_scores": 0,
+            "mean_score": 117.1705,
+            "median_score": 75.5029
+          },
+          {
+            "rank": 50,
+            "lists_reaching": 75,
+            "scored": 75,
+            "null_scores": 0,
+            "mean_score": 116.0865,
+            "median_score": 75.3837
+          }
+        ]
+      },
+      "band_composition": [
+        {
+          "band": "1-10",
+          "slots": 812,
+          "unmatchable_no_doi_no_pmid_pct": 0.25,
+          "no_doi_pct": 1.11,
+          "no_pmid_pct": 9.73,
+          "thin_or_missing_abstract_pct": 18.97,
+          "mean_year": 2011.19,
+          "mean_citations": 656.49,
+          "median_citations": 177,
+          "zero_citation_pct": 0.12,
+          "top_types": [
+            "article 94.58%",
+            "review 2.71%",
+            "preprint 1.35%",
+            "book-chapter 0.37%",
+            "book 0.25%"
+          ]
+        },
+        {
+          "band": "11-20",
+          "slots": 800,
+          "unmatchable_no_doi_no_pmid_pct": 0.75,
+          "no_doi_pct": 1.88,
+          "no_pmid_pct": 13.5,
+          "thin_or_missing_abstract_pct": 15.5,
+          "mean_year": 2012.38,
+          "mean_citations": 296.13,
+          "median_citations": 105.5,
+          "zero_citation_pct": 1.88,
+          "top_types": [
+            "article 91.88%",
+            "review 3.25%",
+            "preprint 1.63%",
+            "dissertation 0.88%",
+            "conference-abstract 0.63%"
+          ]
+        },
+        {
+          "band": "21-50",
+          "slots": 2293,
+          "unmatchable_no_doi_no_pmid_pct": 1.79,
+          "no_doi_pct": 2.27,
+          "no_pmid_pct": 15.13,
+          "thin_or_missing_abstract_pct": 15.7,
+          "mean_year": 2013.43,
+          "mean_citations": 265.92,
+          "median_citations": 89,
+          "zero_citation_pct": 1.74,
+          "top_types": [
+            "article 91.19%",
+            "review 2.92%",
+            "preprint 1.74%",
+            "dissertation 1.22%",
+            "conference-paper 0.7%"
+          ]
+        }
+      ],
+      "recycling": {
+        "arm": "openalex_keyword",
+        "lists": 86,
+        "lists_with_duplicate_openalex_id": 0,
+        "lists_with_duplicate_doi": 0,
+        "tied_score_slots_head_pct": 0,
+        "tied_score_slots_tail_pct": 0,
+        "cross_query_overlap_head_1_20": {
+          "mean": 0.000007,
+          "pairs": 3655,
+          "pairs_sharing_any_document": 1
+        },
+        "cross_query_overlap_tail_21_50": {
+          "mean": 0.000023,
+          "pairs": 3655,
+          "pairs_sharing_any_document": 5
+        }
+      },
+      "page_shape": {
+        "arm": "openalex_keyword",
+        "mean_returned": 45.41,
+        "min_returned": 1,
+        "max_returned": 50,
+        "lists_returning_exactly_50": 75,
+        "lists_returning_exactly_20": 1,
+        "lists_returning_20_or_fewer": 7,
+        "lists_returning_more_than_20": 79,
+        "first_rank_not_reached_by_every_list": 2,
+        "returned_count_histogram": {
+          "1": 2,
+          "2": 2,
+          "3": 2,
+          "20": 1,
+          "22": 1,
+          "25": 1,
+          "29": 1,
+          "47": 1,
+          "50": 75
+        }
+      },
+      "target_audit": {
+        "arm": "openalex_keyword",
+        "misses_recorded": 11,
+        "misses_with_a_known_target_title": 10,
+        "target_actually_present_by_doi": 0,
+        "target_actually_present_by_pmid": 0,
+        "target_present_by_title_only": 0,
+        "title_only_matches_that_are_the_target_record": 0,
+        "title_only_matches_in_tail_21_50": 0,
+        "tail_title_matches_mean_citations": null,
+        "title_only_match_detail": []
+      },
+      "tail_exposure": {
+        "slots_ranks_1_20": 1612,
+        "slots_ranks_21_50": 2293,
+        "tail_to_head_slot_ratio": 1.42
+      },
+      "by_citation_stratum": [
+        {
+          "stratum": "000-009",
+          "questions": 16,
+          "found_1_10": 5,
+          "found_11_20": 2,
+          "found_21_50": 2,
+          "missed": 7
+        },
+        {
+          "stratum": "010-049",
+          "questions": 19,
+          "found_1_10": 15,
+          "found_11_20": 1,
+          "found_21_50": 1,
+          "missed": 2
+        },
+        {
+          "stratum": "050-199",
+          "questions": 17,
+          "found_1_10": 14,
+          "found_11_20": 0,
+          "found_21_50": 2,
+          "missed": 1
+        },
+        {
+          "stratum": "1000-up",
+          "questions": 15,
+          "found_1_10": 12,
+          "found_11_20": 2,
+          "found_21_50": 1,
+          "missed": 0
+        },
+        {
+          "stratum": "200-999",
+          "questions": 19,
+          "found_1_10": 18,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 1
+        }
+      ]
+    },
+    "openalex_combined_keyword": {
+      "role": "control",
+      "score_profile": {
+        "arm": "openalex_combined_keyword",
+        "slots": 1938,
+        "null_scores": 0,
+        "zero_scores": 0,
+        "monotonicity_breaks": {},
+        "monotone_throughout": true,
+        "mean_score_at_1": 437.715,
+        "mean_score_at_10": 182.0212,
+        "mean_score_at_20": 168.3133,
+        "mean_score_at_50": 128.2845,
+        "total_span_1_to_50": 309.4305,
+        "share_of_span_before_rank_20": 0.8706,
+        "mean_consecutive_gap_1_20": 14.179,
+        "mean_consecutive_gap_21_50": 1.2023,
+        "gap_flattening_ratio": 11.79,
+        "relative_decline_21_to_50_pct": 21.37,
+        "mean_tail_share_of_score_drop": 0.154,
+        "per_rank": [
+          {
+            "rank": 1,
+            "lists_reaching": 64,
+            "scored": 64,
+            "null_scores": 0,
+            "mean_score": 437.715,
+            "median_score": 296.071
+          },
+          {
+            "rank": 2,
+            "lists_reaching": 59,
+            "scored": 59,
+            "null_scores": 0,
+            "mean_score": 343.4146,
+            "median_score": 228.5683
+          },
+          {
+            "rank": 3,
+            "lists_reaching": 55,
+            "scored": 55,
+            "null_scores": 0,
+            "mean_score": 290.8788,
+            "median_score": 197.1085
+          },
+          {
+            "rank": 4,
+            "lists_reaching": 51,
+            "scored": 51,
+            "null_scores": 0,
+            "mean_score": 278.7148,
+            "median_score": 221.2534
+          },
+          {
+            "rank": 5,
+            "lists_reaching": 51,
+            "scored": 51,
+            "null_scores": 0,
+            "mean_score": 244.0919,
+            "median_score": 197.3313
+          },
+          {
+            "rank": 6,
+            "lists_reaching": 51,
+            "scored": 51,
+            "null_scores": 0,
+            "mean_score": 220.8434,
+            "median_score": 171.5397
+          },
+          {
+            "rank": 7,
+            "lists_reaching": 51,
+            "scored": 51,
+            "null_scores": 0,
+            "mean_score": 206.2651,
+            "median_score": 168.7772
+          },
+          {
+            "rank": 8,
+            "lists_reaching": 48,
+            "scored": 48,
+            "null_scores": 0,
+            "mean_score": 202.2457,
+            "median_score": 166.5664
+          },
+          {
+            "rank": 9,
+            "lists_reaching": 48,
+            "scored": 48,
+            "null_scores": 0,
+            "mean_score": 192.9775,
+            "median_score": 163.478
+          },
+          {
+            "rank": 10,
+            "lists_reaching": 48,
+            "scored": 48,
+            "null_scores": 0,
+            "mean_score": 182.0212,
+            "median_score": 155.9297
+          },
+          {
+            "rank": 11,
+            "lists_reaching": 47,
+            "scored": 47,
+            "null_scores": 0,
+            "mean_score": 175.0892,
+            "median_score": 148.1988
+          },
+          {
+            "rank": 12,
+            "lists_reaching": 47,
+            "scored": 47,
+            "null_scores": 0,
+            "mean_score": 168.7631,
+            "median_score": 145.4707
+          },
+          {
+            "rank": 13,
+            "lists_reaching": 44,
+            "scored": 44,
+            "null_scores": 0,
+            "mean_score": 173.952,
+            "median_score": 143.2406
+          },
+          {
+            "rank": 14,
+            "lists_reaching": 42,
+            "scored": 42,
+            "null_scores": 0,
+            "mean_score": 176.325,
+            "median_score": 141.7742
+          },
+          {
+            "rank": 15,
+            "lists_reaching": 40,
+            "scored": 40,
+            "null_scores": 0,
+            "mean_score": 178.8142,
+            "median_score": 135.1305
+          },
+          {
+            "rank": 16,
+            "lists_reaching": 40,
+            "scored": 40,
+            "null_scores": 0,
+            "mean_score": 172.907,
+            "median_score": 129.38
+          },
+          {
+            "rank": 17,
+            "lists_reaching": 40,
+            "scored": 40,
+            "null_scores": 0,
+            "mean_score": 168.0561,
+            "median_score": 127.2251
+          },
+          {
+            "rank": 18,
+            "lists_reaching": 40,
+            "scored": 40,
+            "null_scores": 0,
+            "mean_score": 163.7603,
+            "median_score": 124.9999
+          },
+          {
+            "rank": 19,
+            "lists_reaching": 38,
+            "scored": 38,
+            "null_scores": 0,
+            "mean_score": 167.2402,
+            "median_score": 127.1935
+          },
+          {
+            "rank": 20,
+            "lists_reaching": 37,
+            "scored": 37,
+            "null_scores": 0,
+            "mean_score": 168.3133,
+            "median_score": 120.6871
+          },
+          {
+            "rank": 21,
+            "lists_reaching": 37,
+            "scored": 37,
+            "null_scores": 0,
+            "mean_score": 163.1504,
+            "median_score": 118.0106
+          },
+          {
+            "rank": 22,
+            "lists_reaching": 37,
+            "scored": 37,
+            "null_scores": 0,
+            "mean_score": 159.091,
+            "median_score": 114.8841
+          },
+          {
+            "rank": 23,
+            "lists_reaching": 37,
+            "scored": 37,
+            "null_scores": 0,
+            "mean_score": 155.5068,
+            "median_score": 113.8157
+          },
+          {
+            "rank": 24,
+            "lists_reaching": 36,
+            "scored": 36,
+            "null_scores": 0,
+            "mean_score": 156.0186,
+            "median_score": 113.3545
+          },
+          {
+            "rank": 25,
+            "lists_reaching": 36,
+            "scored": 36,
+            "null_scores": 0,
+            "mean_score": 152.5387,
+            "median_score": 111.928
+          },
+          {
+            "rank": 26,
+            "lists_reaching": 36,
+            "scored": 36,
+            "null_scores": 0,
+            "mean_score": 148.8711,
+            "median_score": 110.7636
+          },
+          {
+            "rank": 27,
+            "lists_reaching": 36,
+            "scored": 36,
+            "null_scores": 0,
+            "mean_score": 145.4622,
+            "median_score": 106.2057
+          },
+          {
+            "rank": 28,
+            "lists_reaching": 36,
+            "scored": 36,
+            "null_scores": 0,
+            "mean_score": 142.0971,
+            "median_score": 101.9413
+          },
+          {
+            "rank": 29,
+            "lists_reaching": 35,
+            "scored": 35,
+            "null_scores": 0,
+            "mean_score": 143.5735,
+            "median_score": 104.7865
+          },
+          {
+            "rank": 30,
+            "lists_reaching": 34,
+            "scored": 34,
+            "null_scores": 0,
+            "mean_score": 146.1652,
+            "median_score": 102.4327
+          },
+          {
+            "rank": 31,
+            "lists_reaching": 34,
+            "scored": 34,
+            "null_scores": 0,
+            "mean_score": 142.8472,
+            "median_score": 100.4653
+          },
+          {
+            "rank": 32,
+            "lists_reaching": 34,
+            "scored": 34,
+            "null_scores": 0,
+            "mean_score": 140.3554,
+            "median_score": 96.3825
+          },
+          {
+            "rank": 33,
+            "lists_reaching": 33,
+            "scored": 33,
+            "null_scores": 0,
+            "mean_score": 142.5683,
+            "median_score": 94.7283
+          },
+          {
+            "rank": 34,
+            "lists_reaching": 33,
+            "scored": 33,
+            "null_scores": 0,
+            "mean_score": 140.3506,
+            "median_score": 92.4336
+          },
+          {
+            "rank": 35,
+            "lists_reaching": 33,
+            "scored": 33,
+            "null_scores": 0,
+            "mean_score": 137.5775,
+            "median_score": 91.4356
+          },
+          {
+            "rank": 36,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 138.5603,
+            "median_score": 92.3992
+          },
+          {
+            "rank": 37,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 136.5385,
+            "median_score": 90.6219
+          },
+          {
+            "rank": 38,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 134.4385,
+            "median_score": 90.4047
+          },
+          {
+            "rank": 39,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 133.1122,
+            "median_score": 89.8374
+          },
+          {
+            "rank": 40,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 131.3136,
+            "median_score": 89.6037
+          },
+          {
+            "rank": 41,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 128.8669,
+            "median_score": 85.6977
+          },
+          {
+            "rank": 42,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 126.8331,
+            "median_score": 84.3487
+          },
+          {
+            "rank": 43,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 125.5885,
+            "median_score": 83.4917
+          },
+          {
+            "rank": 44,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 123.9418,
+            "median_score": 82.2107
+          },
+          {
+            "rank": 45,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 122.7457,
+            "median_score": 81.5937
+          },
+          {
+            "rank": 46,
+            "lists_reaching": 32,
+            "scored": 32,
+            "null_scores": 0,
+            "mean_score": 121.3399,
+            "median_score": 80.897
+          },
+          {
+            "rank": 47,
+            "lists_reaching": 31,
+            "scored": 31,
+            "null_scores": 0,
+            "mean_score": 123.6117,
+            "median_score": 81.4253
+          },
+          {
+            "rank": 48,
+            "lists_reaching": 29,
+            "scored": 29,
+            "null_scores": 0,
+            "mean_score": 130.913,
+            "median_score": 91.5755
+          },
+          {
+            "rank": 49,
+            "lists_reaching": 29,
+            "scored": 29,
+            "null_scores": 0,
+            "mean_score": 129.6728,
+            "median_score": 89.6454
+          },
+          {
+            "rank": 50,
+            "lists_reaching": 29,
+            "scored": 29,
+            "null_scores": 0,
+            "mean_score": 128.2845,
+            "median_score": 87.7419
+          }
+        ]
+      },
+      "band_composition": [
+        {
+          "band": "1-10",
+          "slots": 526,
+          "unmatchable_no_doi_no_pmid_pct": 5.51,
+          "no_doi_pct": 5.51,
+          "no_pmid_pct": 16.73,
+          "thin_or_missing_abstract_pct": 14.64,
+          "mean_year": 2015.5,
+          "mean_citations": 472.06,
+          "median_citations": 110,
+          "zero_citation_pct": 7.98,
+          "top_types": [
+            "article 80.61%",
+            "dissertation 6.27%",
+            "review 6.27%",
+            "preprint 2.85%",
+            "book-chapter 1.33%"
+          ]
+        },
+        {
+          "band": "11-20",
+          "slots": 415,
+          "unmatchable_no_doi_no_pmid_pct": 8.19,
+          "no_doi_pct": 8.19,
+          "no_pmid_pct": 24.1,
+          "thin_or_missing_abstract_pct": 10.36,
+          "mean_year": 2016.94,
+          "mean_citations": 208,
+          "median_citations": 64,
+          "zero_citation_pct": 14.94,
+          "top_types": [
+            "article 74.94%",
+            "dissertation 11.81%",
+            "preprint 5.78%",
+            "review 3.61%",
+            "book 1.2%"
+          ]
+        },
+        {
+          "band": "21-50",
+          "slots": 997,
+          "unmatchable_no_doi_no_pmid_pct": 11.53,
+          "no_doi_pct": 11.63,
+          "no_pmid_pct": 27.58,
+          "thin_or_missing_abstract_pct": 11.03,
+          "mean_year": 2016.92,
+          "mean_citations": 159.79,
+          "median_citations": 45,
+          "zero_citation_pct": 16.75,
+          "top_types": [
+            "article 75.43%",
+            "dissertation 12.94%",
+            "review 3.91%",
+            "preprint 2.71%",
+            "book-chapter 1.2%"
+          ]
+        }
+      ],
+      "recycling": {
+        "arm": "openalex_combined_keyword",
+        "lists": 64,
+        "lists_with_duplicate_openalex_id": 0,
+        "lists_with_duplicate_doi": 6,
+        "tied_score_slots_head_pct": 0,
+        "tied_score_slots_tail_pct": 0,
+        "cross_query_overlap_head_1_20": {
+          "mean": 0.000109,
+          "pairs": 2016,
+          "pairs_sharing_any_document": 8
+        },
+        "cross_query_overlap_tail_21_50": {
+          "mean": 0.000017,
+          "pairs": 2016,
+          "pairs_sharing_any_document": 2
+        }
+      },
+      "page_shape": {
+        "arm": "openalex_combined_keyword",
+        "mean_returned": 22.53,
+        "min_returned": 0,
+        "max_returned": 50,
+        "lists_returning_exactly_50": 29,
+        "lists_returning_exactly_20": 0,
+        "lists_returning_20_or_fewer": 49,
+        "lists_returning_more_than_20": 37,
+        "first_rank_not_reached_by_every_list": 1,
+        "returned_count_histogram": {
+          "0": 22,
+          "1": 5,
+          "2": 4,
+          "3": 4,
+          "7": 3,
+          "10": 1,
+          "12": 3,
+          "13": 2,
+          "14": 2,
+          "18": 2,
+          "19": 1,
+          "23": 1,
+          "28": 1,
+          "29": 1,
+          "32": 1,
+          "35": 1,
+          "46": 1,
+          "47": 2,
+          "50": 29
+        }
+      },
+      "target_audit": {
+        "arm": "openalex_combined_keyword",
+        "misses_recorded": 79,
+        "misses_with_a_known_target_title": 78,
+        "target_actually_present_by_doi": 0,
+        "target_actually_present_by_pmid": 0,
+        "target_present_by_title_only": 0,
+        "title_only_matches_that_are_the_target_record": 0,
+        "title_only_matches_in_tail_21_50": 0,
+        "tail_title_matches_mean_citations": null,
+        "title_only_match_detail": []
+      },
+      "tail_exposure": {
+        "slots_ranks_1_20": 941,
+        "slots_ranks_21_50": 997,
+        "tail_to_head_slot_ratio": 1.06
+      },
+      "by_citation_stratum": [
+        {
+          "stratum": "000-009",
+          "questions": 16,
+          "found_1_10": 0,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 16
+        },
+        {
+          "stratum": "010-049",
+          "questions": 19,
+          "found_1_10": 2,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 17
+        },
+        {
+          "stratum": "050-199",
+          "questions": 17,
+          "found_1_10": 0,
+          "found_11_20": 1,
+          "found_21_50": 0,
+          "missed": 16
+        },
+        {
+          "stratum": "1000-up",
+          "questions": 15,
+          "found_1_10": 3,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 12
+        },
+        {
+          "stratum": "200-999",
+          "questions": 19,
+          "found_1_10": 1,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 18
+        }
+      ]
+    },
+    "rbai_semantic": {
+      "role": "reference",
+      "by_citation_stratum": [
+        {
+          "stratum": "000-009",
+          "questions": 16,
+          "found_1_10": 5,
+          "found_11_20": 2,
+          "found_21_50": 2,
+          "missed": 7
+        },
+        {
+          "stratum": "010-049",
+          "questions": 19,
+          "found_1_10": 10,
+          "found_11_20": 2,
+          "found_21_50": 0,
+          "missed": 7
+        },
+        {
+          "stratum": "050-199",
+          "questions": 17,
+          "found_1_10": 8,
+          "found_11_20": 1,
+          "found_21_50": 3,
+          "missed": 5
+        },
+        {
+          "stratum": "1000-up",
+          "questions": 15,
+          "found_1_10": 14,
+          "found_11_20": 1,
+          "found_21_50": 0,
+          "missed": 0
+        },
+        {
+          "stratum": "200-999",
+          "questions": 19,
+          "found_1_10": 11,
+          "found_11_20": 2,
+          "found_21_50": 1,
+          "missed": 5
+        }
+      ]
+    },
+    "rbai_keyword": {
+      "role": "reference",
+      "by_citation_stratum": [
+        {
+          "stratum": "000-009",
+          "questions": 16,
+          "found_1_10": 11,
+          "found_11_20": 0,
+          "found_21_50": 1,
+          "missed": 4
+        },
+        {
+          "stratum": "010-049",
+          "questions": 19,
+          "found_1_10": 18,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 1
+        },
+        {
+          "stratum": "050-199",
+          "questions": 17,
+          "found_1_10": 12,
+          "found_11_20": 3,
+          "found_21_50": 1,
+          "missed": 1
+        },
+        {
+          "stratum": "1000-up",
+          "questions": 15,
+          "found_1_10": 10,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 5
+        },
+        {
+          "stratum": "200-999",
+          "questions": 19,
+          "found_1_10": 17,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 2
+        }
+      ]
+    },
+    "rbai_hybrid": {
+      "role": "reference",
+      "by_citation_stratum": [
+        {
+          "stratum": "000-009",
+          "questions": 16,
+          "found_1_10": 10,
+          "found_11_20": 3,
+          "found_21_50": 2,
+          "missed": 1
+        },
+        {
+          "stratum": "010-049",
+          "questions": 19,
+          "found_1_10": 14,
+          "found_11_20": 3,
+          "found_21_50": 1,
+          "missed": 1
+        },
+        {
+          "stratum": "050-199",
+          "questions": 17,
+          "found_1_10": 14,
+          "found_11_20": 1,
+          "found_21_50": 0,
+          "missed": 2
+        },
+        {
+          "stratum": "1000-up",
+          "questions": 15,
+          "found_1_10": 13,
+          "found_11_20": 1,
+          "found_21_50": 0,
+          "missed": 1
+        },
+        {
+          "stratum": "200-999",
+          "questions": 19,
+          "found_1_10": 15,
+          "found_11_20": 0,
+          "found_21_50": 1,
+          "missed": 3
+        }
+      ]
+    },
+    "pubmed_keyword": {
+      "role": "reference",
+      "by_citation_stratum": [
+        {
+          "stratum": "000-009",
+          "questions": 16,
+          "found_1_10": 12,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 4
+        },
+        {
+          "stratum": "010-049",
+          "questions": 19,
+          "found_1_10": 17,
+          "found_11_20": 2,
+          "found_21_50": 0,
+          "missed": 0
+        },
+        {
+          "stratum": "050-199",
+          "questions": 17,
+          "found_1_10": 12,
+          "found_11_20": 1,
+          "found_21_50": 2,
+          "missed": 2
+        },
+        {
+          "stratum": "1000-up",
+          "questions": 15,
+          "found_1_10": 10,
+          "found_11_20": 0,
+          "found_21_50": 0,
+          "missed": 5
+        },
+        {
+          "stratum": "200-999",
+          "questions": 19,
+          "found_1_10": 16,
+          "found_11_20": 0,
+          "found_21_50": 1,
+          "missed": 2
+        }
+      ]
+    }
+  },
+  "live_control": {
+    "ran": true,
+    "calls": 10,
+    "spacing_ms": 1150,
+    "questions": 5,
+    "cases": [
+      {
+        "target_id": "cit-000-009-11",
+        "ok": true,
+        "n_at_perpage_20": 20,
+        "n_at_perpage_50": 49,
+        "first_20_identical_in_order": true,
+        "first_20_positions_agreeing": 20,
+        "first_20_scores_agreeing": 20,
+        "first_20_set_overlap": 20,
+        "score_at_1": 1.0910158564019459,
+        "score_at_20": 0.9158025423516003,
+        "score_at_21": 0.91532135,
+        "score_at_last": 0.9018631,
+        "tail_unmatchable_pct": 48.28,
+        "tail_mean_citations": 0.1
+      },
+      {
+        "target_id": "cit-000-009-21",
+        "ok": true,
+        "n_at_perpage_20": 20,
+        "n_at_perpage_50": 48,
+        "first_20_identical_in_order": true,
+        "first_20_positions_agreeing": 20,
+        "first_20_scores_agreeing": 20,
+        "first_20_set_overlap": 20,
+        "score_at_1": 0.9488060553989138,
+        "score_at_20": 0.90110016,
+        "score_at_21": 0.9004288,
+        "score_at_last": 0.8939209,
+        "tail_unmatchable_pct": 53.57,
+        "tail_mean_citations": 0.14
+      },
+      {
+        "target_id": "cit-000-009-24",
+        "ok": true,
+        "n_at_perpage_20": 20,
+        "n_at_perpage_50": 45,
+        "first_20_identical_in_order": true,
+        "first_20_positions_agreeing": 20,
+        "first_20_scores_agreeing": 20,
+        "first_20_set_overlap": 20,
+        "score_at_1": 1.1071954115778562,
+        "score_at_20": 0.9310608,
+        "score_at_21": 0.9298706,
+        "score_at_last": 0.91706085,
+        "tail_unmatchable_pct": 28,
+        "tail_mean_citations": 0.2
+      },
+      {
+        "target_id": "cit-010-049-02",
+        "ok": true,
+        "n_at_perpage_20": 20,
+        "n_at_perpage_50": 50,
+        "first_20_identical_in_order": true,
+        "first_20_positions_agreeing": 20,
+        "first_20_scores_agreeing": 20,
+        "first_20_set_overlap": 20,
+        "score_at_1": 1.0794960239711258,
+        "score_at_20": 0.9159775,
+        "score_at_21": 0.9153671,
+        "score_at_last": 0.9047165,
+        "tail_unmatchable_pct": 10,
+        "tail_mean_citations": 0.67
+      },
+      {
+        "target_id": "cit-010-049-05",
+        "ok": true,
+        "n_at_perpage_20": 20,
+        "n_at_perpage_50": 46,
+        "first_20_identical_in_order": true,
+        "first_20_positions_agreeing": 20,
+        "first_20_scores_agreeing": 20,
+        "first_20_set_overlap": 20,
+        "score_at_1": 1.1462901548925908,
+        "score_at_20": 0.8962555,
+        "score_at_21": 0.89611816,
+        "score_at_last": 0.88332367,
+        "tail_unmatchable_pct": 38.46,
+        "tail_mean_citations": 0.31
+      }
+    ],
+    "all_heads_identical": true,
+    "verdict": "per-page=50 returns the same first twenty, in the same order, with the same scores, as per-page=20. Our request shape does not create the boundary."
+  },
+  "conclusion": "The plateau is OpenAlex's behaviour, not our artefact — but it is not a boundary at rank 20, and the paper should not describe it as one. Four candidate mechanisms are rejected on the captured data. The relevance_score does not collapse, flatten to a constant, go null, or lose its ordering: every OpenAlex arm is monotonically non-increasing across all fifty ranks with zero breaks, and all 3949 scored slots per semantic arm carry a real non-zero value. No document repeats inside a list and no two questions share a single tail document, so nothing is recycled or dumped. The request is a single un-paginated page; all 86 semantic lists exceed 20 results and the count shortfall behind the 45.92 mean begins at rank 26, in the far tail, so it cannot manufacture a boundary at 20. And no recorded miss hides its target: a normalised-title sweep flagged two lists per semantic arm, and on inspection every flagged hit is a different OpenAlex work with a different DOI, not the target record. The mechanism the data does support is compositional. OpenAlex semantic search leaves the indexed journal literature as depth increases, and it does so far faster than OpenAlex keyword search on the same request. Over ranks 1-10, 11-20 and 21-50, mean citations of the returned documents fall 155.51 -> 12.25 -> 1.24 (tail median 0, 75.91% uncited), while the share carrying no PMID rises 21.86% -> 52.91% -> 85.24% and the share carrying neither DOI nor PMID rises 5% -> 19.53% -> 35.35%. openalex_keyword, requested at the same depth and returning a comparable 45.41 results, shows almost none of this: 265.92 mean citations, 15.13% without a PMID and 1.79% without either identifier at ranks 21-50. The semantic tail is thus populated by a different class of record — largely uncited, largely absent from PubMed, often without a DOI, and sometimes a duplicate stub of an article whose real record the same search failed to return. A PubMed-indexed target article is not a member of that population, which is why the tail never yields one. This is coherent with the score saturating: past rank 20 the semantic score spans only 2.22% of its value against 27.1% for keyword, a 17.78x flattening of the consecutive-rank gap, so the model has effectively stopped discriminating and the remaining slots are filled by whatever the embedding neighbourhood contains. Two honest limits. First, rank 20 is not special. The deepest find is rank 20 in one semantic arm and rank 19 in the other, so they do not stop at the same rank; the apparent coincidence comes from reporting Hit@1/@10/@20/@50 and nothing between. Nothing measurable is discontinuous at 20. What exists is a saturation region that has set in by roughly rank 20, and its exact onset is not resolvable from 25 and 31 successful placements. Second, the zero itself is only moderately surprising. Calibrating against the six other arms, openalex_semantic was due about 4.12 finds in ranks 21-50 (Poisson p of seeing none 0.0163, or 0.0698 once discounted for the third of tail slots identifier matching cannot see) and openalex_combined_semantic about 3.29 (p 0.0371 -> 0.1172). Neither arm is individually decisive. What makes the account credible is the two arms agreeing plus a measured compositional gradient that predicts the outcome and that the keyword control does not share. The claim to publish is \"OpenAlex semantic retrieval degrades into uncited, non-PubMed-indexed and partly identifier-less records within the first few tens of ranks\", not \"it stops ranking at 20\"."
+}

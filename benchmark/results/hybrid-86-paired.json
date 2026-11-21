@@ -1,0 +1,189 @@
+{
+  "schema_version": "hybrid-86-paired/1",
+  "run_at": "2026-09-19T18:14:13.882Z",
+  "design": "Paired test of anchor SELECTION. The 86 published paraphrase questions and targets are held fixed; only the marked term is re-chosen, by relevance first and rarity second, rather than by lowest corpus document frequency among identifier-shaped tokens. Hybrid arm, depth 50, taken from makeArms so it is identical to the published run.",
+  "depth": 50,
+  "concurrency": 6,
+  "max_quoted_term_df": 20000,
+  "baseline_source": "benchmarks/results-final/depth50-retrieval.json rows[].results.rbai_hybrid.target_rank",
+  "published_summary_as_reported": {
+    "arm": "rbai_hybrid",
+    "ok": 84,
+    "declined": 2,
+    "errored": 0,
+    "mean_returned": 45.02,
+    "hit_at_1": 0.5,
+    "hit_at_10": 0.7674,
+    "hit_at_20": 0.8605,
+    "hit_at_50": 0.907,
+    "mrr_at_50": 0.6,
+    "recovered_between_11_and_50": 12
+  },
+  "disclosures": [
+    "Document frequency for the relevance-selected anchors is counted as a PHRASE. The published anchors are single tokens whose figures come from the original identifier scan, so the two df distributions are comparable in kind but were not produced by the same query.",
+    "A decline is scored as a complete miss and is not retried, on both sides. The guard refuses a quoted term above the ceiling deterministically, so a retry returns the identical refusal.",
+    "Counting stops at twice the ceiling, so a df at that bound means \"at least\", not \"exactly\".",
+    "Anchor selection was performed by reading each title and abstract against its question. That is author judgement, disclosed as such, and the recorded reason per row is what makes it auditable rather than merely asserted.",
+    "The questions are unchanged from the published run apart from the connecting words needed to seat the quoted term inside the sentence, which is the same placement standard as the hand-placed sensitivity analysis.",
+    "Four anchors could not be counted inside the 30 s statement timeout the run uses and were recounted afterwards with the timeout raised; those rows carry identifier_df_note. All four are at the common end of the distribution, so reporting them as missing would have understated both the median and the maximum.",
+    "The one refusal in this set, \"Metabolic profiling\", is a guard misjudgement rather than an over-common anchor: its exact phrase frequency is 13,159 documents, under the 20,000 ceiling, but the guard falls back to an approximate planner estimate when the rarest-lexeme bound would refuse, and that estimate came back at about 32,362. It is still scored as a complete miss here, because that is what the user would receive."
+  ],
+  "selection_rule": "One anchor per target, chosen for RELEVANCE to what the question asks, with rarity used only to break ties between equally relevant candidates. Identical rules to benchmarks/data/queries-500-hybrid.json: the term must appear verbatim and case-sensitively in title + ' ' + abstract, it must be a term a researcher would genuinely type alongside that question rather than an incidental reagent, cell line or address token, and it is placed inside the question in double quotes so the sentence still reads as a question. One reason recorded per row.",
+  "composed": 86,
+  "validated": 86,
+  "rejected": [],
+  "omitted_targets": [],
+  "anchors_differing_from_mechanical": 85,
+  "identifier_df": {
+    "relevance_selected": {
+      "measured": 86,
+      "min": 1,
+      "median": 442.5,
+      "max": 16699,
+      "over_ceiling": 0,
+      "over_ceiling_terms": [],
+      "multi_word": 55,
+      "max_is_a_lower_bound": false,
+      "df_gaps_filled_on_raised_timeout": 4
+    },
+    "published_mechanical": {
+      "measured": 86,
+      "min": 1,
+      "median": 803.5,
+      "max": 32525
+    }
+  },
+  "summary": {
+    "n_queries": 86,
+    "queries_ok": 85,
+    "queries_declined": 1,
+    "queries_errored": 0,
+    "mean_results_returned": 42.0233,
+    "hit_at_1": 0.6047,
+    "hit_at_5": 0.8372,
+    "hit_at_10": 0.8721,
+    "hit_at_20": 0.9186,
+    "hit_at_50": 0.9535,
+    "mrr_at_10": 0.7069,
+    "mrr_at_50": 0.7109,
+    "recovered_between_11_and_50": 7
+  },
+  "published_summary_recomputed": {
+    "n_queries": 86,
+    "queries_ok": 84,
+    "queries_declined": 2,
+    "queries_errored": 0,
+    "mean_results_returned": 45.0233,
+    "hit_at_1": 0.5,
+    "hit_at_5": 0.7093,
+    "hit_at_10": 0.7674,
+    "hit_at_20": 0.8605,
+    "hit_at_50": 0.907,
+    "mrr_at_10": 0.5921,
+    "mrr_at_50": 0.6,
+    "recovered_between_11_and_50": 12
+  },
+  "comparison": {
+    "design": "paired on target_id: identical questions and targets, only the marked term differs",
+    "cutoffs": {
+      "hit_at_1": {
+        "relevance_selected": 0.6047,
+        "published_mechanical": 0.5,
+        "delta": 0.1047,
+        "relevance_only_wins": 19,
+        "published_only_wins": 10,
+        "n_discordant": 29,
+        "mcnemar_p": 0.136046
+      },
+      "hit_at_5": {
+        "relevance_selected": 0.8372,
+        "published_mechanical": 0.7093,
+        "delta": 0.1279,
+        "relevance_only_wins": 16,
+        "published_only_wins": 5,
+        "n_discordant": 21,
+        "mcnemar_p": 0.026604
+      },
+      "hit_at_10": {
+        "relevance_selected": 0.8721,
+        "published_mechanical": 0.7674,
+        "delta": 0.1047,
+        "relevance_only_wins": 12,
+        "published_only_wins": 3,
+        "n_discordant": 15,
+        "mcnemar_p": 0.035156
+      },
+      "hit_at_20": {
+        "relevance_selected": 0.9186,
+        "published_mechanical": 0.8605,
+        "delta": 0.0581,
+        "relevance_only_wins": 8,
+        "published_only_wins": 3,
+        "n_discordant": 11,
+        "mcnemar_p": 0.226563
+      },
+      "hit_at_50": {
+        "relevance_selected": 0.9535,
+        "published_mechanical": 0.907,
+        "delta": 0.0465,
+        "relevance_only_wins": 7,
+        "published_only_wins": 3,
+        "n_discordant": 10,
+        "mcnemar_p": 0.34375
+      }
+    },
+    "mrr_at_50": {
+      "relevance_selected": 0.7109,
+      "relevance_selected_ci": [
+        0.6302,
+        0.7891
+      ],
+      "published_mechanical": 0.6,
+      "published_mechanical_ci": [
+        0.5077,
+        0.688
+      ],
+      "delta": 0.1109,
+      "delta_ci": [
+        0.0139,
+        0.2098
+      ],
+      "permutation_p": 0.024749,
+      "improved": 32,
+      "worsened": 15,
+      "unchanged": 39
+    }
+  },
+  "declines_vs_df": {
+    "declined_and_over_ceiling": 0,
+    "declined_but_under_ceiling": 1,
+    "over_ceiling_but_served": 0
+  },
+  "verdict": "On the same 86 questions and targets, relevance-selected anchors beat mechanically-selected anchors at Hit@10: 0.872 against 0.767, a change of +0.105 (12 wins, 3 losses, McNemar exact p = 0.035156, statistically significant). MRR@50 moved from 0.6000 to 0.7109 (paired sign-flip permutation p = 0.024749). Because only the marked term changed, the difference is attributable to the selection rule rather than to the question set.",
+  "declines": {
+    "n": 1,
+    "scored_as": "complete miss, not retried",
+    "details": [
+      {
+        "target_id": "cit-1000-up-04",
+        "identifier": "Metabolic profiling",
+        "exact_phrase_df": 13159,
+        "token_bound_df": 554780,
+        "rarest_lexemes": [
+          {
+            "lexeme": "profil",
+            "df": 554780
+          },
+          {
+            "lexeme": "metabol",
+            "df": 629341
+          }
+        ],
+        "planner_phrase_estimate": 32362,
+        "service_message": "The quoted term \"Metabolic profiling\" appears in about 32,362 papers, so requiring it will not narrow your search and makes it slow. Quote something more specif",
+        "ceiling": 20000,
+        "attribution": "refused on an approximate planner estimate (32362) that overstates the exact phrase frequency (13159) by 2.5x; the term is in fact under the 20,000 ceiling, so this refusal is a guard misjudgement rather than an over-common anchor"
+      }
+    ]
+  }
+}

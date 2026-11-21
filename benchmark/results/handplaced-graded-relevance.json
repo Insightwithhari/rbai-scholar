@@ -1,0 +1,128 @@
+{
+  "schema_version": "handplaced-graded-relevance/1",
+  "scored_at": "2026-09-18T18:39:49.890Z",
+  "placement": "hand_placed_natural",
+  "arm": "rbai_hybrid",
+  "retrieval_minutes": 1.43,
+  "inputs": {
+    "queries": "results-final/hand-placed-queries.json",
+    "pool": "results-final/judging-pool.json",
+    "judgements": "results-final/judgements",
+    "judgements_handplaced": "results-final/judgements-handplaced",
+    "keymap": "results-final/gap-hand-placed-keymap.json",
+    "published": "results-final/graded-relevance-final.json"
+  },
+  "design": {
+    "top_k": 10,
+    "relevant_threshold": 2,
+    "gain_function": "2^grade - 1",
+    "discount_function": "1 / log2(rank + 1)",
+    "ideal_ranking": "best achievable DCG@10 from the pool grades for that question PLUS the new hand-placed grades",
+    "precision_denominator": "Precision@10 divides by 10 even when fewer than 10 results came back; precision_of_returned divides by the number returned",
+    "declined_or_errored": "scored as zero results, not excluded",
+    "grades_available": {
+      "original": 4389,
+      "hand_placed_new": 76,
+      "keymap_pairs_without_grade": 0
+    },
+    "permutations": 20000,
+    "seed": 20260908
+  },
+  "completion": {
+    "ok": 83,
+    "declined": 2,
+    "errored": 1,
+    "zero_result_questions": [
+      "cit-000-009-09",
+      "cit-200-999-24",
+      "cit-1000-up-22"
+    ]
+  },
+  "macro": {
+    "n_questions": 86,
+    "n_questions_with_ndcg": 86,
+    "mean_results_returned": 9.35,
+    "ndcg_at_10": 0.5075,
+    "ndcg_at_10_pool_only_ideal": 0.5082,
+    "precision_at_10": 0.3663,
+    "precision_of_returned": 0.3901,
+    "mean_relevant_in_top_10": 3.66,
+    "ungraded_in_top_10": 0
+  },
+  "published_appended_term": {
+    "rbai_hybrid": {
+      "ndcg_at_10": 0.5054,
+      "precision_at_10": 0.3523,
+      "precision_of_returned": 0.3762,
+      "mean_results_returned": 9.47
+    },
+    "rbai_semantic": {
+      "ndcg_at_10": 0.5851,
+      "precision_at_10": 0.5209,
+      "precision_of_returned": 0.5209,
+      "mean_results_returned": 10
+    }
+  },
+  "comparison": {
+    "ndcg_at_10": {
+      "hand_placed": 0.5075,
+      "published_appended": 0.5054,
+      "delta": 0.0021
+    },
+    "precision_at_10": {
+      "hand_placed": 0.3663,
+      "published_appended": 0.3523,
+      "delta": 0.014
+    },
+    "precision_of_returned": {
+      "hand_placed": 0.3901,
+      "published_appended": 0.3762,
+      "delta": 0.0139
+    },
+    "mean_results_returned": {
+      "hand_placed": 9.35,
+      "published_appended": 9.47,
+      "delta": -0.12
+    },
+    "vs_published_semantic_ndcg_at_10": {
+      "hand_placed_hybrid": 0.5075,
+      "published_semantic": 0.5851,
+      "delta": -0.0776,
+      "hand_placed_hybrid_still_below_semantic": true
+    }
+  },
+  "permutation_tests": {
+    "ndcg_at_10__handplaced_vs_published": {
+      "n_compared": 86,
+      "wins": 31,
+      "losses": 31,
+      "ties": 24,
+      "mean_difference": 0.002,
+      "p": 0.743863,
+      "permutations": 20000,
+      "seed": 20260908
+    },
+    "ndcg_at_10_pool_only_ideal__handplaced_vs_published": {
+      "n_compared": 86,
+      "wins": 31,
+      "losses": 31,
+      "ties": 24,
+      "mean_difference": 0.0028,
+      "p": 0.642868,
+      "permutations": 20000,
+      "seed": 20260908
+    },
+    "precision_at_10__handplaced_vs_published": {
+      "n_compared": 86,
+      "wins": 14,
+      "losses": 6,
+      "ties": 66,
+      "mean_difference": 0.014,
+      "p": 0.050947,
+      "permutations": 20000,
+      "seed": 20260908
+    }
+  },
+  "ungraded_in_top_10": 0,
+  "ungraded_detail": []
+}

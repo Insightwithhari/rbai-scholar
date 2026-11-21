@@ -1,0 +1,951 @@
+{
+  "schema_version": "medcpt-relish-scored/1",
+  "run_at": "2026-09-23T10:30:55.763Z",
+  "kaggle_manifest": {
+    "produced_at": "2026-09-23T09:14:40Z",
+    "device": "cuda",
+    "dtype": "torch.float16",
+    "models": {
+      "query": "ncbi/MedCPT-Query-Encoder",
+      "article": "ncbi/MedCPT-Article-Encoder",
+      "cross": "ncbi/MedCPT-Cross-Encoder"
+    },
+    "max_lengths": {
+      "query": 64,
+      "article": 512,
+      "cross": 512
+    },
+    "batch_size": 32,
+    "counts": {
+      "known_item_documents": 24837,
+      "known_item_queries": 500,
+      "known_item_cross_pairs": 25000,
+      "relish_documents": 37760
+    },
+    "embedding_dim": 768,
+    "notes": [
+      "Embeddings are float16. A cosine ranking is unaffected at that precision and the download halves.",
+      "Row i of each *_embeddings.npy corresponds to element i of the matching *_ids.json.",
+      "Article encoder was given (title, abstract) as a PAIR, and the cross encoder was given the article as 'title. abstract', both following NCBI's published examples so these figures are comparable to published MedCPT numbers rather than to a local variant.",
+      "This measures MedCPT as a re-ranker over a candidate pool retrieved by another system. It cannot show what MedCPT would have retrieved from its own index."
+    ]
+  },
+  "protocol": "RE-RANKING over RELISH labelled candidate lists, identical to relish-restricted/2. Only the scoring function differs: MedCPT article-encoder cosine, against our own embedding cosine (like-for-like) and against our deployed ranker (what a searcher receives).",
+  "encoder_choice": "Both sides of every pair go through MedCPT's ARTICLE encoder, because RELISH is article-to-article similarity. Using the query encoder on the seed was rejected: it truncates at 64 tokens and a seed is a whole abstract, so it would have measured truncation. Article-against-article is correct for the task but is not a configuration MedCPT was trained on, which is a limitation of this comparison rather than a property of the model.",
+  "metric_provenance": "nDCG, average precision, the graded gain scheme and the zero-not-undefined convention are copied verbatim from run-relish-restricted.mjs. Had they been re-implemented, a difference between the columns could have been the implementations rather than the encoders.",
+  "counts": {
+    "seeds": 1209,
+    "candidate_pairs": 40916,
+    "mean_candidates_per_seed": 33.8428,
+    "mean_relevant_per_seed": 13.2597
+  },
+  "harness_validation": {
+    "what": "MedCPT alone, measured by us on our 1,209 seeds, against the same model measured by LitSense 2.0 on their unpublished test split.",
+    "why": "If our harness computed these measures differently from theirs, or if our subset were far easier, this gap would be large. It is not. That does not make the columns of Table 9 comparable cell for cell, but it puts a measured bound on how far apart the two subsets are instead of leaving it as an unquantified caveat.",
+    "rows": {
+      "ndcg_at_10": {
+        "medcpt_measured_here": 0.7958,
+        "medcpt_published_by_them": 0.7658,
+        "subset_offset": 0.03
+      },
+      "map_at_10": {
+        "medcpt_measured_here": 0.7393,
+        "medcpt_published_by_them": 0.9147,
+        "subset_offset": -0.1754
+      }
+    },
+    "caution": "One model on one benchmark at two cutoffs. Subset difficulty need not transfer linearly between different scoring functions, so this is a calibration and not a correction to be subtracted from anyone's figures."
+  },
+  "map_convention_probe": {
+    "question": "Does counting PARTIAL as relevant account for the MAP gap against their published figures, when the nDCG gap is small?",
+    "comparison": {
+      "map_at_10": {
+        "strict_only_top_label_relevant": 0.7393,
+        "lenient_partial_also_relevant": 0.9219,
+        "published_by_them": 0.9147,
+        "gap_under_strict": -0.1754,
+        "gap_under_lenient": 0.0072
+      }
+    },
+    "lenient_summary": {
+      "map_at_5": {
+        "value": 0.9457,
+        "ci": [
+          0.9378,
+          0.9532
+        ],
+        "n": 1209
+      },
+      "map_at_10": {
+        "value": 0.9219,
+        "ci": [
+          0.9141,
+          0.9295
+        ],
+        "n": 1209
+      },
+      "map_at_15": {
+        "value": 0.9061,
+        "ci": [
+          0.8979,
+          0.9141
+        ],
+        "n": 1209
+      },
+      "map_all": {
+        "value": 0.8694,
+        "ci": [
+          0.8603,
+          0.8784
+        ],
+        "n": 1209
+      }
+    },
+    "reading": "Compare gap_under_strict with gap_under_lenient. If the lenient gap is far smaller, the MAP columns of Table 9 were never measuring the same quantity, and the apparent MAP deficit there is a convention difference rather than a ranking difference. Our reported MAP stays strict, because that is the rule their paper states; this probe exists to show what the unstated alternative would do."
+  },
+  "summary_medcpt_article_encoder": {
+    "ndcg_at_5": {
+      "value": 0.7991,
+      "ci": [
+        0.7878,
+        0.81
+      ],
+      "n": 1209
+    },
+    "map_at_5": {
+      "value": 0.7886,
+      "ci": [
+        0.7721,
+        0.8046
+      ],
+      "n": 1209
+    },
+    "ndcg_at_10": {
+      "value": 0.7958,
+      "ci": [
+        0.7863,
+        0.8049
+      ],
+      "n": 1209
+    },
+    "map_at_10": {
+      "value": 0.7393,
+      "ci": [
+        0.7245,
+        0.7536
+      ],
+      "n": 1209
+    },
+    "ndcg_at_15": {
+      "value": 0.8074,
+      "ci": [
+        0.7989,
+        0.8157
+      ],
+      "n": 1209
+    },
+    "map_at_15": {
+      "value": 0.707,
+      "ci": [
+        0.6926,
+        0.7208
+      ],
+      "n": 1209
+    },
+    "ndcg_all": {
+      "value": 0.9069,
+      "ci": [
+        0.9013,
+        0.9122
+      ],
+      "n": 1209
+    },
+    "map_all": {
+      "value": 0.6457,
+      "ci": [
+        0.6319,
+        0.659
+      ],
+      "n": 1209
+    }
+  },
+  "summary_medcpt_cross_encoder": {
+    "ndcg_at_5": {
+      "value": 0.8276,
+      "ci": [
+        0.8168,
+        0.838
+      ],
+      "n": 1209
+    },
+    "map_at_5": {
+      "value": 0.8109,
+      "ci": [
+        0.7949,
+        0.8264
+      ],
+      "n": 1209
+    },
+    "ndcg_at_10": {
+      "value": 0.8225,
+      "ci": [
+        0.8135,
+        0.8313
+      ],
+      "n": 1209
+    },
+    "map_at_10": {
+      "value": 0.7687,
+      "ci": [
+        0.7543,
+        0.7822
+      ],
+      "n": 1209
+    },
+    "ndcg_at_15": {
+      "value": 0.834,
+      "ci": [
+        0.8262,
+        0.8417
+      ],
+      "n": 1209
+    },
+    "map_at_15": {
+      "value": 0.7397,
+      "ci": [
+        0.726,
+        0.7531
+      ],
+      "n": 1209
+    },
+    "ndcg_all": {
+      "value": 0.9201,
+      "ci": [
+        0.915,
+        0.9251
+      ],
+      "n": 1209
+    },
+    "map_all": {
+      "value": 0.6866,
+      "ci": [
+        0.6733,
+        0.6996
+      ],
+      "n": 1209
+    }
+  },
+  "summary_ours_similarity_only": {
+    "ndcg_at_5": {
+      "value": 0.8476,
+      "ci": [
+        0.8377,
+        0.8574
+      ],
+      "n": 1209
+    },
+    "map_at_5": {
+      "value": 0.8353,
+      "ci": [
+        0.8207,
+        0.8496
+      ],
+      "n": 1209
+    },
+    "ndcg_at_10": {
+      "value": 0.8387,
+      "ci": [
+        0.8302,
+        0.8472
+      ],
+      "n": 1209
+    },
+    "map_at_10": {
+      "value": 0.7942,
+      "ci": [
+        0.7805,
+        0.8074
+      ],
+      "n": 1209
+    },
+    "ndcg_at_15": {
+      "value": 0.8468,
+      "ci": [
+        0.8394,
+        0.8542
+      ],
+      "n": 1209
+    },
+    "map_at_15": {
+      "value": 0.7638,
+      "ci": [
+        0.7503,
+        0.7768
+      ],
+      "n": 1209
+    },
+    "ndcg_all": {
+      "value": 0.9273,
+      "ci": [
+        0.9225,
+        0.9321
+      ],
+      "n": 1209
+    },
+    "map_all": {
+      "value": 0.7055,
+      "ci": [
+        0.6922,
+        0.7185
+      ],
+      "n": 1209
+    }
+  },
+  "summary_ours_deployed_ranker": {
+    "ndcg_at_5": {
+      "value": 0.8515,
+      "ci": [
+        0.8415,
+        0.8613
+      ],
+      "n": 1209
+    },
+    "map_at_5": {
+      "value": 0.8416,
+      "ci": [
+        0.8271,
+        0.8556
+      ],
+      "n": 1209
+    },
+    "ndcg_at_10": {
+      "value": 0.8431,
+      "ci": [
+        0.8347,
+        0.8515
+      ],
+      "n": 1209
+    },
+    "map_at_10": {
+      "value": 0.7989,
+      "ci": [
+        0.7852,
+        0.8121
+      ],
+      "n": 1209
+    },
+    "ndcg_at_15": {
+      "value": 0.8506,
+      "ci": [
+        0.8431,
+        0.8579
+      ],
+      "n": 1209
+    },
+    "map_at_15": {
+      "value": 0.768,
+      "ci": [
+        0.7545,
+        0.7811
+      ],
+      "n": 1209
+    },
+    "ndcg_all": {
+      "value": 0.9289,
+      "ci": [
+        0.9241,
+        0.9336
+      ],
+      "n": 1209
+    },
+    "map_all": {
+      "value": 0.7096,
+      "ci": [
+        0.6964,
+        0.7226
+      ],
+      "n": 1209
+    }
+  },
+  "paired_medcpt_vs_ours_similarity_only": {
+    "ndcg_at_5": {
+      "medcpt": 0.7991,
+      "sim": 0.8476,
+      "delta": -0.0485,
+      "delta_ci": [
+        -0.0571,
+        -0.0399
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 322,
+      "sim_better_on_seeds": 627,
+      "tied_seeds": 260
+    },
+    "map_at_5": {
+      "medcpt": 0.7886,
+      "sim": 0.8353,
+      "delta": -0.0467,
+      "delta_ci": [
+        -0.0606,
+        -0.0324
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 293,
+      "sim_better_on_seeds": 488,
+      "tied_seeds": 428
+    },
+    "ndcg_at_10": {
+      "medcpt": 0.7958,
+      "sim": 0.8387,
+      "delta": -0.0429,
+      "delta_ci": [
+        -0.0497,
+        -0.0362
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 369,
+      "sim_better_on_seeds": 725,
+      "tied_seeds": 115
+    },
+    "map_at_10": {
+      "medcpt": 0.7393,
+      "sim": 0.7942,
+      "delta": -0.0548,
+      "delta_ci": [
+        -0.0669,
+        -0.0428
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 377,
+      "sim_better_on_seeds": 671,
+      "tied_seeds": 161
+    },
+    "ndcg_at_15": {
+      "medcpt": 0.8074,
+      "sim": 0.8468,
+      "delta": -0.0394,
+      "delta_ci": [
+        -0.0452,
+        -0.0336
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 373,
+      "sim_better_on_seeds": 770,
+      "tied_seeds": 66
+    },
+    "map_at_15": {
+      "medcpt": 0.707,
+      "sim": 0.7638,
+      "delta": -0.0568,
+      "delta_ci": [
+        -0.068,
+        -0.0456
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 387,
+      "sim_better_on_seeds": 725,
+      "tied_seeds": 97
+    },
+    "ndcg_all": {
+      "medcpt": 0.9069,
+      "sim": 0.9273,
+      "delta": -0.0205,
+      "delta_ci": [
+        -0.0241,
+        -0.0168
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 391,
+      "sim_better_on_seeds": 793,
+      "tied_seeds": 25
+    },
+    "map_all": {
+      "medcpt": 0.6457,
+      "sim": 0.7055,
+      "delta": -0.0598,
+      "delta_ci": [
+        -0.0695,
+        -0.05
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 386,
+      "sim_better_on_seeds": 772,
+      "tied_seeds": 51
+    }
+  },
+  "paired_medcpt_vs_ours_deployed": {
+    "ndcg_at_5": {
+      "medcpt": 0.7991,
+      "dep": 0.8515,
+      "delta": -0.0524,
+      "delta_ci": [
+        -0.0611,
+        -0.0437
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 306,
+      "dep_better_on_seeds": 630,
+      "tied_seeds": 273
+    },
+    "map_at_5": {
+      "medcpt": 0.7886,
+      "dep": 0.8416,
+      "delta": -0.053,
+      "delta_ci": [
+        -0.0674,
+        -0.0382
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 277,
+      "dep_better_on_seeds": 495,
+      "tied_seeds": 437
+    },
+    "ndcg_at_10": {
+      "medcpt": 0.7958,
+      "dep": 0.8431,
+      "delta": -0.0473,
+      "delta_ci": [
+        -0.054,
+        -0.0406
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 343,
+      "dep_better_on_seeds": 755,
+      "tied_seeds": 111
+    },
+    "map_at_10": {
+      "medcpt": 0.7393,
+      "dep": 0.7989,
+      "delta": -0.0595,
+      "delta_ci": [
+        -0.0719,
+        -0.0473
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 360,
+      "dep_better_on_seeds": 692,
+      "tied_seeds": 157
+    },
+    "ndcg_at_15": {
+      "medcpt": 0.8074,
+      "dep": 0.8506,
+      "delta": -0.0431,
+      "delta_ci": [
+        -0.0491,
+        -0.0372
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 363,
+      "dep_better_on_seeds": 779,
+      "tied_seeds": 67
+    },
+    "map_at_15": {
+      "medcpt": 0.707,
+      "dep": 0.768,
+      "delta": -0.0609,
+      "delta_ci": [
+        -0.0723,
+        -0.0493
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 376,
+      "dep_better_on_seeds": 737,
+      "tied_seeds": 96
+    },
+    "ndcg_all": {
+      "medcpt": 0.9069,
+      "dep": 0.9289,
+      "delta": -0.022,
+      "delta_ci": [
+        -0.0258,
+        -0.0183
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 354,
+      "dep_better_on_seeds": 829,
+      "tied_seeds": 26
+    },
+    "map_all": {
+      "medcpt": 0.6457,
+      "dep": 0.7096,
+      "delta": -0.0639,
+      "delta_ci": [
+        -0.0738,
+        -0.0538
+      ],
+      "permutation_p": 0.00005,
+      "medcpt_better_on_seeds": 366,
+      "dep_better_on_seeds": 793,
+      "tied_seeds": 50
+    }
+  },
+  "cross_encoder_truncation": {
+    "pairs_exceeding_max_length": 29757,
+    "of": 40916,
+    "fraction": 0.7273
+  },
+  "cross_encoder_caveat": "A query-article cross-encoder applied to an article-article task cannot fit two whole abstracts inside 512 tokens. 29757 of 40916 pairs (72.7%) were truncated, the longer side first. This is the weakest arm in this artefact for that reason, and the figure is given so the weakness is quantified rather than described.",
+  "paired_cross_vs_ours_similarity_only": {
+    "ndcg_at_5": {
+      "medcptx": 0.8276,
+      "sim": 0.8476,
+      "delta": -0.02,
+      "delta_ci": [
+        -0.0281,
+        -0.012
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 372,
+      "sim_better_on_seeds": 526,
+      "tied_seeds": 311
+    },
+    "map_at_5": {
+      "medcptx": 0.8109,
+      "sim": 0.8353,
+      "delta": -0.0244,
+      "delta_ci": [
+        -0.0379,
+        -0.011
+      ],
+      "permutation_p": 0.00075,
+      "medcptx_better_on_seeds": 311,
+      "sim_better_on_seeds": 427,
+      "tied_seeds": 471
+    },
+    "ndcg_at_10": {
+      "medcptx": 0.8225,
+      "sim": 0.8387,
+      "delta": -0.0162,
+      "delta_ci": [
+        -0.0227,
+        -0.0096
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 490,
+      "sim_better_on_seeds": 599,
+      "tied_seeds": 120
+    },
+    "map_at_10": {
+      "medcptx": 0.7687,
+      "sim": 0.7942,
+      "delta": -0.0255,
+      "delta_ci": [
+        -0.0366,
+        -0.0142
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 415,
+      "sim_better_on_seeds": 603,
+      "tied_seeds": 191
+    },
+    "ndcg_at_15": {
+      "medcptx": 0.834,
+      "sim": 0.8468,
+      "delta": -0.0128,
+      "delta_ci": [
+        -0.0184,
+        -0.0073
+      ],
+      "permutation_p": 0.0001,
+      "medcptx_better_on_seeds": 515,
+      "sim_better_on_seeds": 621,
+      "tied_seeds": 73
+    },
+    "map_at_15": {
+      "medcptx": 0.7397,
+      "sim": 0.7638,
+      "delta": -0.0241,
+      "delta_ci": [
+        -0.0344,
+        -0.0138
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 453,
+      "sim_better_on_seeds": 631,
+      "tied_seeds": 125
+    },
+    "ndcg_all": {
+      "medcptx": 0.9201,
+      "sim": 0.9273,
+      "delta": -0.0072,
+      "delta_ci": [
+        -0.0106,
+        -0.0038
+      ],
+      "permutation_p": 0.0001,
+      "medcptx_better_on_seeds": 518,
+      "sim_better_on_seeds": 663,
+      "tied_seeds": 28
+    },
+    "map_all": {
+      "medcptx": 0.6866,
+      "sim": 0.7055,
+      "delta": -0.0189,
+      "delta_ci": [
+        -0.0284,
+        -0.0093
+      ],
+      "permutation_p": 0.00015,
+      "medcptx_better_on_seeds": 490,
+      "sim_better_on_seeds": 652,
+      "tied_seeds": 67
+    }
+  },
+  "paired_cross_vs_ours_deployed": {
+    "ndcg_at_5": {
+      "medcptx": 0.8276,
+      "dep": 0.8515,
+      "delta": -0.0239,
+      "delta_ci": [
+        -0.032,
+        -0.0159
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 370,
+      "dep_better_on_seeds": 528,
+      "tied_seeds": 311
+    },
+    "map_at_5": {
+      "medcptx": 0.8109,
+      "dep": 0.8416,
+      "delta": -0.0307,
+      "delta_ci": [
+        -0.0441,
+        -0.0172
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 301,
+      "dep_better_on_seeds": 439,
+      "tied_seeds": 469
+    },
+    "ndcg_at_10": {
+      "medcptx": 0.8225,
+      "dep": 0.8431,
+      "delta": -0.0206,
+      "delta_ci": [
+        -0.0271,
+        -0.0142
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 465,
+      "dep_better_on_seeds": 616,
+      "tied_seeds": 128
+    },
+    "map_at_10": {
+      "medcptx": 0.7687,
+      "dep": 0.7989,
+      "delta": -0.0302,
+      "delta_ci": [
+        -0.0415,
+        -0.0188
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 411,
+      "dep_better_on_seeds": 611,
+      "tied_seeds": 187
+    },
+    "ndcg_at_15": {
+      "medcptx": 0.834,
+      "dep": 0.8506,
+      "delta": -0.0166,
+      "delta_ci": [
+        -0.0223,
+        -0.0108
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 489,
+      "dep_better_on_seeds": 645,
+      "tied_seeds": 75
+    },
+    "map_at_15": {
+      "medcptx": 0.7397,
+      "dep": 0.768,
+      "delta": -0.0282,
+      "delta_ci": [
+        -0.0388,
+        -0.0176
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 447,
+      "dep_better_on_seeds": 645,
+      "tied_seeds": 117
+    },
+    "ndcg_all": {
+      "medcptx": 0.9201,
+      "dep": 0.9289,
+      "delta": -0.0088,
+      "delta_ci": [
+        -0.0122,
+        -0.0053
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 501,
+      "dep_better_on_seeds": 679,
+      "tied_seeds": 29
+    },
+    "map_all": {
+      "medcptx": 0.6866,
+      "dep": 0.7096,
+      "delta": -0.023,
+      "delta_ci": [
+        -0.0326,
+        -0.0134
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 476,
+      "dep_better_on_seeds": 672,
+      "tied_seeds": 61
+    }
+  },
+  "paired_cross_vs_medcpt_bi_encoder": {
+    "ndcg_at_5": {
+      "medcptx": 0.8276,
+      "medcpt": 0.7991,
+      "delta": 0.0285,
+      "delta_ci": [
+        0.0199,
+        0.037
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 548,
+      "medcpt_better_on_seeds": 390,
+      "tied_seeds": 271
+    },
+    "map_at_5": {
+      "medcptx": 0.8109,
+      "medcpt": 0.7886,
+      "delta": 0.0223,
+      "delta_ci": [
+        0.0083,
+        0.0362
+      ],
+      "permutation_p": 0.0024,
+      "medcptx_better_on_seeds": 435,
+      "medcpt_better_on_seeds": 339,
+      "tied_seeds": 435
+    },
+    "ndcg_at_10": {
+      "medcptx": 0.8225,
+      "medcpt": 0.7958,
+      "delta": 0.0267,
+      "delta_ci": [
+        0.0204,
+        0.0332
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 670,
+      "medcpt_better_on_seeds": 434,
+      "tied_seeds": 105
+    },
+    "map_at_10": {
+      "medcptx": 0.7687,
+      "medcpt": 0.7393,
+      "delta": 0.0293,
+      "delta_ci": [
+        0.0174,
+        0.0413
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 605,
+      "medcpt_better_on_seeds": 447,
+      "tied_seeds": 157
+    },
+    "ndcg_at_15": {
+      "medcptx": 0.834,
+      "medcpt": 0.8074,
+      "delta": 0.0266,
+      "delta_ci": [
+        0.0212,
+        0.032
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 715,
+      "medcpt_better_on_seeds": 429,
+      "tied_seeds": 65
+    },
+    "map_at_15": {
+      "medcptx": 0.7397,
+      "medcpt": 0.707,
+      "delta": 0.0327,
+      "delta_ci": [
+        0.022,
+        0.0434
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 670,
+      "medcpt_better_on_seeds": 438,
+      "tied_seeds": 101
+    },
+    "ndcg_all": {
+      "medcptx": 0.9201,
+      "medcpt": 0.9069,
+      "delta": 0.0132,
+      "delta_ci": [
+        0.01,
+        0.0166
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 730,
+      "medcpt_better_on_seeds": 453,
+      "tied_seeds": 26
+    },
+    "map_all": {
+      "medcptx": 0.6866,
+      "medcpt": 0.6457,
+      "delta": 0.0409,
+      "delta_ci": [
+        0.0318,
+        0.0503
+      ],
+      "permutation_p": 0.00005,
+      "medcptx_better_on_seeds": 718,
+      "medcpt_better_on_seeds": 439,
+      "tied_seeds": 52
+    }
+  },
+  "top_n_failures": {
+    "no_relevant_in_top_5": {
+      "medcpt": 60,
+      "of": 1209
+    },
+    "no_relevant_in_top_10": {
+      "medcpt": 23,
+      "of": 1209
+    },
+    "no_relevant_in_top_15": {
+      "medcpt": 14,
+      "of": 1209
+    }
+  },
+  "litsense_published_for_reference": {
+    "note": "From LitSense 2.0, Nucleic Acids Res. 53:W361-W368 (2025), Table 2, on THEIR unpublished test split of RELISH. NOT comparable cell-for-cell with the figures above: a different subset, a different split, and their pipeline re-ranks a lexically retrieved candidate set. These figures were read from their paper; LitSense was NOT re-run on the seeds evaluated here, because its public API exposes search over its own index and not pairwise scoring of a supplied candidate list. Recorded so a reader can see the order of magnitude, not so a winner can be declared.",
+    "litsense_2_0": {
+      "map_at_5": 0.9515,
+      "map_at_10": 0.9318,
+      "map_at_15": 0.9164,
+      "map_all": 0.8471,
+      "ndcg_at_5": 0.8206,
+      "ndcg_at_10": 0.7962,
+      "ndcg_at_15": 0.7885,
+      "ndcg_all": 0.9081
+    },
+    "medcpt_alone": {
+      "map_at_10": 0.9147,
+      "ndcg_at_10": 0.7658
+    },
+    "bm25": {
+      "map_at_10": 0.915,
+      "ndcg_at_10": 0.763
+    },
+    "pmra": {
+      "map_at_10": 0.9035,
+      "ndcg_at_10": 0.7413
+    }
+  },
+  "disclosures": [
+    "This is a genuine head-to-head on identical data, unlike the LitSense column of Table 9, which is quoted from their paper on a split they do not publish. The LitSense figures are carried here only so the three can be seen together, and they remain not comparable cell for cell.",
+    "MedCPT is measured here as a similarity function over a fixed labelled list, which is what this task requires. It says nothing about what MedCPT would retrieve from its own index over all of PubMed, and nothing about its cross-encoder, which is not part of this drop.",
+    "Candidate list lengths are asserted equal to the ones our own run scored, for every seed, before anything is computed. A missing embedding would have shortened a list, and a shorter list is an easier list, so the failure would have looked like MedCPT winning.",
+    "The comparison to quote for a claim about EMBEDDINGS is against ours_similarity_only. The comparison against ours_deployed_ranker includes our citation and recency priors and is the comparison for a claim about the deployed service."
+  ]
+}

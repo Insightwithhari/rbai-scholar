@@ -1,0 +1,47 @@
+{
+  "schema": "coverage-sample/1",
+  "selected_at": "2026-11-12T15:37:16.408Z",
+  "frame": {
+    "pmid_range": [
+      10000000,
+      42300000
+    ],
+    "seed": 20261112,
+    "generator": "mulberry32",
+    "criteria": "record exists in PubMed (esummary), attribute \"Has Abstract\", publication year 2000-2025",
+    "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
+  },
+  "draws": {
+    "candidates_checked": 299,
+    "existing": 282,
+    "with_abstract": 213,
+    "kept": 200
+  },
+  "lookup": {
+    "looked_up_at": "2026-11-12T18:37:25.412Z",
+    "endpoint": "https://scholar.thedreamlabinnovations.com/v1/corpus/search",
+    "method": "exact pmid filter, then exact doi filter; semantic mode with the record title as the query, top 5",
+    "present": 43,
+    "n": 200,
+    "share": 0.215,
+    "ci95_wilson": [
+      0.1637,
+      0.277
+    ],
+    "errors": 0,
+    "by_period": {
+      "2000-2009": {
+        "n": 51,
+        "present": 8
+      },
+      "2010-2017": {
+        "n": 56,
+        "present": 8
+      },
+      "2018-2025": {
+        "n": 93,
+        "present": 27
+      }
+    }
+  }
+}

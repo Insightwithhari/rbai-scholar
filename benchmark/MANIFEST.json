@@ -1,0 +1,777 @@
+{
+  "schema": "rbai-scholar/manifest@2",
+  "generated_by": "benchmark/scripts/export-public-release.mjs in the private analysis repository",
+  "source_commit": "a59c680fb351dc21df74ce3297e2761d370cc68b",
+  "edited_after_export": {
+    "what": "descriptive text only (method notes, error messages, provenance strings and account fields), shortened for the public release; no measured value changed",
+    "files": [
+      "benchmark/data/coverage-spotcheck-2026-11-12.json",
+      "benchmark/data/handplaced-graded-relevance.jsonl",
+      "benchmark/data/hybrid-332.jsonl",
+      "benchmark/data/litsense-hybrid-332.jsonl",
+      "benchmark/data/rerun-grades.jsonl",
+      "benchmark/results/corpus-stats.json",
+      "benchmark/results/coverage-sample-200.json",
+      "benchmark/results/depth50-hybrid-rerun.json",
+      "benchmark/results/depth50-summary.json",
+      "benchmark/results/hybrid-332-live.json",
+      "benchmark/results/known-item-500.json",
+      "benchmark/results/litsense-hybrid-332.json",
+      "benchmark/results/live-24m-2026-11-16.json",
+      "benchmark/results/openalex-500-2026-11-17.json",
+      "benchmark/results/openalex-rank20.json",
+      "benchmark/results/priors-ablation.json",
+      "benchmark/results/quoted-live-2026-11-14.json",
+      "benchmark/results/quoted-term-ceiling.json",
+      "benchmark/results/rerun-cloudflare-full.json",
+      "benchmark/results/rerun-diskann.json",
+      "benchmark/results/rerun-diskann-postfix.json",
+      "benchmark/results/rerun-diskann-vs-hnsw.json",
+      "benchmark/results/rerun-vectorize-full.json",
+      "benchmark/results/round2-graded-2026-11-17.json"
+    ]
+  },
+  "counts": {
+    "questions": 86,
+    "runs": 688,
+    "unresolved_hits_in_top10": 2,
+    "judgements": 4389,
+    "supplemental_judgements": 76,
+    "depth50_rows": 688,
+    "known_item_queries": 240,
+    "identifier_queries": 86,
+    "targets_without_metadata": 0,
+    "known-item-500_rows": 500,
+    "coverage-120_rows": 120,
+    "coverage-500_rows": 380,
+    "hybrid-332_rows": 332,
+    "litsense-500_rows": 500,
+    "litsense-harness-control_rows": 8,
+    "litsense-hybrid-332_rows": 332,
+    "medcpt-500_rows": 500,
+    "medcpt-round2_rows": 414,
+    "relish_rows": 1209,
+    "ablation-prefix-depth_rows": 120,
+    "priors-ablation_rows": 292,
+    "hybrid-86-paired_rows": 86,
+    "fusion-identifier-86_rows": 91,
+    "marked-term-quality_rows": 204,
+    "placement-86_rows": 86,
+    "hybrid-handplaced_rows": 86,
+    "handplaced-graded-relevance_rows": 86,
+    "known-item-216-first-attempt_rows": 216,
+    "depth50-hybrid-rerun_rows": 86,
+    "efsearch-tuning_rows": 20,
+    "figure_files": 20,
+    "rerun-diskann_rows": 2547,
+    "rerun-diskann-postfix_rows": 1224,
+    "rerun-vectorize_rows": 1527,
+    "rerun-vectorize-postfix_rows": 1224,
+    "rerun-cloudflare_rows": 2547,
+    "rerun-grades_rows": 119,
+    "hybrid-332-live_rows": 332,
+    "coverage-sample-200_rows": 200,
+    "quoted-live-2026-11-14_rows": 708,
+    "live-24m-2026-11-16_rows": 1756,
+    "openalex-500-2026-11-17_rows": 500,
+    "round2-2026-11-17_rows": 6313
+  },
+  "recorded_not_recomputed": {
+    "openalex-rank20": "built from per-position citation counts, identifiers and OpenAlex relevance scores of the depth-50 lists and a live control retrieval; those per-position records are not released",
+    "ranking-weight-sensitivity": "re-scores the stored depth-50 pools with the database's own ts_rank_cd; neither the pools' signal breakdowns nor the database are released",
+    "quoted-term-ceiling": "measured search latencies of refused terms",
+    "corpus-stats": "counts measured on the database",
+    "hybrid-332-live": "the 332 hybrid questions re-sent unchanged to the live service on 12 Nov 2026 (edge deployment); per-question ranks recorded on the live service; score.mjs checks the files are unchanged",
+    "coverage-sample-200": "200 random PubMed records (seed 20261112) and the three-paper spot check, looked up in RBAi Scholar by PubMed ID or DOI on 12 Nov 2026 (UTC); present/absent recorded on the live service",
+    "quoted-live-2026-11-14": "the quoted-term sets (86 identifier queries, 118 fluent questions, 86 graded-study hybrid queries, 86 relevance-selected terms, 332 held-out hybrid questions) sent to the public service on 14 Nov 2026 (UTC), exact quoted-term ranking; per-search ranks recorded on the live service; score.mjs checks the files are unchanged",
+    "live-24m-2026-11-16": "the released questions re-sent unchanged, at their published depths, to the public service on 16 Nov 2026 (UTC), at 24,610,186 records: 500 reworded questions, the 86 graded-study questions in the three modes at depths 10 and 50, 332 held-out hybrid questions, and the quoted-term sets of 86 identifier queries and 118 fluent questions with and without the term quoted (1,756 searches); per-search ranks recorded on the live service; score.mjs checks the files are unchanged",
+    "openalex-500-2026-11-17": "the 500 reworded questions sent again to OpenAlex semantic search (search.semantic, 50 results) on 17 Nov 2026 (UTC), after OpenAlex documented its switch to Qwen3-Embedding-0.6B, through the code of the September run: per question the attempt that was answered (1, 2 or 3; OpenAlex paused free semantic searches under load during the run), the target's rank, its September rank, and the returned identifiers, titles, years and OpenAlex relevance scores (no abstract text); the summary scores Hit@1/5/10/20/50 and MRR@10/50 by target set and citation band, paired against the September run and RBAi Scholar (Supplementary Tables S2, S3); recorded on OpenAlex; score.mjs checks the files are unchanged",
+    "round2-2026-11-17": "the graded study judged again in one round (round 2, 17 Nov 2026), every pair of every Table 2 configuration: the September pool and the pairs of OpenAlex's four lists re-queried on 17 Nov 2026 (5,752 pairs), graded blind by Claude Haiku 5.5 under the published rubric, three batches graded again by an independent Claude Haiku 5.5 session for the pre-registered validity rule (test-retest); lines of kind list (the re-queried lists: identifiers, titles, years, journals, relevance scores; no abstract text), grade (each pair named by question and paper, the lists and ranks that returned it, its September and round-1 grades, the round-2 grade and reason) and retest; the summary sets Table 2 for the September lists and the re-queried lists beside the published values, with the paper's paired tests, the round and composition effects and the validity check (written by scripts/score-round2-2026-11-17.mjs in the private analysis repository); score.mjs checks the files are unchanged"
+  },
+  "sources": {
+    "relish": "Brown, P., RELISH Consortium & Zhou, Y. Database 2019, baz085 (2019). Labels: RELISH_v1, figshare, doi:10.6084/m9.figshare.7722905.v1, released under CC0 1.0. data/relish.jsonl holds this study's per-seed measures keyed by seed PubMed id, not the labels; fetch RELISH_v1.json.gz from that record to re-derive them.",
+    "litsense": "LitSense 2.0 (Yeganova et al., Nucleic Acids Res. 53, W361-W368, 2025): released as PubMed ids, ranks and counts only.",
+    "medcpt": "MedCPT (Jin et al., Bioinformatics 39, btad651, 2023): released as ranks over our own pools only."
+  },
+  "abstract_text_gate": {
+    "shingle_words": 10,
+    "abstracts_checked": 58697,
+    "abstracts_by_source": {
+      "graded relevance": 3870,
+      "targets-500": 379,
+      "depth-50 retrieval": 12715,
+      "500-question retrieval": 29725,
+      "hybrid-332 retrieval": 11870,
+      "junk-abstract screen": 10,
+      "120 original targets": 8,
+      "verbatim-control queries": 120
+    },
+    "free_text_fields_checked": 20732,
+    "fields_flagged_after_redaction": 0,
+    "reasons_with_quotes_redacted": 26,
+    "note": "A run of 10 or more consecutive words a judge's reason shared with an abstract was replaced by \"[…]\". Grades are unchanged.",
+    "redacted": [
+      {
+        "pair_id": "cit-000-009-01#003",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-000-009-04#031",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-000-009-11#008",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-000-009-11#044",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-000-009-24#009",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-010-049-03#036",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-010-049-04#014",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-010-049-05#024",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-010-049-17#034",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-050-199-06#035",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-050-199-06#045",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-050-199-10#036",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-050-199-10#051",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-050-199-21#050",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-050-199-22#030",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-200-999-03#005",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-200-999-03#016",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-200-999-06#016",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-200-999-06#033",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-200-999-07#054",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-1000-up-12#015",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-1000-up-12#024",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-1000-up-20#021",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-1000-up-23#018",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-1000-up-23#029",
+        "quoted_runs_removed": 1
+      },
+      {
+        "pair_id": "cit-1000-up-23#032",
+        "quoted_runs_removed": 1
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "benchmark/data/questions.json",
+      "bytes": 86866,
+      "sha256": "52b209e94f91692b8b9323181b52a380082591a954cf30b0c60319b5afddc11b"
+    },
+    {
+      "path": "benchmark/data/runs-top10.jsonl",
+      "bytes": 737370,
+      "sha256": "42acf873318f1d047b9c3357af05f1041613f2c9d1292402d1095a720f7d3ddd"
+    },
+    {
+      "path": "benchmark/data/judgements.jsonl",
+      "bytes": 2946182,
+      "sha256": "9a4e127c7f186e7d8dad1138817ec1cd23b879be3b6e6a41b06f7d590000a0bc"
+    },
+    {
+      "path": "benchmark/data/judgements-supplemental.jsonl",
+      "bytes": 29952,
+      "sha256": "aa80a65e46815ae55b5739b85a6d5e000735ba964f8f4a39eaa9dbae1c00ec34"
+    },
+    {
+      "path": "benchmark/data/depth50.jsonl",
+      "bytes": 74860,
+      "sha256": "2f8c56b004008d53a5cb6b079b6d0cd97df2ad32b9a42eba598813653e36972e"
+    },
+    {
+      "path": "benchmark/data/known-item-240.jsonl",
+      "bytes": 196855,
+      "sha256": "e2460ed34689582518350a2c119022c0450e2ce0536363689b0c020a5efa1f55"
+    },
+    {
+      "path": "benchmark/data/identifier-86.jsonl",
+      "bytes": 25730,
+      "sha256": "9c706a9f4fec442e4c4dc6b8392f4f1c1abd1196c16577d6abb6e1a917aa5a71"
+    },
+    {
+      "path": "benchmark/results/graded-relevance.json",
+      "bytes": 145181,
+      "sha256": "bcc5298ca684cc537b64bd21877cecccc225caf5e62b28a7264a5c9eda1c2cf4"
+    },
+    {
+      "path": "benchmark/results/depth50-summary.json",
+      "bytes": 3252,
+      "sha256": "39602f6e31524ea3eb47b7f6f21c113425ea86183ebcb93d4d00b98764d75123"
+    },
+    {
+      "path": "benchmark/results/known-item-240.json",
+      "bytes": 9327,
+      "sha256": "f8cfc06f70eeeda826141a684eb87559ffee6620cfe6fbbe577437ac367584c2"
+    },
+    {
+      "path": "benchmark/results/identifier-86.json",
+      "bytes": 1967,
+      "sha256": "814b995b67873766cedd31f28d22b7f3f41e73f34612f5ec4ea36fb966a2ca4e"
+    },
+    {
+      "path": "benchmark/data/known-item-500.jsonl",
+      "bytes": 834024,
+      "sha256": "5000cfa5e3695461b00ceb9f95746fe15ccdce743a74a535108e362ce1c294e4"
+    },
+    {
+      "path": "benchmark/data/coverage-120.jsonl",
+      "bytes": 53146,
+      "sha256": "8c885a060333d125b834c3a9153ed866158e510baacac7adf9759ca8f1fbf7dc"
+    },
+    {
+      "path": "benchmark/data/coverage-500.jsonl",
+      "bytes": 175445,
+      "sha256": "4b18f15333ae64f77a6db17d66f299e8ed0ee1db95e6728619655e6056ef0ed3"
+    },
+    {
+      "path": "benchmark/data/hybrid-332.jsonl",
+      "bytes": 437225,
+      "sha256": "6def76c9ba1acf37f70ba3e8f9453037244f6ddea5209ee9e955350ebe084963"
+    },
+    {
+      "path": "benchmark/data/litsense-500.jsonl",
+      "bytes": 200356,
+      "sha256": "402ab7af182697be5e52b355d29b4b947167d2529a778afd461b741b68d42a90"
+    },
+    {
+      "path": "benchmark/data/litsense-harness-control.jsonl",
+      "bytes": 3278,
+      "sha256": "e9d291995e750a315a2203ff9e410920abfd184f43ecb454653fde68175a80f3"
+    },
+    {
+      "path": "benchmark/data/litsense-hybrid-332.jsonl",
+      "bytes": 464995,
+      "sha256": "3c10672b1300c0f67faf994fda44f4a6c4ff9235d6c4db7831c5d34e4f132496"
+    },
+    {
+      "path": "benchmark/data/medcpt-500.jsonl",
+      "bytes": 139260,
+      "sha256": "e05f89b67eb266a2250431754a6c6a5ba0374fb7af99554f309787939e515f1b"
+    },
+    {
+      "path": "benchmark/data/medcpt-round2.jsonl",
+      "bytes": 99725,
+      "sha256": "c9ec5bf9909b4bcf172a5ac618f86096379babcd5bb3eb0146aecd1c6cceb511"
+    },
+    {
+      "path": "benchmark/data/relish.jsonl",
+      "bytes": 2147712,
+      "sha256": "87b85b15328dc866ace521e728e2abe376c3cecd1ff6d0b456bdc5435a7f6fd8"
+    },
+    {
+      "path": "benchmark/data/ablation-prefix-depth.jsonl",
+      "bytes": 55030,
+      "sha256": "4a07de63cad2e865b2e5b5e428b64dc10944590ec04b5b82b3ca5e068e16bef2"
+    },
+    {
+      "path": "benchmark/data/priors-ablation.jsonl",
+      "bytes": 310810,
+      "sha256": "dabb2b9ca2790624f725f3362b0545a8cf2767682eeb5cf57da2ce0212b6352e"
+    },
+    {
+      "path": "benchmark/data/hybrid-86-paired.jsonl",
+      "bytes": 135570,
+      "sha256": "a1c0ecdddaa1275c47776de2f5be00a0f113e73fee2d9db5e8bc10e964e96158"
+    },
+    {
+      "path": "benchmark/data/fusion-identifier-86.jsonl",
+      "bytes": 52857,
+      "sha256": "8522f4da9cc5f35783f79dbebee00d374cb94ca8b3b0dac991b3bf2f18e7dc87"
+    },
+    {
+      "path": "benchmark/data/marked-term-quality.jsonl",
+      "bytes": 89009,
+      "sha256": "99151abc882d9e022ad3a0d2cb5b8dab741157f8a12f6e71acb7423b144d42f3"
+    },
+    {
+      "path": "benchmark/data/placement-86.jsonl",
+      "bytes": 369252,
+      "sha256": "d5696878ab7e8a3b4d6e7d7cfbedbaaa14a5bff4d95a4076deb50a55f551b61a"
+    },
+    {
+      "path": "benchmark/data/hybrid-handplaced.jsonl",
+      "bytes": 25918,
+      "sha256": "95b5d3484016fd2847a25c29e1bda9e49e513df665b730a669aee002aa38785b"
+    },
+    {
+      "path": "benchmark/data/handplaced-graded-relevance.jsonl",
+      "bytes": 41508,
+      "sha256": "a8489beb81bcdd8d4ed254028388ed4a862489ea00b274952107dd2c6e9620ce"
+    },
+    {
+      "path": "benchmark/data/known-item-216-first-attempt.jsonl",
+      "bytes": 91080,
+      "sha256": "87bc569fbaccd93a33de06a939c79f8332acbef68a93bdfa350d6d04277a3218"
+    },
+    {
+      "path": "benchmark/data/depth50-hybrid-rerun.jsonl",
+      "bytes": 91078,
+      "sha256": "cfbc573850a0f5dc1c63bd2787423021c04e7618bf360699bf928a7d65e4c604"
+    },
+    {
+      "path": "benchmark/data/efsearch-tuning.jsonl",
+      "bytes": 6472,
+      "sha256": "d0cd06f82c3b81c6666cc03dd803507c2198fa1e38c671ed6ca090bafc6d7a80"
+    },
+    {
+      "path": "benchmark/results/known-item-500.json",
+      "bytes": 25062,
+      "sha256": "33ec19f1b935be703f3d5e30a507ead087f8fc619b3b8d210644ba052727ed43"
+    },
+    {
+      "path": "benchmark/results/coverage-120.json",
+      "bytes": 1002,
+      "sha256": "1b88be213921728a37f9fba96588c2aa6e57e5b141b55fd742a7d712ce6ac5a1"
+    },
+    {
+      "path": "benchmark/results/coverage-500.json",
+      "bytes": 1092,
+      "sha256": "8af9c9f9a4de9838e9b1cd94afcdf3e2a7cd4f38fc4aa0a09a8bfaeed87eb14a"
+    },
+    {
+      "path": "benchmark/results/junk-abstract-screen.json",
+      "bytes": 5970,
+      "sha256": "27067d3841c433d15c72ab12489506f651bcebba11fa3bd675069cd8c9923b52"
+    },
+    {
+      "path": "benchmark/results/hybrid-332.json",
+      "bytes": 4394,
+      "sha256": "b5b3a994401ad1d8c82ca1cdbfa9ccb9e5dea96702a61de499adf9ee321e2c30"
+    },
+    {
+      "path": "benchmark/results/hybrid-332-vs-semantic.json",
+      "bytes": 4602,
+      "sha256": "0a659514444445ea779faf91253893388b008c5964977e844e79ce7d66c695e5"
+    },
+    {
+      "path": "benchmark/results/litsense-500.json",
+      "bytes": 3069,
+      "sha256": "dc496620ef70cfa9b82ee56cfa06ef43bd9db612638a6e0166e0aa914eed3559"
+    },
+    {
+      "path": "benchmark/results/litsense-500-analysis.json",
+      "bytes": 5188,
+      "sha256": "83eb2c1086dfde1476b6bcd9a2a5798f0bdc9197d572cf0e76dfd3ef7291f5d3"
+    },
+    {
+      "path": "benchmark/results/litsense-harness-control.json",
+      "bytes": 896,
+      "sha256": "b8fd12d250aef25f471085127d6f9ebeaf06e469ad3504c5ac44d1f17aa05561"
+    },
+    {
+      "path": "benchmark/results/litsense-hybrid-332.json",
+      "bytes": 20403,
+      "sha256": "400581c304cc54f9b92f05852b5708a1f157584d6bb383c5fa682ff7d8d8aba1"
+    },
+    {
+      "path": "benchmark/results/medcpt-500.json",
+      "bytes": 17273,
+      "sha256": "7c6926ba9028fc0a8fc26dbdebb1795a9da1282ffa839dc4be8eccf02ed6e287"
+    },
+    {
+      "path": "benchmark/results/medcpt-round2.json",
+      "bytes": 23271,
+      "sha256": "96aa387cfa301689cf10ca96279fc841dba79583a9a62f686d0f0abe6fa56bb4"
+    },
+    {
+      "path": "benchmark/results/relish.json",
+      "bytes": 13139,
+      "sha256": "f091799a8ec42c89c07b81755bf0d8439d9286b82155769c632a6dab652ae9ed"
+    },
+    {
+      "path": "benchmark/results/relish-medcpt.json",
+      "bytes": 23394,
+      "sha256": "429c9a4f6e69da5db578bc2401cd0c251775f7a140817aec7ad09c8323a07be9"
+    },
+    {
+      "path": "benchmark/results/relish-feasibility.json",
+      "bytes": 2116,
+      "sha256": "82ba891709e5e7d63a6aacf2087f4fb1a5c255a5fddb9fb383a2bd2768211a0f"
+    },
+    {
+      "path": "benchmark/results/ablation-prefix-depth.json",
+      "bytes": 6964,
+      "sha256": "11174245a6659450ea68ac7f45ed49290b8ce82e91a27da238e9d882ec2202c6"
+    },
+    {
+      "path": "benchmark/results/priors-ablation.json",
+      "bytes": 49817,
+      "sha256": "23d689eb722ffc001db5c773c6890d65717c97dc81e05a49e30f6ec4fbe52dc7"
+    },
+    {
+      "path": "benchmark/results/hybrid-86-paired.json",
+      "bytes": 7989,
+      "sha256": "c4fe11c8c29f9e41cf80e67d30142fe274f3b196605a86732e0d0cc3212370ac"
+    },
+    {
+      "path": "benchmark/results/fusion-identifier-86.json",
+      "bytes": 2453,
+      "sha256": "a6edcb7ec47f94c1ec134d09889ce0e421b742f5008e95dc6b9fa504e03e87db"
+    },
+    {
+      "path": "benchmark/results/marked-term-quality.json",
+      "bytes": 1314,
+      "sha256": "dea07b264d3fffb469ca6fce3d6cd4949abc998033abd5c19e6ac033f630360d"
+    },
+    {
+      "path": "benchmark/results/placement-86.json",
+      "bytes": 2261,
+      "sha256": "040c1634498b6a931e2615652be3c24a564a63f90f6c7c0f4fd16b2c250d4727"
+    },
+    {
+      "path": "benchmark/results/hybrid-handplaced.json",
+      "bytes": 8658,
+      "sha256": "08cd59e3af19786dbc92a935ff25a385d720b2e6fdd47d8ab46b52a91e839643"
+    },
+    {
+      "path": "benchmark/results/handplaced-graded-relevance.json",
+      "bytes": 3573,
+      "sha256": "774041f3fbd194fbc89db077496a3c737e6a5ea4e434df9ac77221375cb497d4"
+    },
+    {
+      "path": "benchmark/results/known-item-240-by-citation.json",
+      "bytes": 10650,
+      "sha256": "0a8ded67e0f0c03213f1fe31e6ca996d952f1fbaafd045679c10c02e7448f8a8"
+    },
+    {
+      "path": "benchmark/results/known-item-216-first-attempt.json",
+      "bytes": 9704,
+      "sha256": "e4201329def194781be11cacb2625c2ebba5ae2344ff982d819abfc1c7796c17"
+    },
+    {
+      "path": "benchmark/results/depth50-hybrid-rerun.json",
+      "bytes": 4757,
+      "sha256": "488b5e70f8e82e98f8c53a332c9c19ee113a45eb2abf2fa2df89a42f744bea0d"
+    },
+    {
+      "path": "benchmark/results/efsearch-tuning.json",
+      "bytes": 1297,
+      "sha256": "92e66342807d5c13ef620d91c46ab7b8e3f95a431ad85c7cffaa68dcc4c12d8f"
+    },
+    {
+      "path": "benchmark/results/graded-relevance-v2.json",
+      "bytes": 155123,
+      "sha256": "fc1f0a103a17d9ba7c3ca1e372e37866355293f4b9f8f5130ada00f8af3a5800"
+    },
+    {
+      "path": "benchmark/results/graded-relevance-corrections.json",
+      "bytes": 92678,
+      "sha256": "66e67789019877efca7e441a28f8a222ef7d7f8399c4026c10c190d213d5e540"
+    },
+    {
+      "path": "benchmark/results/openalex-rank20.json",
+      "bytes": 86910,
+      "sha256": "2440f0632bdb7a70c02f07446f04319e7d7ba7b9674b43d24855c04227c939c8"
+    },
+    {
+      "path": "benchmark/results/ranking-weight-sensitivity.json",
+      "bytes": 6825,
+      "sha256": "a5e17127892866ebb870cb3c8c2f77e80a7d81a45f027da52ae3a0a6555c74ff"
+    },
+    {
+      "path": "benchmark/results/quoted-term-ceiling.json",
+      "bytes": 4937,
+      "sha256": "adb2252997ed3bc054d425f449eb3515cc6550987f27f027397cd00a9eb02294"
+    },
+    {
+      "path": "benchmark/results/corpus-stats.json",
+      "bytes": 969,
+      "sha256": "303e6f2d2f7ccd24e9b0115ecc253145e4ddbeb85b1b0c4912a4af42b3ffd400"
+    },
+    {
+      "path": "benchmark/results/figures/graded-relevance.json",
+      "bytes": 16040,
+      "sha256": "ca2534594695ff25a15c01eb3a558a254d65ebd94f72f4f53eb3ee639cf760d3"
+    },
+    {
+      "path": "benchmark/results/figures/depth50.json",
+      "bytes": 5586,
+      "sha256": "fa13cb9e8406339eb580c46fb26753f71f2b5d4468a6da8975fb0ce2c0c30a39"
+    },
+    {
+      "path": "benchmark/results/figures/known-item-240.json",
+      "bytes": 7766,
+      "sha256": "4dd6ca49dede73bf0f68dfaaf8d56c772b66d8c6f2dafd6413b6174f4152b96a"
+    },
+    {
+      "path": "benchmark/results/figures/identifier-86.json",
+      "bytes": 1665,
+      "sha256": "f48e4d48d05da01485f3ac267db1c30441e1e5f6c5351e5ce6ae4b457c940ef1"
+    },
+    {
+      "path": "benchmark/results/figures/known-item-500.json",
+      "bytes": 22320,
+      "sha256": "b2c66823dba766edaaa5f658316be481f151ec1683e0bee898f1d03bf1637a02"
+    },
+    {
+      "path": "benchmark/results/figures/hybrid-332.json",
+      "bytes": 5955,
+      "sha256": "0e73b3d182bb9dcf5a06010334daa4fdeabd7e95c9142678c5b71ce143e17106"
+    },
+    {
+      "path": "benchmark/results/figures/litsense-500.json",
+      "bytes": 2974,
+      "sha256": "fb6d7bab98dd6b1477a0a6e0d0ca7821ffbbffd6e042e7afbd41f0499a652c17"
+    },
+    {
+      "path": "benchmark/results/figures/litsense-hybrid-332.json",
+      "bytes": 3315,
+      "sha256": "6bbb2df83a12a8614dd1793ca4ecf32021f7d7a0652be8be2583442bd1e504b6"
+    },
+    {
+      "path": "benchmark/results/figures/medcpt.json",
+      "bytes": 8758,
+      "sha256": "e8920941a0b9f7d5f822d1c15b31bd03b6cad43ce5fb93beaf326e3d17ca994f"
+    },
+    {
+      "path": "benchmark/results/figures/relish.json",
+      "bytes": 7559,
+      "sha256": "18322283580ad7078ce455f1c4b31b8537e58cf4c3dc7e79df7436ae2f3e9a13"
+    },
+    {
+      "path": "benchmark/results/figures/ablation-prefix-depth.json",
+      "bytes": 3773,
+      "sha256": "7d883ba53860916f1498559b6afc88f430cd15c56ec499adf51cfec83ad93798"
+    },
+    {
+      "path": "benchmark/results/figures/priors-ablation.json",
+      "bytes": 7871,
+      "sha256": "384f6a33d1dc1de8e41f3ae6d0ff2ecd29f42fcc07dfc4084e2f55d7475cd7ef"
+    },
+    {
+      "path": "benchmark/results/figures/hybrid-86-paired.json",
+      "bytes": 2280,
+      "sha256": "6f07f33bdd3ef1048f10d1254f6f1f34ce2e05c3e7d68c52c1dae64a30cb8543"
+    },
+    {
+      "path": "benchmark/results/figures/coverage.json",
+      "bytes": 949,
+      "sha256": "194aec9fc921c2375b8cfb647981db5fe3e658331ca07ee5997b82f49c4ea8ac"
+    },
+    {
+      "path": "benchmark/results/figures/fusion-identifier-86.json",
+      "bytes": 2187,
+      "sha256": "b54af44166be712cd503d2a641ec682364ca8207c17a1e60836da0420cf95a62"
+    },
+    {
+      "path": "benchmark/results/figures/marked-term-quality.json",
+      "bytes": 2087,
+      "sha256": "4a91412e308e5e32dde4e7be34dc04b01b603b4297c8cf0e922330d559789e4a"
+    },
+    {
+      "path": "benchmark/results/figures/placement-86.json",
+      "bytes": 4751,
+      "sha256": "ff411c3506157edf8edc34162fe97bd30a6e2013376b98a63b43f141c448ebca"
+    },
+    {
+      "path": "benchmark/results/figures/known-item-216-first-attempt.json",
+      "bytes": 1069,
+      "sha256": "ebb4c1bfd14d1f57d6264d63cc0eb86291e6c691a57a39c8d18e88b2f5fb91d6"
+    },
+    {
+      "path": "benchmark/results/figures/efsearch-tuning.json",
+      "bytes": 1825,
+      "sha256": "694e5b21e67cacc7effdf871bce15af94c955cc1c4e5ac877ced4c992155507e"
+    },
+    {
+      "path": "benchmark/results/figures/ranking-weight-sensitivity.json",
+      "bytes": 4884,
+      "sha256": "3e1a48d2f492dbfd46f9b6da4bcc38795ffb5fdc67b70644501ebe102e22e72b"
+    },
+    {
+      "path": "benchmark/data/rerun-diskann.jsonl.gz",
+      "bytes": 1996373,
+      "sha256": "dcb2367837f4c903ed8a99edfb18e86ce08e45f58e000936235541910b88dc8b"
+    },
+    {
+      "path": "benchmark/data/rerun-diskann-postfix.jsonl.gz",
+      "bytes": 967857,
+      "sha256": "df059b26e22e957c703bbf83aaf9e866e9698773055172a33c28c2c99edd6c7f"
+    },
+    {
+      "path": "benchmark/data/rerun-vectorize.jsonl.gz",
+      "bytes": 1219174,
+      "sha256": "87a69a0bd02672dd14f79090394c1f9de69a36894f1776d373d9438eb6ee7a11"
+    },
+    {
+      "path": "benchmark/data/rerun-vectorize-postfix.jsonl.gz",
+      "bytes": 965138,
+      "sha256": "f72da13a76f7f64cd367a9aa2d271cf9f1b7edcf0e886d6659fa5d5ef4756150"
+    },
+    {
+      "path": "benchmark/data/rerun-cloudflare.jsonl.gz",
+      "bytes": 1666618,
+      "sha256": "5f5f102802cf8d2c4ada4a0ce36c3f15c9cfd4b2400b7ba9b14d7cf485d6fc63"
+    },
+    {
+      "path": "benchmark/data/rerun-grades.jsonl",
+      "bytes": 76021,
+      "sha256": "c1c68c9e080517a4e6ce4251d0855a2d6a7f2222a853139abac2b28978984df2"
+    },
+    {
+      "path": "benchmark/results/rerun-diskann.json",
+      "bytes": 100830,
+      "sha256": "3575289eb361da461e1a307717a529318eb20b203505f04f6e8aee90a863a82b"
+    },
+    {
+      "path": "benchmark/results/rerun-diskann-postfix.json",
+      "bytes": 101381,
+      "sha256": "ce878f6849bebb3b684ccb2d7a8c0b4c72fdb23a08c35b29b4933804371974a6"
+    },
+    {
+      "path": "benchmark/results/rerun-vectorize.json",
+      "bytes": 18672,
+      "sha256": "8847452aab0f26e297f7954b6c23d035172a4c24a4a652ab6a687a0ebcba010d"
+    },
+    {
+      "path": "benchmark/results/rerun-vectorize-full.json",
+      "bytes": 108527,
+      "sha256": "0669fbd92f574f075b0fe616dfadb132dee08490ad2caba65217664606ae7999"
+    },
+    {
+      "path": "benchmark/results/rerun-cloudflare.json",
+      "bytes": 19975,
+      "sha256": "c1036a60303ef4702faa8228aa4ae5f820bc86d8c128f0cfbadcc2494230edb3"
+    },
+    {
+      "path": "benchmark/results/rerun-cloudflare-full.json",
+      "bytes": 101005,
+      "sha256": "5e5fd7d9329c426d436fc7e264795b26cf20a8848ba3b708e68c26f00c6b8f66"
+    },
+    {
+      "path": "benchmark/results/rerun-diskann-vs-hnsw.json",
+      "bytes": 9836,
+      "sha256": "8637e110563fb22a4d8ab64c5640252f30e31612fe043955392ad2bd5b219479"
+    },
+    {
+      "path": "benchmark/data/hybrid-332-live.jsonl",
+      "bytes": 878116,
+      "sha256": "3e18c2d0adf6957df4af9e3513d0fcddf4dca0eecb63724aac7321ed819901ca"
+    },
+    {
+      "path": "benchmark/results/hybrid-332-live.json",
+      "bytes": 1146,
+      "sha256": "79a6a2a330646454991ef457b07dd3d14eb6ff549e7ed72691f6032f50b04be7"
+    },
+    {
+      "path": "benchmark/data/coverage-sample-200.jsonl",
+      "bytes": 78526,
+      "sha256": "30ab939fe1bff0b2bf999e093f287394def0ebc0fb17f6b08240d5d2c0c2e9f4"
+    },
+    {
+      "path": "benchmark/results/coverage-sample-200.json",
+      "bytes": 1122,
+      "sha256": "e4ba55477457b245e1764652a11f69a47b69c5c58387842549f568e391629c8e"
+    },
+    {
+      "path": "benchmark/data/coverage-spotcheck-2026-11-12.json",
+      "bytes": 2339,
+      "sha256": "72438030b76ddd09f1e4ccd5a34e933681caae29c8ae45859701bb242e47a6f9"
+    },
+    {
+      "path": "benchmark/data/quoted-live-2026-11-14.jsonl",
+      "bytes": 2585491,
+      "sha256": "2554f49f8c12907f9489eb1c1447a162323e37ad2feb63eb8a9767caa289e89e"
+    },
+    {
+      "path": "benchmark/results/quoted-live-2026-11-14.json",
+      "bytes": 8055,
+      "sha256": "79c79b1121bc5de991566e9329ef4d4b83dd07e43326506eda47cb5d68c26ed7"
+    },
+    {
+      "path": "benchmark/data/live-24m-2026-11-16.jsonl.gz",
+      "bytes": 850257,
+      "sha256": "0bdff04bf8719b0932b309d717dd9ba1ef7d18f07ae136474cee96815c9ea0f8"
+    },
+    {
+      "path": "benchmark/results/live-24m-2026-11-16.json",
+      "bytes": 6710,
+      "sha256": "0cede335189054da3dd290400f3c0cb7fa87784cd66ba17729688ddf5bdc7de8"
+    },
+    {
+      "path": "benchmark/data/openalex-500-2026-11-17.jsonl.gz",
+      "bytes": 1630803,
+      "sha256": "2710db1b2b0425d0cdc94beb1ae7ad1d4c551ebc158ffa46253ef7e1159ac429"
+    },
+    {
+      "path": "benchmark/results/openalex-500-2026-11-17.json",
+      "bytes": 50023,
+      "sha256": "9b364e4ba94b06b5eafb3bda1eefd328936b49df74b457764dd8fcf393515400"
+    },
+    {
+      "path": "benchmark/data/round2-2026-11-17.jsonl.gz",
+      "bytes": 951424,
+      "sha256": "ddb9a779d4d9e228c4d02470f89eef49f143bb3f754dd1ac36e98ac6d8b7a1e7"
+    },
+    {
+      "path": "benchmark/results/round2-graded-2026-11-17.json",
+      "bytes": 122064,
+      "sha256": "dcdaac63508a51b36666db316efa25a1e923c31627673414e9caeae7e980ea62"
+    }
+  ]
+}

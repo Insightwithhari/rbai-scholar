@@ -1,0 +1,395 @@
+{
+  "schema_version": "diskann-vs-hnsw/1",
+  "generated_at": "2026-10-13T11:07:26.620Z",
+  "database": "the PostgreSQL database that served RBAi Scholar at the time (a copy of it in Experiment 4, the live database in Experiments 6 and 9)",
+  "arms": {
+    "hnsw": "HNSW over the full vectors, m 16, ef_construction 64, the configuration every published figure was measured with",
+    "diskann": "pg_diskann 0.6.5, product-quantized, L2 on the unit-length vectors, max_neighbors 64, l_value_ib 100; a 400-paper shortlist re-scored by exact cosine on the full vectors, the best 200 passed to the unchanged ranking formula"
+  },
+  "sources": {
+    "experiment_4": "analysis records of Experiment 4, 5 Oct 2026 (a copy of the database; not public)",
+    "experiment_6": "analysis records of Experiment 6, 5 Oct 2026 (the live database; not public)",
+    "experiment_9": "analysis records of Experiment 9, 6 Oct 2026 (the live service; not public)"
+  },
+  "baseline_reproduces_published": {
+    "known_hit10": 325,
+    "known_mrr50": 0.4431,
+    "graded_ndcg10": 0.5751,
+    "graded_top10_lists_identical_to_published": 86
+  },
+  "known_500": {
+    "hnsw": {
+      "n": 500,
+      "hit_at_1": 0.328,
+      "hit_at_5": 0.594,
+      "hit_at_10": 0.65,
+      "hit_at_20": 0.742,
+      "hit_at_50": 0.812,
+      "mrr_at_10": 0.4344,
+      "mrr_at_50": 0.4431
+    },
+    "diskann": {
+      "n": 500,
+      "hit_at_1": 0.33,
+      "hit_at_5": 0.598,
+      "hit_at_10": 0.652,
+      "hit_at_20": 0.746,
+      "hit_at_50": 0.822,
+      "mrr_at_10": 0.4367,
+      "mrr_at_50": 0.4458
+    },
+    "paired": {
+      "n": 500,
+      "cutoffs": {
+        "hit_at_1": {
+          "hnsw_only": 0,
+          "diskann_only": 1,
+          "mcnemar_p": 1
+        },
+        "hit_at_5": {
+          "hnsw_only": 0,
+          "diskann_only": 2,
+          "mcnemar_p": 0.5
+        },
+        "hit_at_10": {
+          "hnsw_only": 1,
+          "diskann_only": 2,
+          "mcnemar_p": 1
+        },
+        "hit_at_20": {
+          "hnsw_only": 1,
+          "diskann_only": 3,
+          "mcnemar_p": 0.625
+        },
+        "hit_at_50": {
+          "hnsw_only": 2,
+          "diskann_only": 7,
+          "mcnemar_p": 0.1797
+        }
+      },
+      "mrr_at_50": {
+        "hnsw": 0.4431,
+        "diskann": 0.4458,
+        "delta_diskann_minus_hnsw": 0.0027,
+        "delta_ci": [
+          -0.0007,
+          0.008
+        ],
+        "permutation_p": 0.338683,
+        "improved": 23,
+        "worsened": 7
+      },
+      "same_rank": 470
+    }
+  },
+  "known_500_by_band": {
+    "cit-000-009": {
+      "n": 100,
+      "hnsw_hit10": 0.54,
+      "diskann_hit10": 0.53,
+      "hnsw_mrr50": 0.3801,
+      "diskann_mrr50": 0.3802
+    },
+    "cit-010-049": {
+      "n": 100,
+      "hnsw_hit10": 0.63,
+      "diskann_hit10": 0.63,
+      "hnsw_mrr50": 0.4343,
+      "diskann_mrr50": 0.4339
+    },
+    "cit-050-199": {
+      "n": 100,
+      "hnsw_hit10": 0.65,
+      "diskann_hit10": 0.67,
+      "hnsw_mrr50": 0.4304,
+      "diskann_mrr50": 0.4455
+    },
+    "cit-200-999": {
+      "n": 100,
+      "hnsw_hit10": 0.7,
+      "diskann_hit10": 0.7,
+      "hnsw_mrr50": 0.4986,
+      "diskann_mrr50": 0.499
+    },
+    "cit-1000-up": {
+      "n": 100,
+      "hnsw_hit10": 0.73,
+      "diskann_hit10": 0.73,
+      "hnsw_mrr50": 0.472,
+      "diskann_mrr50": 0.4706
+    }
+  },
+  "known_500_production": {
+    "diskann": {
+      "n": 500,
+      "hit_at_1": 0.33,
+      "hit_at_5": 0.598,
+      "hit_at_10": 0.652,
+      "hit_at_20": 0.746,
+      "hit_at_50": 0.822,
+      "mrr_at_10": 0.4369,
+      "mrr_at_50": 0.446
+    },
+    "same_rank_as_copy": 498,
+    "paired_against_hnsw": {
+      "n": 500,
+      "cutoffs": {
+        "hit_at_1": {
+          "hnsw_only": 0,
+          "diskann_only": 1,
+          "mcnemar_p": 1
+        },
+        "hit_at_5": {
+          "hnsw_only": 0,
+          "diskann_only": 2,
+          "mcnemar_p": 0.5
+        },
+        "hit_at_10": {
+          "hnsw_only": 1,
+          "diskann_only": 2,
+          "mcnemar_p": 1
+        },
+        "hit_at_20": {
+          "hnsw_only": 1,
+          "diskann_only": 3,
+          "mcnemar_p": 0.625
+        },
+        "hit_at_50": {
+          "hnsw_only": 2,
+          "diskann_only": 7,
+          "mcnemar_p": 0.1797
+        }
+      },
+      "mrr_at_50": {
+        "hnsw": 0.4431,
+        "diskann": 0.446,
+        "delta_diskann_minus_hnsw": 0.0029,
+        "delta_ci": [
+          -0.0004,
+          0.0081
+        ],
+        "permutation_p": 0.271736,
+        "improved": 23,
+        "worsened": 6
+      },
+      "same_rank": 471
+    }
+  },
+  "paraphrase_120_depth10": {
+    "derivation_check": {
+      "what": "HNSW top-10 ranks derived from the depth-50 run, against the ranks published from the depth-10 run",
+      "identical": 64,
+      "of": 120
+    },
+    "valid": false,
+    "reason": "The 240-query study was measured under an earlier configuration than the 500-question runs, so its published ranks are not reproduced by the 500 and no DiskANN comparison is derived for it. It needs its own re-run under both indexes, as do its 120 verbatim-control queries, which were never in Experiment 4."
+  },
+  "graded_86_semantic_depth50": {
+    "derivation_check": {
+      "identical": 86,
+      "of": 86
+    },
+    "hnsw": {
+      "n": 86,
+      "hit_at_1": 0.2326,
+      "hit_at_5": 0.5116,
+      "hit_at_10": 0.5581,
+      "hit_at_20": 0.6512,
+      "hit_at_50": 0.7209,
+      "mrr_at_10": 0.3339,
+      "mrr_at_50": 0.3431
+    },
+    "diskann": {
+      "n": 86,
+      "hit_at_1": 0.2326,
+      "hit_at_5": 0.5116,
+      "hit_at_10": 0.5581,
+      "hit_at_20": 0.6512,
+      "hit_at_50": 0.7326,
+      "mrr_at_10": 0.3338,
+      "mrr_at_50": 0.3432
+    },
+    "paired": {
+      "n": 86,
+      "cutoffs": {
+        "hit_at_1": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        },
+        "hit_at_5": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        },
+        "hit_at_10": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        },
+        "hit_at_20": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        },
+        "hit_at_50": {
+          "hnsw_only": 0,
+          "diskann_only": 1,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "hnsw": 0.3431,
+        "diskann": 0.3432,
+        "delta_diskann_minus_hnsw": 0.0002,
+        "delta_ci": [
+          -0.0004,
+          0.0009
+        ],
+        "permutation_p": 1,
+        "improved": 1,
+        "worsened": 1
+      },
+      "same_rank": 84
+    }
+  },
+  "graded_86_ndcg10": {
+    "hnsw": 0.5751,
+    "diskann_if_every_ungraded_paper_is_irrelevant": 0.5709,
+    "diskann_if_every_ungraded_paper_is_grade_3": 0.5927,
+    "ungraded_slots_in_top_10": 13,
+    "questions_with_an_ungraded_slot": 9,
+    "of_slots": 860,
+    "ungraded_per_question": [
+      2,
+      2,
+      1,
+      3,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "lower_bound_delta": {
+      "mean": -0.0042,
+      "ci": [
+        -0.0079,
+        -0.001
+      ],
+      "permutation_p": 0.017699
+    },
+    "upper_bound_delta": {
+      "mean": 0.0176,
+      "ci": [
+        0.0051,
+        0.0363
+      ],
+      "permutation_p": 0.00225
+    },
+    "rule_fixed_beforehand": "nDCG@10 at most 0.005 below HNSW, counting every ungraded paper as irrelevant"
+  },
+  "hybrid_332": {
+    "hnsw": {
+      "n": 332,
+      "hit_at_1": 0.7048,
+      "hit_at_5": 0.8976,
+      "hit_at_10": 0.9307,
+      "hit_at_20": 0.9518,
+      "hit_at_50": 0.9699,
+      "mrr_at_10": 0.7838,
+      "mrr_at_50": 0.7858
+    },
+    "diskann": {
+      "n": 332,
+      "hit_at_1": 0.7048,
+      "hit_at_5": 0.8976,
+      "hit_at_10": 0.9307,
+      "hit_at_20": 0.9518,
+      "hit_at_50": 0.9699,
+      "mrr_at_10": 0.7838,
+      "mrr_at_50": 0.7858
+    },
+    "paired": {
+      "n": 332,
+      "cutoffs": {
+        "hit_at_1": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        },
+        "hit_at_5": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        },
+        "hit_at_10": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        },
+        "hit_at_20": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        },
+        "hit_at_50": {
+          "hnsw_only": 0,
+          "diskann_only": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "hnsw": 0.7858,
+        "diskann": 0.7858,
+        "delta_diskann_minus_hnsw": 0,
+        "delta_ci": [
+          0,
+          0
+        ],
+        "permutation_p": 1,
+        "improved": 0,
+        "worsened": 0
+      },
+      "same_rank": 332
+    },
+    "statuses": {
+      "A": {
+        "ok": 329,
+        "declined": 3
+      },
+      "C200": {
+        "ok": 218,
+        "timeout": 111,
+        "declined": 3
+      },
+      "C400": {
+        "ok": 329,
+        "declined": 3
+      },
+      "C800": {
+        "ok": 329,
+        "declined": 3
+      },
+      "C1600": {
+        "ok": 329,
+        "declined": 3
+      }
+    },
+    "note": "Quoted terms in at most 20,000 papers are served by the full-text index with exact distances on BOTH arms, which is why the two are identical. Production keeps that path; the three terms declined as over the ceiling are the only hybrid questions whose path changed in production (Experiment 13)."
+  },
+  "top10_agreement": {
+    "lists_compared": 915,
+    "identical_top10": 0.918,
+    "mean_overlap_top10": 0.9704,
+    "hnsw_against_itself_mean_overlap": 0.9819
+  },
+  "production_path": {
+    "service_code_on_production": {
+      "diskann": 120,
+      "hnsw": 0
+    },
+    "same_rank_as_experiment_6": "120 of 120",
+    "guard": "the query plan scans the DiskANN index"
+  }
+}

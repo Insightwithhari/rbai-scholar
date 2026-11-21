@@ -1,0 +1,4001 @@
+{
+  "schema_version": "graded-relevance-corrections/1",
+  "generated_at": "2026-10-03T05:31:35.153Z",
+  "published": "results/graded-relevance-final.json",
+  "corrected": "results/graded-relevance-final-v2.json",
+  "defect": "When two slots of one system's top 10 resolve to the same doc_key through the pool's alias table, the published scorer gave each slot the paper's gain and counted each towards P@10, while the ideal ranking uses unique papers, so nDCG@10 could exceed 1.",
+  "rule": "A paper's second and later appearances in one ranked list score as not relevant (gain 0). Positions are unchanged; precision_of_returned keeps the number of slots returned as its denominator; the oracles are built from the corrected per-arm values. Hit@1, Hit@10 and MRR@10 come from target_rank, the first appearance, and do not change.",
+  "original_rule_reproduces_published": true,
+  "per_question_ndcg_above_one": {
+    "published": [
+      {
+        "question_id": "cit-000-009-19",
+        "system": "rbai_semantic",
+        "ndcg_at_10": 1.0568
+      },
+      {
+        "question_id": "cit-200-999-21",
+        "system": "openalex_semantic",
+        "ndcg_at_10": 1.0406
+      }
+    ],
+    "corrected": [],
+    "corrected_maximum": 0.9191
+  },
+  "repeated_slots": {
+    "runs_with_repeats": 49,
+    "slots": 60,
+    "by_match": {
+      "same_doi": 3,
+      "pmid_alias": 0,
+      "title_alias": 57,
+      "transitive": 0
+    },
+    "match_definition": "Each repeated slot is compared with the first slot holding the same paper: same_doi, the two hits carry the same normalised DOI (one record returned twice); pmid_alias, different or missing DOIs but the same PubMed id; title_alias, neither identifier shared but the same normalised title (first 120 characters), which is how the pool's union-find joined them; transitive, joined only through a third record.",
+    "by_arm": {
+      "rbai_semantic": {
+        "runs_with_repeats": 5,
+        "repeated_slots": 8,
+        "same_doi": 0,
+        "pmid_alias": 0,
+        "title_alias": 8,
+        "transitive": 0
+      },
+      "rbai_keyword": {
+        "runs_with_repeats": 6,
+        "repeated_slots": 6,
+        "same_doi": 0,
+        "pmid_alias": 0,
+        "title_alias": 6,
+        "transitive": 0
+      },
+      "rbai_hybrid": {
+        "runs_with_repeats": 8,
+        "repeated_slots": 9,
+        "same_doi": 0,
+        "pmid_alias": 0,
+        "title_alias": 9,
+        "transitive": 0
+      },
+      "openalex_semantic": {
+        "runs_with_repeats": 11,
+        "repeated_slots": 15,
+        "same_doi": 0,
+        "pmid_alias": 0,
+        "title_alias": 15,
+        "transitive": 0
+      },
+      "openalex_keyword": {
+        "runs_with_repeats": 2,
+        "repeated_slots": 2,
+        "same_doi": 0,
+        "pmid_alias": 0,
+        "title_alias": 2,
+        "transitive": 0
+      },
+      "pubmed_keyword": {
+        "runs_with_repeats": 2,
+        "repeated_slots": 2,
+        "same_doi": 0,
+        "pmid_alias": 0,
+        "title_alias": 2,
+        "transitive": 0
+      },
+      "openalex_combined_semantic": {
+        "runs_with_repeats": 10,
+        "repeated_slots": 11,
+        "same_doi": 1,
+        "pmid_alias": 0,
+        "title_alias": 10,
+        "transitive": 0
+      },
+      "openalex_combined_keyword": {
+        "runs_with_repeats": 5,
+        "repeated_slots": 7,
+        "same_doi": 2,
+        "pmid_alias": 0,
+        "title_alias": 5,
+        "transitive": 0
+      }
+    },
+    "slots_detail": [
+      {
+        "question_id": "cit-000-009-08",
+        "system": "openalex_semantic",
+        "rank": 9,
+        "first_rank": 3,
+        "doc_key": "doi:10.1016/b978-0-08-034185-9.50034-6",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1093/annhyg/32.inhaled_particles_vi.279",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1016/b978-0-08-034185-9.50034-6",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-000-009-14",
+        "system": "rbai_hybrid",
+        "rank": 6,
+        "first_rank": 5,
+        "doc_key": "doi:10.1083/jcb.141.2.539",
+        "match": "title_alias",
+        "grade": 0,
+        "first": {
+          "doi": "10.1083/jcb.141.2.539",
+          "pmid": "9548730"
+        },
+        "repeat": {
+          "doi": "10.17615/nt33-9x33",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-000-009-19",
+        "system": "rbai_semantic",
+        "rank": 2,
+        "first_rank": 1,
+        "doc_key": "doi:10.1515/jib-2015-278",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1515/jib-2015-278",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.2390/biecoll-jib-2015-278",
+          "pmid": "26673929"
+        }
+      },
+      {
+        "question_id": "cit-000-009-19",
+        "system": "rbai_keyword",
+        "rank": 5,
+        "first_rank": 4,
+        "doc_key": "doi:10.1515/jib-2015-278",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1515/jib-2015-278",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.2390/biecoll-jib-2015-278",
+          "pmid": "26673929"
+        }
+      },
+      {
+        "question_id": "cit-000-009-19",
+        "system": "rbai_hybrid",
+        "rank": 2,
+        "first_rank": 1,
+        "doc_key": "doi:10.1515/jib-2015-278",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1515/jib-2015-278",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.2390/biecoll-jib-2015-278",
+          "pmid": "26673929"
+        }
+      },
+      {
+        "question_id": "cit-000-009-20",
+        "system": "openalex_combined_keyword",
+        "rank": 2,
+        "first_rank": 1,
+        "doc_key": "doi:10.3389/fmed.2022.841391",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.3389/fmed.2022.841391",
+          "pmid": "35211492"
+        },
+        "repeat": {
+          "doi": null,
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-000-009-21",
+        "system": "openalex_semantic",
+        "rank": 10,
+        "first_rank": 8,
+        "doc_key": "title:facilitationofexpressionandpurificationofantimicrobialpeptidebyfusionwithbaculoviralpolyhedrininescherichiacoli",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": null,
+          "pmid": null
+        },
+        "repeat": {
+          "doi": null,
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-02",
+        "system": "openalex_semantic",
+        "rank": 9,
+        "first_rank": 8,
+        "doc_key": "doi:10.1158/1535-7163.22522153",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1158/1535-7163.22522153.v1",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1158/1535-7163.22522153",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-02",
+        "system": "openalex_combined_semantic",
+        "rank": 9,
+        "first_rank": 8,
+        "doc_key": "doi:10.1158/1535-7163.22522153",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1158/1535-7163.22522153.v1",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1158/1535-7163.22522153",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-04",
+        "system": "rbai_semantic",
+        "rank": 3,
+        "first_rank": 2,
+        "doc_key": "doi:10.5281/zenodo.19519377",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.5281/zenodo.19519377",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.5281/zenodo.19636861",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-04",
+        "system": "rbai_semantic",
+        "rank": 4,
+        "first_rank": 2,
+        "doc_key": "doi:10.5281/zenodo.19519377",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.5281/zenodo.19519377",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.5281/zenodo.19519378",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-04",
+        "system": "rbai_semantic",
+        "rank": 6,
+        "first_rank": 5,
+        "doc_key": "doi:10.5281/zenodo.20320448",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.5281/zenodo.20320448",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.5281/zenodo.20320449",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-04",
+        "system": "rbai_semantic",
+        "rank": 9,
+        "first_rank": 8,
+        "doc_key": "doi:10.5281/zenodo.20337356",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.5281/zenodo.20337356",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.5281/zenodo.20337357",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-09",
+        "system": "rbai_hybrid",
+        "rank": 8,
+        "first_rank": 7,
+        "doc_key": "doi:10.1200/jco.2013.54.1177",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1200/jco.2016.71.0947",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1200/jco.2013.54.1177",
+          "pmid": "24663048"
+        }
+      },
+      {
+        "question_id": "cit-010-049-09",
+        "system": "openalex_semantic",
+        "rank": 6,
+        "first_rank": 5,
+        "doc_key": "doi:10.1016/j.yonc.2011.07.018",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1016/j.yonc.2011.07.018",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1016/j.yonc.2012.05.011",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-09",
+        "system": "openalex_semantic",
+        "rank": 10,
+        "first_rank": 4,
+        "doc_key": "doi:10.1007/bf02573062",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1007/bf02573062",
+          "pmid": "11923131"
+        },
+        "repeat": {
+          "doi": "10.1245/aso.2002.9.3.248",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-09",
+        "system": "openalex_combined_semantic",
+        "rank": 6,
+        "first_rank": 5,
+        "doc_key": "doi:10.1016/j.yonc.2011.07.018",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1016/j.yonc.2011.07.018",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1016/j.yonc.2012.05.011",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-10",
+        "system": "openalex_combined_semantic",
+        "rank": 6,
+        "first_rank": 1,
+        "doc_key": "doi:10.1016/j.femsec.2004.03.001",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1016/j.femsec.2004.03.001",
+          "pmid": "19712312"
+        },
+        "repeat": {
+          "doi": "10.1016/s0168-6496(04)00075-3",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-15",
+        "system": "openalex_combined_keyword",
+        "rank": 5,
+        "first_rank": 1,
+        "doc_key": "doi:10.1101/2021.06.27.450077",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1186/s42523-022-00176-x",
+          "pmid": "35484581"
+        },
+        "repeat": {
+          "doi": "10.1101/2021.06.27.450077",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-16",
+        "system": "rbai_keyword",
+        "rank": 4,
+        "first_rank": 3,
+        "doc_key": "doi:10.1210/en.133.4.1823",
+        "match": "title_alias",
+        "grade": 0,
+        "first": {
+          "doi": "10.1210/endo.133.4.8404625",
+          "pmid": "8404625"
+        },
+        "repeat": {
+          "doi": "10.1210/en.133.4.1823",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-16",
+        "system": "openalex_combined_keyword",
+        "rank": 6,
+        "first_rank": 5,
+        "doc_key": "doi:10.1007/s00210-013-0832-9",
+        "match": "same_doi",
+        "grade": 0,
+        "first": {
+          "doi": "10.1007/s00210-013-0832-9",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1007/s00210-013-0832-9",
+          "pmid": "23334796"
+        }
+      },
+      {
+        "question_id": "cit-010-049-16",
+        "system": "openalex_combined_keyword",
+        "rank": 7,
+        "first_rank": 5,
+        "doc_key": "doi:10.1007/s00210-013-0832-9",
+        "match": "same_doi",
+        "grade": 0,
+        "first": {
+          "doi": "10.1007/s00210-013-0832-9",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1007/s00210-013-0832-9",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-010-049-19",
+        "system": "openalex_combined_semantic",
+        "rank": 5,
+        "first_rank": 4,
+        "doc_key": "doi:10.5858/134.6.826",
+        "match": "same_doi",
+        "grade": 1,
+        "first": {
+          "doi": "10.5858/134.6.826",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.5858/134.6.826",
+          "pmid": "20524861"
+        }
+      },
+      {
+        "question_id": "cit-050-199-01",
+        "system": "rbai_hybrid",
+        "rank": 8,
+        "first_rank": 7,
+        "doc_key": "doi:10.1210/en.139.3.1329",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1210/en.139.3.1329",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1210/endo.139.3.5837",
+          "pmid": "9492069"
+        }
+      },
+      {
+        "question_id": "cit-050-199-01",
+        "system": "openalex_keyword",
+        "rank": 6,
+        "first_rank": 2,
+        "doc_key": "doi:10.1210/en.139.3.1329",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1210/endo.139.3.5837",
+          "pmid": "9492069"
+        },
+        "repeat": {
+          "doi": "10.1210/en.139.3.1329",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-04",
+        "system": "openalex_semantic",
+        "rank": 8,
+        "first_rank": 7,
+        "doc_key": "doi:10.1097/00006123-199810000-00090",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1097/00006123-199810000-00095",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1097/00006123-199810000-00091",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-04",
+        "system": "openalex_semantic",
+        "rank": 9,
+        "first_rank": 7,
+        "doc_key": "doi:10.1097/00006123-199810000-00090",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1097/00006123-199810000-00095",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1097/00006123-199810000-00094",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-04",
+        "system": "openalex_combined_semantic",
+        "rank": 10,
+        "first_rank": 9,
+        "doc_key": "doi:10.1097/00006123-199810000-00090",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1097/00006123-199810000-00091",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1097/00006123-199810000-00095",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-06",
+        "system": "rbai_semantic",
+        "rank": 7,
+        "first_rank": 2,
+        "doc_key": "doi:10.1089/apc.2020.0164",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1089/apc.2020.0164",
+          "pmid": "33400587"
+        },
+        "repeat": {
+          "doi": "10.17615/31h9-jt80",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-07",
+        "system": "rbai_hybrid",
+        "rank": 9,
+        "first_rank": 5,
+        "doc_key": "doi:10.1186/s12870-017-1208-y",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1186/s12870-017-1208-y",
+          "pmid": "29281982"
+        },
+        "repeat": {
+          "doi": "10.1186/s12870-017-1208-y\">https://dx.doi.org/10.1186/s12870-017-1208-y</a",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-09",
+        "system": "openalex_combined_semantic",
+        "rank": 4,
+        "first_rank": 2,
+        "doc_key": "doi:10.1007/978-1-4020-6106-6_11",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1007/978-1-4020-6106-6_11",
+          "pmid": "6418019"
+        },
+        "repeat": {
+          "doi": "10.4269/ajtmh.1983.32.1407",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-10",
+        "system": "pubmed_keyword",
+        "rank": 8,
+        "first_rank": 5,
+        "doc_key": "doi:10.1021/acs.jpcb.4c04289",
+        "match": "title_alias",
+        "grade": 0,
+        "first": {
+          "doi": "10.1021/acs.jpcb.4c04289",
+          "pmid": "39666997"
+        },
+        "repeat": {
+          "doi": "10.1101/2024.08.29.610156",
+          "pmid": "39257759"
+        }
+      },
+      {
+        "question_id": "cit-050-199-11",
+        "system": "rbai_semantic",
+        "rank": 2,
+        "first_rank": 1,
+        "doc_key": "doi:10.3791/50172",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.3791/50172",
+          "pmid": "23711876"
+        },
+        "repeat": {
+          "doi": "10.3791/50172-v",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-13",
+        "system": "pubmed_keyword",
+        "rank": 6,
+        "first_rank": 1,
+        "doc_key": "doi:10.1007/978-1-0716-4730-1_33",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1007/978-1-0716-4730-1_33",
+          "pmid": "40720040"
+        },
+        "repeat": {
+          "doi": "10.1007/978-1-4939-8651-4_36",
+          "pmid": "30171567"
+        }
+      },
+      {
+        "question_id": "cit-050-199-16",
+        "system": "openalex_semantic",
+        "rank": 6,
+        "first_rank": 4,
+        "doc_key": "doi:10.1289/ehp.106-1533289",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1289/ehp.106-1533289",
+          "pmid": "9539016"
+        },
+        "repeat": {
+          "doi": "10.1289/ehp.98106s1231",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-16",
+        "system": "openalex_semantic",
+        "rank": 10,
+        "first_rank": 4,
+        "doc_key": "doi:10.1289/ehp.106-1533289",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1289/ehp.106-1533289",
+          "pmid": "9539016"
+        },
+        "repeat": {
+          "doi": "10.2307/3433923",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-16",
+        "system": "openalex_combined_semantic",
+        "rank": 7,
+        "first_rank": 4,
+        "doc_key": "doi:10.1289/ehp.106-1533289",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1289/ehp.106-1533289",
+          "pmid": "9539016"
+        },
+        "repeat": {
+          "doi": "10.1289/ehp.98106s1231",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-050-199-23",
+        "system": "rbai_semantic",
+        "rank": 5,
+        "first_rank": 4,
+        "doc_key": "doi:10.1128/mcb.10.2.696",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1128/mcb.10.2.696",
+          "pmid": "2153921"
+        },
+        "repeat": {
+          "doi": "10.1128/mcb.10.2.696-704.1990",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-08",
+        "system": "openalex_semantic",
+        "rank": 5,
+        "first_rank": 3,
+        "doc_key": "doi:10.1101/2022.07.22.501138",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1371/journal.pbio.3001913",
+          "pmid": "36548227"
+        },
+        "repeat": {
+          "doi": "10.1101/2022.07.22.501138",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-10",
+        "system": "rbai_keyword",
+        "rank": 2,
+        "first_rank": 1,
+        "doc_key": "doi:10.1038/s41467-018-07418-0",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1038/s41467-018-07418-0",
+          "pmid": "30479325"
+        },
+        "repeat": {
+          "doi": "10.17615/766f-7261",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-10",
+        "system": "rbai_hybrid",
+        "rank": 3,
+        "first_rank": 1,
+        "doc_key": "doi:10.1038/s41467-018-07418-0",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1038/s41467-018-07418-0",
+          "pmid": "30479325"
+        },
+        "repeat": {
+          "doi": "10.17615/766f-7261",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-10",
+        "system": "rbai_hybrid",
+        "rank": 7,
+        "first_rank": 2,
+        "doc_key": "doi:10.1186/s40168-017-0322-2",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1186/s40168-017-0322-2",
+          "pmid": "28835260"
+        },
+        "repeat": {
+          "doi": "10.17615/5w4f-d042",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-10",
+        "system": "openalex_keyword",
+        "rank": 7,
+        "first_rank": 1,
+        "doc_key": "doi:10.1038/s41467-018-07418-0",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1038/s41467-018-07418-0",
+          "pmid": "30479325"
+        },
+        "repeat": {
+          "doi": "10.17615/766f-7261",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-10",
+        "system": "openalex_combined_keyword",
+        "rank": 5,
+        "first_rank": 2,
+        "doc_key": "doi:10.1038/s43705-021-00027-x",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1038/s43705-021-00027-x",
+          "pmid": "36737514"
+        },
+        "repeat": {
+          "doi": "10.1101/2021.01.19.427333",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-10",
+        "system": "openalex_combined_keyword",
+        "rank": 9,
+        "first_rank": 7,
+        "doc_key": "doi:10.1101/2020.06.01.109066",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1101/2020.06.01.109066",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.17615/swms-2v90",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-13",
+        "system": "rbai_keyword",
+        "rank": 4,
+        "first_rank": 3,
+        "doc_key": "doi:10.1182/blood.v80.10.2634.2634",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1182/blood.v80.10.2634.bloodjournal80102634",
+          "pmid": "1384794"
+        },
+        "repeat": {
+          "doi": "10.1182/blood.v80.10.2634.2634",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-14",
+        "system": "openalex_semantic",
+        "rank": 10,
+        "first_rank": 9,
+        "doc_key": "doi:10.1016/s0165-2478(97)86365-1",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1016/s0165-2478(97)88203-x",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1016/s0165-2478(97)86365-1",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-17",
+        "system": "rbai_hybrid",
+        "rank": 9,
+        "first_rank": 6,
+        "doc_key": "doi:10.1042/0264-6021:3610105",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1042/0264-6021:3610105",
+          "pmid": "11742534"
+        },
+        "repeat": {
+          "doi": "10.1042/bj3610105",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-21",
+        "system": "openalex_semantic",
+        "rank": 7,
+        "first_rank": 4,
+        "doc_key": "doi:10.1186/1471-2164-12-167",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1186/1471-2164-12-167",
+          "pmid": "21450099"
+        },
+        "repeat": {
+          "doi": "10.6084/m9.figshare.c.4845615",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-21",
+        "system": "openalex_semantic",
+        "rank": 9,
+        "first_rank": 4,
+        "doc_key": "doi:10.1186/1471-2164-12-167",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1186/1471-2164-12-167",
+          "pmid": "21450099"
+        },
+        "repeat": {
+          "doi": "10.6084/m9.figshare.c.4845615.v1",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-21",
+        "system": "openalex_combined_semantic",
+        "rank": 7,
+        "first_rank": 3,
+        "doc_key": "doi:10.1186/1471-2164-12-167",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1186/1471-2164-12-167",
+          "pmid": "21450099"
+        },
+        "repeat": {
+          "doi": "10.6084/m9.figshare.c.4845615",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-21",
+        "system": "openalex_combined_semantic",
+        "rank": 9,
+        "first_rank": 3,
+        "doc_key": "doi:10.1186/1471-2164-12-167",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1186/1471-2164-12-167",
+          "pmid": "21450099"
+        },
+        "repeat": {
+          "doi": "10.6084/m9.figshare.c.4845615.v1",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-200-999-23",
+        "system": "openalex_combined_keyword",
+        "rank": 5,
+        "first_rank": 4,
+        "doc_key": "doi:10.1101/2025.04.01.646559",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.24072/pcjournal.641",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1101/2025.04.01.646559",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-1000-up-08",
+        "system": "rbai_keyword",
+        "rank": 6,
+        "first_rank": 5,
+        "doc_key": "doi:10.1128/mcb.14.5.3459",
+        "match": "title_alias",
+        "grade": 2,
+        "first": {
+          "doi": "10.1128/mcb.14.5.3459",
+          "pmid": "7513052"
+        },
+        "repeat": {
+          "doi": "10.1128/mcb.14.5.3459-3468.1994",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-1000-up-12",
+        "system": "rbai_keyword",
+        "rank": 9,
+        "first_rank": 4,
+        "doc_key": "doi:10.1002/1097-0215(200002)9999:9999<::aid-ijc1073>3.0.co;2-r",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1002/1097-0215(200002)9999:9999<::aid-ijc1073>3.0.co;2-r",
+          "pmid": "11251964"
+        },
+        "repeat": {
+          "doi": "10.1002/1097-0215(200002)9999:9999<::aid-ijc1073>3.3.co;2-i",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-1000-up-14",
+        "system": "rbai_hybrid",
+        "rank": 10,
+        "first_rank": 9,
+        "doc_key": "doi:10.1128/mcb.14.4.2331",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1128/mcb.14.4.2331-2342.1994",
+          "pmid": "7511204"
+        },
+        "repeat": {
+          "doi": "10.1128/mcb.14.4.2331",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-1000-up-20",
+        "system": "openalex_semantic",
+        "rank": 4,
+        "first_rank": 1,
+        "doc_key": "doi:10.1056/nejmoa0903810",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1056/nejmoa0903810",
+          "pmid": "19423869"
+        },
+        "repeat": {
+          "doi": "10.1056/nejmx090021",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-1000-up-20",
+        "system": "openalex_combined_semantic",
+        "rank": 7,
+        "first_rank": 1,
+        "doc_key": "doi:10.1056/nejmoa0903810",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1056/nejmoa0903810",
+          "pmid": "19423869"
+        },
+        "repeat": {
+          "doi": "10.1056/nejmx090021",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-1000-up-22",
+        "system": "openalex_combined_semantic",
+        "rank": 5,
+        "first_rank": 3,
+        "doc_key": "doi:10.1201/9781420017090-13",
+        "match": "title_alias",
+        "grade": 3,
+        "first": {
+          "doi": "10.1201/9781420017090.ch5",
+          "pmid": null
+        },
+        "repeat": {
+          "doi": "10.1201/9781420017090-13",
+          "pmid": null
+        }
+      },
+      {
+        "question_id": "cit-1000-up-23",
+        "system": "openalex_semantic",
+        "rank": 10,
+        "first_rank": 2,
+        "doc_key": "doi:10.1016/j.ajhg.2019.10.014",
+        "match": "title_alias",
+        "grade": 1,
+        "first": {
+          "doi": "10.1016/j.ajhg.2019.10.014",
+          "pmid": "31761296"
+        },
+        "repeat": {
+          "doi": "10.1016/j.ajhg.2019.12.008",
+          "pmid": null
+        }
+      }
+    ]
+  },
+  "known_item_metrics_unchanged": {
+    "checked": [
+      "hit_at_1",
+      "hit_at_10",
+      "hit_at_10_ci95",
+      "mrr_at_10",
+      "hit_at_10_mcnemar",
+      "per-question target_rank"
+    ],
+    "unchanged": true,
+    "why": "They are computed from target_rank, the first position at which the target's DOI or PubMed id appears (rankOfTarget in run-final-retrieval.mjs), and never from grades."
+  },
+  "arms": {
+    "rbai_semantic": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 10,
+        "new": 10,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.2326,
+        "new": 0.2326,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.5581,
+        "new": 0.5581,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.4535,
+          0.6628
+        ],
+        "new": [
+          0.4535,
+          0.6628
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.3339,
+        "new": 0.3339,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.5209,
+        "new": 0.5128,
+        "delta": -0.0081,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.4605,
+          0.5826
+        ],
+        "new": [
+          0.4535,
+          0.5744
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.5209,
+        "new": 0.5128,
+        "delta": -0.0081,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 5.21,
+        "new": 5.13,
+        "delta": -0.08,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.5851,
+        "new": 0.5751,
+        "delta": -0.01,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.5452,
+          0.6262
+        ],
+        "new": [
+          0.5369,
+          0.6133
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 0,
+        "new": 0,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "rbai_keyword": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 5.83,
+        "new": 5.83,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.4419,
+        "new": 0.4419,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.7907,
+        "new": 0.7907,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.6977,
+          0.8721
+        ],
+        "new": [
+          0.6977,
+          0.8721
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.5406,
+        "new": 0.5406,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.2279,
+        "new": 0.2244,
+        "delta": -0.0035,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.1814,
+          0.2779
+        ],
+        "new": [
+          0.1779,
+          0.2744
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.5672,
+        "new": 0.5585,
+        "delta": -0.0087,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 2.28,
+        "new": 2.24,
+        "delta": -0.04,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.3541,
+        "new": 0.3494,
+        "delta": -0.0047,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.3179,
+          0.3909
+        ],
+        "new": [
+          0.3138,
+          0.3863
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 0,
+        "new": 0,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "rbai_hybrid": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 9.47,
+        "new": 9.47,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.5,
+        "new": 0.5,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.7674,
+        "new": 0.7674,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.6744,
+          0.8488
+        ],
+        "new": [
+          0.6744,
+          0.8488
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.5921,
+        "new": 0.5921,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.3523,
+        "new": 0.3477,
+        "delta": -0.0046,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.2895,
+          0.4163
+        ],
+        "new": [
+          0.286,
+          0.4105
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.3762,
+        "new": 0.3715,
+        "delta": -0.0047,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 3.52,
+        "new": 3.48,
+        "delta": -0.04,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.5054,
+        "new": 0.4987,
+        "delta": -0.0067,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.4606,
+          0.5498
+        ],
+        "new": [
+          0.455,
+          0.5411
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 0,
+        "new": 0,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "openalex_semantic": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 10,
+        "new": 10,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.093,
+        "new": 0.093,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.2326,
+        "new": 0.2326,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.1512,
+          0.3256
+        ],
+        "new": [
+          0.1512,
+          0.3256
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.1302,
+        "new": 0.1302,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.4895,
+        "new": 0.4814,
+        "delta": -0.0081,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.4244,
+          0.5535
+        ],
+        "new": [
+          0.4163,
+          0.5453
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.4895,
+        "new": 0.4814,
+        "delta": -0.0081,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 4.9,
+        "new": 4.81,
+        "delta": -0.09,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.5171,
+        "new": 0.5093,
+        "delta": -0.0078,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.4781,
+          0.5565
+        ],
+        "new": [
+          0.4712,
+          0.5475
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 1,
+        "new": 1,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "openalex_keyword": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 9.44,
+        "new": 9.44,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.407,
+        "new": 0.407,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.7442,
+        "new": 0.7442,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.6512,
+          0.8372
+        ],
+        "new": [
+          0.6512,
+          0.8372
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.552,
+        "new": 0.552,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.2384,
+        "new": 0.2372,
+        "delta": -0.0012,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.1919,
+          0.2884
+        ],
+        "new": [
+          0.1907,
+          0.2872
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.2841,
+        "new": 0.2829,
+        "delta": -0.0012,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 2.38,
+        "new": 2.37,
+        "delta": -0.01,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.3836,
+        "new": 0.3822,
+        "delta": -0.0014,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.3418,
+          0.4249
+        ],
+        "new": [
+          0.3404,
+          0.4238
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 0,
+        "new": 0,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "pubmed_keyword": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 6.71,
+        "new": 6.71,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.4767,
+        "new": 0.4767,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.7674,
+        "new": 0.7674,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.6744,
+          0.8488
+        ],
+        "new": [
+          0.6744,
+          0.8488
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.5787,
+        "new": 0.5787,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.236,
+        "new": 0.2349,
+        "delta": -0.0011,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.1872,
+          0.2884
+        ],
+        "new": [
+          0.186,
+          0.286
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.5116,
+        "new": 0.5104,
+        "delta": -0.0012,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 2.36,
+        "new": 2.35,
+        "delta": -0.01,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.3732,
+        "new": 0.3727,
+        "delta": -0.0005,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.3317,
+          0.4147
+        ],
+        "new": [
+          0.3314,
+          0.4142
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 0,
+        "new": 0,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "openalex_combined_semantic": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 10,
+        "new": 10,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.1395,
+        "new": 0.1395,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.3256,
+        "new": 0.3256,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.2326,
+          0.4302
+        ],
+        "new": [
+          0.2326,
+          0.4302
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.1932,
+        "new": 0.1932,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.5337,
+        "new": 0.5244,
+        "delta": -0.0093,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.4698,
+          0.5965
+        ],
+        "new": [
+          0.4616,
+          0.5872
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.5337,
+        "new": 0.5244,
+        "delta": -0.0093,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 5.34,
+        "new": 5.24,
+        "delta": -0.1,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.5501,
+        "new": 0.542,
+        "delta": -0.0081,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.5124,
+          0.5879
+        ],
+        "new": [
+          0.5052,
+          0.5785
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 1,
+        "new": 1,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "openalex_combined_keyword": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 6.12,
+        "new": 6.12,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.0581,
+        "new": 0.0581,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.0698,
+        "new": 0.0698,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.0233,
+          0.1279
+        ],
+        "new": [
+          0.0233,
+          0.1279
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.064,
+        "new": 0.064,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.1,
+        "new": 0.0965,
+        "delta": -0.0035,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.0674,
+          0.1349
+        ],
+        "new": [
+          0.0651,
+          0.1314
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.1184,
+        "new": 0.1103,
+        "delta": -0.0081,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 1,
+        "new": 0.97,
+        "delta": -0.03,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.1515,
+        "new": 0.1481,
+        "delta": -0.0034,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.118,
+          0.186
+        ],
+        "new": [
+          0.1158,
+          0.1821
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 0,
+        "new": 0,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "openalex_best_of_both": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 10,
+        "new": 10,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.1744,
+        "new": 0.1744,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.3721,
+        "new": 0.3721,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.2674,
+          0.4767
+        ],
+        "new": [
+          0.2674,
+          0.4767
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.2339,
+        "new": 0.2339,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.5407,
+        "new": 0.5302,
+        "delta": -0.0105,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.4791,
+          0.6012
+        ],
+        "new": [
+          0.4686,
+          0.5907
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.55,
+        "new": 0.5349,
+        "delta": -0.0151,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 5.41,
+        "new": 5.3,
+        "delta": -0.11,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.5569,
+        "new": 0.5467,
+        "delta": -0.0102,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.5198,
+          0.5933
+        ],
+        "new": [
+          0.51,
+          0.5827
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 0,
+        "new": 0,
+        "delta": 0,
+        "changed": false
+      }
+    },
+    "openalex_oracle_any": {
+      "n_questions_with_ndcg": {
+        "old": 86,
+        "new": 86,
+        "delta": 0,
+        "changed": false
+      },
+      "mean_results_returned": {
+        "old": 10,
+        "new": 10,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_1": {
+        "old": 0.4767,
+        "new": 0.4767,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10": {
+        "old": 0.7674,
+        "new": 0.7674,
+        "delta": 0,
+        "changed": false
+      },
+      "hit_at_10_ci95": {
+        "old": [
+          0.6744,
+          0.8488
+        ],
+        "new": [
+          0.6744,
+          0.8488
+        ],
+        "changed": false
+      },
+      "mrr_at_10": {
+        "old": 0.5961,
+        "new": 0.5961,
+        "delta": 0,
+        "changed": false
+      },
+      "precision_at_10": {
+        "old": 0.5767,
+        "new": 0.5674,
+        "delta": -0.0093,
+        "changed": true
+      },
+      "precision_at_10_ci95": {
+        "old": [
+          0.5186,
+          0.6326
+        ],
+        "new": [
+          0.5105,
+          0.6233
+        ],
+        "changed": true
+      },
+      "precision_of_returned": {
+        "old": 0.6128,
+        "new": 0.5988,
+        "delta": -0.014,
+        "changed": true
+      },
+      "mean_relevant_in_top_10": {
+        "old": 5.77,
+        "new": 5.67,
+        "delta": -0.1,
+        "changed": true
+      },
+      "ndcg_at_10": {
+        "old": 0.6019,
+        "new": 0.595,
+        "delta": -0.0069,
+        "changed": true
+      },
+      "ndcg_at_10_ci95": {
+        "old": [
+          0.5716,
+          0.6312
+        ],
+        "new": [
+          0.5654,
+          0.6242
+        ],
+        "changed": true
+      },
+      "ungraded_documents_in_top_k": {
+        "old": 0,
+        "new": 0,
+        "delta": 0,
+        "changed": false
+      }
+    }
+  },
+  "comparisons": {
+    "rbai_semantic__vs__openalex_semantic": {
+      "label": "meaning-based search, ours against OpenAlex",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 33,
+          "losses": 5,
+          "p": 0.00000426
+        },
+        "new": {
+          "wins": 33,
+          "losses": 5,
+          "p": 0.00000426
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00003408,
+          "new": 0.00003408,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 52,
+          "losses": 33,
+          "ties": 1,
+          "mean_difference": 0.068,
+          "p": 0.00855
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 55,
+          "losses": 30,
+          "ties": 1,
+          "mean_difference": 0.0658,
+          "p": 0.00515
+        },
+        "mean_difference_delta": -0.0022,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.05985,
+          "new": 0.03605,
+          "crosses_0_05": true
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 38,
+          "losses": 32,
+          "ties": 16,
+          "mean_difference": 0.0314,
+          "p": 0.363682
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 38,
+          "losses": 32,
+          "ties": 16,
+          "mean_difference": 0.0314,
+          "p": 0.334633
+        },
+        "mean_difference_delta": 0,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 1,
+          "new": 1,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 38,
+          "losses": 32,
+          "ties": 16,
+          "mean_difference": 0.0314,
+          "p": 0.363682
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 38,
+          "losses": 32,
+          "ties": 16,
+          "mean_difference": 0.0314,
+          "p": 0.334633
+        },
+        "mean_difference_delta": 0,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.727364,
+          "new": 0.669266,
+          "crosses_0_05": false
+        },
+        "changed": true
+      }
+    },
+    "rbai_semantic__vs__openalex_combined_semantic": {
+      "label": "meaning-based search, ours against the stronger OpenAlex semantic variant",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 25,
+          "losses": 5,
+          "p": 0.00032491
+        },
+        "new": {
+          "wins": 25,
+          "losses": 5,
+          "p": 0.00032491
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00227437,
+          "new": 0.00227437,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 49,
+          "losses": 36,
+          "ties": 1,
+          "mean_difference": 0.035,
+          "p": 0.19619
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 50,
+          "losses": 36,
+          "ties": 0,
+          "mean_difference": 0.0331,
+          "p": 0.187141
+        },
+        "mean_difference_delta": -0.0019,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.568173,
+          "new": 0.374282,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 35,
+          "losses": 37,
+          "ties": 14,
+          "mean_difference": -0.0128,
+          "p": 0.729414
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 35,
+          "losses": 36,
+          "ties": 15,
+          "mean_difference": -0.0116,
+          "p": 0.742663
+        },
+        "mean_difference_delta": 0.0012,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 1,
+          "new": 1,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 35,
+          "losses": 37,
+          "ties": 14,
+          "mean_difference": -0.0128,
+          "p": 0.729414
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 35,
+          "losses": 36,
+          "ties": 15,
+          "mean_difference": -0.0116,
+          "p": 0.742663
+        },
+        "mean_difference_delta": 0.0012,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.729414,
+          "new": 0.742663,
+          "crosses_0_05": false
+        },
+        "changed": true
+      }
+    },
+    "rbai_semantic__vs__openalex_oracle_any": {
+      "label": "meaning-based search against the most generous OpenAlex oracle",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 8,
+          "losses": 26,
+          "p": 0.00293506
+        },
+        "new": {
+          "wins": 8,
+          "losses": 26,
+          "p": 0.00293506
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.0146753,
+          "new": 0.0146753,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 41,
+          "losses": 44,
+          "ties": 1,
+          "mean_difference": -0.0168,
+          "p": 0.524174
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 40,
+          "losses": 46,
+          "ties": 0,
+          "mean_difference": -0.02,
+          "p": 0.421679
+        },
+        "mean_difference_delta": -0.0032,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.568173,
+          "new": 0.421679,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 30,
+          "losses": 42,
+          "ties": 14,
+          "mean_difference": -0.0558,
+          "p": 0.113544
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 30,
+          "losses": 41,
+          "ties": 15,
+          "mean_difference": -0.0547,
+          "p": 0.110194
+        },
+        "mean_difference_delta": 0.0011,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.56772,
+          "new": 0.55097,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 29,
+          "losses": 45,
+          "ties": 12,
+          "mean_difference": -0.0919,
+          "p": 0.017549
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 29,
+          "losses": 44,
+          "ties": 13,
+          "mean_difference": -0.086,
+          "p": 0.022199
+        },
+        "mean_difference_delta": 0.0059,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.052647,
+          "new": 0.088396,
+          "crosses_0_05": false
+        },
+        "changed": true
+      }
+    },
+    "rbai_keyword__vs__openalex_keyword": {
+      "label": "keyword search, ours against OpenAlex",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 11,
+          "losses": 7,
+          "p": 0.48068237
+        },
+        "new": {
+          "wins": 11,
+          "losses": 7,
+          "p": 0.48068237
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 1,
+          "new": 1,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 31,
+          "losses": 51,
+          "ties": 4,
+          "mean_difference": -0.0294,
+          "p": 0.073746
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 29,
+          "losses": 53,
+          "ties": 4,
+          "mean_difference": -0.0328,
+          "p": 0.040898
+        },
+        "mean_difference_delta": -0.0034,
+        "p_crosses_0_05": true,
+        "p_holm": {
+          "old": 0.319735,
+          "new": 0.20449,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 28,
+          "losses": 30,
+          "ties": 28,
+          "mean_difference": -0.0105,
+          "p": 0.615269
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 28,
+          "losses": 30,
+          "ties": 28,
+          "mean_difference": -0.0128,
+          "p": 0.522224
+        },
+        "mean_difference_delta": -0.0023,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 1,
+          "new": 1,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 64,
+          "losses": 13,
+          "ties": 9,
+          "mean_difference": 0.2831,
+          "p": 0.00005
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 64,
+          "losses": 13,
+          "ties": 9,
+          "mean_difference": 0.2756,
+          "p": 0.00005
+        },
+        "mean_difference_delta": -0.0075,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00045,
+          "new": 0.00045,
+          "crosses_0_05": false
+        },
+        "changed": true
+      }
+    },
+    "rbai_keyword__vs__pubmed_keyword": {
+      "label": "keyword search, ours against PubMed",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 7,
+          "losses": 5,
+          "p": 0.77441406
+        },
+        "new": {
+          "wins": 7,
+          "losses": 5,
+          "p": 0.77441406
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 1,
+          "new": 1,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 26,
+          "losses": 35,
+          "ties": 25,
+          "mean_difference": -0.019,
+          "p": 0.189391
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 25,
+          "losses": 36,
+          "ties": 25,
+          "mean_difference": -0.0233,
+          "p": 0.098145
+        },
+        "mean_difference_delta": -0.0043,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.568173,
+          "new": 0.302984,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 18,
+          "losses": 21,
+          "ties": 47,
+          "mean_difference": -0.0081,
+          "p": 0.663117
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 16,
+          "losses": 20,
+          "ties": 50,
+          "mean_difference": -0.0105,
+          "p": 0.555222
+        },
+        "mean_difference_delta": -0.0024,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 1,
+          "new": 1,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 32,
+          "losses": 16,
+          "ties": 38,
+          "mean_difference": 0.0556,
+          "p": 0.011449
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 30,
+          "losses": 15,
+          "ties": 41,
+          "mean_difference": 0.0481,
+          "p": 0.022099
+        },
+        "mean_difference_delta": -0.0075,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.045796,
+          "new": 0.088396,
+          "crosses_0_05": true
+        },
+        "changed": true
+      }
+    },
+    "rbai_hybrid__vs__rbai_semantic": {
+      "label": "hybrid against our own meaning-based mode",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 22,
+          "losses": 4,
+          "p": 0.00053352
+        },
+        "new": {
+          "wins": 22,
+          "losses": 4,
+          "p": 0.00053352
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00320112,
+          "new": 0.00320112,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 35,
+          "losses": 49,
+          "ties": 2,
+          "mean_difference": -0.0797,
+          "p": 0.011149
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 35,
+          "losses": 51,
+          "ties": 0,
+          "mean_difference": -0.0763,
+          "p": 0.010449
+        },
+        "mean_difference_delta": 0.0034,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.066894,
+          "new": 0.062694,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 23,
+          "losses": 55,
+          "ties": 8,
+          "mean_difference": -0.1686,
+          "p": 0.00055
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 22,
+          "losses": 55,
+          "ties": 9,
+          "mean_difference": -0.1651,
+          "p": 0.0005
+        },
+        "mean_difference_delta": 0.0035,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.0033,
+          "new": 0.003,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 25,
+          "losses": 53,
+          "ties": 8,
+          "mean_difference": -0.1448,
+          "p": 0.0017
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 24,
+          "losses": 53,
+          "ties": 9,
+          "mean_difference": -0.1413,
+          "p": 0.0021
+        },
+        "mean_difference_delta": 0.0035,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.0085,
+          "new": 0.0105,
+          "crosses_0_05": false
+        },
+        "changed": true
+      }
+    },
+    "rbai_hybrid__vs__rbai_keyword": {
+      "label": "hybrid against our own keyword mode",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 10,
+          "losses": 12,
+          "p": 0.8318119
+        },
+        "new": {
+          "wins": 10,
+          "losses": 12,
+          "p": 0.8318119
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 1,
+          "new": 1,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 66,
+          "losses": 16,
+          "ties": 4,
+          "mean_difference": 0.1513,
+          "p": 0.00005
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 66,
+          "losses": 16,
+          "ties": 4,
+          "mean_difference": 0.1493,
+          "p": 0.00005
+        },
+        "mean_difference_delta": -0.002,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00045,
+          "new": 0.00045,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 45,
+          "losses": 13,
+          "ties": 28,
+          "mean_difference": 0.1244,
+          "p": 0.00005
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 45,
+          "losses": 13,
+          "ties": 28,
+          "mean_difference": 0.1233,
+          "p": 0.00005
+        },
+        "mean_difference_delta": -0.0011,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00045,
+          "new": 0.00045,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 27,
+          "losses": 46,
+          "ties": 13,
+          "mean_difference": -0.191,
+          "p": 0.0006
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 28,
+          "losses": 44,
+          "ties": 14,
+          "mean_difference": -0.187,
+          "p": 0.00085
+        },
+        "mean_difference_delta": 0.004,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.0036,
+          "new": 0.0051,
+          "crosses_0_05": false
+        },
+        "changed": true
+      }
+    },
+    "rbai_hybrid__vs__openalex_best_of_both": {
+      "label": "hybrid against the OpenAlex two-mode oracle",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 34,
+          "losses": 0,
+          "p": 0
+        },
+        "new": {
+          "wins": 34,
+          "losses": 0,
+          "p": 0
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0,
+          "new": 0,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 36,
+          "losses": 50,
+          "ties": 0,
+          "mean_difference": -0.0515,
+          "p": 0.063947
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 36,
+          "losses": 50,
+          "ties": 0,
+          "mean_difference": -0.048,
+          "p": 0.075746
+        },
+        "mean_difference_delta": 0.0035,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.319735,
+          "new": 0.302984,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 19,
+          "losses": 55,
+          "ties": 12,
+          "mean_difference": -0.1884,
+          "p": 0.00005
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 21,
+          "losses": 54,
+          "ties": 11,
+          "mean_difference": -0.1826,
+          "p": 0.00005
+        },
+        "mean_difference_delta": 0.0058,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00045,
+          "new": 0.00045,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 19,
+          "losses": 55,
+          "ties": 12,
+          "mean_difference": -0.1738,
+          "p": 0.0001
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 22,
+          "losses": 53,
+          "ties": 11,
+          "mean_difference": -0.1634,
+          "p": 0.00025
+        },
+        "mean_difference_delta": 0.0104,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.0007,
+          "new": 0.00175,
+          "crosses_0_05": false
+        },
+        "changed": true
+      }
+    },
+    "rbai_hybrid__vs__openalex_oracle_any": {
+      "label": "hybrid against the most generous OpenAlex oracle",
+      "hit_at_10_mcnemar": {
+        "old": {
+          "wins": 13,
+          "losses": 13,
+          "p": 1
+        },
+        "new": {
+          "wins": 13,
+          "losses": 13,
+          "p": 1
+        },
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 1,
+          "new": 1,
+          "crosses_0_05": false
+        },
+        "changed": false
+      },
+      "ndcg_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 30,
+          "losses": 56,
+          "ties": 0,
+          "mean_difference": -0.0965,
+          "p": 0.0004
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 30,
+          "losses": 56,
+          "ties": 0,
+          "mean_difference": -0.0963,
+          "p": 0.0003
+        },
+        "mean_difference_delta": 0.0002,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.0032,
+          "new": 0.0024,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_at_10_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 14,
+          "losses": 59,
+          "ties": 13,
+          "mean_difference": -0.2244,
+          "p": 0.00005
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 16,
+          "losses": 58,
+          "ties": 12,
+          "mean_difference": -0.2198,
+          "p": 0.00005
+        },
+        "mean_difference_delta": 0.0046,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00045,
+          "new": 0.00045,
+          "crosses_0_05": false
+        },
+        "changed": true
+      },
+      "precision_of_returned_permutation": {
+        "old": {
+          "n_compared": 86,
+          "wins": 14,
+          "losses": 58,
+          "ties": 14,
+          "mean_difference": -0.2366,
+          "p": 0.00005
+        },
+        "new": {
+          "n_compared": 86,
+          "wins": 16,
+          "losses": 56,
+          "ties": 14,
+          "mean_difference": -0.2273,
+          "p": 0.00005
+        },
+        "mean_difference_delta": 0.0093,
+        "p_crosses_0_05": false,
+        "p_holm": {
+          "old": 0.00045,
+          "new": 0.00045,
+          "crosses_0_05": false
+        },
+        "changed": true
+      }
+    }
+  },
+  "p_value_crossings_of_0_05": [
+    {
+      "comparison": "rbai_semantic__vs__openalex_semantic",
+      "test": "ndcg_at_10_permutation",
+      "adjustment": "holm",
+      "old": 0.05985,
+      "new": 0.03605
+    },
+    {
+      "comparison": "rbai_keyword__vs__openalex_keyword",
+      "test": "ndcg_at_10_permutation",
+      "adjustment": "none",
+      "old": 0.073746,
+      "new": 0.040898
+    },
+    {
+      "comparison": "rbai_keyword__vs__pubmed_keyword",
+      "test": "precision_of_returned_permutation",
+      "adjustment": "holm",
+      "old": 0.045796,
+      "new": 0.088396
+    }
+  ],
+  "claims": [
+    {
+      "claim": "best usable system on nDCG@10",
+      "old": "rbai_semantic",
+      "new": "rbai_semantic",
+      "holds": true
+    },
+    {
+      "claim": "best usable system on P@10",
+      "old": "rbai_semantic",
+      "new": "rbai_semantic",
+      "holds": true
+    },
+    {
+      "claim": "best usable system on P@shown",
+      "old": "rbai_keyword",
+      "new": "rbai_keyword",
+      "holds": true
+    },
+    {
+      "claim": "best usable system on Hit@1",
+      "old": "rbai_hybrid",
+      "new": "rbai_hybrid",
+      "holds": true
+    },
+    {
+      "claim": "best usable system on MRR@10",
+      "old": "rbai_hybrid",
+      "new": "rbai_hybrid",
+      "holds": true
+    },
+    {
+      "claim": "any-request bound above hybrid on nDCG@10",
+      "old": true,
+      "new": true,
+      "holds": true
+    },
+    {
+      "claim": "any-request bound above semantic on nDCG@10",
+      "old": true,
+      "new": true,
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_semantic ndcg_at_10 difference",
+      "old": "+",
+      "new": "+",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_semantic precision_at_10 difference",
+      "old": "+",
+      "new": "+",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_semantic precision_of_returned difference",
+      "old": "+",
+      "new": "+",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_combined_semantic ndcg_at_10 difference",
+      "old": "+",
+      "new": "+",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_combined_semantic precision_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_combined_semantic precision_of_returned difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_oracle_any ndcg_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_oracle_any precision_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_semantic__vs__openalex_oracle_any precision_of_returned difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_keyword__vs__openalex_keyword ndcg_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_keyword__vs__openalex_keyword precision_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_keyword__vs__openalex_keyword precision_of_returned difference",
+      "old": "+",
+      "new": "+",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_keyword__vs__pubmed_keyword ndcg_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_keyword__vs__pubmed_keyword precision_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_keyword__vs__pubmed_keyword precision_of_returned difference",
+      "old": "+",
+      "new": "+",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__rbai_semantic ndcg_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__rbai_semantic precision_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__rbai_semantic precision_of_returned difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__rbai_keyword ndcg_at_10 difference",
+      "old": "+",
+      "new": "+",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__rbai_keyword precision_at_10 difference",
+      "old": "+",
+      "new": "+",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__rbai_keyword precision_of_returned difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__openalex_best_of_both ndcg_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__openalex_best_of_both precision_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__openalex_best_of_both precision_of_returned difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__openalex_oracle_any ndcg_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__openalex_oracle_any precision_at_10 difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    },
+    {
+      "claim": "sign of rbai_hybrid__vs__openalex_oracle_any precision_of_returned difference",
+      "old": "-",
+      "new": "-",
+      "holds": true
+    }
+  ],
+  "per_question_changes": [
+    {
+      "question_id": "cit-000-009-08",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.6056,
+        "new": 0.5885
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.6
+      }
+    },
+    {
+      "question_id": "cit-000-009-19",
+      "system": "rbai_semantic",
+      "ndcg_at_10": {
+        "old": 1.0568,
+        "new": 0.824
+      },
+      "precision_at_10": {
+        "old": 0.8,
+        "new": 0.7
+      }
+    },
+    {
+      "question_id": "cit-000-009-19",
+      "system": "rbai_keyword",
+      "ndcg_at_10": {
+        "old": 0.5036,
+        "new": 0.3609
+      },
+      "precision_at_10": {
+        "old": 0.3,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-000-009-19",
+      "system": "rbai_hybrid",
+      "ndcg_at_10": {
+        "old": 0.9484,
+        "new": 0.7157
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.3
+      }
+    },
+    {
+      "question_id": "cit-000-009-20",
+      "system": "openalex_combined_keyword",
+      "ndcg_at_10": {
+        "old": 0.449,
+        "new": 0.2753
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-000-009-20",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.449,
+        "new": 0.2753
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-000-009-21",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.6257,
+        "new": 0.6114
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.4
+      }
+    },
+    {
+      "question_id": "cit-010-049-02",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.6749,
+        "new": 0.56
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.3
+      }
+    },
+    {
+      "question_id": "cit-010-049-02",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.7778,
+        "new": 0.6629
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-010-049-02",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.7778,
+        "new": 0.6629
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-010-049-02",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.7778,
+        "new": 0.6629
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-010-049-04",
+      "system": "rbai_semantic",
+      "ndcg_at_10": {
+        "old": 0.955,
+        "new": 0.5281
+      },
+      "precision_at_10": {
+        "old": 0.9,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-010-049-09",
+      "system": "rbai_hybrid",
+      "ndcg_at_10": {
+        "old": 0.2998,
+        "new": 0.279
+      },
+      "precision_at_10": {
+        "old": 0,
+        "new": 0
+      }
+    },
+    {
+      "question_id": "cit-010-049-09",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.3415,
+        "new": 0.2989
+      },
+      "precision_at_10": {
+        "old": 0.1,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-010-049-09",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.3796,
+        "new": 0.3561
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-010-049-09",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.3796,
+        "new": 0.3561
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-010-049-10",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.4882,
+        "new": 0.4352
+      },
+      "precision_at_10": {
+        "old": 0.3,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-010-049-10",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.4882,
+        "new": 0.4352
+      },
+      "precision_at_10": {
+        "old": 0.3,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-010-049-10",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.4882,
+        "new": 0.4352
+      },
+      "precision_at_10": {
+        "old": 0.3,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-010-049-15",
+      "system": "openalex_combined_keyword",
+      "ndcg_at_10": {
+        "old": 0.5213,
+        "new": 0.4993
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-010-049-19",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.3714,
+        "new": 0.3491
+      },
+      "precision_at_10": {
+        "old": 0.1,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-010-049-19",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.3714,
+        "new": 0.3491
+      },
+      "precision_at_10": {
+        "old": 0.1,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-010-049-19",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.3714,
+        "new": 0.3491
+      },
+      "precision_at_10": {
+        "old": 0.1,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-050-199-01",
+      "system": "rbai_hybrid",
+      "ndcg_at_10": {
+        "old": 0.3858,
+        "new": 0.3673
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-050-199-01",
+      "system": "openalex_keyword",
+      "ndcg_at_10": {
+        "old": 0.3837,
+        "new": 0.3628
+      },
+      "precision_at_10": {
+        "old": 0.1,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-050-199-04",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.415,
+        "new": 0.3801
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-050-199-04",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.6195,
+        "new": 0.6031
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.4
+      }
+    },
+    {
+      "question_id": "cit-050-199-04",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.6195,
+        "new": 0.6031
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.4
+      }
+    },
+    {
+      "question_id": "cit-050-199-04",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.6195,
+        "new": 0.6031
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.4
+      }
+    },
+    {
+      "question_id": "cit-050-199-06",
+      "system": "rbai_semantic",
+      "ndcg_at_10": {
+        "old": 0.624,
+        "new": 0.5925
+      },
+      "precision_at_10": {
+        "old": 0.9,
+        "new": 0.8
+      }
+    },
+    {
+      "question_id": "cit-050-199-07",
+      "system": "rbai_hybrid",
+      "ndcg_at_10": {
+        "old": 0.5146,
+        "new": 0.4826
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.3
+      }
+    },
+    {
+      "question_id": "cit-050-199-09",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.7454,
+        "new": 0.6913
+      },
+      "precision_at_10": {
+        "old": 0.9,
+        "new": 0.8
+      }
+    },
+    {
+      "question_id": "cit-050-199-09",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.7454,
+        "new": 0.6913
+      },
+      "precision_at_10": {
+        "old": 0.9,
+        "new": 0.8
+      }
+    },
+    {
+      "question_id": "cit-050-199-09",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.7454,
+        "new": 0.6913
+      },
+      "precision_at_10": {
+        "old": 0.9,
+        "new": 0.8
+      }
+    },
+    {
+      "question_id": "cit-050-199-11",
+      "system": "rbai_semantic",
+      "ndcg_at_10": {
+        "old": 0.7434,
+        "new": 0.5934
+      },
+      "precision_at_10": {
+        "old": 0.7,
+        "new": 0.6
+      }
+    },
+    {
+      "question_id": "cit-050-199-13",
+      "system": "pubmed_keyword",
+      "ndcg_at_10": {
+        "old": 0.5114,
+        "new": 0.4716
+      },
+      "precision_at_10": {
+        "old": 0.7,
+        "new": 0.6
+      }
+    },
+    {
+      "question_id": "cit-050-199-16",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.468,
+        "new": 0.4022
+      },
+      "precision_at_10": {
+        "old": 0.7,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-050-199-16",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.6555,
+        "new": 0.6215
+      },
+      "precision_at_10": {
+        "old": 0.8,
+        "new": 0.7
+      }
+    },
+    {
+      "question_id": "cit-050-199-16",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.6555,
+        "new": 0.6215
+      },
+      "precision_at_10": {
+        "old": 0.8,
+        "new": 0.7
+      }
+    },
+    {
+      "question_id": "cit-050-199-16",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.6555,
+        "new": 0.6215
+      },
+      "precision_at_10": {
+        "old": 0.8,
+        "new": 0.7
+      }
+    },
+    {
+      "question_id": "cit-050-199-23",
+      "system": "rbai_semantic",
+      "ndcg_at_10": {
+        "old": 0.6574,
+        "new": 0.6347
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-200-999-08",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.2264,
+        "new": 0.2102
+      },
+      "precision_at_10": {
+        "old": 0.1,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-200-999-10",
+      "system": "rbai_keyword",
+      "ndcg_at_10": {
+        "old": 0.4781,
+        "new": 0.2932
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-200-999-10",
+      "system": "rbai_hybrid",
+      "ndcg_at_10": {
+        "old": 0.9726,
+        "new": 0.7283
+      },
+      "precision_at_10": {
+        "old": 0.7,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-200-999-10",
+      "system": "openalex_keyword",
+      "ndcg_at_10": {
+        "old": 0.5794,
+        "new": 0.4817
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.3
+      }
+    },
+    {
+      "question_id": "cit-200-999-10",
+      "system": "openalex_combined_keyword",
+      "ndcg_at_10": {
+        "old": 0.2938,
+        "new": 0.2398
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.3
+      }
+    },
+    {
+      "question_id": "cit-200-999-13",
+      "system": "rbai_keyword",
+      "ndcg_at_10": {
+        "old": 0.4918,
+        "new": 0.4656
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.2
+      }
+    },
+    {
+      "question_id": "cit-200-999-14",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.4804,
+        "new": 0.4521
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-200-999-17",
+      "system": "rbai_hybrid",
+      "ndcg_at_10": {
+        "old": 0.2998,
+        "new": 0.28
+      },
+      "precision_at_10": {
+        "old": 0,
+        "new": 0
+      }
+    },
+    {
+      "question_id": "cit-200-999-21",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 1.0406,
+        "new": 0.8149
+      },
+      "precision_at_10": {
+        "old": 0.7,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-200-999-21",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.753,
+        "new": 0.5273
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.4
+      }
+    },
+    {
+      "question_id": "cit-200-999-21",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.753,
+        "new": 0.5273
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.4
+      }
+    },
+    {
+      "question_id": "cit-200-999-21",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.753,
+        "new": 0.5273
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.4
+      }
+    },
+    {
+      "question_id": "cit-200-999-23",
+      "system": "openalex_combined_keyword",
+      "ndcg_at_10": {
+        "old": 0.282,
+        "new": 0.2388
+      },
+      "precision_at_10": {
+        "old": 0.4,
+        "new": 0.3
+      }
+    },
+    {
+      "question_id": "cit-1000-up-08",
+      "system": "rbai_keyword",
+      "ndcg_at_10": {
+        "old": 0.3504,
+        "new": 0.3125
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-1000-up-12",
+      "system": "rbai_keyword",
+      "ndcg_at_10": {
+        "old": 0.5231,
+        "new": 0.5082
+      },
+      "precision_at_10": {
+        "old": 0.1,
+        "new": 0.1
+      }
+    },
+    {
+      "question_id": "cit-1000-up-14",
+      "system": "rbai_hybrid",
+      "ndcg_at_10": {
+        "old": 0.337,
+        "new": 0.3272
+      },
+      "precision_at_10": {
+        "old": 0.5,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-1000-up-20",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.6826,
+        "new": 0.5878
+      },
+      "precision_at_10": {
+        "old": 0.6,
+        "new": 0.5
+      }
+    },
+    {
+      "question_id": "cit-1000-up-20",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.7916,
+        "new": 0.7183
+      },
+      "precision_at_10": {
+        "old": 0.7,
+        "new": 0.6
+      }
+    },
+    {
+      "question_id": "cit-1000-up-20",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.7916,
+        "new": 0.7183
+      },
+      "precision_at_10": {
+        "old": 0.7,
+        "new": 0.6
+      }
+    },
+    {
+      "question_id": "cit-1000-up-20",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.7916,
+        "new": 0.7183
+      },
+      "precision_at_10": {
+        "old": 0.7,
+        "new": 0.6
+      }
+    },
+    {
+      "question_id": "cit-1000-up-22",
+      "system": "openalex_combined_semantic",
+      "ndcg_at_10": {
+        "old": 0.6064,
+        "new": 0.5213
+      },
+      "precision_at_10": {
+        "old": 0.9,
+        "new": 0.8
+      }
+    },
+    {
+      "question_id": "cit-1000-up-22",
+      "system": "openalex_best_of_both",
+      "ndcg_at_10": {
+        "old": 0.6064,
+        "new": 0.5213
+      },
+      "precision_at_10": {
+        "old": 0.9,
+        "new": 0.8
+      }
+    },
+    {
+      "question_id": "cit-1000-up-22",
+      "system": "openalex_oracle_any",
+      "ndcg_at_10": {
+        "old": 0.67,
+        "new": 0.67
+      },
+      "precision_at_10": {
+        "old": 0.9,
+        "new": 0.8
+      }
+    },
+    {
+      "question_id": "cit-1000-up-23",
+      "system": "openalex_semantic",
+      "ndcg_at_10": {
+        "old": 0.5578,
+        "new": 0.5435
+      },
+      "precision_at_10": {
+        "old": 0.2,
+        "new": 0.2
+      }
+    }
+  ]
+}

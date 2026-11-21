@@ -1,0 +1,67 @@
+{
+  "tuned_at": "2026-09-15T10:43:15.856Z",
+  "candidate_pool": 200,
+  "criterion": "choose the lowest multiplier whose Hit@10 is not below the 2.0 baseline and which produced no errors",
+  "multipliers": [
+    "2.0",
+    "1.5",
+    "1.2",
+    "1.0"
+  ],
+  "summary": {
+    "2.0": {
+      "ef_search": 400,
+      "n": 20,
+      "errors": 0,
+      "hit_at_10": 0.95,
+      "hit_at_1": 0.65,
+      "mrr": 0.7767,
+      "search_ms": {
+        "p50": 5085,
+        "p95": 7598,
+        "mean": 5231
+      }
+    },
+    "1.5": {
+      "ef_search": 300,
+      "n": 20,
+      "errors": 0,
+      "hit_at_10": 0.95,
+      "hit_at_1": 0.65,
+      "mrr": 0.7767,
+      "search_ms": {
+        "p50": 4361,
+        "p95": 4937,
+        "mean": 4432
+      }
+    },
+    "1.2": {
+      "ef_search": 240,
+      "n": 20,
+      "errors": 0,
+      "hit_at_10": 0.95,
+      "hit_at_1": 0.65,
+      "mrr": 0.7767,
+      "search_ms": {
+        "p50": 3913,
+        "p95": 4341,
+        "mean": 3945
+      }
+    },
+    "1.0": {
+      "ef_search": 200,
+      "n": 20,
+      "errors": 0,
+      "hit_at_10": 0.95,
+      "hit_at_1": 0.65,
+      "mrr": 0.7767,
+      "search_ms": {
+        "p50": 4058,
+        "p95": 4337,
+        "mean": 4042
+      }
+    }
+  },
+  "recommendation": "1.0",
+  "latency_saving_vs_2x_ms": 1027
+}

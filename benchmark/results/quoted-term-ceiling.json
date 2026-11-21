@@ -1,0 +1,147 @@
+{
+  "schema_version": "quoted-term-ceiling/1",
+  "run_at": "2026-09-19T17:38:39.316Z",
+  "question": "Do the marked terms refused by the 20,000-document ceiling actually fail under the serving statement timeout, or would they have been served?",
+  "method": "The 20,000-record limit on quoted terms was lifted for this run only, so the refused queries ran; the statement timeout was left at its serving default of 15 s, so the timings describe what a user would experience. The public service was not changed.",
+  "serving_statement_timeout_ms": 15000,
+  "ceiling_under_test": 20000,
+  "refused_by_ceiling": 3,
+  "of_those_served_when_attempted": 3,
+  "of_those_that_failed": 0,
+  "slowest_search_ms_among_refused": 22478,
+  "slowest_search_ms_among_served_reference": 6011,
+  "targets_found_among_refused": 3,
+  "interpretation": "All 3 refused terms return results, and 3 of 3 find their target, so the ceiling is not preventing failure. It is a latency guard, and the question is whether document frequency is a sound proxy for latency. Within this sample the ordering holds: all 3 refused terms are slower than the slowest term the ceiling admits (6011 ms). That is weak evidence and is not evidence about the threshold in general, because every term here is a marked term from the 332-question set and so is rare; a sample containing no genuinely common phrase cannot detect an inversion. What this sample does establish is the cost of the guard: 3 questions scored as complete misses in order to avoid responses of 6574–22478 ms. Whether that trade is right is a policy choice rather than a measurement, and it is recorded here as one. Degrading such a query — a bounded candidate pool with a disclosure that the ranking is over the most-cited matches — would serve the searcher better than refusing the question they asked, and is the option the lexical path already takes when its own pool bound engages.",
+  "latency_ordering_check": {
+    "slowest_served_reference_ms": 6011,
+    "refused_but_faster_than_that": [],
+    "refused_and_genuinely_slower": [
+      {
+        "identifier": "ARS",
+        "df": 38185,
+        "search_ms": 22478
+      },
+      {
+        "identifier": "Nodal",
+        "df": 24212,
+        "search_ms": 8389
+      },
+      {
+        "identifier": "Electrospray",
+        "df": 20342,
+        "search_ms": 6574
+      }
+    ],
+    "note": "search_ms spans the selectivity check and the ranked search plus client round trips. The statement timeout bounds each statement separately, which is why a 24 s total can occur without any single statement exceeding 15 s."
+  },
+  "rows": [
+    {
+      "group": "REFUSED BY CEILING",
+      "target_id": "cit-000-009-37",
+      "identifier": "ARS",
+      "df": 38185,
+      "ok": true,
+      "embed_ms": 10424,
+      "search_ms": 22478,
+      "n": 50,
+      "rank": 1,
+      "error": null
+    },
+    {
+      "group": "REFUSED BY CEILING",
+      "target_id": "cit-200-999-73",
+      "identifier": "Nodal",
+      "df": 24212,
+      "ok": true,
+      "embed_ms": 3766,
+      "search_ms": 8389,
+      "n": 50,
+      "rank": 1,
+      "error": null
+    },
+    {
+      "group": "REFUSED BY CEILING",
+      "target_id": "cit-200-999-88",
+      "identifier": "Electrospray",
+      "df": 20342,
+      "ok": true,
+      "embed_ms": 341,
+      "search_ms": 6574,
+      "n": 50,
+      "rank": 2,
+      "error": null
+    },
+    {
+      "group": "SERVED (reference)",
+      "target_id": "cit-200-999-47",
+      "identifier": "Triticum",
+      "df": 17970,
+      "ok": true,
+      "embed_ms": 628,
+      "search_ms": 6011,
+      "n": 50,
+      "rank": 2,
+      "error": null
+    },
+    {
+      "group": "SERVED (reference)",
+      "target_id": "cit-050-199-83",
+      "identifier": "aptamer",
+      "df": 15839,
+      "ok": true,
+      "embed_ms": 7129,
+      "search_ms": 5207,
+      "n": 50,
+      "rank": 2,
+      "error": null
+    },
+    {
+      "group": "SERVED (reference)",
+      "target_id": "cit-200-999-40",
+      "identifier": "nanocarriers",
+      "df": 15434,
+      "ok": true,
+      "embed_ms": 414,
+      "search_ms": 5593,
+      "n": 50,
+      "rank": 8,
+      "error": null
+    },
+    {
+      "group": "SERVED (reference)",
+      "target_id": "cit-200-999-96",
+      "identifier": "imprinted",
+      "df": 14612,
+      "ok": true,
+      "embed_ms": 4094,
+      "search_ms": 5362,
+      "n": 50,
+      "rank": 1,
+      "error": null
+    },
+    {
+      "group": "SERVED (reference)",
+      "target_id": "cit-050-199-30",
+      "identifier": "CHOP",
+      "df": 13557,
+      "ok": true,
+      "embed_ms": 2251,
+      "search_ms": 5609,
+      "n": 50,
+      "rank": 2,
+      "error": null
+    },
+    {
+      "group": "SERVED (reference)",
+      "target_id": "cit-200-999-63",
+      "identifier": "myocarditis",
+      "df": 13031,
+      "ok": true,
+      "embed_ms": 2077,
+      "search_ms": 4779,
+      "n": 50,
+      "rank": 19,
+      "error": null
+    }
+  ]
+}

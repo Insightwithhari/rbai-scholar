@@ -1,0 +1,98 @@
+{
+  "experiment": "HNSW ef_search multiplier sweep, 20 queries",
+  "sources": [
+    "data/efsearch-tuning.jsonl",
+    "results/efsearch-tuning.json"
+  ],
+  "ci_method": "percentile bootstrap over questions, 10,000 resamples, LCG seed 8191, interpolated quantiles (stats.mjs); latency recorded, not recomputable",
+  "multipliers": {
+    "2.0": {
+      "ef_search": 400,
+      "hit_at_10": {
+        "value": 0.95,
+        "ci95": [
+          0.85,
+          1
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.7767,
+        "ci95": [
+          0.6267,
+          0.9083
+        ]
+      },
+      "recorded_search_ms": {
+        "p50": 5085,
+        "p95": 7598,
+        "mean": 5231
+      }
+    },
+    "1.5": {
+      "ef_search": 300,
+      "hit_at_10": {
+        "value": 0.95,
+        "ci95": [
+          0.85,
+          1
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.7767,
+        "ci95": [
+          0.6267,
+          0.9083
+        ]
+      },
+      "recorded_search_ms": {
+        "p50": 4361,
+        "p95": 4937,
+        "mean": 4432
+      }
+    },
+    "1.2": {
+      "ef_search": 240,
+      "hit_at_10": {
+        "value": 0.95,
+        "ci95": [
+          0.85,
+          1
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.7767,
+        "ci95": [
+          0.6267,
+          0.9083
+        ]
+      },
+      "recorded_search_ms": {
+        "p50": 3913,
+        "p95": 4341,
+        "mean": 3945
+      }
+    },
+    "1.0": {
+      "ef_search": 200,
+      "hit_at_10": {
+        "value": 0.95,
+        "ci95": [
+          0.85,
+          1
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.7767,
+        "ci95": [
+          0.6267,
+          0.9083
+        ]
+      },
+      "recorded_search_ms": {
+        "p50": 4058,
+        "p95": 4337,
+        "mean": 4042
+      }
+    }
+  }
+}

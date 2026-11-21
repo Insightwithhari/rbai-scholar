@@ -1,0 +1,572 @@
+{
+  "schema_version": "medcpt-scored/1",
+  "run_at": "2026-09-23T09:48:19.389Z",
+  "kaggle_manifest": {
+    "produced_at": "2026-09-23T09:14:40Z",
+    "device": "cuda",
+    "dtype": "torch.float16",
+    "models": {
+      "query": "ncbi/MedCPT-Query-Encoder",
+      "article": "ncbi/MedCPT-Article-Encoder",
+      "cross": "ncbi/MedCPT-Cross-Encoder"
+    },
+    "max_lengths": {
+      "query": 64,
+      "article": 512,
+      "cross": 512
+    },
+    "batch_size": 32,
+    "counts": {
+      "known_item_documents": 24837,
+      "known_item_queries": 500,
+      "known_item_cross_pairs": 25000,
+      "relish_documents": 37760
+    },
+    "embedding_dim": 768,
+    "notes": [
+      "Embeddings are float16. A cosine ranking is unaffected at that precision and the download halves.",
+      "Row i of each *_embeddings.npy corresponds to element i of the matching *_ids.json.",
+      "Article encoder was given (title, abstract) as a PAIR, and the cross encoder was given the article as 'title. abstract', both following NCBI's published examples so these figures are comparable to published MedCPT numbers rather than to a local variant.",
+      "This measures MedCPT as a re-ranker over a candidate pool retrieved by another system. It cannot show what MedCPT would have retrieved from its own index."
+    ]
+  },
+  "design": "Re-ranking comparisons over the candidate pool our own retrieval already returned: 500 questions x 50 results. Both encoders and the cross-encoder order the SAME candidates, so the difference is attributable to the scorer rather than to what each system retrieved.",
+  "ceiling": "The pool is our own top 50, so a question whose target we never surfaced cannot be won by any re-ranker. Figures are therefore reported twice: over all queries, which charges every scorer for our retrieval failures equally, and over the subset whose target is in the pool, which isolates re-ranking. Neither alone is honest.",
+  "counts": {
+    "queries": 500,
+    "target_in_pool": 406,
+    "target_not_in_pool": 94
+  },
+  "encoder_comparison_note": "Four orderings over the identical pool. `ours` is the deployed ranker (similarity + 0.10 lexical + 0.08 citation + 0.04 recency). `ours_similarity_only` is our embedding alone, which is the ONLY like-for-like comparison against `medcpt_bi_encoder`, since that column is also a bare cosine. Comparing the deployed ranker with a bare MedCPT cosine credits our embedding with work the priors did, and is reported separately for that reason.",
+  "over_all_queries": {
+    "ours": {
+      "n": 500,
+      "hit_at_1": 0.328,
+      "hit_at_5": 0.594,
+      "hit_at_10": 0.65,
+      "hit_at_20": 0.742,
+      "hit_at_50": 0.812,
+      "mrr_at_10": 0.4344,
+      "mrr_at_50": 0.4431
+    },
+    "ours_similarity_only": {
+      "n": 500,
+      "hit_at_1": 0.294,
+      "hit_at_5": 0.528,
+      "hit_at_10": 0.624,
+      "hit_at_20": 0.704,
+      "hit_at_50": 0.812,
+      "mrr_at_10": 0.3957,
+      "mrr_at_50": 0.4042
+    },
+    "medcpt_bi_encoder": {
+      "n": 500,
+      "hit_at_1": 0.254,
+      "hit_at_5": 0.512,
+      "hit_at_10": 0.628,
+      "hit_at_20": 0.744,
+      "hit_at_50": 0.812,
+      "mrr_at_10": 0.3605,
+      "mrr_at_50": 0.371
+    },
+    "medcpt_cross_encoder": {
+      "n": 500,
+      "hit_at_1": 0.486,
+      "hit_at_5": 0.72,
+      "hit_at_10": 0.77,
+      "hit_at_20": 0.798,
+      "hit_at_50": 0.812,
+      "mrr_at_10": 0.5843,
+      "mrr_at_50": 0.5866
+    },
+    "paired_medcpt_vs_ours": {
+      "n": 500,
+      "cutoffs": {
+        "hit_at_1": {
+          "medcpt_rank": 0.254,
+          "ours_rank": 0.328,
+          "delta": -0.074,
+          "medcpt_rank_only_wins": 56,
+          "ours_rank_only_wins": 93,
+          "mcnemar_p": 0.003054
+        },
+        "hit_at_5": {
+          "medcpt_rank": 0.512,
+          "ours_rank": 0.594,
+          "delta": -0.082,
+          "medcpt_rank_only_wins": 58,
+          "ours_rank_only_wins": 99,
+          "mcnemar_p": 0.001335
+        },
+        "hit_at_10": {
+          "medcpt_rank": 0.628,
+          "ours_rank": 0.65,
+          "delta": -0.022,
+          "medcpt_rank_only_wins": 57,
+          "ours_rank_only_wins": 68,
+          "mcnemar_p": 0.371161
+        },
+        "hit_at_20": {
+          "medcpt_rank": 0.744,
+          "ours_rank": 0.742,
+          "delta": 0.002,
+          "medcpt_rank_only_wins": 28,
+          "ours_rank_only_wins": 27,
+          "mcnemar_p": 1
+        },
+        "hit_at_50": {
+          "medcpt_rank": 0.812,
+          "ours_rank": 0.812,
+          "delta": 0,
+          "medcpt_rank_only_wins": 0,
+          "ours_rank_only_wins": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "medcpt_rank": 0.371,
+        "ours_rank": 0.4431,
+        "delta": -0.0721,
+        "delta_ci": [
+          -0.1101,
+          -0.0338
+        ],
+        "permutation_p": 0.0004
+      }
+    },
+    "paired_medcpt_vs_ours_similarity_only": {
+      "n": 500,
+      "cutoffs": {
+        "hit_at_1": {
+          "medcpt_rank": 0.254,
+          "ours_sim_rank": 0.294,
+          "delta": -0.04,
+          "medcpt_rank_only_wins": 66,
+          "ours_sim_rank_only_wins": 86,
+          "mcnemar_p": 0.123009
+        },
+        "hit_at_5": {
+          "medcpt_rank": 0.512,
+          "ours_sim_rank": 0.528,
+          "delta": -0.016,
+          "medcpt_rank_only_wins": 72,
+          "ours_sim_rank_only_wins": 80,
+          "mcnemar_p": 0.570333
+        },
+        "hit_at_10": {
+          "medcpt_rank": 0.628,
+          "ours_sim_rank": 0.624,
+          "delta": 0.004,
+          "medcpt_rank_only_wins": 65,
+          "ours_sim_rank_only_wins": 63,
+          "mcnemar_p": 0.929614
+        },
+        "hit_at_20": {
+          "medcpt_rank": 0.744,
+          "ours_sim_rank": 0.704,
+          "delta": 0.04,
+          "medcpt_rank_only_wins": 46,
+          "ours_sim_rank_only_wins": 26,
+          "mcnemar_p": 0.024461
+        },
+        "hit_at_50": {
+          "medcpt_rank": 0.812,
+          "ours_sim_rank": 0.812,
+          "delta": 0,
+          "medcpt_rank_only_wins": 0,
+          "ours_sim_rank_only_wins": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "medcpt_rank": 0.371,
+        "ours_sim_rank": 0.4042,
+        "delta": -0.0332,
+        "delta_ci": [
+          -0.0718,
+          0.0047
+        ],
+        "permutation_p": 0.093895
+      }
+    },
+    "paired_cross_vs_ours": {
+      "n": 500,
+      "cutoffs": {
+        "hit_at_1": {
+          "cross_rank": 0.486,
+          "ours_rank": 0.328,
+          "delta": 0.158,
+          "cross_rank_only_wins": 113,
+          "ours_rank_only_wins": 34,
+          "mcnemar_p": 0
+        },
+        "hit_at_5": {
+          "cross_rank": 0.72,
+          "ours_rank": 0.594,
+          "delta": 0.126,
+          "cross_rank_only_wins": 81,
+          "ours_rank_only_wins": 18,
+          "mcnemar_p": 0
+        },
+        "hit_at_10": {
+          "cross_rank": 0.77,
+          "ours_rank": 0.65,
+          "delta": 0.12,
+          "cross_rank_only_wins": 67,
+          "ours_rank_only_wins": 7,
+          "mcnemar_p": 0
+        },
+        "hit_at_20": {
+          "cross_rank": 0.798,
+          "ours_rank": 0.742,
+          "delta": 0.056,
+          "cross_rank_only_wins": 32,
+          "ours_rank_only_wins": 4,
+          "mcnemar_p": 0.000002
+        },
+        "hit_at_50": {
+          "cross_rank": 0.812,
+          "ours_rank": 0.812,
+          "delta": 0,
+          "cross_rank_only_wins": 0,
+          "ours_rank_only_wins": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "cross_rank": 0.5866,
+        "ours_rank": 0.4431,
+        "delta": 0.1435,
+        "delta_ci": [
+          0.1101,
+          0.1765
+        ],
+        "permutation_p": 0.00005
+      }
+    },
+    "paired_ours_vs_ours_similarity_only": {
+      "n": 500,
+      "cutoffs": {
+        "hit_at_1": {
+          "ours_rank": 0.328,
+          "ours_sim_rank": 0.294,
+          "delta": 0.034,
+          "ours_rank_only_wins": 36,
+          "ours_sim_rank_only_wins": 19,
+          "mcnemar_p": 0.030029
+        },
+        "hit_at_5": {
+          "ours_rank": 0.594,
+          "ours_sim_rank": 0.528,
+          "delta": 0.066,
+          "ours_rank_only_wins": 50,
+          "ours_sim_rank_only_wins": 17,
+          "mcnemar_p": 0.000067
+        },
+        "hit_at_10": {
+          "ours_rank": 0.65,
+          "ours_sim_rank": 0.624,
+          "delta": 0.026,
+          "ours_rank_only_wins": 29,
+          "ours_sim_rank_only_wins": 16,
+          "mcnemar_p": 0.072454
+        },
+        "hit_at_20": {
+          "ours_rank": 0.742,
+          "ours_sim_rank": 0.704,
+          "delta": 0.038,
+          "ours_rank_only_wins": 28,
+          "ours_sim_rank_only_wins": 9,
+          "mcnemar_p": 0.002563
+        },
+        "hit_at_50": {
+          "ours_rank": 0.812,
+          "ours_sim_rank": 0.812,
+          "delta": 0,
+          "ours_rank_only_wins": 0,
+          "ours_sim_rank_only_wins": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "ours_rank": 0.4431,
+        "ours_sim_rank": 0.4042,
+        "delta": 0.0389,
+        "delta_ci": [
+          0.0192,
+          0.0596
+        ],
+        "permutation_p": 0.0002
+      }
+    }
+  },
+  "over_queries_with_target_in_pool": {
+    "ours": {
+      "n": 406,
+      "hit_at_1": 0.4039,
+      "hit_at_5": 0.7315,
+      "hit_at_10": 0.8005,
+      "hit_at_20": 0.9138,
+      "hit_at_50": 1,
+      "mrr_at_10": 0.535,
+      "mrr_at_50": 0.5457
+    },
+    "ours_similarity_only": {
+      "n": 406,
+      "hit_at_1": 0.3621,
+      "hit_at_5": 0.6502,
+      "hit_at_10": 0.7685,
+      "hit_at_20": 0.867,
+      "hit_at_50": 1,
+      "mrr_at_10": 0.4873,
+      "mrr_at_50": 0.4978
+    },
+    "medcpt_bi_encoder": {
+      "n": 406,
+      "hit_at_1": 0.3128,
+      "hit_at_5": 0.6305,
+      "hit_at_10": 0.7734,
+      "hit_at_20": 0.9163,
+      "hit_at_50": 1,
+      "mrr_at_10": 0.444,
+      "mrr_at_50": 0.4569
+    },
+    "medcpt_cross_encoder": {
+      "n": 406,
+      "hit_at_1": 0.5985,
+      "hit_at_5": 0.8867,
+      "hit_at_10": 0.9483,
+      "hit_at_20": 0.9828,
+      "hit_at_50": 1,
+      "mrr_at_10": 0.7196,
+      "mrr_at_50": 0.7224
+    },
+    "paired_medcpt_vs_ours": {
+      "n": 406,
+      "cutoffs": {
+        "hit_at_1": {
+          "medcpt_rank": 0.3128,
+          "ours_rank": 0.4039,
+          "delta": -0.0911,
+          "medcpt_rank_only_wins": 56,
+          "ours_rank_only_wins": 93,
+          "mcnemar_p": 0.003054
+        },
+        "hit_at_5": {
+          "medcpt_rank": 0.6305,
+          "ours_rank": 0.7315,
+          "delta": -0.101,
+          "medcpt_rank_only_wins": 58,
+          "ours_rank_only_wins": 99,
+          "mcnemar_p": 0.001335
+        },
+        "hit_at_10": {
+          "medcpt_rank": 0.7734,
+          "ours_rank": 0.8005,
+          "delta": -0.0271,
+          "medcpt_rank_only_wins": 57,
+          "ours_rank_only_wins": 68,
+          "mcnemar_p": 0.371161
+        },
+        "hit_at_20": {
+          "medcpt_rank": 0.9163,
+          "ours_rank": 0.9138,
+          "delta": 0.0025,
+          "medcpt_rank_only_wins": 28,
+          "ours_rank_only_wins": 27,
+          "mcnemar_p": 1
+        },
+        "hit_at_50": {
+          "medcpt_rank": 1,
+          "ours_rank": 1,
+          "delta": 0,
+          "medcpt_rank_only_wins": 0,
+          "ours_rank_only_wins": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "medcpt_rank": 0.4569,
+        "ours_rank": 0.5457,
+        "delta": -0.0887,
+        "delta_ci": [
+          -0.1359,
+          -0.0416
+        ],
+        "permutation_p": 0.00025
+      }
+    },
+    "paired_medcpt_vs_ours_similarity_only": {
+      "n": 406,
+      "cutoffs": {
+        "hit_at_1": {
+          "medcpt_rank": 0.3128,
+          "ours_sim_rank": 0.3621,
+          "delta": -0.0493,
+          "medcpt_rank_only_wins": 66,
+          "ours_sim_rank_only_wins": 86,
+          "mcnemar_p": 0.123009
+        },
+        "hit_at_5": {
+          "medcpt_rank": 0.6305,
+          "ours_sim_rank": 0.6502,
+          "delta": -0.0197,
+          "medcpt_rank_only_wins": 72,
+          "ours_sim_rank_only_wins": 80,
+          "mcnemar_p": 0.570333
+        },
+        "hit_at_10": {
+          "medcpt_rank": 0.7734,
+          "ours_sim_rank": 0.7685,
+          "delta": 0.0049,
+          "medcpt_rank_only_wins": 65,
+          "ours_sim_rank_only_wins": 63,
+          "mcnemar_p": 0.929614
+        },
+        "hit_at_20": {
+          "medcpt_rank": 0.9163,
+          "ours_sim_rank": 0.867,
+          "delta": 0.0493,
+          "medcpt_rank_only_wins": 46,
+          "ours_sim_rank_only_wins": 26,
+          "mcnemar_p": 0.024461
+        },
+        "hit_at_50": {
+          "medcpt_rank": 1,
+          "ours_sim_rank": 1,
+          "delta": 0,
+          "medcpt_rank_only_wins": 0,
+          "ours_sim_rank_only_wins": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "medcpt_rank": 0.4569,
+        "ours_sim_rank": 0.4978,
+        "delta": -0.0409,
+        "delta_ci": [
+          -0.0884,
+          0.0075
+        ],
+        "permutation_p": 0.094645
+      }
+    },
+    "paired_cross_vs_ours": {
+      "n": 406,
+      "cutoffs": {
+        "hit_at_1": {
+          "cross_rank": 0.5985,
+          "ours_rank": 0.4039,
+          "delta": 0.1946,
+          "cross_rank_only_wins": 113,
+          "ours_rank_only_wins": 34,
+          "mcnemar_p": 0
+        },
+        "hit_at_5": {
+          "cross_rank": 0.8867,
+          "ours_rank": 0.7315,
+          "delta": 0.1552,
+          "cross_rank_only_wins": 81,
+          "ours_rank_only_wins": 18,
+          "mcnemar_p": 0
+        },
+        "hit_at_10": {
+          "cross_rank": 0.9483,
+          "ours_rank": 0.8005,
+          "delta": 0.1478,
+          "cross_rank_only_wins": 67,
+          "ours_rank_only_wins": 7,
+          "mcnemar_p": 0
+        },
+        "hit_at_20": {
+          "cross_rank": 0.9828,
+          "ours_rank": 0.9138,
+          "delta": 0.069,
+          "cross_rank_only_wins": 32,
+          "ours_rank_only_wins": 4,
+          "mcnemar_p": 0.000002
+        },
+        "hit_at_50": {
+          "cross_rank": 1,
+          "ours_rank": 1,
+          "delta": 0,
+          "cross_rank_only_wins": 0,
+          "ours_rank_only_wins": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "cross_rank": 0.7224,
+        "ours_rank": 0.5457,
+        "delta": 0.1768,
+        "delta_ci": [
+          0.1365,
+          0.2183
+        ],
+        "permutation_p": 0.00005
+      }
+    },
+    "paired_ours_vs_ours_similarity_only": {
+      "n": 406,
+      "cutoffs": {
+        "hit_at_1": {
+          "ours_rank": 0.4039,
+          "ours_sim_rank": 0.3621,
+          "delta": 0.0418,
+          "ours_rank_only_wins": 36,
+          "ours_sim_rank_only_wins": 19,
+          "mcnemar_p": 0.030029
+        },
+        "hit_at_5": {
+          "ours_rank": 0.7315,
+          "ours_sim_rank": 0.6502,
+          "delta": 0.0813,
+          "ours_rank_only_wins": 50,
+          "ours_sim_rank_only_wins": 17,
+          "mcnemar_p": 0.000067
+        },
+        "hit_at_10": {
+          "ours_rank": 0.8005,
+          "ours_sim_rank": 0.7685,
+          "delta": 0.032,
+          "ours_rank_only_wins": 29,
+          "ours_sim_rank_only_wins": 16,
+          "mcnemar_p": 0.072454
+        },
+        "hit_at_20": {
+          "ours_rank": 0.9138,
+          "ours_sim_rank": 0.867,
+          "delta": 0.0468,
+          "ours_rank_only_wins": 28,
+          "ours_sim_rank_only_wins": 9,
+          "mcnemar_p": 0.002563
+        },
+        "hit_at_50": {
+          "ours_rank": 1,
+          "ours_sim_rank": 1,
+          "delta": 0,
+          "ours_rank_only_wins": 0,
+          "ours_sim_rank_only_wins": 0,
+          "mcnemar_p": 1
+        }
+      },
+      "mrr_at_50": {
+        "ours_rank": 0.5457,
+        "ours_sim_rank": 0.4978,
+        "delta": 0.0479,
+        "delta_ci": [
+          0.0235,
+          0.0725
+        ],
+        "permutation_p": 0.00015
+      }
+    }
+  },
+  "disclosures": [
+    "MedCPT is measured as a RE-RANKER over another system's retrieval. It cannot show whether MedCPT would have found a paper our retrieval missed; that needs its own index over all of PubMed, which is roughly 110 GB of precomputed embeddings and is not held here.",
+    "The `ours` column is the rank the deployed ranker assigned, so it includes the citation, recency and lexical terms, while `medcpt_bi_encoder` is a bare cosine. `ours_similarity_only` is reported alongside it for that reason and is the comparison to quote for a claim about the EMBEDDING; `ours` is the comparison to quote for a claim about the deployed SERVICE.",
+    "Re-sorting each pool by the stored final score is asserted to reproduce the stored rank ordering before anything is scored. If the export and the service disagreed about ranking, every figure here would be wrong in a way no other check would catch.",
+    "Embeddings arrived as float16, which is far below the precision at which a cosine ordering changes, and every vector is unit-normalised here rather than assumed normalised.",
+    "The Kaggle manifest counts are asserted against the inputs before scoring, because a row/id misalignment would not throw — it would score the wrong document and produce a plausible, wrong number."
+  ]
+}

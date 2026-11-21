@@ -1,0 +1,105 @@
+{
+  "probed_at": "2026-09-16T17:36:43.493Z",
+  "corpus": {
+    "N": 11149057,
+    "avgdl": 154.0707003291848
+  },
+  "params": {
+    "top_k": 10,
+    "pool": 200,
+    "bm25_candidates": 2000,
+    "rrf_k": 60,
+    "k1": 1.2,
+    "b": 0.75,
+    "rare_df_max": 150000,
+    "breadth_limit": 200000,
+    "statement_timeout_ms": 45000
+  },
+  "classes": {
+    "identifier": {
+      "label": "Identifier queries (conjunctive candidates)",
+      "selectivity": "and",
+      "summary": {
+        "n": 86,
+        "arms": {
+          "vector": {
+            "hit_at_1": 0.0698,
+            "hit_at_10": 0.1744,
+            "mrr_at_10": 0.0973,
+            "p50_ms": 506,
+            "status_counts": {
+              "ok": 86
+            }
+          },
+          "ts_rank": {
+            "hit_at_1": 0.4186,
+            "hit_at_10": 0.7093,
+            "mrr_at_10": 0.5053,
+            "p50_ms": 318,
+            "status_counts": {
+              "ok": 86
+            }
+          },
+          "bm25": {
+            "hit_at_1": 0.4302,
+            "hit_at_10": 0.7558,
+            "mrr_at_10": 0.5241,
+            "p50_ms": 304,
+            "status_counts": {
+              "ok": 86
+            }
+          },
+          "rrf_bm25": {
+            "hit_at_1": 0.1395,
+            "hit_at_10": 0.7558,
+            "mrr_at_10": 0.3522,
+            "p50_ms": null,
+            "status_counts": {
+              "ok": 86
+            }
+          },
+          "rrf_tsrank": {
+            "hit_at_1": 0.1512,
+            "hit_at_10": 0.6977,
+            "mrr_at_10": 0.3554,
+            "p50_ms": null,
+            "status_counts": {
+              "ok": 86
+            }
+          }
+        },
+        "comparisons": {
+          "bm25_vs_ts_rank": {
+            "wins": 6,
+            "losses": 2,
+            "p": 0.2890625
+          },
+          "bm25_vs_vector": {
+            "wins": 53,
+            "losses": 3,
+            "p": 0
+          },
+          "rrf_bm25_vs_vector": {
+            "wins": 50,
+            "losses": 0,
+            "p": 0
+          },
+          "rrf_bm25_vs_bm25": {
+            "wins": 5,
+            "losses": 5,
+            "p": 1
+          }
+        },
+        "production_reachability": {
+          "declined_by_breadth_guard": 0,
+          "candidate_cap_bound": 0,
+          "exact_ranking": 86
+        }
+      }
+    },
+    "paraphrase": {
+      "label": "Paraphrased questions (rare-term disjunction)",
+      "selectivity": "or"
+    }
+  }
+}

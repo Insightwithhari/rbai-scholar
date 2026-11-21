@@ -1,0 +1,84 @@
+{
+  "schema": "coverage-spotcheck/1",
+  "checked_at": "2026-11-12T18:37:25.412Z",
+  "method": "PubMed ID looked up in RBAi Scholar (https://scholar.thedreamlabinnovations.com/v1/corpus/search, exact pmid then doi filter); PubMed metadata from NCBI esummary",
+  "records": [
+    {
+      "label": "DELIVER (dapagliflozin in heart failure with mildly reduced or preserved ejection fraction)",
+      "pmid": "36027570",
+      "doi": "10.1056/nejmoa2206286",
+      "year": 2022,
+      "journal": "N Engl J Med",
+      "title": "Dapagliflozin in Heart Failure with Mildly Reduced or Preserved Ejection Fraction.",
+      "has_abstract": true,
+      "present": false,
+      "found_by": null,
+      "tries": [
+        {
+          "by": "pmid",
+          "mode": "semantic",
+          "status": 200,
+          "code": null,
+          "n": 0
+        },
+        {
+          "by": "doi",
+          "mode": "semantic",
+          "status": 200,
+          "code": null,
+          "n": 0
+        }
+      ],
+      "looked_up_at": "2026-11-12T18:37:25.412Z"
+    },
+    {
+      "label": "EMPEROR-Preserved (empagliflozin in heart failure with a preserved ejection fraction)",
+      "pmid": "34449189",
+      "doi": "10.1056/nejmoa2107038",
+      "year": 2021,
+      "journal": "N Engl J Med",
+      "title": "Empagliflozin in Heart Failure with a Preserved Ejection Fraction.",
+      "has_abstract": true,
+      "present": false,
+      "found_by": null,
+      "tries": [
+        {
+          "by": "pmid",
+          "mode": "semantic",
+          "status": 200,
+          "code": null,
+          "n": 0
+        },
+        {
+          "by": "doi",
+          "mode": "semantic",
+          "status": 200,
+          "code": null,
+          "n": 0
+        }
+      ],
+      "looked_up_at": "2026-11-12T18:37:25.412Z"
+    },
+    {
+      "label": "Hallmarks of Cancer: The Next Generation",
+      "pmid": "21376230",
+      "doi": "10.1016/j.cell.2011.02.013",
+      "year": 2011,
+      "journal": "Cell",
+      "title": "Hallmarks of cancer: the next generation.",
+      "has_abstract": true,
+      "present": true,
+      "found_by": "pmid",
+      "tries": [
+        {
+          "by": "pmid",
+          "mode": "semantic",
+          "status": 200,
+          "code": null,
+          "n": 1
+        }
+      ],
+      "looked_up_at": "2026-11-12T18:37:25.412Z"
+    }
+  ]
+}

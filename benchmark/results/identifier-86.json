@@ -1,0 +1,84 @@
+{
+  "probed_at": "2026-09-15T18:19:49.324Z",
+  "question": "Do keyword and semantic retrieval dominate different biomedical query classes?",
+  "design": "Short identifier-anchored keyword queries — the class PubMed is habitually used for — over the same corpus and targets as the paraphrase benchmark.",
+  "top_k": 10,
+  "candidate_pool": 200,
+  "rrf_k": 60,
+  "df_ceiling": 200000,
+  "summary": {
+    "n_queries": 86,
+    "skipped": {
+      "no_identifier": 34,
+      "no_source_text": 0,
+      "embed_failed": 0
+    },
+    "mean_query_terms": 3,
+    "anchor_df": {
+      "min": 1,
+      "median": 838,
+      "max": 32525
+    },
+    "anchor_kinds": {
+      "uppercase_token": 62,
+      "symbol_with_digit": 24
+    },
+    "arms": {
+      "dense": {
+        "hit_at_1": 0.06976744186046512,
+        "hit_at_10": 0.1744186046511628,
+        "hit_at_10_ci": [
+          0.093,
+          0.2558
+        ],
+        "mrr_at_10": 0.09731912144702841,
+        "p50_ms": 498
+      },
+      "lexical": {
+        "hit_at_1": 0.4186046511627907,
+        "hit_at_10": 0.7093023255813954,
+        "hit_at_10_ci": [
+          0.6047,
+          0.8023
+        ],
+        "mrr_at_10": 0.5053294573643411,
+        "p50_ms": 316
+      },
+      "union_rrf": {
+        "hit_at_1": 0.1511627906976744,
+        "hit_at_10": 0.6976744186046512,
+        "hit_at_10_ci": [
+          0.593,
+          0.7907
+        ],
+        "mrr_at_10": 0.3554401993355482
+      }
+    },
+    "comparisons": {
+      "lexical_vs_dense": {
+        "wins_a": 49,
+        "wins_b": 3,
+        "n_discordant": 52,
+        "p": 0
+      },
+      "union_vs_dense": {
+        "wins_a": 47,
+        "wins_b": 2,
+        "n_discordant": 49,
+        "p": 0
+      },
+      "union_vs_lexical": {
+        "wins_a": 3,
+        "wins_b": 4,
+        "n_discordant": 7,
+        "p": 1
+      }
+    },
+    "complementarity": {
+      "both": 12,
+      "dense_only": 3,
+      "lexical_only": 49,
+      "neither": 22
+    }
+  }
+}

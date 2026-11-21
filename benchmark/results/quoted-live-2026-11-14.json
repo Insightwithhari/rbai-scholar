@@ -1,0 +1,237 @@
+{
+  "schema": "quoted-live/1",
+  "measured": {
+    "started": "2026-11-14T18:25:38.604Z",
+    "finished": "2026-11-14T18:36:27.852Z",
+    "scored_at": "2026-11-14T18:47:27.084Z"
+  },
+  "question": "Do the quoted-term (hybrid) search sets reproduce their published (database, HNSW) figures on the public search service, which answers quoted terms with exact ranking?",
+  "service": "The public service (edge deployment), which answers every REST and MCP search; each search was the request its REST API builds for a semantic search with quoted terms: the question with its quoted terms, no filters and 50 results. 3 requests a second, at most 4 in flight, up to 4 attempts for a status other than 200 or 400. Latencies are client times from India.",
+  "sets_sent": {
+    "id-quoted": "data/marked-term-quality.jsonl, condition identifier (86): the short identifier query with its rarest term quoted (the identifier in 78 of 86).",
+    "para-quoted": "data/marked-term-quality.jsonl, condition paraphrase (118): the fluent question with its rarest word quoted.",
+    "graded-end": "data/placement-86.jsonl, systems.end (86): the graded study hybrid query (main Table 2), the rarest identifier appended in quotation marks.",
+    "relevance-86": "data/hybrid-86-paired.jsonl, the relevance-selected term (86; Supplementary Table S7).",
+    "hybrid-332": "data/hybrid-332.jsonl (332): the held-out question with its required term quoted (Supplementary Table S5)."
+  },
+  "corpus_filter": "The live corpus held about 17.5 million records. live_14oct scores each list after removing every paper that is not in the tested 14 October 2026 version (membership from the saved DOI list of that version; 25486 of the 29439 distinct DOIs returned are in it). live_full scores the unfiltered list. hit10_vs_published compares live_14oct with published, the released reference ranks of each set (for id-quoted and para-quoted as first measured, before quoted terms in more than 20,000 records were declined).",
+  "paths": {
+    "every paper that passes the filter, by its compact vector, the best re-scored exactly": "At most 50,000 records contain the quoted term: every one of them is scored by a compact 8-bit copy of its embedding held beside the full-text index, the best 220 are re-scored with the full-precision embeddings and ranked with the formula of Supplementary Section S2.",
+    "the Vectorize nearest that pass the filter, and its best BM25 matches": "More than 50,000 records contain the term: the nearest papers by meaning that contain it are ranked, together with the term's best keyword (BM25) matches."
+  },
+  "not_measured": "nDCG@10 of the graded-end set is given for information only (ndcg10_14oct): unjudged_in_top10 of the 860 top-ten positions hold papers outside the assessed pool, so it is not comparable with the published 0.499.",
+  "files": {
+    "per_search": "data/quoted-live-2026-11-14.jsonl (identifiers and ranks only; in_2026_10_14 flags each paper of the 14 October version)",
+    "scripts": "benchmarks/scripts/score-quoted-cloudflare.mjs in the analysis repository"
+  },
+  "version_dois_seen": 29439,
+  "version_dois_in": 25486,
+  "sets": {
+    "id-quoted": {
+      "n": 86,
+      "status": {
+        "200": 86
+      },
+      "paths": {
+        "every paper that passes the filter, by its compact vector, the best re-scored exactly": 86
+      },
+      "published": {
+        "n": 86,
+        "hit1": 0.407,
+        "hit10": 0.721,
+        "hit50": 0.721,
+        "mrr50": 0.5078
+      },
+      "live_full": {
+        "n": 86,
+        "hit1": 0.407,
+        "hit10": 0.674,
+        "hit50": 0.814,
+        "mrr50": 0.5019
+      },
+      "live_14oct": {
+        "n": 86,
+        "hit1": 0.407,
+        "hit10": 0.709,
+        "hit50": 0.814,
+        "mrr50": 0.5072
+      },
+      "hit10_vs_published": {
+        "gained": 0,
+        "lost": 1,
+        "p_mcnemar": 1,
+        "lost_by_path": {
+          "every paper that passes the filter, by its compact vector, the best re-scored exactly": 1
+        }
+      },
+      "same_rank_as_published": 71,
+      "papers_added_after_14oct_in_live_top10": 119,
+      "median_ms": 2698,
+      "p90_ms": 4247
+    },
+    "para-quoted": {
+      "n": 118,
+      "status": {
+        "200": 118
+      },
+      "paths": {
+        "every paper that passes the filter, by its compact vector, the best re-scored exactly": 97,
+        "the Vectorize nearest that pass the filter, and its best BM25 matches": 21
+      },
+      "published": {
+        "n": 118,
+        "hit1": 0.136,
+        "hit10": 0.237,
+        "hit50": 0.237,
+        "mrr50": 0.17
+      },
+      "live_full": {
+        "n": 118,
+        "hit1": 0.127,
+        "hit10": 0.254,
+        "hit50": 0.271,
+        "mrr50": 0.1699
+      },
+      "live_14oct": {
+        "n": 118,
+        "hit1": 0.136,
+        "hit10": 0.263,
+        "hit50": 0.271,
+        "mrr50": 0.1767
+      },
+      "hit10_vs_published": {
+        "gained": 3,
+        "lost": 0,
+        "p_mcnemar": 0.25,
+        "lost_by_path": {}
+      },
+      "same_rank_as_published": 113,
+      "papers_added_after_14oct_in_live_top10": 146,
+      "median_ms": 3039,
+      "p90_ms": 6339
+    },
+    "graded-end": {
+      "n": 86,
+      "status": {
+        "200": 86
+      },
+      "paths": {
+        "every paper that passes the filter, by its compact vector, the best re-scored exactly": 86
+      },
+      "published": {
+        "n": 86,
+        "hit1": 0.5,
+        "hit10": 0.767,
+        "hit50": 0.767,
+        "mrr50": 0.5921
+      },
+      "live_full": {
+        "n": 86,
+        "hit1": 0.523,
+        "hit10": 0.802,
+        "hit50": 0.942,
+        "mrr50": 0.6208
+      },
+      "live_14oct": {
+        "n": 86,
+        "hit1": 0.523,
+        "hit10": 0.802,
+        "hit50": 0.942,
+        "mrr50": 0.6261
+      },
+      "hit10_vs_published": {
+        "gained": 3,
+        "lost": 0,
+        "p_mcnemar": 0.25,
+        "lost_by_path": {}
+      },
+      "same_rank_as_published": 70,
+      "papers_added_after_14oct_in_live_top10": 96,
+      "median_ms": 2857,
+      "p90_ms": 4103,
+      "ndcg10_14oct": 0.52,
+      "unjudged_in_top10": 33
+    },
+    "relevance-86": {
+      "n": 86,
+      "status": {
+        "200": 86
+      },
+      "paths": {
+        "every paper that passes the filter, by its compact vector, the best re-scored exactly": 86
+      },
+      "published": {
+        "n": 86,
+        "hit1": 0.605,
+        "hit10": 0.872,
+        "hit50": 0.953,
+        "mrr50": 0.7109
+      },
+      "live_full": {
+        "n": 86,
+        "hit1": 0.605,
+        "hit10": 0.895,
+        "hit50": 0.977,
+        "mrr50": 0.7075
+      },
+      "live_14oct": {
+        "n": 86,
+        "hit1": 0.605,
+        "hit10": 0.895,
+        "hit50": 0.977,
+        "mrr50": 0.717
+      },
+      "hit10_vs_published": {
+        "gained": 2,
+        "lost": 0,
+        "p_mcnemar": 0.5,
+        "lost_by_path": {}
+      },
+      "same_rank_as_published": 79,
+      "papers_added_after_14oct_in_live_top10": 71,
+      "median_ms": 2625,
+      "p90_ms": 3703
+    },
+    "hybrid-332": {
+      "n": 332,
+      "status": {
+        "200": 332
+      },
+      "paths": {
+        "every paper that passes the filter, by its compact vector, the best re-scored exactly": 329,
+        "the Vectorize nearest that pass the filter, and its best BM25 matches": 3
+      },
+      "published": {
+        "n": 332,
+        "hit1": 0.702,
+        "hit10": 0.928,
+        "hit50": 0.967,
+        "mrr50": 0.7827
+      },
+      "live_full": {
+        "n": 332,
+        "hit1": 0.702,
+        "hit10": 0.943,
+        "hit50": 0.982,
+        "mrr50": 0.7857
+      },
+      "live_14oct": {
+        "n": 332,
+        "hit1": 0.708,
+        "hit10": 0.943,
+        "hit50": 0.982,
+        "mrr50": 0.7928
+      },
+      "hit10_vs_published": {
+        "gained": 5,
+        "lost": 0,
+        "p_mcnemar": 0.0625,
+        "lost_by_path": {}
+      },
+      "same_rank_as_published": 320,
+      "papers_added_after_14oct_in_live_top10": 309,
+      "median_ms": 2892,
+      "p90_ms": 5377
+    }
+  }
+}

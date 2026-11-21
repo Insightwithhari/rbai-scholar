@@ -1,0 +1,2 @@
+# LF everywhere, so benchmark/MANIFEST.json's checksums match any checkout, Windows included.
+* text=auto eol=lf

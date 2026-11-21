@@ -1,0 +1,1648 @@
+{
+  "schema": "rbai-scholar/questions@1",
+  "n_questions": 86,
+  "order": "The order is significant: the bootstrap intervals and permutation tests resample questions in this order.",
+  "query_variants": {
+    "question": "the question as a researcher would ask it, avoiding the target paper's distinctive wording. Overlap with the abstract was measured afterwards: the longest shared phrase is two words or fewer for 74 of these 86 questions and three to five words for 12",
+    "keyword_query": "a short keyword query for the same need (sent to keyword systems)",
+    "identifier": "the most specific term in it (a gene, compound or acronym), when there is one",
+    "combined_query": "question and keyword query together (OpenAlex combined runs)",
+    "marked_query": "the question with its identifier marked as a required term (RBAi hybrid)"
+  },
+  "questions": [
+    {
+      "question_id": "cit-000-009-01",
+      "question": "Is the standard venous-equilibrium clearance model appropriate for predicting how much drug is lost across the gut wall during absorption?",
+      "keyword_query": "TMF well-stirred model",
+      "identifier": "TMF",
+      "combined_query": "Is the standard venous-equilibrium clearance model appropriate for predicting how much drug is lost across the gut wall during absorption? TMF",
+      "marked_query": "Is the standard venous-equilibrium clearance model appropriate for predicting how much drug is lost across the gut wall during absorption? \"TMF\"",
+      "target": {
+        "doc_key": "doi:10.1211/0022357044850",
+        "doi": "10.1211/0022357044850",
+        "pmid": "15563767",
+        "title": "Does the well-stirred model assess the intestinal first-pass effect well?",
+        "year": "2004",
+        "journal": "Journal of Pharmacy and Pharmacology",
+        "citations": 8,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-02",
+      "question": "Computational study of the radical-scavenging capacity and ferrous-ion binding ability of a naphthoquinone natural product and its analogues.",
+      "keyword_query": "QTAIM antioxidant properties",
+      "identifier": "QTAIM",
+      "combined_query": "Computational study of the radical-scavenging capacity and ferrous-ion binding ability of a naphthoquinone natural product and its analogues. QTAIM",
+      "marked_query": "Computational study of the radical-scavenging capacity and ferrous-ion binding ability of a naphthoquinone natural product and its analogues. \"QTAIM\"",
+      "target": {
+        "doc_key": "doi:10.1155/2020/2103239",
+        "doi": "10.1155/2020/2103239",
+        "pmid": "32318101",
+        "title": "Antioxidant Properties of Lapachol and Its Derivatives and Their Ability to Chelate Iron (II) Cation: DFT and QTAIM Studies",
+        "year": "2020",
+        "journal": "Bioinorganic Chemistry and Applications",
+        "citations": 3,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-04",
+      "question": "Which rodent models of mycobacterial lung disease reproduce oxygen-deprived necrotic granulomas and respond poorly to standard drug regimens?",
+      "keyword_query": "RD1 mouse models",
+      "identifier": "RD1",
+      "combined_query": "Which rodent models of mycobacterial lung disease reproduce oxygen-deprived necrotic granulomas and respond poorly to standard drug regimens? RD1",
+      "marked_query": "Which rodent models of mycobacterial lung disease reproduce oxygen-deprived necrotic granulomas and respond poorly to standard drug regimens? \"RD1\"",
+      "target": {
+        "doc_key": "doi:10.1128/iai.00574-25",
+        "doi": "10.1128/iai.00574-25",
+        "pmid": "41660838",
+        "title": "Mouse models of tuberculosis uniformly featuring hypoxic necrotic lesions and poor response to chemotherapy",
+        "year": "2026",
+        "journal": "Infection and Immunity",
+        "citations": 2,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-05",
+      "question": "Single-molecule force measurements showing discrete jumps in binding strength as a platelet adhesion receptor aggregates after ligand engagement.",
+      "keyword_query": "IIB stepped changes",
+      "identifier": "IIB",
+      "combined_query": "Single-molecule force measurements showing discrete jumps in binding strength as a platelet adhesion receptor aggregates after ligand engagement. IIB",
+      "marked_query": "Single-molecule force measurements showing discrete jumps in binding strength as a platelet adhesion receptor aggregates after ligand engagement. \"IIB\"",
+      "target": {
+        "doc_key": "doi:10.1074/jbc.m601793200",
+        "doi": "10.1074/jbc.m601793200",
+        "pmid": "16793773",
+        "title": "Stepped Changes of Monovalent Ligand-binding Force during Ligand-induced Clustering of Integrin αIIBβ3",
+        "year": "2006",
+        "journal": "Journal of Biological Chemistry",
+        "citations": 8,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-08",
+      "question": "Sub-chronic oral toxicity assessment of a synthetic aluminosilicate mineral given daily to rodents over three months.",
+      "keyword_query": "GRAS safety evaluation",
+      "identifier": "GRAS",
+      "combined_query": "Sub-chronic oral toxicity assessment of a synthetic aluminosilicate mineral given daily to rodents over three months. GRAS",
+      "marked_query": "Sub-chronic oral toxicity assessment of a synthetic aluminosilicate mineral given daily to rodents over three months. \"GRAS\"",
+      "target": {
+        "doc_key": "doi:10.3390/toxics14020122",
+        "doi": "10.3390/toxics14020122",
+        "pmid": "41745796",
+        "title": "Safety Evaluation of Lab-Made Clinoptilolite: 90-Day Repeated Dose Toxicity Study in Sprague Dawley Rats and a Battery of In Vitro and In Vivo Genotoxicity Tests",
+        "year": "2026",
+        "journal": "Toxics",
+        "citations": 1,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-09",
+      "question": "National survey estimating how common behavioural risk factors for retroviral infection are among sexually active women in an East African country.",
+      "keyword_query": "AOR prevalence factors",
+      "identifier": "AOR",
+      "combined_query": "National survey estimating how common behavioural risk factors for retroviral infection are among sexually active women in an East African country. AOR",
+      "marked_query": "National survey estimating how common behavioural risk factors for retroviral infection are among sexually active women in an East African country. \"AOR\"",
+      "target": {
+        "doc_key": "doi:10.1186/s12889-023-17148-8",
+        "doi": "10.1186/s12889-023-17148-8",
+        "pmid": "37950175",
+        "title": "Prevalence of risk factors for human immunodeficiency virus among sexually active women in Rwanda: a nationwide survey",
+        "year": "2023",
+        "journal": "BMC Public Health",
+        "citations": 5,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-11",
+      "question": "Can rodents immunised with a recombinant clotting protein generate neutralising antibodies as a model of treatment resistance in haemophilia?",
+      "keyword_query": "FVIII induction factor",
+      "identifier": "FVIII",
+      "combined_query": "Can rodents immunised with a recombinant clotting protein generate neutralising antibodies as a model of treatment resistance in haemophilia? FVIII",
+      "marked_query": "Can rodents immunised with a recombinant clotting protein generate neutralising antibodies as a model of treatment resistance in haemophilia? \"FVIII\"",
+      "target": {
+        "doc_key": "doi:10.1055/s-0038-1650268",
+        "doi": "10.1055/s-0038-1650268",
+        "pmid": "8815584",
+        "title": "Induction of Human Factor VIII Inhibitors in Rats by Immunization with Human Recombinant Factor VIII: a Small Animal Model for Humans with High Responder Inhibitor Phenotype",
+        "year": "1996",
+        "journal": "Thrombosis and Haemostasis",
+        "citations": 4,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-13",
+      "question": "Magnetic resonance measurement of how intracellular acidity controls potassium loss from cardiac muscle cells in perfused rodent hearts.",
+      "keyword_query": "DMP regulation efflux",
+      "identifier": "DMP",
+      "combined_query": "Magnetic resonance measurement of how intracellular acidity controls potassium loss from cardiac muscle cells in perfused rodent hearts. DMP",
+      "marked_query": "Magnetic resonance measurement of how intracellular acidity controls potassium loss from cardiac muscle cells in perfused rodent hearts. \"DMP\"",
+      "target": {
+        "doc_key": "doi:10.1152/ajpheart.1999.277.1.h279",
+        "doi": "10.1152/ajpheart.1999.277.1.h279",
+        "pmid": "10409207",
+        "title": "pH regulation of K+efflux from myocytes in isolated rat hearts:87Rb,7Li, and31P NMR studies",
+        "year": "1999",
+        "journal": "American Journal of Physiology-Heart and Circulatory Physiology",
+        "citations": 4,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-14",
+      "question": "Deriving intermediate-scale functional organisation of brain activity by clustering population dynamics into low-dimensional subspaces.",
+      "keyword_query": "FRID constructing mesoscale",
+      "identifier": "FRID",
+      "combined_query": "Deriving intermediate-scale functional organisation of brain activity by clustering population dynamics into low-dimensional subspaces. FRID",
+      "marked_query": "Deriving intermediate-scale functional organisation of brain activity by clustering population dynamics into low-dimensional subspaces. \"FRID\"",
+      "target": {
+        "doc_key": "doi:10.1093/nsr/nwag420",
+        "doi": "10.1093/nsr/nwag420",
+        "pmid": "42592399",
+        "title": "Constructing mesoscale functionomics by neural dynamics subspace clustering",
+        "year": "2026",
+        "journal": "National Science Review",
+        "citations": 0,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-15",
+      "question": "Global optimisation approach for assigning trajectories to individual fluorophores in live-cell fluorescence imaging.",
+      "keyword_query": "SPT global sampler",
+      "identifier": "SPT",
+      "combined_query": "Global optimisation approach for assigning trajectories to individual fluorophores in live-cell fluorescence imaging. SPT",
+      "marked_query": "Global optimisation approach for assigning trajectories to individual fluorophores in live-cell fluorescence imaging. \"SPT\"",
+      "target": {
+        "doc_key": "doi:10.1371/journal.pone.0221865",
+        "doi": "10.1371/journal.pone.0221865",
+        "pmid": "31658271",
+        "title": "A global sampler of single particle tracking solutions for single molecule microscopy",
+        "year": "2019",
+        "journal": "PLoS ONE",
+        "citations": 3,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-17",
+      "question": "Does depleting myeloid suppressor cells reverse the tumour-promoting immune environment left behind after partial thermal ablation of liver cancer?",
+      "keyword_query": "H22 blockade remodels",
+      "identifier": "H22",
+      "combined_query": "Does depleting myeloid suppressor cells reverse the tumour-promoting immune environment left behind after partial thermal ablation of liver cancer? H22",
+      "marked_query": "Does depleting myeloid suppressor cells reverse the tumour-promoting immune environment left behind after partial thermal ablation of liver cancer? \"H22\"",
+      "target": {
+        "doc_key": "doi:10.1186/s12935-024-03578-w",
+        "doi": "10.1186/s12935-024-03578-w",
+        "pmid": "39633362",
+        "title": "Gr-1 blockade remodels the immunosuppressive microenvironment induced by incomplete microwave ablation of hepatocellular carcinoma",
+        "year": "2024",
+        "journal": "Cancer Cell International",
+        "citations": 9,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-19",
+      "question": "Distributed computational agents for selecting informative transcripts distinguishing younger from older patients with hormone-receptor-negative breast tumours.",
+      "keyword_query": "CBR multi-agent system",
+      "identifier": "CBR",
+      "combined_query": "Distributed computational agents for selecting informative transcripts distinguishing younger from older patients with hormone-receptor-negative breast tumours. CBR",
+      "marked_query": "Distributed computational agents for selecting informative transcripts distinguishing younger from older patients with hormone-receptor-negative breast tumours. \"CBR\"",
+      "target": {
+        "doc_key": "doi:10.1515/jib-2015-278",
+        "doi": "10.2390/biecoll-jib-2015-278",
+        "pmid": "26673929",
+        "title": "Multi-agent System for Obtaining Relevant Genes in Expression Analysis between Young and Older Women with Triple Negative Breast Cancer",
+        "year": "2015",
+        "journal": "PubMed",
+        "citations": 7,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-20",
+      "question": "A deep intronic change in a basement-membrane collagen gene disrupts messenger RNA processing and causes hereditary nephritis.",
+      "keyword_query": "XLAS aberrant splicing",
+      "identifier": "XLAS",
+      "combined_query": "A deep intronic change in a basement-membrane collagen gene disrupts messenger RNA processing and causes hereditary nephritis. XLAS",
+      "marked_query": "A deep intronic change in a basement-membrane collagen gene disrupts messenger RNA processing and causes hereditary nephritis. \"XLAS\"",
+      "target": {
+        "doc_key": "doi:10.2147/ijnrd.s459363",
+        "doi": "10.2147/ijnrd.s459363",
+        "pmid": "38855711",
+        "title": "Aberrant Splicing of COL4A5 Intronic Variant Contribute to the Pathogenesis of X-Linked Alport Syndrome: A Case Series",
+        "year": "2024",
+        "journal": "International Journal of Nephrology and Renovascular Disease",
+        "citations": 1,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-21",
+      "question": "Engineering a self-assembling bactericidal peptide and delivering its gene through plasmid transfer between bacteria.",
+      "keyword_query": "RK2 design aggregating",
+      "identifier": "RK2",
+      "combined_query": "Engineering a self-assembling bactericidal peptide and delivering its gene through plasmid transfer between bacteria. RK2",
+      "marked_query": "Engineering a self-assembling bactericidal peptide and delivering its gene through plasmid transfer between bacteria. \"RK2\"",
+      "target": {
+        "doc_key": "doi:10.1021/acs.biochem.8b00888",
+        "doi": "10.1021/acs.biochem.8b00888",
+        "pmid": "30403128",
+        "title": "Design of a De Novo Aggregating Antimicrobial Peptide and a Bacterial Conjugation-Based Delivery System",
+        "year": "2018",
+        "journal": "Biochemistry",
+        "citations": 6,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-23",
+      "question": "Oral nanoparticle formulation supplying a small regulatory RNA to reduce intestinal inflammation in colitis.",
+      "keyword_query": "MOF orally delivered",
+      "identifier": "MOF",
+      "combined_query": "Oral nanoparticle formulation supplying a small regulatory RNA to reduce intestinal inflammation in colitis. MOF",
+      "marked_query": "Oral nanoparticle formulation supplying a small regulatory RNA to reduce intestinal inflammation in colitis. \"MOF\"",
+      "target": {
+        "doc_key": "doi:10.1021/acsami.6c11703",
+        "doi": "10.1021/acsami.6c11703",
+        "pmid": "42475169",
+        "title": "Orally Delivered Nanotherapeutics with miRNA-497 Supplying for Inflammatory Bowel Disease",
+        "year": "2026",
+        "journal": "ACS Applied Materials & Interfaces",
+        "citations": 0,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-000-009-24",
+      "question": "Whole-genome resequencing to characterise genetic structure and selection footprints in a Chinese indigenous swine breed.",
+      "keyword_query": "CABS1 assessing population",
+      "identifier": "CABS1",
+      "combined_query": "Whole-genome resequencing to characterise genetic structure and selection footprints in a Chinese indigenous swine breed. CABS1",
+      "marked_query": "Whole-genome resequencing to characterise genetic structure and selection footprints in a Chinese indigenous swine breed. \"CABS1\"",
+      "target": {
+        "doc_key": "doi:10.3390/ani13010013",
+        "doi": "10.3390/ani13010013",
+        "pmid": "36611624",
+        "title": "Assessing Population Structure and Signatures of Selection in Wanbei Pigs Using Whole Genome Resequencing Data",
+        "year": "2022",
+        "journal": "Animals",
+        "citations": 8,
+        "citation_band": "cit-000-009",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-01",
+      "question": "Statistical experimental design to maximise keratin breakdown by a soil bacterium for poultry waste processing.",
+      "keyword_query": "EDX optimization feather",
+      "identifier": "EDX",
+      "combined_query": "Statistical experimental design to maximise keratin breakdown by a soil bacterium for poultry waste processing. EDX",
+      "marked_query": "Statistical experimental design to maximise keratin breakdown by a soil bacterium for poultry waste processing. \"EDX\"",
+      "target": {
+        "doc_key": "doi:10.1002/bab.2436",
+        "doi": "10.1002/bab.2436",
+        "pmid": "36579721",
+        "title": "Optimization of feather degradation by a <i>Bacillus thuringiensis</i> isolate using response surface methodology and investigation of the feather protein hydrolysate structure",
+        "year": "2022",
+        "journal": "Biotechnology and Applied Biochemistry",
+        "citations": 12,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-02",
+      "question": "How does an aldehyde from tobacco smoke drive resistance to platinum chemotherapy in urothelial tumour cells?",
+      "keyword_query": "PD173074 cigarette smoke",
+      "identifier": "PD173074",
+      "combined_query": "How does an aldehyde from tobacco smoke drive resistance to platinum chemotherapy in urothelial tumour cells? PD173074",
+      "marked_query": "How does an aldehyde from tobacco smoke drive resistance to platinum chemotherapy in urothelial tumour cells? \"PD173074\"",
+      "target": {
+        "doc_key": "doi:10.1158/1535-7163.mct-21-0725",
+        "doi": "10.1158/1535-7163.mct-21-0725",
+        "pmid": "35312783",
+        "title": "Cigarette Smoke Containing Acrolein Contributes to Cisplatin Resistance in Human Bladder Cancers through the Regulation of HER2 Pathway or FGFR3 Pathway",
+        "year": "2022",
+        "journal": "Molecular Cancer Therapeutics",
+        "citations": 16,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-03",
+      "question": "Multiplex amplification assay for simultaneously detecting the common carbapenem-hydrolysing enzyme genes in clinical enteric isolates.",
+      "keyword_query": "KPC multiplex detection",
+      "identifier": "KPC",
+      "combined_query": "Multiplex amplification assay for simultaneously detecting the common carbapenem-hydrolysing enzyme genes in clinical enteric isolates. KPC",
+      "marked_query": "Multiplex amplification assay for simultaneously detecting the common carbapenem-hydrolysing enzyme genes in clinical enteric isolates. \"KPC\"",
+      "target": {
+        "doc_key": "doi:10.3390/antibiotics12010076",
+        "doi": "10.3390/antibiotics12010076",
+        "pmid": "36671277",
+        "title": "Multiplex PCR Detection of Common Carbapenemase Genes and Identification of Clinically Relevant Escherichia coli and Klebsiella pneumoniae Complex",
+        "year": "2022",
+        "journal": "Antibiotics",
+        "citations": 14,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-04",
+      "question": "Using distributed ledgers to constrain and audit generative language models deployed for individualised clinical care at scale.",
+      "keyword_query": "CHATCBD taming unleashed",
+      "identifier": "CHATCBD",
+      "combined_query": "Using distributed ledgers to constrain and audit generative language models deployed for individualised clinical care at scale. CHATCBD",
+      "marked_query": "Using distributed ledgers to constrain and audit generative language models deployed for individualised clinical care at scale. \"CHATCBD\"",
+      "target": {
+        "doc_key": "doi:10.1109/jbhi.2025.3528526",
+        "doi": "10.1109/jbhi.2025.3528526",
+        "pmid": "40031172",
+        "title": "Taming Unleashed Large Language Models With Blockchain for Massive Personalized Reliable Healthcare",
+        "year": "2025",
+        "journal": "IEEE Journal of Biomedical and Health Informatics",
+        "citations": 20,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-05",
+      "question": "Spatial reorganisation of replication machinery within the nucleus as mammalian cells prepare to leave the division cycle.",
+      "keyword_query": "PCNA nuclear reorganization",
+      "identifier": "PCNA",
+      "combined_query": "Spatial reorganisation of replication machinery within the nucleus as mammalian cells prepare to leave the division cycle. PCNA",
+      "marked_query": "Spatial reorganisation of replication machinery within the nucleus as mammalian cells prepare to leave the division cycle. \"PCNA\"",
+      "target": {
+        "doc_key": "doi:10.1128/mcb.24.2.595-607.2004",
+        "doi": "10.1128/mcb.24.2.595-607.2004",
+        "pmid": "14701733",
+        "title": "Nuclear Reorganization of Mammalian DNA Synthesis Prior to Cell Cycle Exit",
+        "year": "2003",
+        "journal": "Molecular and Cellular Biology",
+        "citations": 35,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-07",
+      "question": "Machine-learning framework for predicting which membrane-crossing peptides also possess antitumour activity.",
+      "keyword_query": "MLCPP cpacpp silico",
+      "identifier": "MLCPP",
+      "combined_query": "Machine-learning framework for predicting which membrane-crossing peptides also possess antitumour activity. MLCPP",
+      "marked_query": "Machine-learning framework for predicting which membrane-crossing peptides also possess antitumour activity. \"MLCPP\"",
+      "target": {
+        "doc_key": "doi:10.1021/acsomega.1c02569",
+        "doi": "10.1021/acsomega.1c02569",
+        "pmid": "34368571",
+        "title": "CpACpP: <i>In Silico</i> Cell-Penetrating Anticancer Peptide Prediction Using a Novel Bioinformatics Framework",
+        "year": "2021",
+        "journal": "ACS Omega",
+        "citations": 39,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-08",
+      "question": "Lipid profiling of plant-derived extracellular vesicles from a vegetable stalk and their use to dampen immune responses.",
+      "keyword_query": "GDHV usage celery",
+      "identifier": "GDHV",
+      "combined_query": "Lipid profiling of plant-derived extracellular vesicles from a vegetable stalk and their use to dampen immune responses. GDHV",
+      "marked_query": "Lipid profiling of plant-derived extracellular vesicles from a vegetable stalk and their use to dampen immune responses. \"GDHV\"",
+      "target": {
+        "doc_key": "doi:10.1111/jfbc.14393",
+        "doi": "10.1111/jfbc.14393",
+        "pmid": "36181394",
+        "title": "Usage of celery root exosome as an immune suppressant; Lipidomic characterization of apium graveolens originated exosomes and its suppressive effect on <scp>PMA</scp> /ionomycin mediated <scp>CD4</scp> <sup>+</sup> T lymphocyte activation",
+        "year": "2022",
+        "journal": "Journal of Food Biochemistry",
+        "citations": 33,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-09",
+      "question": "Did introducing lymphatic mapping change compliance with treatment guidelines for early-stage breast tumours?",
+      "keyword_query": "SNB guideline adherence",
+      "identifier": "SNB",
+      "combined_query": "Did introducing lymphatic mapping change compliance with treatment guidelines for early-stage breast tumours? SNB",
+      "marked_query": "Did introducing lymphatic mapping change compliance with treatment guidelines for early-stage breast tumours? \"SNB\"",
+      "target": {
+        "doc_key": "doi:10.1038/sj.bjc.6602747",
+        "doi": "10.1038/sj.bjc.6602747",
+        "pmid": "16136027",
+        "title": "Guideline adherence for early breast cancer before and after introduction of the sentinel node biopsy",
+        "year": "2005",
+        "journal": "British Journal of Cancer",
+        "citations": 31,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-10",
+      "question": "Enumeration and persistence of the dominant Gram-positive bacterial populations in human stool.",
+      "keyword_query": "FITC predominant gram-positive",
+      "identifier": "FITC",
+      "combined_query": "Enumeration and persistence of the dominant Gram-positive bacterial populations in human stool. FITC",
+      "marked_query": "Enumeration and persistence of the dominant Gram-positive bacterial populations in human stool. \"FITC\"",
+      "target": {
+        "doc_key": "doi:10.1128/iai.9.4.719-729.1974",
+        "doi": "10.1128/iai.9.4.719-729.1974",
+        "pmid": "4595760",
+        "title": "Predominant Gram-Positive Bacteria in Human Feces: Numbers, Variety, and Persistence",
+        "year": "1974",
+        "journal": "Infection and Immunity",
+        "citations": 46,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-11",
+      "question": "Does the pathogenic potential of a later coronavirus variant depend on the age of the infected host?",
+      "keyword_query": "K18 age-dependent acquisition",
+      "identifier": "K18",
+      "combined_query": "Does the pathogenic potential of a later coronavirus variant depend on the age of the infected host? K18",
+      "marked_query": "Does the pathogenic potential of a later coronavirus variant depend on the age of the infected host? \"K18\"",
+      "target": {
+        "doc_key": "doi:10.1126/sciadv.adj1736",
+        "doi": "10.1126/sciadv.adj1736",
+        "pmid": "37738347",
+        "title": "Age-dependent acquisition of pathogenicity by SARS-CoV-2 Omicron BA.5",
+        "year": "2023",
+        "journal": "Science Advances",
+        "citations": 23,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-14",
+      "question": "Does split-dose total body radiation worsen joint inflammation by upregulating an inflammasome sensor and an osteoclast differentiation factor?",
+      "keyword_query": "NLRP fractionated whole",
+      "identifier": "NLRP",
+      "combined_query": "Does split-dose total body radiation worsen joint inflammation by upregulating an inflammasome sensor and an osteoclast differentiation factor? NLRP",
+      "marked_query": "Does split-dose total body radiation worsen joint inflammation by upregulating an inflammasome sensor and an osteoclast differentiation factor? \"NLRP\"",
+      "target": {
+        "doc_key": "doi:10.1007/s10787-023-01238-5",
+        "doi": "10.1007/s10787-023-01238-5",
+        "pmid": "37131046",
+        "title": "Fractionated whole body γ-irradiation aggravates arthritic severity via boosting NLRP3 and RANKL expression in adjuvant-induced arthritis model: the mitigative potential of ebselen",
+        "year": "2023",
+        "journal": "Inflammopharmacology",
+        "citations": 17,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-15",
+      "question": "Comparing immune gene diversity between captive and free-living populations of a Madagascan primate.",
+      "keyword_query": "DLC genetic wealth",
+      "identifier": "DLC",
+      "combined_query": "Comparing immune gene diversity between captive and free-living populations of a Madagascan primate. DLC",
+      "marked_query": "Comparing immune gene diversity between captive and free-living populations of a Madagascan primate. \"DLC\"",
+      "target": {
+        "doc_key": "doi:10.1002/ece3.3317",
+        "doi": "10.1002/ece3.3317",
+        "pmid": "29043021",
+        "title": "Genetic wealth, population health: Major histocompatibility complex variation in captive and wild ring‐tailed lemurs (<i>Lemur catta</i>)",
+        "year": "2017",
+        "journal": "Ecology and Evolution",
+        "citations": 27,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-16",
+      "question": "Protein kinase C phosphorylation of voltage-gated sodium channels alters how an antiepileptic drug blocks persistent current.",
+      "keyword_query": "OAG phosphorylation sodium",
+      "identifier": "OAG",
+      "combined_query": "Protein kinase C phosphorylation of voltage-gated sodium channels alters how an antiepileptic drug blocks persistent current. OAG",
+      "marked_query": "Protein kinase C phosphorylation of voltage-gated sodium channels alters how an antiepileptic drug blocks persistent current. \"OAG\"",
+      "target": {
+        "doc_key": "doi:10.1038/sj.bjp.0707144",
+        "doi": "10.1038/sj.bjp.0707144",
+        "pmid": "17279091",
+        "title": "Phosphorylation of sodium channels mediated by protein kinase‐C modulates inhibition by topiramate of tetrodotoxin‐sensitive transient sodium current",
+        "year": "2007",
+        "journal": "British Journal of Pharmacology",
+        "citations": 27,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-17",
+      "question": "Manufacturing lipid nanoparticles from pre-formed vesicles to improve messenger RNA delivery to the retina.",
+      "keyword_query": "PFV preformed vesicle",
+      "identifier": "PFV",
+      "combined_query": "Manufacturing lipid nanoparticles from pre-formed vesicles to improve messenger RNA delivery to the retina. PFV",
+      "marked_query": "Manufacturing lipid nanoparticles from pre-formed vesicles to improve messenger RNA delivery to the retina. \"PFV\"",
+      "target": {
+        "doc_key": "doi:10.1002/smll.202400815",
+        "doi": "10.1002/smll.202400815",
+        "pmid": "38738752",
+        "title": "Preformed Vesicle Approach to LNP Manufacturing Enhances Retinal mRNA Delivery",
+        "year": "2024",
+        "journal": "Small",
+        "citations": 30,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-19",
+      "question": "Review of the clinical and histological relationship between gluten-sensitive enteropathy and gastric infection by a spiral bacterium.",
+      "keyword_query": "ISI pathological clinical",
+      "identifier": "ISI",
+      "combined_query": "Review of the clinical and histological relationship between gluten-sensitive enteropathy and gastric infection by a spiral bacterium. ISI",
+      "marked_query": "Review of the clinical and histological relationship between gluten-sensitive enteropathy and gastric infection by a spiral bacterium. \"ISI\"",
+      "target": {
+        "doc_key": "doi:10.15171/mejdd.2016.12",
+        "doi": "10.15171/mejdd.2016.12",
+        "pmid": "27252814",
+        "title": "Pathological and Clinical Correlation between Celiac Disease and Helicobacter Pylori Infection; a Review of Controversial Reports",
+        "year": "2016",
+        "journal": "Middle East Journal of Digestive Diseases",
+        "citations": 19,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-20",
+      "question": "Expression of a proteoglycan in resting versus dividing primary endothelial cell cultures.",
+      "keyword_query": "CCL2 serglycin quiescent",
+      "identifier": "CCL2",
+      "combined_query": "Expression of a proteoglycan in resting versus dividing primary endothelial cell cultures. CCL2",
+      "marked_query": "Expression of a proteoglycan in resting versus dividing primary endothelial cell cultures. \"CCL2\"",
+      "target": {
+        "doc_key": "doi:10.1371/journal.pone.0145584",
+        "doi": "10.1371/journal.pone.0145584",
+        "pmid": "26694746",
+        "title": "Serglycin in Quiescent and Proliferating Primary Endothelial Cells",
+        "year": "2015",
+        "journal": "PLoS ONE",
+        "citations": 20,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-21",
+      "question": "Mechanistic, theoretical and applied study of amine addition to electron-poor organometallic triple bonds without a catalyst.",
+      "keyword_query": "TDDFT uncatalyzed hydroamination",
+      "identifier": "TDDFT",
+      "combined_query": "Mechanistic, theoretical and applied study of amine addition to electron-poor organometallic triple bonds without a catalyst. TDDFT",
+      "marked_query": "Mechanistic, theoretical and applied study of amine addition to electron-poor organometallic triple bonds without a catalyst. \"TDDFT\"",
+      "target": {
+        "doc_key": "doi:10.1002/chem.201400373",
+        "doi": "10.1002/chem.201400373",
+        "pmid": "24828953",
+        "title": "Uncatalyzed Hydroamination of Electrophilic Organometallic Alkynes: Fundamental, Theoretical, and Applied Aspects",
+        "year": "2014",
+        "journal": "Chemistry - A European Journal",
+        "citations": 11,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-23",
+      "question": "Effect of an aromatic nitro compound on protective enzyme activity and genetic damage in tobacco seedling leaves.",
+      "keyword_query": "OTM nitrobenzene antioxidative",
+      "identifier": "OTM",
+      "combined_query": "Effect of an aromatic nitro compound on protective enzyme activity and genetic damage in tobacco seedling leaves. OTM",
+      "marked_query": "Effect of an aromatic nitro compound on protective enzyme activity and genetic damage in tobacco seedling leaves. \"OTM\"",
+      "target": {
+        "doc_key": "doi:10.1002/etc.1920",
+        "doi": "10.1002/etc.1920",
+        "pmid": "22714570",
+        "title": "The effect of nitrobenzene on antioxidative enzyme activity and DNA damage in tobacco seedling leaf cells",
+        "year": "2012",
+        "journal": "Environmental Toxicology and Chemistry",
+        "citations": 10,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-010-049-24",
+      "question": "Do individual recombinant human drug-metabolising haem enzymes differ in how much peroxide they generate during catalysis?",
+      "keyword_query": "CYP4A11 recombinant cytochrome",
+      "identifier": "CYP4A11",
+      "combined_query": "Do individual recombinant human drug-metabolising haem enzymes differ in how much peroxide they generate during catalysis? CYP4A11",
+      "marked_query": "Do individual recombinant human drug-metabolising haem enzymes differ in how much peroxide they generate during catalysis? \"CYP4A11\"",
+      "target": {
+        "doc_key": "doi:10.1093/toxsci/kfu133",
+        "doi": "10.1093/toxsci/kfu133",
+        "pmid": "25061110",
+        "title": "Human Recombinant Cytochrome P450 Enzymes Display Distinct Hydrogen Peroxide Generating Activities During Substrate Independent NADPH Oxidase Reactions",
+        "year": "2014",
+        "journal": "Toxicological Sciences",
+        "citations": 16,
+        "citation_band": "cit-010-049",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-01",
+      "question": "A death-receptor ligand blocks bone-resorbing cell formation by opposing accumulation of a cyclin-dependent kinase inhibitor.",
+      "keyword_query": "OPG trail inhibits",
+      "identifier": "OPG",
+      "combined_query": "A death-receptor ligand blocks bone-resorbing cell formation by opposing accumulation of a cyclin-dependent kinase inhibitor. OPG",
+      "marked_query": "A death-receptor ligand blocks bone-resorbing cell formation by opposing accumulation of a cyclin-dependent kinase inhibitor. \"OPG\"",
+      "target": {
+        "doc_key": "doi:10.1002/jcp.21165",
+        "doi": "10.1002/jcp.21165",
+        "pmid": "17620297",
+        "title": "TRAIL inhibits osteoclastic differentiation by counteracting RANKL‐dependent p27<sup>Kip1</sup> accumulation in pre‐osteoclast precursors",
+        "year": "2007",
+        "journal": "Journal of Cellular Physiology",
+        "citations": 64,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-02",
+      "question": "Effects of graft rejection on mucosal structure during hypersensitivity responses in the small bowel.",
+      "keyword_query": "CMI hypersensitivity reactions",
+      "identifier": "CMI",
+      "combined_query": "Effects of graft rejection on mucosal structure during hypersensitivity responses in the small bowel. CMI",
+      "marked_query": "Effects of graft rejection on mucosal structure during hypersensitivity responses in the small bowel. \"CMI\"",
+      "target": {
+        "doc_key": "doi:10.1136/gut.17.2.81",
+        "doi": "10.1136/gut.17.2.81",
+        "pmid": "1083353",
+        "title": "Hypersensitivity reactions in the small intestine. 2. Effects of allograft rejection on mucosal architecture and lymphoid cell infiltrate.",
+        "year": "1976",
+        "journal": "Gut",
+        "citations": 79,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-03",
+      "question": "Does a nitroxide antioxidant protect normal tissue without protecting the tumour in a mouse model of radiotherapy?",
+      "keyword_query": "TCD evaluation tempol",
+      "identifier": "TCD",
+      "combined_query": "Does a nitroxide antioxidant protect normal tissue without protecting the tumour in a mouse model of radiotherapy? TCD",
+      "marked_query": "Does a nitroxide antioxidant protect normal tissue without protecting the tumour in a mouse model of radiotherapy? \"TCD\"",
+      "target": {
+        "doc_key": "doi:10.1016/s0891-5849(96)00556-4",
+        "doi": "10.1016/s0891-5849(96)00556-4",
+        "pmid": "9098095",
+        "title": "Evaluation of Tempol Radioprotection in a Murine Tumor Model",
+        "year": "1997",
+        "journal": "Free Radical Biology and Medicine",
+        "citations": 89,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-04",
+      "question": "Comparing bolus injection with pressure-driven infusion for distributing a targeted toxin through brain tumour tissue in mice.",
+      "keyword_query": "PE38 distribution kinetics",
+      "identifier": "PE38",
+      "combined_query": "Comparing bolus injection with pressure-driven infusion for distributing a targeted toxin through brain tumour tissue in mice. PE38",
+      "marked_query": "Comparing bolus injection with pressure-driven infusion for distributing a targeted toxin through brain tumour tissue in mice. \"PE38\"",
+      "target": {
+        "doc_key": "doi:10.3171/jns.2004.101.6.1004",
+        "doi": "10.3171/jns.2004.101.6.1004",
+        "pmid": "15597761",
+        "title": "Distribution kinetics of targeted cytotoxin in glioma by bolus or convection-enhanced delivery in a murine model",
+        "year": "2004",
+        "journal": "Journal of neurosurgery",
+        "citations": 75,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-06",
+      "question": "Would women in the United States and Africa accept a long-acting injectable product for preventing retroviral infection?",
+      "keyword_query": "HPTN acceptability acting",
+      "identifier": "HPTN",
+      "combined_query": "Would women in the United States and Africa accept a long-acting injectable product for preventing retroviral infection? HPTN",
+      "marked_query": "Would women in the United States and Africa accept a long-acting injectable product for preventing retroviral infection? \"HPTN\"",
+      "target": {
+        "doc_key": "doi:10.1002/jia2.25408",
+        "doi": "10.1002/jia2.25408",
+        "pmid": "31651098",
+        "title": "Acceptability of a long‐acting injectable HIV prevention product among US and African women: findings from a phase 2 clinical Trial (HPTN 076)",
+        "year": "2019",
+        "journal": "Journal of the International AIDS Society",
+        "citations": 61,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-07",
+      "question": "How does the untranslated leader sequence of a plant polyamine biosynthesis enzyme control its translation?",
+      "keyword_query": "SAMDC pivotal roles",
+      "identifier": "SAMDC",
+      "combined_query": "How does the untranslated leader sequence of a plant polyamine biosynthesis enzyme control its translation? SAMDC",
+      "marked_query": "How does the untranslated leader sequence of a plant polyamine biosynthesis enzyme control its translation? \"SAMDC\"",
+      "target": {
+        "doc_key": "doi:10.1104/pp.104.056770",
+        "doi": "10.1104/pp.104.056770",
+        "pmid": "15821146",
+        "title": "The Pivotal Roles of the Plant S-Adenosylmethionine Decarboxylase 5′ Untranslated Leader Sequence in Regulation of Gene Expression at the Transcriptional and Posttranscriptional Levels",
+        "year": "2005",
+        "journal": "PLANT PHYSIOLOGY",
+        "citations": 67,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-09",
+      "question": "Seroprevalence and exposure risk for a tick-borne haemorrhagic fever virus in a rural southern African population.",
+      "keyword_query": "CCHF infections crimean-congo",
+      "identifier": "CCHF",
+      "combined_query": "Seroprevalence and exposure risk for a tick-borne haemorrhagic fever virus in a rural southern African population. CCHF",
+      "marked_query": "Seroprevalence and exposure risk for a tick-borne haemorrhagic fever virus in a rural southern African population. \"CCHF\"",
+      "target": {
+        "doc_key": "doi:10.4269/ajtmh.1992.47.337",
+        "doi": "10.4269/ajtmh.1992.47.337",
+        "pmid": "1524147",
+        "title": "Risk of Human Infections with Crimean-Congo Hemorrhagic Fever Virus in a South African Rural Community",
+        "year": "1992",
+        "journal": "American Journal of Tropical Medicine and Hygiene",
+        "citations": 91,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-10",
+      "question": "Electrical conductance of the thin aqueous film between a supported lipid membrane and its glass substrate.",
+      "keyword_query": "POPC ionic conductivity",
+      "identifier": "POPC",
+      "combined_query": "Electrical conductance of the thin aqueous film between a supported lipid membrane and its glass substrate. POPC",
+      "marked_query": "Electrical conductance of the thin aqueous film between a supported lipid membrane and its glass substrate. \"POPC\"",
+      "target": {
+        "doc_key": "doi:10.1021/la061457a",
+        "doi": "10.1021/la061457a",
+        "pmid": "17129059",
+        "title": "Ionic Conductivity of the Aqueous Layer Separating a Lipid Bilayer Membrane and a Glass Support",
+        "year": "2006",
+        "journal": "Langmuir",
+        "citations": 95,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-11",
+      "question": "Forced-oscillation measurements and model parameters describing airway mechanics in small subjects.",
+      "keyword_query": "R20 impulse oscillometric",
+      "identifier": "R20",
+      "combined_query": "Forced-oscillation measurements and model parameters describing airway mechanics in small subjects. R20",
+      "marked_query": "Forced-oscillation measurements and model parameters describing airway mechanics in small subjects. \"R20\"",
+      "target": {
+        "doc_key": "doi:10.1186/1475-925x-10-21",
+        "doi": "10.1186/1475-925x-10-21",
+        "pmid": "21439045",
+        "title": "Analysis of impulse oscillometric measures of lung function and respiratory system model parameters in small airway-impaired and healthy children over a 2-year period",
+        "year": "2011",
+        "journal": "BioMedical Engineering OnLine",
+        "citations": 62,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-12",
+      "question": "Two chemokine receptors govern blood monocyte trafficking and predict efficacy in an experimental demyelinating disease model.",
+      "keyword_query": "CCL7 cxcr4 regulate",
+      "identifier": "CCL7",
+      "combined_query": "Two chemokine receptors govern blood monocyte trafficking and predict efficacy in an experimental demyelinating disease model. CCL7",
+      "marked_query": "Two chemokine receptors govern blood monocyte trafficking and predict efficacy in an experimental demyelinating disease model. \"CCL7\"",
+      "target": {
+        "doc_key": "doi:10.1186/1476-9255-6-32",
+        "doi": "10.1186/1476-9255-6-32",
+        "pmid": "19906300",
+        "title": "CCR2 and CXCR4 regulate peripheral blood monocyte pharmacodynamics and link to efficacy in experimental autoimmune encephalomyelitis",
+        "year": "2009",
+        "journal": "Journal of Inflammation",
+        "citations": 55,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-13",
+      "question": "Cellular uptake, potency and disposition of uncharged backbone-modified antisense oligomers.",
+      "keyword_query": "PMO neutrally charged",
+      "identifier": "PMO",
+      "combined_query": "Cellular uptake, potency and disposition of uncharged backbone-modified antisense oligomers. PMO",
+      "marked_query": "Cellular uptake, potency and disposition of uncharged backbone-modified antisense oligomers. \"PMO\"",
+      "target": {
+        "doc_key": "doi:10.2174/1389201043376706",
+        "doi": "10.2174/1389201043376706",
+        "pmid": "15544491",
+        "title": "Neutrally Charged Phosphorodiamidate Morpholino Antisense Oligomers: Uptake, Efficacy and Pharmacokinetics",
+        "year": "2004",
+        "journal": "Current Pharmaceutical Biotechnology",
+        "citations": 76,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-16",
+      "question": "A single-reaction multiplex assay for glutathione transferase gene variants and its relation to detoxification phenotype.",
+      "keyword_query": "GSTT1 single multiplex",
+      "identifier": "GSTT1",
+      "combined_query": "A single-reaction multiplex assay for glutathione transferase gene variants and its relation to detoxification phenotype. GSTT1",
+      "marked_query": "A single-reaction multiplex assay for glutathione transferase gene variants and its relation to detoxification phenotype. \"GSTT1\"",
+      "target": {
+        "doc_key": "doi:10.1097/00008571-199810000-00009",
+        "doi": "10.1097/00008571-199810000-00009",
+        "pmid": "9825836",
+        "title": "Single tube multiplex polymerase chain reaction genotype analysis of GSTM1, GSTT1 and GSTP1: relation of genotypes to TP53 tumor status and clinicopathological variables in breast cancer patients",
+        "year": "1998",
+        "journal": "Pharmacogenetics",
+        "citations": 85,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-20",
+      "question": "Stem cell grafting for inherited hyperinflammatory histiocytic syndromes and virus-driven lymphoproliferation.",
+      "keyword_query": "FHL3 hematopoietic transplantation",
+      "identifier": "FHL3",
+      "combined_query": "Stem cell grafting for inherited hyperinflammatory histiocytic syndromes and virus-driven lymphoproliferation. FHL3",
+      "marked_query": "Stem cell grafting for inherited hyperinflammatory histiocytic syndromes and virus-driven lymphoproliferation. \"FHL3\"",
+      "target": {
+        "doc_key": "doi:10.1002/pbc.22310",
+        "doi": "10.1002/pbc.22310",
+        "pmid": "19827139",
+        "title": "Hematopoietic stem cell transplantation for familial hemophagocytic lymphohistiocytosis and Epstein–Barr virus‐associated hemophagocytic lymphohistiocytosis in Japan",
+        "year": "2009",
+        "journal": "Pediatric Blood & Cancer",
+        "citations": 125,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-21",
+      "question": "Can scalp electrical stimulation be used to identify the location of a brain function?",
+      "keyword_query": "TES transcranial electrical",
+      "identifier": "TES",
+      "combined_query": "Can scalp electrical stimulation be used to identify the location of a brain function? TES",
+      "marked_query": "Can scalp electrical stimulation be used to identify the location of a brain function? \"TES\"",
+      "target": {
+        "doc_key": "doi:10.3389/fpsyg.2019.00213",
+        "doi": "10.3389/fpsyg.2019.00213",
+        "pmid": "30837911",
+        "title": "Can Transcranial Electrical Stimulation Localize Brain Function?",
+        "year": "2019",
+        "journal": "Frontiers in Psychology",
+        "citations": 74,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-22",
+      "question": "Disposition of a veterinary fluoroquinolone after oral dosing in healthy dogs.",
+      "keyword_query": "TCF pharmacokinetic evaluation",
+      "identifier": "TCF",
+      "combined_query": "Disposition of a veterinary fluoroquinolone after oral dosing in healthy dogs. TCF",
+      "marked_query": "Disposition of a veterinary fluoroquinolone after oral dosing in healthy dogs. \"TCF\"",
+      "target": {
+        "doc_key": "doi:10.2460/ajvr.1992.53.12.2315",
+        "doi": "10.2460/ajvr.1992.53.12.2315",
+        "pmid": "1335707",
+        "title": "Pharmacokinetic evaluation of enrofloxacin administered orally to healthy dogs",
+        "year": "1992",
+        "journal": "American Journal of Veterinary Research",
+        "citations": 76,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-23",
+      "question": "Why does spliced retroviral messenger RNA fail to accumulate in methyl-donor-depleted avian cells?",
+      "keyword_query": "B77 accumulation spliced",
+      "identifier": "B77",
+      "combined_query": "Why does spliced retroviral messenger RNA fail to accumulate in methyl-donor-depleted avian cells? B77",
+      "marked_query": "Why does spliced retroviral messenger RNA fail to accumulate in methyl-donor-depleted avian cells? \"B77\"",
+      "target": {
+        "doc_key": "doi:10.1128/jvi.42.3.918-931.1982",
+        "doi": "10.1128/jvi.42.3.918-931.1982",
+        "pmid": "6285005",
+        "title": "Accumulation of Spliced Avian Retrovirus mRNA Is Inhibited in <i>S</i> -Adenosylmethionine-Depleted Chicken Embryo Fibroblasts",
+        "year": "1982",
+        "journal": "Journal of Virology",
+        "citations": 80,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-050-199-24",
+      "question": "Do isolated hepatic resident macrophages from guinea pigs present antigen to lymphocytes?",
+      "keyword_query": "PEM antigen presentation",
+      "identifier": "PEM",
+      "combined_query": "Do isolated hepatic resident macrophages from guinea pigs present antigen to lymphocytes? PEM",
+      "marked_query": "Do isolated hepatic resident macrophages from guinea pigs present antigen to lymphocytes? \"PEM\"",
+      "target": {
+        "doc_key": "doi:10.4049/jimmunol.124.4.1740",
+        "doi": "10.4049/jimmunol.124.4.1740",
+        "pmid": "6965960",
+        "title": "Antigen presentation by isolated guinea pig Kupffer cells.",
+        "year": "1980",
+        "journal": "The Journal of Immunology",
+        "citations": 70,
+        "citation_band": "cit-050-199",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-01",
+      "question": "Which substrates are preferred by ubiquitin carboxyl-terminal cleaving isopeptidases?",
+      "keyword_query": "UCH substrate specificity",
+      "identifier": "UCH",
+      "combined_query": "Which substrates are preferred by ubiquitin carboxyl-terminal cleaving isopeptidases? UCH",
+      "marked_query": "Which substrates are preferred by ubiquitin carboxyl-terminal cleaving isopeptidases? \"UCH\"",
+      "target": {
+        "doc_key": "doi:10.1021/bi972274d",
+        "doi": "10.1021/bi972274d",
+        "pmid": "9521656",
+        "title": "Substrate Specificity of Deubiquitinating Enzymes:  Ubiquitin C-Terminal Hydrolases",
+        "year": "1998",
+        "journal": "Biochemistry",
+        "citations": 394,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-03",
+      "question": "Do bone-forming cells both produce and respond to a multifunctional growth factor in culture?",
+      "keyword_query": "FBBC osteoblasts synthesize",
+      "identifier": "FBBC",
+      "combined_query": "Do bone-forming cells both produce and respond to a multifunctional growth factor in culture? FBBC",
+      "marked_query": "Do bone-forming cells both produce and respond to a multifunctional growth factor in culture? \"FBBC\"",
+      "target": {
+        "doc_key": "doi:10.1083/jcb.105.1.457",
+        "doi": "10.1083/jcb.105.1.457",
+        "pmid": "3475276",
+        "title": "Osteoblasts synthesize and respond to transforming growth factor-type beta (TGF-beta) in vitro.",
+        "year": "1987",
+        "journal": "The Journal of Cell Biology",
+        "citations": 558,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-04",
+      "question": "Contribution of a hypothalamic stress peptide and adrenal steroid to reinstatement of psychostimulant seeking.",
+      "keyword_query": "CRF12 corticotropin-releasing factor",
+      "identifier": "CRF12",
+      "combined_query": "Contribution of a hypothalamic stress peptide and adrenal steroid to reinstatement of psychostimulant seeking. CRF12",
+      "marked_query": "Contribution of a hypothalamic stress peptide and adrenal steroid to reinstatement of psychostimulant seeking. \"CRF12\"",
+      "target": {
+        "doc_key": "doi:10.1523/jneurosci.18-14-05529.1998",
+        "doi": "10.1523/jneurosci.18-14-05529.1998",
+        "pmid": "9651233",
+        "title": "The Role of Corticotropin-Releasing Factor and Corticosterone in Stress- and Cocaine-Induced Relapse to Cocaine Seeking in Rats",
+        "year": "1998",
+        "journal": "Journal of Neuroscience",
+        "citations": 328,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-05",
+      "question": "Long-term clinical course of a rare inherited bone-overgrowth disorder.",
+      "keyword_query": "SOST natural history",
+      "identifier": "SOST",
+      "combined_query": "Long-term clinical course of a rare inherited bone-overgrowth disorder. SOST",
+      "marked_query": "Long-term clinical course of a rare inherited bone-overgrowth disorder. \"SOST\"",
+      "target": {
+        "doc_key": "doi:10.1034/j.1399-0004.2003.00036.x",
+        "doi": "10.1034/j.1399-0004.2003.00036.x",
+        "pmid": "12694228",
+        "title": "The natural history of sclerosteosis",
+        "year": "2003",
+        "journal": "Clinical Genetics",
+        "citations": 231,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-06",
+      "question": "How is a heavy-metal-based chemotherapeutic distributed within tumour cells and solid tumour tissue?",
+      "keyword_query": "NSW platinum distribution",
+      "identifier": "NSW",
+      "combined_query": "How is a heavy-metal-based chemotherapeutic distributed within tumour cells and solid tumour tissue? NSW",
+      "marked_query": "How is a heavy-metal-based chemotherapeutic distributed within tumour cells and solid tumour tissue? \"NSW\"",
+      "target": {
+        "doc_key": "doi:10.1021/cr9001066",
+        "doi": "10.1021/cr9001066",
+        "pmid": "19711978",
+        "title": "Platinum Drug Distribution in Cancer Cells and Tumors",
+        "year": "2009",
+        "journal": "Chemical Reviews",
+        "citations": 351,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-07",
+      "question": "From biological rationale to clinical prospects for blocking a tyrosine kinase receptor family in oncology.",
+      "keyword_query": "FGFR fibroblast growth",
+      "identifier": "FGFR",
+      "combined_query": "From biological rationale to clinical prospects for blocking a tyrosine kinase receptor family in oncology. FGFR",
+      "marked_query": "From biological rationale to clinical prospects for blocking a tyrosine kinase receptor family in oncology. \"FGFR\"",
+      "target": {
+        "doc_key": "doi:10.1158/2159-8290.cd-12-0362",
+        "doi": "10.1158/2159-8290.cd-12-0362",
+        "pmid": "23418312",
+        "title": "Fibroblast Growth Factor Receptor Inhibitors as a Cancer Treatment: From a Biologic Rationale to Medical Perspectives",
+        "year": "2013",
+        "journal": "Cancer Discovery",
+        "citations": 409,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-08",
+      "question": "Do bacterial viruses drive phenotypic switching during biofilm formation by an opportunistic pathogen?",
+      "keyword_query": "SCV bacteriophage phenotypic",
+      "identifier": "SCV",
+      "combined_query": "Do bacterial viruses drive phenotypic switching during biofilm formation by an opportunistic pathogen? SCV",
+      "marked_query": "Do bacterial viruses drive phenotypic switching during biofilm formation by an opportunistic pathogen? \"SCV\"",
+      "target": {
+        "doc_key": "doi:10.1128/jb.186.23.8066-8073.2004",
+        "doi": "10.1128/jb.186.23.8066-8073.2004",
+        "pmid": "15547279",
+        "title": "Bacteriophage and Phenotypic Variation in <i>Pseudomonas aeruginosa</i> Biofilm Development",
+        "year": "2004",
+        "journal": "Journal of Bacteriology",
+        "citations": 290,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-09",
+      "question": "A stress-responsive plant transcription factor controlling hormone-dependent genes and tolerance to non-living stresses in a cereal.",
+      "keyword_query": "ABA nac-type transcription",
+      "identifier": "ABA",
+      "combined_query": "A stress-responsive plant transcription factor controlling hormone-dependent genes and tolerance to non-living stresses in a cereal. ABA",
+      "marked_query": "A stress-responsive plant transcription factor controlling hormone-dependent genes and tolerance to non-living stresses in a cereal. \"ABA\"",
+      "target": {
+        "doc_key": "doi:10.1038/srep40641",
+        "doi": "10.1038/srep40641",
+        "pmid": "28074873",
+        "title": "The NAC-type transcription factor OsNAC2 regulates ABA-dependent genes and abiotic stress tolerance in rice",
+        "year": "2017",
+        "journal": "Scientific Reports",
+        "citations": 205,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-10",
+      "question": "Metabolic breadth and microbial diversity in hot, chemically dynamic seafloor sediments.",
+      "keyword_query": "ANME expansive microbial",
+      "identifier": "ANME",
+      "combined_query": "Metabolic breadth and microbial diversity in hot, chemically dynamic seafloor sediments. ANME",
+      "marked_query": "Metabolic breadth and microbial diversity in hot, chemically dynamic seafloor sediments. \"ANME\"",
+      "target": {
+        "doc_key": "doi:10.1038/s41467-018-07418-0",
+        "doi": "10.1038/s41467-018-07418-0",
+        "pmid": "30479325",
+        "title": "Expansive microbial metabolic versatility and biodiversity in dynamic Guaymas Basin hydrothermal sediments",
+        "year": "2018",
+        "journal": "Nature Communications",
+        "citations": 303,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-11",
+      "question": "Isolating immunosuppressive multipotent stromal cells from the soft tissue inside teeth.",
+      "keyword_query": "SH4 multipotent mesenchymal",
+      "identifier": "SH4",
+      "combined_query": "Isolating immunosuppressive multipotent stromal cells from the soft tissue inside teeth. SH4",
+      "marked_query": "Isolating immunosuppressive multipotent stromal cells from the soft tissue inside teeth. \"SH4\"",
+      "target": {
+        "doc_key": "doi:10.1097/01.tp.0000173794.72151.88",
+        "doi": "10.1097/01.tp.0000173794.72151.88",
+        "pmid": "16210973",
+        "title": "Multipotent Mesenchymal Stem Cells with Immunosuppressive Activity Can Be Easily Isolated from Dental Pulp",
+        "year": "2005",
+        "journal": "Transplantation",
+        "citations": 606,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-13",
+      "question": "Which receptor mediates attachment of umbilical vein endothelial cells to a secreted early-response matrix protein?",
+      "keyword_query": "LM609 adhesion umbilical",
+      "identifier": "LM609",
+      "combined_query": "Which receptor mediates attachment of umbilical vein endothelial cells to a secreted early-response matrix protein? LM609",
+      "marked_query": "Which receptor mediates attachment of umbilical vein endothelial cells to a secreted early-response matrix protein? \"LM609\"",
+      "target": {
+        "doc_key": "doi:10.1074/jbc.273.5.3090",
+        "doi": "10.1074/jbc.273.5.3090",
+        "pmid": "9446626",
+        "title": "Adhesion of Human Umbilical Vein Endothelial Cells to the Immediate-Early Gene Product Cyr61 Is Mediated through Integrin αvβ3",
+        "year": "1998",
+        "journal": "Journal of Biological Chemistry",
+        "citations": 202,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-14",
+      "question": "Early-phase trial of autologous cytokine-activated lymphocytes in relapsed lymphoma.",
+      "keyword_query": "CIK phase trial",
+      "identifier": "CIK",
+      "combined_query": "Early-phase trial of autologous cytokine-activated lymphocytes in relapsed lymphoma. CIK",
+      "marked_query": "Early-phase trial of autologous cytokine-activated lymphocytes in relapsed lymphoma. \"CIK\"",
+      "target": {
+        "doc_key": "doi:10.1016/j.bbmt.2004.11.019",
+        "doi": "10.1016/j.bbmt.2004.11.019",
+        "pmid": "15744236",
+        "title": "A phase I trial of autologous cytokine-induced killer cells for the treatment of relapsed Hodgkin disease and non-Hodgkin lymphoma",
+        "year": "2005",
+        "journal": "Transplantation and Cellular Therapy",
+        "citations": 210,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-16",
+      "question": "An anti-inflammatory cytokine blocks monocyte conversion into dendritic cells while driving maturation toward macrophages.",
+      "keyword_query": "MLR il-10 prevents",
+      "identifier": "MLR",
+      "combined_query": "An anti-inflammatory cytokine blocks monocyte conversion into dendritic cells while driving maturation toward macrophages. MLR",
+      "marked_query": "An anti-inflammatory cytokine blocks monocyte conversion into dendritic cells while driving maturation toward macrophages. \"MLR\"",
+      "target": {
+        "doc_key": "doi:10.1002/(sici)1521-4141(199801)28:01<359::aid-immu359>3.0.co;2-4",
+        "doi": "10.1002/(sici)1521-4141(199801)28:01<359::aid-immu359>3.0.co;2-4",
+        "pmid": "9485215",
+        "title": "IL-10 prevents the differentiation of monocytes to dendritic cells but promotes their maturation to macrophages",
+        "year": "1998",
+        "journal": "European Journal of Immunology",
+        "citations": 491,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-17",
+      "question": "Growth-factor receptor signalling regulates an immune checkpoint ligand through an interleukin-6 and transcription-factor cascade.",
+      "keyword_query": "JAK pathway involved",
+      "identifier": "JAK",
+      "combined_query": "Growth-factor receptor signalling regulates an immune checkpoint ligand through an interleukin-6 and transcription-factor cascade. JAK",
+      "marked_query": "Growth-factor receptor signalling regulates an immune checkpoint ligand through an interleukin-6 and transcription-factor cascade. \"JAK\"",
+      "target": {
+        "doc_key": "doi:10.3892/ijo.2016.3632",
+        "doi": "10.3892/ijo.2016.3632",
+        "pmid": "27499357",
+        "title": "The EGFR pathway is involved in the regulation of PD-L1 expression via the IL-6/JAK/STAT3 signaling pathway in EGFR-mutated non-small cell lung cancer",
+        "year": "2016",
+        "journal": "International Journal of Oncology",
+        "citations": 387,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-18",
+      "question": "Roles of tumour-initiating cells in primary liver cancer and strategies for targeting them therapeutically.",
+      "keyword_query": "LCSC cancer functions",
+      "identifier": "LCSC",
+      "combined_query": "Roles of tumour-initiating cells in primary liver cancer and strategies for targeting them therapeutically. LCSC",
+      "marked_query": "Roles of tumour-initiating cells in primary liver cancer and strategies for targeting them therapeutically. \"LCSC\"",
+      "target": {
+        "doc_key": "doi:10.3390/cells9061331",
+        "doi": "10.3390/cells9061331",
+        "pmid": "32466488",
+        "title": "Cancer Stem Cell Functions in Hepatocellular Carcinoma and Comprehensive Therapeutic Strategies",
+        "year": "2020",
+        "journal": "Cells",
+        "citations": 258,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-21",
+      "question": "Establishing how much transcript abundance naturally varies between healthy laboratory mice.",
+      "keyword_query": "C57BL6 project normal",
+      "identifier": "C57BL6",
+      "combined_query": "Establishing how much transcript abundance naturally varies between healthy laboratory mice. C57BL6",
+      "marked_query": "Establishing how much transcript abundance naturally varies between healthy laboratory mice. \"C57BL6\"",
+      "target": {
+        "doc_key": "doi:10.1073/pnas.221465998",
+        "doi": "10.1073/pnas.221465998",
+        "pmid": "11698685",
+        "title": "Project normal: Defining normal variance in mouse gene expression",
+        "year": "2001",
+        "journal": "Proceedings of the National Academy of Sciences",
+        "citations": 250,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-22",
+      "question": "Inhibiting a DNA-relaxing enzyme as a targeted anticancer strategy in the genomics era.",
+      "keyword_query": "LMP744 targeting topoisomerase",
+      "identifier": "LMP744",
+      "combined_query": "Inhibiting a DNA-relaxing enzyme as a targeted anticancer strategy in the genomics era. LMP744",
+      "marked_query": "Inhibiting a DNA-relaxing enzyme as a targeted anticancer strategy in the genomics era. \"LMP744\"",
+      "target": {
+        "doc_key": "doi:10.1158/1078-0432.ccr-19-1089",
+        "doi": "10.1158/1078-0432.ccr-19-1089",
+        "pmid": "31227499",
+        "title": "Targeting Topoisomerase I in the Era of Precision Medicine",
+        "year": "2019",
+        "journal": "Clinical Cancer Research",
+        "citations": 342,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-23",
+      "question": "Balancing climatic, environmental and socioeconomic drivers of transmission for diseases spread by arthropods.",
+      "keyword_query": "VBD climate environmental",
+      "identifier": "VBD",
+      "combined_query": "Balancing climatic, environmental and socioeconomic drivers of transmission for diseases spread by arthropods. VBD",
+      "marked_query": "Balancing climatic, environmental and socioeconomic drivers of transmission for diseases spread by arthropods. \"VBD\"",
+      "target": {
+        "doc_key": "doi:10.1098/rstb.2013.0551",
+        "doi": "10.1098/rstb.2013.0551",
+        "pmid": "25688012",
+        "title": "Climate, environmental and socio-economic change: weighing up the balance in vector-borne disease transmission",
+        "year": "2015",
+        "journal": "Philosophical Transactions of the Royal Society B Biological Sciences",
+        "citations": 348,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-200-999-24",
+      "question": "Modular blood transcriptional signatures revealing distinct interferon patterns in adults with a systemic autoimmune connective tissue disease.",
+      "keyword_query": "SLE modular transcriptional",
+      "identifier": "SLE",
+      "combined_query": "Modular blood transcriptional signatures revealing distinct interferon patterns in adults with a systemic autoimmune connective tissue disease. SLE",
+      "marked_query": "Modular blood transcriptional signatures revealing distinct interferon patterns in adults with a systemic autoimmune connective tissue disease. \"SLE\"",
+      "target": {
+        "doc_key": "doi:10.1002/art.38628",
+        "doi": "10.1002/art.38628",
+        "pmid": "24644022",
+        "title": "Modular Transcriptional Repertoire Analyses of Adults With Systemic Lupus Erythematosus Reveal Distinct Type I and Type II Interferon Signatures",
+        "year": "2014",
+        "journal": "Arthritis & Rheumatology",
+        "citations": 434,
+        "citation_band": "cit-200-999",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-02",
+      "question": "Tool that merges overlapping paired-end sequencing reads into longer fragments to improve de novo assembly.",
+      "keyword_query": "N50 flash length",
+      "identifier": "N50",
+      "combined_query": "Tool that merges overlapping paired-end sequencing reads into longer fragments to improve de novo assembly. N50",
+      "marked_query": "Tool that merges overlapping paired-end sequencing reads into longer fragments to improve de novo assembly. \"N50\"",
+      "target": {
+        "doc_key": "doi:10.1093/bioinformatics/btr507",
+        "doi": "10.1093/bioinformatics/btr507",
+        "pmid": "21903629",
+        "title": "FLASH: fast length adjustment of short reads to improve genome assemblies",
+        "year": "2011",
+        "journal": "Bioinformatics",
+        "citations": 15935,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-04",
+      "question": "Small-molecule profiling showing intestinal bacteria contribute to hepatic fat accumulation in insulin-resistant mice.",
+      "keyword_query": "NAFLD metabolic profiling",
+      "identifier": "NAFLD",
+      "combined_query": "Small-molecule profiling showing intestinal bacteria contribute to hepatic fat accumulation in insulin-resistant mice. NAFLD",
+      "marked_query": "Small-molecule profiling showing intestinal bacteria contribute to hepatic fat accumulation in insulin-resistant mice. \"NAFLD\"",
+      "target": {
+        "doc_key": "doi:10.1073/pnas.0601056103",
+        "doi": "10.1073/pnas.0601056103",
+        "pmid": "16895997",
+        "title": "Metabolic profiling reveals a contribution of gut microbiota to fatty liver phenotype in insulin-resistant mice",
+        "year": "2006",
+        "journal": "Proceedings of the National Academy of Sciences",
+        "citations": 1040,
+        "citation_band": "cit-1000-up",
+        "type": null
+      }
+    },
+    {
+      "question_id": "cit-1000-up-06",
+      "question": "Formation and clearance of self-digestion vesicles in neurons and their relationship to degenerative dementia pathology.",
+      "keyword_query": "LC3 autophagy induction",
+      "identifier": "LC3",
+      "combined_query": "Formation and clearance of self-digestion vesicles in neurons and their relationship to degenerative dementia pathology. LC3",
+      "marked_query": "Formation and clearance of self-digestion vesicles in neurons and their relationship to degenerative dementia pathology. \"LC3\"",
+      "target": {
+        "doc_key": "doi:10.1523/jneurosci.0800-08.2008",
+        "doi": "10.1523/jneurosci.0800-08.2008",
+        "pmid": "18596167",
+        "title": "Autophagy Induction and Autophagosome Clearance in Neurons: Relationship to Autophagic Pathology in Alzheimer's Disease",
+        "year": "2008",
+        "journal": "Journal of Neuroscience",
+        "citations": 1123,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-08",
+      "question": "Control of small guanine-nucleotide-binding switch proteins by exchange factors, hydrolysis activators and dissociation inhibitors.",
+      "keyword_query": "GDI regulation small",
+      "identifier": "GDI",
+      "combined_query": "Control of small guanine-nucleotide-binding switch proteins by exchange factors, hydrolysis activators and dissociation inhibitors. GDI",
+      "marked_query": "Control of small guanine-nucleotide-binding switch proteins by exchange factors, hydrolysis activators and dissociation inhibitors. \"GDI\"",
+      "target": {
+        "doc_key": "doi:10.1152/physrev.00003.2012",
+        "doi": "10.1152/physrev.00003.2012",
+        "pmid": "23303910",
+        "title": "Regulation of Small GTPases by GEFs, GAPs, and GDIs",
+        "year": "2013",
+        "journal": "Physiological Reviews",
+        "citations": 1310,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-10",
+      "question": "Parallel implementation of temperature-coupled Markov chain sampling for Bayesian inference of evolutionary trees.",
+      "keyword_query": "MCMC parallel metropolis",
+      "identifier": "MCMC",
+      "combined_query": "Parallel implementation of temperature-coupled Markov chain sampling for Bayesian inference of evolutionary trees. MCMC",
+      "marked_query": "Parallel implementation of temperature-coupled Markov chain sampling for Bayesian inference of evolutionary trees. \"MCMC\"",
+      "target": {
+        "doc_key": "doi:10.1093/bioinformatics/btg427",
+        "doi": "10.1093/bioinformatics/btg427",
+        "pmid": "14960467",
+        "title": "Parallel Metropolis coupled Markov chain Monte Carlo for Bayesian phylogenetic inference",
+        "year": "2004",
+        "journal": "Bioinformatics",
+        "citations": 1183,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-11",
+      "question": "Transcriptional control of the gene programme that converts precursor cells into fat-storing cells.",
+      "keyword_query": "FAAR transcriptional regulation",
+      "identifier": "FAAR",
+      "combined_query": "Transcriptional control of the gene programme that converts precursor cells into fat-storing cells. FAAR",
+      "marked_query": "Transcriptional control of the gene programme that converts precursor cells into fat-storing cells. \"FAAR\"",
+      "target": {
+        "doc_key": "doi:10.1146/annurev.bi.64.070195.002021",
+        "doi": "10.1146/annurev.bi.64.070195.002021",
+        "pmid": "7574486",
+        "title": "TRANSCRIPTIONAL REGULATION OF GENE EXPRESSION DURING ADIPOCYTE DIFFERENTIATION",
+        "year": "1995",
+        "journal": "Annual Review of Biochemistry",
+        "citations": 1058,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-12",
+      "question": "Immature dendritic cells engulf dying cells through two surface receptors and present the antigens to cytotoxic lymphocytes.",
+      "keyword_query": "CD36 immature dendritic",
+      "identifier": "CD36",
+      "combined_query": "Immature dendritic cells engulf dying cells through two surface receptors and present the antigens to cytotoxic lymphocytes. CD36",
+      "marked_query": "Immature dendritic cells engulf dying cells through two surface receptors and present the antigens to cytotoxic lymphocytes. \"CD36\"",
+      "target": {
+        "doc_key": "doi:10.1084/jem.188.7.1359",
+        "doi": "10.1084/jem.188.7.1359",
+        "pmid": "9763615",
+        "title": "Immature Dendritic Cells Phagocytose Apoptotic Cells via αvβ5 and CD36, and Cross-present Antigens to Cytotoxic T Lymphocytes",
+        "year": "1998",
+        "journal": "The Journal of Experimental Medicine",
+        "citations": 1230,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-13",
+      "question": "Domain architecture, surface regulation and alternative transcripts of a nervous system adhesion glycoprotein.",
+      "keyword_query": "CAM neural adhesion",
+      "identifier": "CAM",
+      "combined_query": "Domain architecture, surface regulation and alternative transcripts of a nervous system adhesion glycoprotein. CAM",
+      "marked_query": "Domain architecture, surface regulation and alternative transcripts of a nervous system adhesion glycoprotein. \"CAM\"",
+      "target": {
+        "doc_key": "doi:10.1126/science.3576199",
+        "doi": "10.1126/science.3576199",
+        "pmid": "3576199",
+        "title": "Neural Cell Adhesion Molecule: Structure, Immunoglobulin-Like Domains, Cell Surface Modulation, and Alternative RNA Splicing",
+        "year": "1987",
+        "journal": "Science",
+        "citations": 1128,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-14",
+      "question": "The many roles of a non-structural protein encoded by influenza A viruses.",
+      "keyword_query": "PKR multifunctional protein",
+      "identifier": "PKR",
+      "combined_query": "The many roles of a non-structural protein encoded by influenza A viruses. PKR",
+      "marked_query": "The many roles of a non-structural protein encoded by influenza A viruses. \"PKR\"",
+      "target": {
+        "doc_key": "doi:10.1099/vir.0.2008/004606-0",
+        "doi": "10.1099/vir.0.2008/004606-0",
+        "pmid": "18796704",
+        "title": "The multifunctional NS1 protein of influenza A viruses",
+        "year": "2008",
+        "journal": "Journal of General Virology",
+        "citations": 1078,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-17",
+      "question": "Biosynthesis, biological roles and biotechnological uses of a major class of plant polyphenols.",
+      "keyword_query": "WD40 flavonoids biosynthesis",
+      "identifier": "WD40",
+      "combined_query": "Biosynthesis, biological roles and biotechnological uses of a major class of plant polyphenols. WD40",
+      "marked_query": "Biosynthesis, biological roles and biotechnological uses of a major class of plant polyphenols. \"WD40\"",
+      "target": {
+        "doc_key": "doi:10.3389/fpls.2012.00222",
+        "doi": "10.3389/fpls.2012.00222",
+        "pmid": "23060891",
+        "title": "Flavonoids: biosynthesis, biological functions, and biotechnological applications",
+        "year": "2012",
+        "journal": "Frontiers in Plant Science",
+        "citations": 1866,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-18",
+      "question": "An energy-sensing kinase drives division of mitochondria when cellular fuel becomes scarce.",
+      "keyword_query": "MFF amp-activated protein",
+      "identifier": "MFF",
+      "combined_query": "An energy-sensing kinase drives division of mitochondria when cellular fuel becomes scarce. MFF",
+      "marked_query": "An energy-sensing kinase drives division of mitochondria when cellular fuel becomes scarce. \"MFF\"",
+      "target": {
+        "doc_key": "doi:10.1126/science.aab4138",
+        "doi": "10.1126/science.aab4138",
+        "pmid": "26816379",
+        "title": "AMP-activated protein kinase mediates mitochondrial fission in response to energy stress",
+        "year": "2016",
+        "journal": "Science",
+        "citations": 1079,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-20",
+      "question": "Appearance in people of a new influenza A virus of pig origin.",
+      "keyword_query": "OIV emergence swine-origin",
+      "identifier": "OIV",
+      "combined_query": "Appearance in people of a new influenza A virus of pig origin. OIV",
+      "marked_query": "Appearance in people of a new influenza A virus of pig origin. \"OIV\"",
+      "target": {
+        "doc_key": "doi:10.1056/nejmoa0903810",
+        "doi": "10.1056/nejmoa0903810",
+        "pmid": "19423869",
+        "title": "Emergence of a Novel Swine-Origin Influenza A (H1N1) Virus in Humans",
+        "year": "2009",
+        "journal": "New England Journal of Medicine",
+        "citations": 3062,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-21",
+      "question": "Can metabolic relationships be inferred from existing data on photosynthesis under water limitation?",
+      "keyword_query": "ABI1 photosynthesis drought",
+      "identifier": "ABI1",
+      "combined_query": "Can metabolic relationships be inferred from existing data on photosynthesis under water limitation? ABI1",
+      "marked_query": "Can metabolic relationships be inferred from existing data on photosynthesis under water limitation? \"ABI1\"",
+      "target": {
+        "doc_key": "doi:10.1093/jxb/erq340",
+        "doi": "10.1093/jxb/erq340",
+        "pmid": "21172816",
+        "title": "Photosynthesis and drought: can we make metabolic connections from available data?",
+        "year": "2010",
+        "journal": "Journal of Experimental Botany",
+        "citations": 1079,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-22",
+      "question": "Mass spectrometric approaches for characterising individual proteins and whole proteomes.",
+      "keyword_query": "MALDI proteins proteomes",
+      "identifier": "MALDI",
+      "combined_query": "Mass spectrometric approaches for characterising individual proteins and whole proteomes. MALDI",
+      "marked_query": "Mass spectrometric approaches for characterising individual proteins and whole proteomes. \"MALDI\"",
+      "target": {
+        "doc_key": "doi:10.1146/annurev.biochem.70.1.437",
+        "doi": "10.1146/annurev.biochem.70.1.437",
+        "pmid": "11395414",
+        "title": "Analysis of Proteins and Proteomes by Mass Spectrometry",
+        "year": "2001",
+        "journal": "Annual Review of Biochemistry",
+        "citations": 1232,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    },
+    {
+      "question_id": "cit-1000-up-23",
+      "question": "A loss-of-function change in a muscle growth inhibitor gene associated with marked muscular overdevelopment in a child.",
+      "keyword_query": "GDF myostatin mutation",
+      "identifier": "GDF",
+      "combined_query": "A loss-of-function change in a muscle growth inhibitor gene associated with marked muscular overdevelopment in a child. GDF",
+      "marked_query": "A loss-of-function change in a muscle growth inhibitor gene associated with marked muscular overdevelopment in a child. \"GDF\"",
+      "target": {
+        "doc_key": "doi:10.1056/nejm200409023511018",
+        "doi": "10.1056/nejmoa040933",
+        "pmid": "15215484",
+        "title": "Myostatin Mutation Associated with Gross Muscle Hypertrophy in a Child",
+        "year": "2004",
+        "journal": "New England Journal of Medicine",
+        "citations": 1390,
+        "citation_band": "cit-1000-up",
+        "type": "article"
+      }
+    }
+  ]
+}

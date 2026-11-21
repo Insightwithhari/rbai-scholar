@@ -1,0 +1,57 @@
+{
+  "probed_at": "2026-09-17T10:15:58.579Z",
+  "top_k": 10,
+  "arms": {
+    "identifier": {
+      "label": "Identifier queries: hybrid (identifier quoted) vs plain vector",
+      "summary": {
+        "n": 86,
+        "arms": {
+          "vector": {
+            "hit_at_1": 0.2442,
+            "hit_at_10": 0.3488,
+            "mrr_at_10": 0.2727,
+            "p50_ms": 1448
+          },
+          "hybrid": {
+            "hit_at_1": 0.407,
+            "hit_at_10": 0.7209,
+            "mrr_at_10": 0.5078,
+            "p50_ms": 756
+          }
+        }
+      },
+      "hybrid_vs_vector": {
+        "wins": 32,
+        "losses": 0,
+        "p": 0
+      }
+    },
+    "paraphrase": {
+      "label": "Paraphrased questions: hybrid (rarest typed term quoted) vs plain vector",
+      "summary": {
+        "n": 118,
+        "arms": {
+          "vector": {
+            "hit_at_1": 0.2542,
+            "hit_at_10": 0.5678,
+            "mrr_at_10": 0.3591,
+            "p50_ms": 1397
+          },
+          "hybrid": {
+            "hit_at_1": 0.1356,
+            "hit_at_10": 0.2373,
+            "mrr_at_10": 0.17,
+            "p50_ms": 2069
+          }
+        }
+      },
+      "hybrid_vs_vector": {
+        "wins": 2,
+        "losses": 41,
+        "p": 0
+      }
+    }
+  },
+  "completed_at": "2026-09-17T10:46:24.441Z"
+}

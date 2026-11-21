@@ -1,0 +1,34 @@
+{
+  "schema": "hybrid-332-live/1",
+  "measured": {
+    "started": "2026-11-12T18:20:47.872Z",
+    "finished": "2026-11-12T18:31:30.194Z"
+  },
+  "method": "Each of the 332 released hybrid questions sent once, unchanged (marked_query, the required term in double quotes), to POST https://scholar.thedreamlabinnovations.com/v1/corpus/search with mode semantic and topK 50; at most 3 requests a second and 4 in flight; 429/502/503/504 retried after Retry-After. Scored as the released hybrid-332 figures: rank of the target (DOI or PubMed ID) in the top 50; a refusal or error is a miss; denominator 332.",
+  "n_questions": 332,
+  "status": {
+    "200": 332
+  },
+  "answered_by": {
+    "Cloudflare (Vectorize + D1), # s including the query embedding": 332
+  },
+  "live": {
+    "hit_at_1": 0.7108,
+    "hit_at_10": 0.9398,
+    "hit_at_50": 0.9759,
+    "mrr_at_50": 0.794
+  },
+  "published_2026_09_19": {
+    "hit_at_1": 0.7018,
+    "hit_at_10": 0.9277,
+    "hit_at_50": 0.9669,
+    "mrr_at_50": 0.7827
+  },
+  "paired_hit_at_10": {
+    "both": 307,
+    "live_only": 5,
+    "published_only": 1,
+    "neither": 19
+  },
+  "client_ms_p50_answered": 3888
+}

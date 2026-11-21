@@ -1,0 +1,138 @@
+{
+  "schema_version": "hybrid-500/1",
+  "run_at": "2026-09-19T17:18:20.999Z",
+  "design": "Hybrid retrieval with RELEVANCE-SELECTED marked terms. Each anchor was chosen because it is what a searcher would plausibly type alongside the question, then checked for rarity, which is the reverse of the published 86 where the anchor was the lowest-frequency identifier-shaped token regardless of relevance. Selection reasons are recorded per row.",
+  "depth": 50,
+  "max_quoted_term_df": 20000,
+  "disclosures": [
+    "Document frequency is counted as a PHRASE, not a conjunction. On this corpus \"quantal content\" matches 460 documents as a phrase and 587 as a conjunction, so counting the conjunction would overstate how common a multi-word anchor is.",
+    "A decline is scored as a complete miss and is not retried. The guard refuses a quoted term whose document frequency exceeds the ceiling, which is a deterministic property of the term rather than a transient fault, so retrying returns the identical refusal.",
+    "Counting stops at twice the ceiling, so a df reported at that bound means \"at least\", not \"exactly\".",
+    "These anchors are not comparable one-to-one with the published 86: the question sets differ and so does the selection rule. The comparison of interest is between selection rules, not between rows."
+  ],
+  "composed": 332,
+  "validated": 332,
+  "rejected": [],
+  "identifier_df": {
+    "measured": 331,
+    "min": 1,
+    "median": 420,
+    "max": 38185,
+    "over_ceiling": 3,
+    "over_ceiling_terms": [
+      {
+        "target_id": "cit-000-009-37",
+        "identifier": "ARS",
+        "df": 38185
+      },
+      {
+        "target_id": "cit-200-999-73",
+        "identifier": "Nodal",
+        "df": 24212
+      },
+      {
+        "target_id": "cit-200-999-88",
+        "identifier": "Electrospray",
+        "df": 20342
+      }
+    ],
+    "multi_word_identifiers": 64
+  },
+  "summary": {
+    "n_queries": 332,
+    "queries_ok": 328,
+    "queries_declined": 3,
+    "queries_errored": 1,
+    "mean_results_returned": 42.4247,
+    "hit_at_1": 0.7018,
+    "hit_at_5": 0.8946,
+    "hit_at_10": 0.9277,
+    "hit_at_20": 0.9488,
+    "hit_at_50": 0.9669,
+    "mrr_at_10": 0.7808,
+    "mrr_at_50": 0.7827,
+    "recovered_between_11_and_50": 13
+  },
+  "by_stratum": {
+    "cit-000-009": {
+      "n_queries": 68,
+      "queries_ok": 67,
+      "queries_declined": 1,
+      "queries_errored": 0,
+      "mean_results_returned": 38.0735,
+      "hit_at_1": 0.6029,
+      "hit_at_5": 0.8235,
+      "hit_at_10": 0.8529,
+      "hit_at_20": 0.8824,
+      "hit_at_50": 0.8971,
+      "mrr_at_10": 0.695,
+      "mrr_at_50": 0.6974,
+      "recovered_between_11_and_50": 3
+    },
+    "cit-010-049": {
+      "n_queries": 71,
+      "queries_ok": 71,
+      "queries_declined": 0,
+      "queries_errored": 0,
+      "mean_results_returned": 42.831,
+      "hit_at_1": 0.7042,
+      "hit_at_5": 0.9155,
+      "hit_at_10": 0.9577,
+      "hit_at_20": 0.9577,
+      "hit_at_50": 1,
+      "mrr_at_10": 0.7965,
+      "mrr_at_50": 0.7979,
+      "recovered_between_11_and_50": 3
+    },
+    "cit-050-199": {
+      "n_queries": 69,
+      "queries_ok": 69,
+      "queries_declined": 0,
+      "queries_errored": 0,
+      "mean_results_returned": 42.942,
+      "hit_at_1": 0.7826,
+      "hit_at_5": 0.9565,
+      "hit_at_10": 0.9855,
+      "hit_at_20": 1,
+      "hit_at_50": 1,
+      "mrr_at_10": 0.8524,
+      "mrr_at_50": 0.8534,
+      "recovered_between_11_and_50": 1
+    },
+    "cit-1000-up": {
+      "n_queries": 54,
+      "queries_ok": 54,
+      "queries_declined": 0,
+      "queries_errored": 0,
+      "mean_results_returned": 43.8333,
+      "hit_at_1": 0.7222,
+      "hit_at_5": 0.8704,
+      "hit_at_10": 0.9074,
+      "hit_at_20": 0.9444,
+      "hit_at_50": 0.9815,
+      "mrr_at_10": 0.782,
+      "mrr_at_50": 0.7856,
+      "recovered_between_11_and_50": 4
+    },
+    "cit-200-999": {
+      "n_queries": 70,
+      "queries_ok": 67,
+      "queries_declined": 2,
+      "queries_errored": 1,
+      "mean_results_returned": 44.6429,
+      "hit_at_1": 0.7,
+      "hit_at_5": 0.9,
+      "hit_at_10": 0.9286,
+      "hit_at_20": 0.9571,
+      "hit_at_50": 0.9571,
+      "mrr_at_10": 0.7765,
+      "mrr_at_50": 0.7785,
+      "recovered_between_11_and_50": 2
+    }
+  },
+  "declines_vs_df": {
+    "declined_and_over_ceiling": 3,
+    "declined_but_under_ceiling": 0,
+    "over_ceiling_but_served": 0
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": "litsense-headtohead/1",
+  "run_at": "2026-09-22T18:08:17.658Z",
+  "comparator": {
+    "name": "LitSense 2.0",
+    "citation": "Yeganova, L. et al. Nucleic Acids Res. 53, W361-W368 (2025). doi:10.1093/nar/gkaf417",
+    "endpoint": "https://www.ncbi.nlm.nih.gov/research/litsense2-api/api/passages/",
+    "rerank": true,
+    "architecture": "Lexical first (BM25 for paragraphs, IDF for sentences), then MedCPT semantic re-ranking of the top 100 candidates. Dense scoring cannot reach a paper the lexical stage did not surface.",
+    "corpus": "38M PubMed abstracts and 6.6M PMC open-access full texts; 1.4B sentences, ~300M paragraphs",
+    "reported_latency": "their paper reports 9 s for sentence search and 17 s for paragraph search on average"
+  },
+  "design": "Known-item retrieval on the identical questions of Table 5. Passages are mapped to papers by PubMed identifier, keeping each paper's best-ranked passage, and the rank of the sought paper is scored. Our own figures over the same questions are recomputed here from the run already reported so both columns come from one arithmetic.",
+  "endpoint_used": "passages",
+  "request_rate_per_second": 1,
+  "concurrency": 6,
+  "summary": {
+    "n_queries": 500,
+    "queries_ok": 500,
+    "queries_errored": 0,
+    "empty_responses": 0,
+    "hit_at_1": 0.06,
+    "hit_at_5": 0.128,
+    "hit_at_10": 0.186,
+    "hit_at_20": 0.22,
+    "hit_at_50": 0.338,
+    "mrr_at_10": 0.0888,
+    "mrr_at_50": 0.0945,
+    "mean_passages_returned": 100,
+    "mean_distinct_papers": 91.866,
+    "median_latency_ms": 5434,
+    "recovered_between_11_and_50": 76
+  },
+  "rbai_semantic_same_questions": {
+    "hit_at_1": 0.328,
+    "hit_at_5": 0.594,
+    "hit_at_10": 0.65,
+    "hit_at_20": 0.742,
+    "hit_at_50": 0.812,
+    "mrr_at_10": 0.4344,
+    "mrr_at_50": 0.4431
+  },
+  "disclosures": [
+    "The passages endpoint is used because a PubMed abstract is a paragraph, which is the reasoning their own paper applies when evaluating paragraph search on RELISH. Their sentence endpoint retrieves a smaller unit and is not the comparable one.",
+    "rerank=true throughout, so their semantic stage is enabled and this measures their best configuration rather than a lexical baseline.",
+    "They return at most 100 passages, which collapse to fewer distinct papers. The mean distinct paper count is reported so every cutoff can be checked against the depth actually offered.",
+    "A paper is credited at the best rank any of its passages reached, which is the generous reading.",
+    "An empty response is scored as a miss and counted separately, because it is the failure mode their lexical gate produces. A transport error is retried up to three times and, if still failing, reported as incomplete rather than counted against them.",
+    "Both systems index different corpora. Every target here carries a PubMed identifier, so it is in principle reachable by a PubMed-derived index, but presence in their weekly snapshot was not separately verified and a miss cannot be fully separated from an absence."
+  ]
+}

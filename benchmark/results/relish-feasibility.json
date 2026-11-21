@@ -1,0 +1,33 @@
+{
+  "schema_version": "relish-feasibility/1",
+  "run_at": "2026-09-22T18:03:03.559Z",
+  "question": "Would a RELISH evaluation measure our retrieval quality, or our corpus coverage?",
+  "source": "https://raw.githubusercontent.com/zbmed-semtec/relish-preprocessing/main/data/input/RELISH_v1.json",
+  "note_on_original_host": "The original RELISH host, relishdb.ict.griffith.edu.au, no longer resolves. This uses the ZB MED mirror of the FigShare record.",
+  "relish": {
+    "reference_articles": 3194,
+    "assessed_articles": 161184,
+    "labelled_pairs": 196680,
+    "label_distribution": {
+      "relevant": 70797,
+      "partial": 68193,
+      "irrelevant": 57690
+    }
+  },
+  "coverage_in_our_corpus": {
+    "reference_present": 1290,
+    "reference_coverage": 0.4039,
+    "assessed_present": 54186,
+    "assessed_coverage": 0.3362,
+    "pairs_with_both_endpoints": 44775,
+    "pairs_coverage": 0.2277,
+    "relevant_pairs_retained": 16397,
+    "usable_reference_articles": 1214
+  },
+  "disclosures": [
+    "A RELISH assessed article that is absent from our corpus cannot be retrieved by us at any rank, so it is an automatic loss unrelated to ranking. LitSense indexes ~38M PubMed abstracts, effectively all of PubMed, so this asymmetry favours them and must be stated wherever a comparison is drawn.",
+    "LitSense 2.0 reports on \"the test portion\" of RELISH. That split is not published with their paper, so our figures cannot be made byte-comparable to theirs; any comparison is indicative and has to say so.",
+    "RELISH is an article-to-article similarity task. Using it means querying with a seed article's abstract, which is the verbatim-text condition our own evaluation reports separately from composed questions, and it is the easier condition for every system."
+  ],
+  "verdict": "Assessed-article coverage is only 33.6%, so a RELISH evaluation would largely measure the difference in corpus size rather than retrieval quality. Reporting it head-to-head against LitSense would be misleading in our own disfavour, and the honest use is a coverage-restricted analysis clearly labelled as such."
+}

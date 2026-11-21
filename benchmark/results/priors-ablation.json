@@ -1,0 +1,1725 @@
+{
+  "schema_version": "priors-ablation/1",
+  "run_at": "2026-09-19T09:37:27.699Z",
+  "elapsed_minutes": 4.25,
+  "top_k_requested": 400,
+  "cutoff": 10,
+  "concurrency": 8,
+  "design": {
+    "question": "The shipped ranker adds a citation prior at weight 0.08 and a recency prior at weight 0.04 on top of the relevance signal. This measures whether either one earns its weight on known-item retrieval.",
+    "method": "Each arm is a RE-SCORING, in JavaScript, of the per-signal breakdown the service already returns on every row (signals = {semantic, lexical, citation, recency}). No production code was modified and nothing was deployed. One live retrieval per query per mode supplies the candidate pool, and every arm re-sorts THAT SAME pool, so the pool is held identical across arms and a weight change cannot be confounded with a change in what was retrieved.",
+    "exactness": "The re-scoring is not an approximation of the ranker, it is the ranker: recomputing 1.00*semantic + 0.10*lexical + 0.08*citation + 0.04*recency reproduces the service's own ordering key (rawScore) to floating-point noise. This is asserted on every row of every query before any result is written, together with a check that the full arm reproduces the service's own top-10 order. The one departure from double-precision noise is the lexical term, which is a float4 on the wire — see correctness_gate.float4_note.",
+    "pool": "topK=400 was requested because the SQL scores a candidate pool and then applies ORDER BY final_score DESC LIMIT topK. retrieveCount = min(400, max(200, topK*4)), so at topK=400 the pool and the limit are both 400 on the vector path and nothing is truncated. A smaller topK would have returned only the shipped-weight winners, which no re-ranking could undo.",
+    "tie_rule": "Exact score ties are broken by the row's original position in what the service returned, so two arms can never disagree by tie order alone.",
+    "pool_widths": {
+      "pool_400": "Primary. Everything the service returned, in the order it returned it.",
+      "pool_200": "The first 200 rows by the mode's own first-stage retrieval key — embedding similarity for the vector path, text rank for keyword mode — which is the candidate pool production actually holds at topK=10, since the service retrieves at least 200 candidates and the pool is chosen by retrieval distance rather than by final score."
+    },
+    "keyword_formula": "Keyword mode computes no vector, so signals.semantic is null and the shipped score is 1.00*lexical + 0.08*citation + 0.04*recency. Its lexical term is the relevance signal rather than a prior, so no_lexical and similarity_only are not defined for it.",
+    "holm": "Holm-Bonferroni is reported twice. mcnemar_p_holm corrects within one mode at one pool width; mcnemar_p_holm_mode_wide corrects across both pool widths within a mode. Each comparison names its own family in holm_family.",
+    "mcnemar_rule": "Exact binomial, doubled one-sided tail (p = min(1, 2*tail)), from benchmarks/scripts/stats.mjs."
+  },
+  "disclosures": [
+    "The candidate pool is 400 candidates wide, which is WIDER than the 200 production retrieves at topK=10. That is the price of an untruncated pool. The pool_200 figures re-run every arm over production's actual width and are reported alongside.",
+    "The corpus was read with a 30 s statement timeout.",
+    "The lexical prior is max-normalised by the SQL over the pool it scored. For the vector path that was 400 rows, not 200, so the pool_200 figures are exact only where the lexical prior is zero on every row — which is measured, not assumed: see findings.lexical_prior_occupancy. Where the lexical prior is alive, the pool_200 lexical values may be scaled slightly differently from what production would compute, and the pool_200 row is a close approximation rather than an identity.",
+    "Keyword mode scores 1,600 candidates and returns topK, so its visible pool is itself a shipped-weight truncation and its pool_200 reconstruction is approximate. The lexical normalisation is unaffected (the maximum text rank is in every prefix of a text-rank-ordered pool), and the truncation is quantified in findings.keyword_truncation.",
+    "A decline is scored as a complete miss, identically for every arm. The hybrid mode declines when the quoted term is too common to narrow anything; keyword mode declines when a query would have to rank a large fraction of the corpus. Declines are counted separately and are NOT dropped from the denominator, because a user who is declined receives nothing.",
+    "Known-item retrieval is the only thing measured here. An arm that loses no known-item ranks may still change the character of a result list, which is why the citation profile and the undated-row counts are reported next to the metrics."
+  ],
+  "correctness_gate": {
+    "passed": true,
+    "rows_verified": 79372,
+    "worst_absolute_error": 6.61e-10,
+    "worst_absolute_error_float4_adjusted": 2.98e-8,
+    "worst_absolute_error_best_representation": 1.11e-16,
+    "rows_over_tolerance_explained_by_float4": 0,
+    "float4_note": "The vector path's lexical prior derives from ts_rank_cd, which returns float4, so it crosses the wire as the shortest decimal that round-trips to a float4 rather than as the exact value the SQL multiplied by 0.10. That caps the reproducible precision of the lexical term at about 6e-8, i.e. about 6e-9 of the final score at weight 0.10, and it is the entire reason worst_absolute_error sits above double-precision noise — it is one row in 48,000, the only rows affected being the handful where the lexical prior is non-zero at all. Keyword mode ranks with BM25, a float8 expression, so its lexical prior round-trips exactly and the float4 reconstruction makes it WORSE there; that is why worst_absolute_error_float4_adjusted is larger than worst_absolute_error for keyword mode and smaller for semantic mode. worst_absolute_error_best_representation reads each row in the width its own SQL used and is the honest residual: double-precision noise. Semantic, citation and recency priors are float8 throughout and round-trip exactly.",
+    "score_tolerance": 1e-9,
+    "order_check": "the full arm's top 10 equals the service's own returned order",
+    "order_tie_deviations": 0,
+    "order_tie_epsilon": 1e-12,
+    "by_mode": {
+      "semantic": {
+        "rows_verified": 48000,
+        "worst_absolute_error": 6.61e-10,
+        "worst_at": "cit-1000-up-07::paraphrase row 63",
+        "worst_absolute_error_float4_adjusted": 1.1102230246251565e-16,
+        "order_tie_deviations": 0
+      },
+      "hybrid": {
+        "rows_verified": 25935,
+        "worst_absolute_error": 1.11e-16,
+        "worst_at": "cit-000-009-04::hybrid row 23",
+        "worst_absolute_error_float4_adjusted": 1.1102230246251565e-16,
+        "order_tie_deviations": 0
+      },
+      "keyword": {
+        "rows_verified": 5437,
+        "worst_absolute_error": 1.11e-16,
+        "worst_at": "cit-000-009-05::keyword row 6",
+        "worst_absolute_error_float4_adjusted": 2.979851887463525e-8,
+        "order_tie_deviations": 0
+      }
+    }
+  },
+  "arms": {
+    "four_signal": [
+      {
+        "id": "full",
+        "w": {
+          "sem": 1,
+          "lex": 0.1,
+          "cit": 0.08,
+          "rec": 0.04
+        },
+        "isolates": "shipped configuration"
+      },
+      {
+        "id": "no_citation",
+        "w": {
+          "sem": 1,
+          "lex": 0.1,
+          "cit": 0,
+          "rec": 0.04
+        },
+        "isolates": "the citation prior"
+      },
+      {
+        "id": "no_recency",
+        "w": {
+          "sem": 1,
+          "lex": 0.1,
+          "cit": 0.08,
+          "rec": 0
+        },
+        "isolates": "the recency prior"
+      },
+      {
+        "id": "no_priors",
+        "w": {
+          "sem": 1,
+          "lex": 0.1,
+          "cit": 0,
+          "rec": 0
+        },
+        "isolates": "both priors together"
+      },
+      {
+        "id": "no_lexical",
+        "w": {
+          "sem": 1,
+          "lex": 0,
+          "cit": 0.08,
+          "rec": 0.04
+        },
+        "isolates": "the lexical prior"
+      },
+      {
+        "id": "similarity_only",
+        "w": {
+          "sem": 1,
+          "lex": 0,
+          "cit": 0,
+          "rec": 0
+        },
+        "isolates": "all three re-ranking terms"
+      }
+    ],
+    "keyword": [
+      {
+        "id": "full",
+        "w": {
+          "sem": 0,
+          "lex": 1,
+          "cit": 0.08,
+          "rec": 0.04
+        },
+        "isolates": "shipped configuration"
+      },
+      {
+        "id": "no_citation",
+        "w": {
+          "sem": 0,
+          "lex": 1,
+          "cit": 0,
+          "rec": 0.04
+        },
+        "isolates": "the citation prior"
+      },
+      {
+        "id": "no_recency",
+        "w": {
+          "sem": 0,
+          "lex": 1,
+          "cit": 0.08,
+          "rec": 0
+        },
+        "isolates": "the recency prior"
+      },
+      {
+        "id": "no_priors",
+        "w": {
+          "sem": 0,
+          "lex": 1,
+          "cit": 0,
+          "rec": 0
+        },
+        "isolates": "both priors together, i.e. pure BM25 order"
+      }
+    ]
+  },
+  "queries": {
+    "semantic": 120,
+    "hybrid": 86,
+    "keyword": 86
+  },
+  "queries_declined": {
+    "semantic": 0,
+    "hybrid": 2,
+    "keyword": 0
+  },
+  "queries_errored": {
+    "semantic": 0,
+    "hybrid": 0,
+    "keyword": 0
+  },
+  "summary": {
+    "semantic": {
+      "pool_400": {
+        "full": {
+          "isolates": "shipped configuration",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 120,
+          "hit_at_1": 0.25,
+          "hit_at_1_ci": [
+            0.175,
+            0.3333
+          ],
+          "hit_at_10": 0.5667,
+          "hit_at_10_ci": [
+            0.475,
+            0.6583
+          ],
+          "mrr_at_10": 0.3558,
+          "mrr_at_10_ci": [
+            0.2827,
+            0.4299
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 0
+        },
+        "no_citation": {
+          "isolates": "the citation prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0,
+            "rec": 0.04
+          },
+          "n": 120,
+          "hit_at_1": 0.225,
+          "hit_at_1_ci": [
+            0.15,
+            0.3
+          ],
+          "hit_at_10": 0.5167,
+          "hit_at_10_ci": [
+            0.425,
+            0.6083
+          ],
+          "mrr_at_10": 0.3235,
+          "mrr_at_10_ci": [
+            0.2529,
+            0.3971
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 39
+        },
+        "no_recency": {
+          "isolates": "the recency prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0.08,
+            "rec": 0
+          },
+          "n": 120,
+          "hit_at_1": 0.2417,
+          "hit_at_1_ci": [
+            0.1667,
+            0.325
+          ],
+          "hit_at_10": 0.5833,
+          "hit_at_10_ci": [
+            0.4917,
+            0.675
+          ],
+          "mrr_at_10": 0.3487,
+          "mrr_at_10_ci": [
+            0.277,
+            0.4223
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 26
+        },
+        "no_priors": {
+          "isolates": "both priors together",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 120,
+          "hit_at_1": 0.2333,
+          "hit_at_1_ci": [
+            0.1583,
+            0.3167
+          ],
+          "hit_at_10": 0.525,
+          "hit_at_10_ci": [
+            0.4333,
+            0.6167
+          ],
+          "mrr_at_10": 0.3319,
+          "mrr_at_10_ci": [
+            0.2598,
+            0.4062
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 33
+        },
+        "no_lexical": {
+          "isolates": "the lexical prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 120,
+          "hit_at_1": 0.2417,
+          "hit_at_1_ci": [
+            0.1667,
+            0.3169
+          ],
+          "hit_at_10": 0.5667,
+          "hit_at_10_ci": [
+            0.475,
+            0.6583
+          ],
+          "mrr_at_10": 0.3509,
+          "mrr_at_10_ci": [
+            0.2786,
+            0.4245
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 2
+        },
+        "similarity_only": {
+          "isolates": "all three re-ranking terms",
+          "weights": {
+            "sem": 1,
+            "lex": 0,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 120,
+          "hit_at_1": 0.225,
+          "hit_at_1_ci": [
+            0.15,
+            0.3
+          ],
+          "hit_at_10": 0.525,
+          "hit_at_10_ci": [
+            0.4333,
+            0.6167
+          ],
+          "mrr_at_10": 0.3264,
+          "mrr_at_10_ci": [
+            0.2551,
+            0.3997
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 35
+        }
+      },
+      "pool_200": {
+        "full": {
+          "isolates": "shipped configuration",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 120,
+          "hit_at_1": 0.25,
+          "hit_at_1_ci": [
+            0.175,
+            0.3333
+          ],
+          "hit_at_10": 0.5667,
+          "hit_at_10_ci": [
+            0.475,
+            0.6583
+          ],
+          "mrr_at_10": 0.3558,
+          "mrr_at_10_ci": [
+            0.2827,
+            0.4299
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 0
+        },
+        "no_citation": {
+          "isolates": "the citation prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0,
+            "rec": 0.04
+          },
+          "n": 120,
+          "hit_at_1": 0.225,
+          "hit_at_1_ci": [
+            0.15,
+            0.3
+          ],
+          "hit_at_10": 0.5167,
+          "hit_at_10_ci": [
+            0.425,
+            0.6083
+          ],
+          "mrr_at_10": 0.3235,
+          "mrr_at_10_ci": [
+            0.2529,
+            0.3971
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 39
+        },
+        "no_recency": {
+          "isolates": "the recency prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0.08,
+            "rec": 0
+          },
+          "n": 120,
+          "hit_at_1": 0.2417,
+          "hit_at_1_ci": [
+            0.1667,
+            0.325
+          ],
+          "hit_at_10": 0.5833,
+          "hit_at_10_ci": [
+            0.4917,
+            0.675
+          ],
+          "mrr_at_10": 0.3487,
+          "mrr_at_10_ci": [
+            0.277,
+            0.4223
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 26
+        },
+        "no_priors": {
+          "isolates": "both priors together",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 120,
+          "hit_at_1": 0.2333,
+          "hit_at_1_ci": [
+            0.1583,
+            0.3167
+          ],
+          "hit_at_10": 0.525,
+          "hit_at_10_ci": [
+            0.4333,
+            0.6167
+          ],
+          "mrr_at_10": 0.3319,
+          "mrr_at_10_ci": [
+            0.2598,
+            0.4062
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 33
+        },
+        "no_lexical": {
+          "isolates": "the lexical prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 120,
+          "hit_at_1": 0.2417,
+          "hit_at_1_ci": [
+            0.1667,
+            0.3169
+          ],
+          "hit_at_10": 0.5667,
+          "hit_at_10_ci": [
+            0.475,
+            0.6583
+          ],
+          "mrr_at_10": 0.3509,
+          "mrr_at_10_ci": [
+            0.2786,
+            0.4245
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 2
+        },
+        "similarity_only": {
+          "isolates": "all three re-ranking terms",
+          "weights": {
+            "sem": 1,
+            "lex": 0,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 120,
+          "hit_at_1": 0.225,
+          "hit_at_1_ci": [
+            0.15,
+            0.3
+          ],
+          "hit_at_10": 0.525,
+          "hit_at_10_ci": [
+            0.4333,
+            0.6167
+          ],
+          "mrr_at_10": 0.3264,
+          "mrr_at_10_ci": [
+            0.2551,
+            0.3997
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 35
+        }
+      }
+    },
+    "hybrid": {
+      "pool_400": {
+        "full": {
+          "isolates": "shipped configuration",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.5,
+          "hit_at_1_ci": [
+            0.3953,
+            0.6047
+          ],
+          "hit_at_10": 0.7674,
+          "hit_at_10_ci": [
+            0.6744,
+            0.8488
+          ],
+          "mrr_at_10": 0.5921,
+          "mrr_at_10_ci": [
+            0.4975,
+            0.6822
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 0
+        },
+        "no_citation": {
+          "isolates": "the citation prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.4302,
+          "hit_at_1_ci": [
+            0.3256,
+            0.5349
+          ],
+          "hit_at_10": 0.8023,
+          "hit_at_10_ci": [
+            0.7093,
+            0.8837
+          ],
+          "mrr_at_10": 0.5557,
+          "mrr_at_10_ci": [
+            0.468,
+            0.6425
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 28
+        },
+        "no_recency": {
+          "isolates": "the recency prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0.08,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.5,
+          "hit_at_1_ci": [
+            0.3953,
+            0.6047
+          ],
+          "hit_at_10": 0.7674,
+          "hit_at_10_ci": [
+            0.6744,
+            0.8488
+          ],
+          "mrr_at_10": 0.59,
+          "mrr_at_10_ci": [
+            0.4953,
+            0.6804
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 5
+        },
+        "no_priors": {
+          "isolates": "both priors together",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.4419,
+          "hit_at_1_ci": [
+            0.3372,
+            0.5465
+          ],
+          "hit_at_10": 0.814,
+          "hit_at_10_ci": [
+            0.7326,
+            0.8953
+          ],
+          "mrr_at_10": 0.562,
+          "mrr_at_10_ci": [
+            0.4733,
+            0.6501
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 25
+        },
+        "no_lexical": {
+          "isolates": "the lexical prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.5,
+          "hit_at_1_ci": [
+            0.3953,
+            0.6047
+          ],
+          "hit_at_10": 0.7674,
+          "hit_at_10_ci": [
+            0.6744,
+            0.8488
+          ],
+          "mrr_at_10": 0.5921,
+          "mrr_at_10_ci": [
+            0.4975,
+            0.6822
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 0
+        },
+        "similarity_only": {
+          "isolates": "all three re-ranking terms",
+          "weights": {
+            "sem": 1,
+            "lex": 0,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.4419,
+          "hit_at_1_ci": [
+            0.3372,
+            0.5465
+          ],
+          "hit_at_10": 0.814,
+          "hit_at_10_ci": [
+            0.7326,
+            0.8953
+          ],
+          "mrr_at_10": 0.5639,
+          "mrr_at_10_ci": [
+            0.475,
+            0.6517
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 25
+        }
+      },
+      "pool_200": {
+        "full": {
+          "isolates": "shipped configuration",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.5,
+          "hit_at_1_ci": [
+            0.3953,
+            0.6047
+          ],
+          "hit_at_10": 0.7674,
+          "hit_at_10_ci": [
+            0.6744,
+            0.8488
+          ],
+          "mrr_at_10": 0.5921,
+          "mrr_at_10_ci": [
+            0.4975,
+            0.6822
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 0
+        },
+        "no_citation": {
+          "isolates": "the citation prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.4302,
+          "hit_at_1_ci": [
+            0.3256,
+            0.5349
+          ],
+          "hit_at_10": 0.8023,
+          "hit_at_10_ci": [
+            0.7093,
+            0.8837
+          ],
+          "mrr_at_10": 0.5557,
+          "mrr_at_10_ci": [
+            0.468,
+            0.6425
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 28
+        },
+        "no_recency": {
+          "isolates": "the recency prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0.08,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.5,
+          "hit_at_1_ci": [
+            0.3953,
+            0.6047
+          ],
+          "hit_at_10": 0.7674,
+          "hit_at_10_ci": [
+            0.6744,
+            0.8488
+          ],
+          "mrr_at_10": 0.59,
+          "mrr_at_10_ci": [
+            0.4953,
+            0.6804
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 5
+        },
+        "no_priors": {
+          "isolates": "both priors together",
+          "weights": {
+            "sem": 1,
+            "lex": 0.1,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.4419,
+          "hit_at_1_ci": [
+            0.3372,
+            0.5465
+          ],
+          "hit_at_10": 0.814,
+          "hit_at_10_ci": [
+            0.7326,
+            0.8953
+          ],
+          "mrr_at_10": 0.562,
+          "mrr_at_10_ci": [
+            0.4733,
+            0.6501
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 25
+        },
+        "no_lexical": {
+          "isolates": "the lexical prior",
+          "weights": {
+            "sem": 1,
+            "lex": 0,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.5,
+          "hit_at_1_ci": [
+            0.3953,
+            0.6047
+          ],
+          "hit_at_10": 0.7674,
+          "hit_at_10_ci": [
+            0.6744,
+            0.8488
+          ],
+          "mrr_at_10": 0.5921,
+          "mrr_at_10_ci": [
+            0.4975,
+            0.6822
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 0
+        },
+        "similarity_only": {
+          "isolates": "all three re-ranking terms",
+          "weights": {
+            "sem": 1,
+            "lex": 0,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.4419,
+          "hit_at_1_ci": [
+            0.3372,
+            0.5465
+          ],
+          "hit_at_10": 0.814,
+          "hit_at_10_ci": [
+            0.7326,
+            0.8953
+          ],
+          "mrr_at_10": 0.5639,
+          "mrr_at_10_ci": [
+            0.475,
+            0.6517
+          ],
+          "queries_declined": 2,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 25
+        }
+      }
+    },
+    "keyword": {
+      "pool_400": {
+        "full": {
+          "isolates": "shipped configuration",
+          "weights": {
+            "sem": 0,
+            "lex": 1,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.4419,
+          "hit_at_1_ci": [
+            0.3372,
+            0.5465
+          ],
+          "hit_at_10": 0.7907,
+          "hit_at_10_ci": [
+            0.7093,
+            0.8721
+          ],
+          "mrr_at_10": 0.5406,
+          "mrr_at_10_ci": [
+            0.4519,
+            0.6303
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 0
+        },
+        "no_citation": {
+          "isolates": "the citation prior",
+          "weights": {
+            "sem": 0,
+            "lex": 1,
+            "cit": 0,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.4186,
+          "hit_at_1_ci": [
+            0.314,
+            0.5233
+          ],
+          "hit_at_10": 0.7442,
+          "hit_at_10_ci": [
+            0.6512,
+            0.8372
+          ],
+          "mrr_at_10": 0.5169,
+          "mrr_at_10_ci": [
+            0.4259,
+            0.6083
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 15
+        },
+        "no_recency": {
+          "isolates": "the recency prior",
+          "weights": {
+            "sem": 0,
+            "lex": 1,
+            "cit": 0.08,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.4419,
+          "hit_at_1_ci": [
+            0.3372,
+            0.5465
+          ],
+          "hit_at_10": 0.7907,
+          "hit_at_10_ci": [
+            0.7093,
+            0.8721
+          ],
+          "mrr_at_10": 0.5425,
+          "mrr_at_10_ci": [
+            0.453,
+            0.6321
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 5
+        },
+        "no_priors": {
+          "isolates": "both priors together, i.e. pure BM25 order",
+          "weights": {
+            "sem": 0,
+            "lex": 1,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.4302,
+          "hit_at_1_ci": [
+            0.3256,
+            0.5349
+          ],
+          "hit_at_10": 0.7558,
+          "hit_at_10_ci": [
+            0.6628,
+            0.8488
+          ],
+          "mrr_at_10": 0.5247,
+          "mrr_at_10_ci": [
+            0.4332,
+            0.6164
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 13
+        }
+      },
+      "pool_200": {
+        "full": {
+          "isolates": "shipped configuration",
+          "weights": {
+            "sem": 0,
+            "lex": 1,
+            "cit": 0.08,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.4419,
+          "hit_at_1_ci": [
+            0.3372,
+            0.5465
+          ],
+          "hit_at_10": 0.7907,
+          "hit_at_10_ci": [
+            0.7093,
+            0.8721
+          ],
+          "mrr_at_10": 0.5406,
+          "mrr_at_10_ci": [
+            0.4519,
+            0.6303
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 0
+        },
+        "no_citation": {
+          "isolates": "the citation prior",
+          "weights": {
+            "sem": 0,
+            "lex": 1,
+            "cit": 0,
+            "rec": 0.04
+          },
+          "n": 86,
+          "hit_at_1": 0.4186,
+          "hit_at_1_ci": [
+            0.314,
+            0.5233
+          ],
+          "hit_at_10": 0.7442,
+          "hit_at_10_ci": [
+            0.6512,
+            0.8372
+          ],
+          "mrr_at_10": 0.5169,
+          "mrr_at_10_ci": [
+            0.4259,
+            0.6083
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 15
+        },
+        "no_recency": {
+          "isolates": "the recency prior",
+          "weights": {
+            "sem": 0,
+            "lex": 1,
+            "cit": 0.08,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.4419,
+          "hit_at_1_ci": [
+            0.3372,
+            0.5465
+          ],
+          "hit_at_10": 0.7907,
+          "hit_at_10_ci": [
+            0.7093,
+            0.8721
+          ],
+          "mrr_at_10": 0.5425,
+          "mrr_at_10_ci": [
+            0.453,
+            0.6321
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 5
+        },
+        "no_priors": {
+          "isolates": "both priors together, i.e. pure BM25 order",
+          "weights": {
+            "sem": 0,
+            "lex": 1,
+            "cit": 0,
+            "rec": 0
+          },
+          "n": 86,
+          "hit_at_1": 0.4302,
+          "hit_at_1_ci": [
+            0.3256,
+            0.5349
+          ],
+          "hit_at_10": 0.7558,
+          "hit_at_10_ci": [
+            0.6628,
+            0.8488
+          ],
+          "mrr_at_10": 0.5247,
+          "mrr_at_10_ci": [
+            0.4332,
+            0.6164
+          ],
+          "queries_declined": 0,
+          "queries_errored": 0,
+          "queries_with_changed_rank": 13
+        }
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "mode": "semantic",
+      "pool": "pool_400",
+      "comparison": "no_citation vs full",
+      "isolates": "the citation prior",
+      "n": 120,
+      "delta_hit_at_1": -0.025,
+      "delta_hit_at_10": -0.05,
+      "delta_mrr": -0.0323,
+      "mcnemar_wins": "3-9",
+      "mcnemar_p": 0.145996,
+      "permutation_p_mrr": 0.138993,
+      "holm_family": "semantic/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 0.72998,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_400",
+      "comparison": "no_recency vs full",
+      "isolates": "the recency prior",
+      "n": 120,
+      "delta_hit_at_1": -0.0083,
+      "delta_hit_at_10": 0.0167,
+      "delta_mrr": -0.0071,
+      "mcnemar_wins": "4-2",
+      "mcnemar_p": 0.6875,
+      "permutation_p_mrr": 0.464977,
+      "holm_family": "semantic/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_400",
+      "comparison": "no_priors vs full",
+      "isolates": "both priors together",
+      "n": 120,
+      "delta_hit_at_1": -0.0167,
+      "delta_hit_at_10": -0.0417,
+      "delta_mrr": -0.0239,
+      "mcnemar_wins": "3-8",
+      "mcnemar_p": 0.226563,
+      "permutation_p_mrr": 0.238238,
+      "holm_family": "semantic/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 0.906252,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_400",
+      "comparison": "no_lexical vs full",
+      "isolates": "the lexical prior",
+      "n": 120,
+      "delta_hit_at_1": -0.0083,
+      "delta_hit_at_10": 0,
+      "delta_mrr": -0.0049,
+      "mcnemar_wins": "0-0",
+      "mcnemar_p": 1,
+      "permutation_p_mrr": 1,
+      "holm_family": "semantic/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_400",
+      "comparison": "similarity_only vs full",
+      "isolates": "all three re-ranking terms",
+      "n": 120,
+      "delta_hit_at_1": -0.025,
+      "delta_hit_at_10": -0.0417,
+      "delta_mrr": -0.0294,
+      "mcnemar_wins": "3-8",
+      "mcnemar_p": 0.226563,
+      "permutation_p_mrr": 0.162892,
+      "holm_family": "semantic/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 0.906252,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_200",
+      "comparison": "no_citation vs full",
+      "isolates": "the citation prior",
+      "n": 120,
+      "delta_hit_at_1": -0.025,
+      "delta_hit_at_10": -0.05,
+      "delta_mrr": -0.0323,
+      "mcnemar_wins": "3-9",
+      "mcnemar_p": 0.145996,
+      "permutation_p_mrr": 0.138993,
+      "holm_family": "semantic/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 0.72998,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_200",
+      "comparison": "no_recency vs full",
+      "isolates": "the recency prior",
+      "n": 120,
+      "delta_hit_at_1": -0.0083,
+      "delta_hit_at_10": 0.0167,
+      "delta_mrr": -0.0071,
+      "mcnemar_wins": "4-2",
+      "mcnemar_p": 0.6875,
+      "permutation_p_mrr": 0.464977,
+      "holm_family": "semantic/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_200",
+      "comparison": "no_priors vs full",
+      "isolates": "both priors together",
+      "n": 120,
+      "delta_hit_at_1": -0.0167,
+      "delta_hit_at_10": -0.0417,
+      "delta_mrr": -0.0239,
+      "mcnemar_wins": "3-8",
+      "mcnemar_p": 0.226563,
+      "permutation_p_mrr": 0.238238,
+      "holm_family": "semantic/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 0.906252,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_200",
+      "comparison": "no_lexical vs full",
+      "isolates": "the lexical prior",
+      "n": 120,
+      "delta_hit_at_1": -0.0083,
+      "delta_hit_at_10": 0,
+      "delta_mrr": -0.0049,
+      "mcnemar_wins": "0-0",
+      "mcnemar_p": 1,
+      "permutation_p_mrr": 1,
+      "holm_family": "semantic/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "semantic",
+      "pool": "pool_200",
+      "comparison": "similarity_only vs full",
+      "isolates": "all three re-ranking terms",
+      "n": 120,
+      "delta_hit_at_1": -0.025,
+      "delta_hit_at_10": -0.0417,
+      "delta_mrr": -0.0294,
+      "mcnemar_wins": "3-8",
+      "mcnemar_p": 0.226563,
+      "permutation_p_mrr": 0.162892,
+      "holm_family": "semantic/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 0.906252,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_400",
+      "comparison": "no_citation vs full",
+      "isolates": "the citation prior",
+      "n": 86,
+      "delta_hit_at_1": -0.0698,
+      "delta_hit_at_10": 0.0349,
+      "delta_mrr": -0.0364,
+      "mcnemar_wins": "5-2",
+      "mcnemar_p": 0.453125,
+      "permutation_p_mrr": 0.144043,
+      "holm_family": "hybrid/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_400",
+      "comparison": "no_recency vs full",
+      "isolates": "the recency prior",
+      "n": 86,
+      "delta_hit_at_1": 0,
+      "delta_hit_at_10": 0,
+      "delta_mrr": -0.002,
+      "mcnemar_wins": "0-0",
+      "mcnemar_p": 1,
+      "permutation_p_mrr": 0.498325,
+      "holm_family": "hybrid/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_400",
+      "comparison": "no_priors vs full",
+      "isolates": "both priors together",
+      "n": 86,
+      "delta_hit_at_1": -0.0581,
+      "delta_hit_at_10": 0.0465,
+      "delta_mrr": -0.0301,
+      "mcnemar_wins": "6-2",
+      "mcnemar_p": 0.289063,
+      "permutation_p_mrr": 0.183291,
+      "holm_family": "hybrid/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_400",
+      "comparison": "no_lexical vs full",
+      "isolates": "the lexical prior",
+      "n": 86,
+      "delta_hit_at_1": 0,
+      "delta_hit_at_10": 0,
+      "delta_mrr": 0,
+      "mcnemar_wins": "0-0",
+      "mcnemar_p": 1,
+      "permutation_p_mrr": 1,
+      "holm_family": "hybrid/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_400",
+      "comparison": "similarity_only vs full",
+      "isolates": "all three re-ranking terms",
+      "n": 86,
+      "delta_hit_at_1": -0.0581,
+      "delta_hit_at_10": 0.0465,
+      "delta_mrr": -0.0281,
+      "mcnemar_wins": "6-2",
+      "mcnemar_p": 0.289063,
+      "permutation_p_mrr": 0.20189,
+      "holm_family": "hybrid/pool_400 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_200",
+      "comparison": "no_citation vs full",
+      "isolates": "the citation prior",
+      "n": 86,
+      "delta_hit_at_1": -0.0698,
+      "delta_hit_at_10": 0.0349,
+      "delta_mrr": -0.0364,
+      "mcnemar_wins": "5-2",
+      "mcnemar_p": 0.453125,
+      "permutation_p_mrr": 0.144043,
+      "holm_family": "hybrid/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_200",
+      "comparison": "no_recency vs full",
+      "isolates": "the recency prior",
+      "n": 86,
+      "delta_hit_at_1": 0,
+      "delta_hit_at_10": 0,
+      "delta_mrr": -0.002,
+      "mcnemar_wins": "0-0",
+      "mcnemar_p": 1,
+      "permutation_p_mrr": 0.498325,
+      "holm_family": "hybrid/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_200",
+      "comparison": "no_priors vs full",
+      "isolates": "both priors together",
+      "n": 86,
+      "delta_hit_at_1": -0.0581,
+      "delta_hit_at_10": 0.0465,
+      "delta_mrr": -0.0301,
+      "mcnemar_wins": "6-2",
+      "mcnemar_p": 0.289063,
+      "permutation_p_mrr": 0.183291,
+      "holm_family": "hybrid/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_200",
+      "comparison": "no_lexical vs full",
+      "isolates": "the lexical prior",
+      "n": 86,
+      "delta_hit_at_1": 0,
+      "delta_hit_at_10": 0,
+      "delta_mrr": 0,
+      "mcnemar_wins": "0-0",
+      "mcnemar_p": 1,
+      "permutation_p_mrr": 1,
+      "holm_family": "hybrid/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "hybrid",
+      "pool": "pool_200",
+      "comparison": "similarity_only vs full",
+      "isolates": "all three re-ranking terms",
+      "n": 86,
+      "delta_hit_at_1": -0.0581,
+      "delta_hit_at_10": 0.0465,
+      "delta_mrr": -0.0281,
+      "mcnemar_wins": "6-2",
+      "mcnemar_p": 0.289063,
+      "permutation_p_mrr": 0.20189,
+      "holm_family": "hybrid/pool_200 (5 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "keyword",
+      "pool": "pool_400",
+      "comparison": "no_citation vs full",
+      "isolates": "the citation prior",
+      "n": 86,
+      "delta_hit_at_1": -0.0233,
+      "delta_hit_at_10": -0.0465,
+      "delta_mrr": -0.0237,
+      "mcnemar_wins": "0-4",
+      "mcnemar_p": 0.125,
+      "permutation_p_mrr": 0.00235,
+      "holm_family": "keyword/pool_400 (3 comparisons)",
+      "mcnemar_p_holm": 0.375,
+      "mcnemar_p_holm_mode_wide": 0.75
+    },
+    {
+      "mode": "keyword",
+      "pool": "pool_400",
+      "comparison": "no_recency vs full",
+      "isolates": "the recency prior",
+      "n": 86,
+      "delta_hit_at_1": 0,
+      "delta_hit_at_10": 0,
+      "delta_mrr": 0.0019,
+      "mcnemar_wins": "0-0",
+      "mcnemar_p": 1,
+      "permutation_p_mrr": 0.871456,
+      "holm_family": "keyword/pool_400 (3 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "keyword",
+      "pool": "pool_400",
+      "comparison": "no_priors vs full",
+      "isolates": "both priors together, i.e. pure BM25 order",
+      "n": 86,
+      "delta_hit_at_1": -0.0116,
+      "delta_hit_at_10": -0.0349,
+      "delta_mrr": -0.0159,
+      "mcnemar_wins": "0-3",
+      "mcnemar_p": 0.25,
+      "permutation_p_mrr": 0.011149,
+      "holm_family": "keyword/pool_400 (3 comparisons)",
+      "mcnemar_p_holm": 0.5,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "keyword",
+      "pool": "pool_200",
+      "comparison": "no_citation vs full",
+      "isolates": "the citation prior",
+      "n": 86,
+      "delta_hit_at_1": -0.0233,
+      "delta_hit_at_10": -0.0465,
+      "delta_mrr": -0.0237,
+      "mcnemar_wins": "0-4",
+      "mcnemar_p": 0.125,
+      "permutation_p_mrr": 0.00235,
+      "holm_family": "keyword/pool_200 (3 comparisons)",
+      "mcnemar_p_holm": 0.375,
+      "mcnemar_p_holm_mode_wide": 0.75
+    },
+    {
+      "mode": "keyword",
+      "pool": "pool_200",
+      "comparison": "no_recency vs full",
+      "isolates": "the recency prior",
+      "n": 86,
+      "delta_hit_at_1": 0,
+      "delta_hit_at_10": 0,
+      "delta_mrr": 0.0019,
+      "mcnemar_wins": "0-0",
+      "mcnemar_p": 1,
+      "permutation_p_mrr": 0.871456,
+      "holm_family": "keyword/pool_200 (3 comparisons)",
+      "mcnemar_p_holm": 1,
+      "mcnemar_p_holm_mode_wide": 1
+    },
+    {
+      "mode": "keyword",
+      "pool": "pool_200",
+      "comparison": "no_priors vs full",
+      "isolates": "both priors together, i.e. pure BM25 order",
+      "n": 86,
+      "delta_hit_at_1": -0.0116,
+      "delta_hit_at_10": -0.0349,
+      "delta_mrr": -0.0159,
+      "mcnemar_wins": "0-3",
+      "mcnemar_p": 0.25,
+      "permutation_p_mrr": 0.011149,
+      "holm_family": "keyword/pool_200 (3 comparisons)",
+      "mcnemar_p_holm": 0.5,
+      "mcnemar_p_holm_mode_wide": 1
+    }
+  ],
+  "findings": {
+    "lexical_prior_occupancy": {
+      "semantic": {
+        "pool_400": {
+          "n_queries": 120,
+          "mean_pool_rows": 400,
+          "mean_pool_rows_with_nonzero_lexical": 0.075,
+          "mean_shown_rows_with_nonzero_lexical_of_10": 0.0417,
+          "queries_with_lexical_zero_on_every_pool_row": 115
+        },
+        "pool_200": {
+          "n_queries": 120,
+          "mean_pool_rows": 200,
+          "mean_pool_rows_with_nonzero_lexical": 0.05,
+          "mean_shown_rows_with_nonzero_lexical_of_10": 0.0417,
+          "queries_with_lexical_zero_on_every_pool_row": 115
+        }
+      },
+      "hybrid": {
+        "pool_400": {
+          "n_queries": 84,
+          "mean_pool_rows": 308.75,
+          "mean_pool_rows_with_nonzero_lexical": 0.0476,
+          "mean_shown_rows_with_nonzero_lexical_of_10": 0.0476,
+          "queries_with_lexical_zero_on_every_pool_row": 80
+        },
+        "pool_200": {
+          "n_queries": 84,
+          "mean_pool_rows": 169.9762,
+          "mean_pool_rows_with_nonzero_lexical": 0.0476,
+          "mean_shown_rows_with_nonzero_lexical_of_10": 0.0476,
+          "queries_with_lexical_zero_on_every_pool_row": 80
+        }
+      },
+      "keyword": {
+        "pool_400": {
+          "n_queries": 86,
+          "mean_pool_rows": 63.2209,
+          "mean_pool_rows_with_nonzero_lexical": 63.2209,
+          "mean_shown_rows_with_nonzero_lexical_of_10": 5.8256,
+          "queries_with_lexical_zero_on_every_pool_row": 0
+        },
+        "pool_200": {
+          "n_queries": 86,
+          "mean_pool_rows": 39.4535,
+          "mean_pool_rows_with_nonzero_lexical": 39.4535,
+          "mean_shown_rows_with_nonzero_lexical_of_10": 5.8256,
+          "queries_with_lexical_zero_on_every_pool_row": 0
+        }
+      }
+    },
+    "undated_rows": {
+      "semantic": {
+        "pool_400": {
+          "n_queries": 120,
+          "mean_undated_pool_rows": 0.15,
+          "total_undated_pool_rows": 18,
+          "total_undated_in_top10_full": 0,
+          "total_undated_in_top10_no_recency": 0,
+          "mean_undated_in_top10_full": 0,
+          "mean_undated_in_top10_no_recency": 0
+        },
+        "pool_200": {
+          "n_queries": 120,
+          "mean_undated_pool_rows": 0.0667,
+          "total_undated_pool_rows": 8,
+          "total_undated_in_top10_full": 0,
+          "total_undated_in_top10_no_recency": 0,
+          "mean_undated_in_top10_full": 0,
+          "mean_undated_in_top10_no_recency": 0
+        }
+      },
+      "hybrid": {
+        "pool_400": {
+          "n_queries": 84,
+          "mean_undated_pool_rows": 0.0119,
+          "total_undated_pool_rows": 1,
+          "total_undated_in_top10_full": 0,
+          "total_undated_in_top10_no_recency": 0,
+          "mean_undated_in_top10_full": 0,
+          "mean_undated_in_top10_no_recency": 0
+        },
+        "pool_200": {
+          "n_queries": 84,
+          "mean_undated_pool_rows": 0.0119,
+          "total_undated_pool_rows": 1,
+          "total_undated_in_top10_full": 0,
+          "total_undated_in_top10_no_recency": 0,
+          "mean_undated_in_top10_full": 0,
+          "mean_undated_in_top10_no_recency": 0
+        }
+      },
+      "keyword": {
+        "pool_400": {
+          "n_queries": 86,
+          "mean_undated_pool_rows": 0,
+          "total_undated_pool_rows": 0,
+          "total_undated_in_top10_full": 0,
+          "total_undated_in_top10_no_recency": 0,
+          "mean_undated_in_top10_full": 0,
+          "mean_undated_in_top10_no_recency": 0
+        },
+        "pool_200": {
+          "n_queries": 86,
+          "mean_undated_pool_rows": 0,
+          "total_undated_pool_rows": 0,
+          "total_undated_in_top10_full": 0,
+          "total_undated_in_top10_no_recency": 0,
+          "mean_undated_in_top10_full": 0,
+          "mean_undated_in_top10_no_recency": 0
+        }
+      }
+    },
+    "citation_profile": {
+      "semantic": {
+        "pool_400": {
+          "rows_considered": 1200,
+          "full": {
+            "mean_citations": 281.9775,
+            "median_citations": 96
+          },
+          "no_citation": {
+            "mean_citations": 147.27,
+            "median_citations": 25
+          },
+          "delta_mean_citations": -134.7075
+        },
+        "pool_200": {
+          "rows_considered": 1200,
+          "full": {
+            "mean_citations": 281.9775,
+            "median_citations": 96
+          },
+          "no_citation": {
+            "mean_citations": 147.27,
+            "median_citations": 25
+          },
+          "delta_mean_citations": -134.7075
+        }
+      },
+      "hybrid": {
+        "pool_400": {
+          "rows_considered": 814,
+          "full": {
+            "mean_citations": 222.6572,
+            "median_citations": 51.5
+          },
+          "no_citation": {
+            "mean_citations": 153.9828,
+            "median_citations": 25
+          },
+          "delta_mean_citations": -68.6744
+        },
+        "pool_200": {
+          "rows_considered": 814,
+          "full": {
+            "mean_citations": 222.6572,
+            "median_citations": 51.5
+          },
+          "no_citation": {
+            "mean_citations": 153.9828,
+            "median_citations": 25
+          },
+          "delta_mean_citations": -68.6744
+        }
+      },
+      "keyword": {
+        "pool_400": {
+          "rows_considered": 501,
+          "full": {
+            "mean_citations": 144.501,
+            "median_citations": 32
+          },
+          "no_citation": {
+            "mean_citations": 124.2295,
+            "median_citations": 23
+          },
+          "delta_mean_citations": -20.2715
+        },
+        "pool_200": {
+          "rows_considered": 501,
+          "full": {
+            "mean_citations": 144.501,
+            "median_citations": 32
+          },
+          "no_citation": {
+            "mean_citations": 124.2295,
+            "median_citations": 23
+          },
+          "delta_mean_citations": -20.2715
+        }
+      }
+    },
+    "keyword_truncation": {
+      "note": "Keyword mode scores a pool of max(200, topK*4) = 1,600 candidates and then returns only topK of them, so its visible pool IS a shipped-weight truncation. A query returning fewer than topK rows was not truncated at all. Where the score gap between visible rank 10 and the last visible row exceeds the largest possible prior swing (0.12), no arm in this ablation could have promoted a cut row into the top 10.",
+      "queries_measured": 35,
+      "queries_truncated_at_topk": 10,
+      "queries_returning_fewer_than_topk": 76,
+      "mean_rows_returned": 63.2209,
+      "min_score_gap_rank10_to_last": 0.1236,
+      "queries_with_gap_below_max_prior_swing": 0,
+      "max_prior_swing": 0.12
+    }
+  }
+}

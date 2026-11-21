@@ -1,0 +1,48 @@
+{
+  "experiment": "presence of every target in OpenAlex and PubMed, and the informed PubMed baseline",
+  "sources": [
+    "data/coverage-120.jsonl",
+    "data/coverage-500.jsonl"
+  ],
+  "ci_method": "percentile bootstrap over questions, 10,000 resamples, LCG seed 8191, interpolated quantiles (stats.mjs)",
+  "original_120": {
+    "n": 120,
+    "openalex": {
+      "present": 120,
+      "absent": 0,
+      "unknown": 0
+    },
+    "pubmed": {
+      "present": 120,
+      "absent": 0,
+      "unknown": 0
+    },
+    "informed_pubmed_hit_at_10": {
+      "value": 0.025,
+      "ci95": [
+        0,
+        0.0583
+      ]
+    }
+  },
+  "new_380": {
+    "n": 380,
+    "openalex": {
+      "present": 380,
+      "absent": 0,
+      "unknown": 0
+    },
+    "pubmed": {
+      "present": 379,
+      "absent": 1,
+      "unknown": 0
+    },
+    "informed_pubmed_hit_at_10": {
+      "value": 0.0711,
+      "ci95": [
+        0.0474,
+        0.0974
+      ]
+    }
+  }
+}

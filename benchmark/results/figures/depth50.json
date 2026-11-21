@@ -1,0 +1,314 @@
+{
+  "experiment": "known-item retrieval at depth 50, 86 questions (Fig. 4, Table 3)",
+  "sources": [
+    "data/depth50.jsonl",
+    "results/depth50-summary.json"
+  ],
+  "ci_method": "percentile bootstrap over questions, 10,000 resamples, LCG seed 8191, interpolated quantiles (stats.mjs)",
+  "arms": {
+    "rbai_semantic": {
+      "hit_at_1": {
+        "value": 0.2326,
+        "ci95": [
+          0.1512,
+          0.3256
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.5581,
+        "ci95": [
+          0.4535,
+          0.6628
+        ]
+      },
+      "hit_at_20": {
+        "value": 0.6512,
+        "ci95": [
+          0.5465,
+          0.7558
+        ]
+      },
+      "hit_at_50": {
+        "value": 0.7209,
+        "ci95": [
+          0.6279,
+          0.814
+        ]
+      },
+      "mrr_at_50": {
+        "value": 0.3431,
+        "ci95": [
+          0.2629,
+          0.4283
+        ]
+      },
+      "recovered_between_11_and_50": 14
+    },
+    "rbai_keyword": {
+      "hit_at_1": {
+        "value": 0.4419,
+        "ci95": [
+          0.3372,
+          0.5465
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.7907,
+        "ci95": [
+          0.7093,
+          0.8721
+        ]
+      },
+      "hit_at_20": {
+        "value": 0.8256,
+        "ci95": [
+          0.7442,
+          0.907
+        ]
+      },
+      "hit_at_50": {
+        "value": 0.8488,
+        "ci95": [
+          0.7674,
+          0.9186
+        ]
+      },
+      "mrr_at_50": {
+        "value": 0.5444,
+        "ci95": [
+          0.4562,
+          0.6334
+        ]
+      },
+      "recovered_between_11_and_50": 5
+    },
+    "rbai_hybrid": {
+      "hit_at_1": {
+        "value": 0.5,
+        "ci95": [
+          0.3953,
+          0.6047
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.7674,
+        "ci95": [
+          0.6744,
+          0.8488
+        ]
+      },
+      "hit_at_20": {
+        "value": 0.8605,
+        "ci95": [
+          0.7791,
+          0.9302
+        ]
+      },
+      "hit_at_50": {
+        "value": 0.907,
+        "ci95": [
+          0.8372,
+          0.9651
+        ]
+      },
+      "mrr_at_50": {
+        "value": 0.6,
+        "ci95": [
+          0.5077,
+          0.688
+        ]
+      },
+      "recovered_between_11_and_50": 12
+    },
+    "openalex_semantic": {
+      "hit_at_1": {
+        "value": 0.093,
+        "ci95": [
+          0.0349,
+          0.1628
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.2326,
+        "ci95": [
+          0.1512,
+          0.3256
+        ]
+      },
+      "hit_at_20": {
+        "value": 0.2907,
+        "ci95": [
+          0.1977,
+          0.3837
+        ]
+      },
+      "hit_at_50": {
+        "value": 0.2907,
+        "ci95": [
+          0.1977,
+          0.3837
+        ]
+      },
+      "mrr_at_50": {
+        "value": 0.1339,
+        "ci95": [
+          0.074,
+          0.201
+        ]
+      },
+      "recovered_between_11_and_50": 5
+    },
+    "openalex_keyword": {
+      "hit_at_1": {
+        "value": 0.407,
+        "ci95": [
+          0.3023,
+          0.5116
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.7442,
+        "ci95": [
+          0.6512,
+          0.8372
+        ]
+      },
+      "hit_at_20": {
+        "value": 0.8023,
+        "ci95": [
+          0.7209,
+          0.8837
+        ]
+      },
+      "hit_at_50": {
+        "value": 0.8721,
+        "ci95": [
+          0.8023,
+          0.9419
+        ]
+      },
+      "mrr_at_50": {
+        "value": 0.5589,
+        "ci95": [
+          0.4727,
+          0.6453
+        ]
+      },
+      "recovered_between_11_and_50": 11
+    },
+    "openalex_combined_semantic": {
+      "hit_at_1": {
+        "value": 0.1395,
+        "ci95": [
+          0.0698,
+          0.2209
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.314,
+        "ci95": [
+          0.2209,
+          0.4186
+        ]
+      },
+      "hit_at_20": {
+        "value": 0.3605,
+        "ci95": [
+          0.2558,
+          0.4651
+        ]
+      },
+      "hit_at_50": {
+        "value": 0.3605,
+        "ci95": [
+          0.2558,
+          0.4651
+        ]
+      },
+      "mrr_at_50": {
+        "value": 0.1905,
+        "ci95": [
+          0.1203,
+          0.2671
+        ]
+      },
+      "recovered_between_11_and_50": 4
+    },
+    "openalex_combined_keyword": {
+      "hit_at_1": {
+        "value": 0.0581,
+        "ci95": [
+          0.0116,
+          0.1163
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.0698,
+        "ci95": [
+          0.0233,
+          0.1279
+        ]
+      },
+      "hit_at_20": {
+        "value": 0.0814,
+        "ci95": [
+          0.0233,
+          0.1395
+        ]
+      },
+      "hit_at_50": {
+        "value": 0.0814,
+        "ci95": [
+          0.0233,
+          0.1395
+        ]
+      },
+      "mrr_at_50": {
+        "value": 0.0647,
+        "ci95": [
+          0.0182,
+          0.1178
+        ]
+      },
+      "recovered_between_11_and_50": 1
+    },
+    "pubmed_keyword": {
+      "hit_at_1": {
+        "value": 0.4651,
+        "ci95": [
+          0.3605,
+          0.5698
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.7791,
+        "ci95": [
+          0.686,
+          0.8605
+        ]
+      },
+      "hit_at_20": {
+        "value": 0.814,
+        "ci95": [
+          0.7326,
+          0.8953
+        ]
+      },
+      "hit_at_50": {
+        "value": 0.8488,
+        "ci95": [
+          0.7674,
+          0.9186
+        ]
+      },
+      "mrr_at_50": {
+        "value": 0.5773,
+        "ci95": [
+          0.489,
+          0.6644
+        ]
+      },
+      "recovered_between_11_and_50": 6
+    }
+  }
+}

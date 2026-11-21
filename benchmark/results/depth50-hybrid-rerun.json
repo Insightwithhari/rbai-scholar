@@ -1,0 +1,155 @@
+{
+  "schema_version": "depth50-hybrid-timeout/2",
+  "run_at": "2026-09-19T12:46:58.498Z",
+  "read_only": true,
+  "question": "Do the depth-50 hybrid figures depend on the statement timeout? The 86 depth-50 hybrid searches of the graded study were sent again on the reference implementation, once with the default statement timeout of 15 s and once with it raised to 60 s, and compared with the published run.",
+  "default_timeout": {
+    "statement_timeout_ms": 15000,
+    "depth": 50,
+    "concurrency": 8,
+    "elapsed_s": 90.2,
+    "metrics": {
+      "n": 86,
+      "completed": 84,
+      "declined": 2,
+      "errored": 0,
+      "mean_returned": 45.02,
+      "hit_at_1": 0.5,
+      "hit_at_10": 0.7674,
+      "hit_at_20": 0.8605,
+      "hit_at_50": 0.907,
+      "mrr_at_50": 0.6,
+      "recovered_between_11_and_50": 12
+    }
+  },
+  "raised_timeout": {
+    "statement_timeout_ms": 60000,
+    "depth": 50,
+    "concurrency": 8,
+    "elapsed_s": 75.1,
+    "metrics": {
+      "n": 86,
+      "completed": 84,
+      "declined": 2,
+      "errored": 0,
+      "mean_returned": 45.02,
+      "hit_at_1": 0.5,
+      "hit_at_10": 0.7674,
+      "hit_at_20": 0.8605,
+      "hit_at_50": 0.907,
+      "mrr_at_50": 0.6,
+      "recovered_between_11_and_50": 12
+    }
+  },
+  "published_reference": {
+    "arm": "rbai_hybrid",
+    "summary_as_published": {
+      "arm": "rbai_hybrid",
+      "ok": 84,
+      "declined": 2,
+      "errored": 0,
+      "mean_returned": 45.02,
+      "hit_at_1": 0.5,
+      "hit_at_10": 0.7674,
+      "hit_at_20": 0.8605,
+      "hit_at_50": 0.907,
+      "mrr_at_50": 0.6,
+      "recovered_between_11_and_50": 12
+    },
+    "recomputed_from_rows": {
+      "n": 86,
+      "completed": 84,
+      "declined": 2,
+      "errored": 0,
+      "mean_returned": 45.02,
+      "hit_at_1": 0.5,
+      "hit_at_10": 0.7674,
+      "hit_at_20": 0.8605,
+      "hit_at_50": 0.907,
+      "mrr_at_50": 0.6,
+      "recovered_between_11_and_50": 12
+    }
+  },
+  "comparison": {
+    "metrics": {
+      "published": {
+        "n": 86,
+        "completed": 84,
+        "declined": 2,
+        "errored": 0,
+        "mean_returned": 45.02,
+        "hit_at_1": 0.5,
+        "hit_at_10": 0.7674,
+        "hit_at_20": 0.8605,
+        "hit_at_50": 0.907,
+        "mrr_at_50": 0.6,
+        "recovered_between_11_and_50": 12
+      },
+      "serving_default_15000": {
+        "n": 86,
+        "completed": 84,
+        "declined": 2,
+        "errored": 0,
+        "mean_returned": 45.02,
+        "hit_at_1": 0.5,
+        "hit_at_10": 0.7674,
+        "hit_at_20": 0.8605,
+        "hit_at_50": 0.907,
+        "mrr_at_50": 0.6,
+        "recovered_between_11_and_50": 12
+      },
+      "raised_60000": {
+        "n": 86,
+        "completed": 84,
+        "declined": 2,
+        "errored": 0,
+        "mean_returned": 45.02,
+        "hit_at_1": 0.5,
+        "hit_at_10": 0.7674,
+        "hit_at_20": 0.8605,
+        "hit_at_50": 0.907,
+        "mrr_at_50": 0.6,
+        "recovered_between_11_and_50": 12
+      }
+    },
+    "rank_differences": {
+      "serving_default_vs_raised": {
+        "compared": 86,
+        "identical": 86,
+        "differ": 0,
+        "a_hit_b_miss": 0,
+        "a_miss_b_hit": 0,
+        "both_hit_different_rank": 0,
+        "mean_abs_delta_when_both_hit": null,
+        "examples": []
+      },
+      "serving_default_vs_published": {
+        "compared": 86,
+        "identical": 86,
+        "differ": 0,
+        "a_hit_b_miss": 0,
+        "a_miss_b_hit": 0,
+        "both_hit_different_rank": 0,
+        "mean_abs_delta_when_both_hit": null,
+        "examples": []
+      },
+      "raised_vs_published": {
+        "compared": 86,
+        "identical": 86,
+        "differ": 0,
+        "a_hit_b_miss": 0,
+        "a_miss_b_hit": 0,
+        "both_hit_different_rank": 0,
+        "mean_abs_delta_when_both_hit": null,
+        "examples": []
+      }
+    },
+    "query_construction": {
+      "identical_to_published": 86,
+      "differing": 0,
+      "note": "Both strings (plain combined text for the embedding, marked text carrying the quoted identifier as queryText) compared byte for byte against the published run."
+    }
+  },
+  "outcome": "serving_default_completes_and_reproduces",
+  "verdict": "Under the default 15 s statement timeout every depth-50 hybrid search completes (84 completed, 2 declined because the quoted term is too common, 0 errors) and reproduces the published figures exactly (Hit@1 0.5, Hit@10 0.7674, Hit@20 0.8605, Hit@50 0.907, MRR@50 0.6); all 86 target ranks equal the published ones and those of the run with the timeout raised to 60 s. The depth-50 hybrid figures therefore hold under the default timeout. The original depth-50 run recorded 2 statement-timeout aborts; the retries that replaced them ran under the same 15 s limit."
+}

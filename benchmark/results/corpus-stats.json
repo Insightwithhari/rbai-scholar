@@ -1,0 +1,50 @@
+{
+  "probed_at": "2026-09-15T09:43:09.492Z",
+  "mode": "read-only",
+  "true_count": 11257530,
+  "true_count_ms": 20148,
+  "planner_estimate": 10758502,
+  "published_constant": 10090475,
+  "searchable_count": 11149057,
+  "excluded_by_gate": 108473,
+  "citation_distribution": {
+    "min": 0,
+    "p10": 0,
+    "p25": 1,
+    "p50": 9,
+    "p75": 32,
+    "p90": 76,
+    "p99": 339,
+    "max": 102766,
+    "mean": "33.21"
+  },
+  "citation_strata": {
+    "s_lt10": 5640949,
+    "s_10_50": 3674029,
+    "s_50_200": 1565535,
+    "s_200_1000": 252324,
+    "s_gte1000": 16220
+  },
+  "year_quality": {
+    "parseable": 11144973,
+    "null_year": 4084,
+    "malformed": 0
+  },
+  "metadata_completeness": {
+    "has_pmid": 7183679,
+    "has_type": 11145472,
+    "has_language": 10889961,
+    "has_oastatus": 11145472,
+    "is_oa": 7031124
+  },
+  "article_types": [
+    {
+      "type": "article",
+      "n": 11145472
+    },
+    {
+      "type": "(null)",
+      "n": 3585
+    }
+  ]
+}

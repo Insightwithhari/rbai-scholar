@@ -1,0 +1,124 @@
+{
+  "experiment": "BM25, ts_rank, meaning-based and reciprocal rank fusion on 86 identifier queries (Fig. 2d)",
+  "sources": [
+    "data/fusion-identifier-86.jsonl"
+  ],
+  "ci_method": "percentile bootstrap over questions, 10,000 resamples, LCG seed 8191, interpolated quantiles (stats.mjs)",
+  "arms": {
+    "vector": {
+      "hit_at_1": {
+        "value": 0.0698,
+        "ci95": [
+          0.0233,
+          0.1279
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.1744,
+        "ci95": [
+          0.093,
+          0.2558
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.0973,
+        "ci95": [
+          0.0457,
+          0.1564
+        ]
+      }
+    },
+    "ts_rank": {
+      "hit_at_1": {
+        "value": 0.4186,
+        "ci95": [
+          0.314,
+          0.5233
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.7093,
+        "ci95": [
+          0.6163,
+          0.8023
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.5053,
+        "ci95": [
+          0.4138,
+          0.5998
+        ]
+      }
+    },
+    "bm25": {
+      "hit_at_1": {
+        "value": 0.4302,
+        "ci95": [
+          0.3256,
+          0.5349
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.7558,
+        "ci95": [
+          0.6628,
+          0.8488
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.5241,
+        "ci95": [
+          0.4326,
+          0.6158
+        ]
+      }
+    },
+    "rrf_bm25": {
+      "hit_at_1": {
+        "value": 0.1395,
+        "ci95": [
+          0.0698,
+          0.2093
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.7558,
+        "ci95": [
+          0.6628,
+          0.8488
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.3522,
+        "ci95": [
+          0.2854,
+          0.4209
+        ]
+      }
+    },
+    "rrf_tsrank": {
+      "hit_at_1": {
+        "value": 0.1512,
+        "ci95": [
+          0.0814,
+          0.2326
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.6977,
+        "ci95": [
+          0.6047,
+          0.7907
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.3554,
+        "ci95": [
+          0.2862,
+          0.427
+        ]
+      }
+    }
+  }
+}

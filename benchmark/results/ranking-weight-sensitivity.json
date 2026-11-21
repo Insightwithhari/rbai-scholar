@@ -1,0 +1,312 @@
+{
+  "schema_version": "ranking-weight-sensitivity/1",
+  "run_at": "2026-09-23T15:11:10.268Z",
+  "question": "The deployed ranking weights were fixed before this evaluation. Across the range a reasonable implementer might have chosen instead, does the reported result move?",
+  "not_a_tuning_exercise": "No weight is selected here and none is changed. Justifying a weight by its score on the evaluation set would be fitting to the test set, which would bias every reported figure. This asks only whether the published numbers depend on the choice.",
+  "method": "One weight varied at a time with the other two at their deployed values, re-scoring the stored depth-50 pool of 500 known-item questions. No retrieval is issued. The lexical component is fetched from PostgreSQL so the service's own ts_rank_cd and pool-relative normalisation are used rather than a re-implementation.",
+  "correctness_gate": {
+    "mrr_at_deployed_weights": 0.4431,
+    "published": 0.4431,
+    "note": "Asserted equal to four decimal places before any sensitivity figure is computed."
+  },
+  "deployed_weights": {
+    "lexical": 0.1,
+    "citation": 0.08,
+    "recency": 0.04
+  },
+  "lexical_term_behaviour": {
+    "pairs_scored": 25000,
+    "pairs_with_non_zero_text_rank": 5,
+    "questions_with_any_non_zero": 5,
+    "of_questions": 500
+  },
+  "grid": [
+    0,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.16,
+    0.24,
+    0.32,
+    0.64
+  ],
+  "sweeps": {
+    "lexical": [
+      {
+        "weight": 0,
+        "n": 500,
+        "hit1": 0.326,
+        "hit10": 0.65,
+        "mrr": 0.4419304816757582
+      },
+      {
+        "weight": 0.02,
+        "n": 500,
+        "hit1": 0.326,
+        "hit10": 0.65,
+        "mrr": 0.44226381500909157
+      },
+      {
+        "weight": 0.04,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.443250994496271
+      },
+      {
+        "weight": 0.06,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.08,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.1,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.12,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.16,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.24,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.32,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.64,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      }
+    ],
+    "citation": [
+      {
+        "weight": 0,
+        "n": 500,
+        "hit1": 0.29,
+        "hit10": 0.606,
+        "mrr": 0.40119505341228473
+      },
+      {
+        "weight": 0.02,
+        "n": 500,
+        "hit1": 0.298,
+        "hit10": 0.634,
+        "mrr": 0.411960451050059
+      },
+      {
+        "weight": 0.04,
+        "n": 500,
+        "hit1": 0.318,
+        "hit10": 0.65,
+        "mrr": 0.43155467251324797
+      },
+      {
+        "weight": 0.06,
+        "n": 500,
+        "hit1": 0.318,
+        "hit10": 0.668,
+        "mrr": 0.43909845414302034
+      },
+      {
+        "weight": 0.08,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.1,
+        "n": 500,
+        "hit1": 0.314,
+        "hit10": 0.656,
+        "mrr": 0.4331466376216205
+      },
+      {
+        "weight": 0.12,
+        "n": 500,
+        "hit1": 0.314,
+        "hit10": 0.638,
+        "mrr": 0.43203379998261165
+      },
+      {
+        "weight": 0.16,
+        "n": 500,
+        "hit1": 0.302,
+        "hit10": 0.63,
+        "mrr": 0.41391343180392487
+      },
+      {
+        "weight": 0.24,
+        "n": 500,
+        "hit1": 0.256,
+        "hit10": 0.56,
+        "mrr": 0.359500562355461
+      },
+      {
+        "weight": 0.32,
+        "n": 500,
+        "hit1": 0.236,
+        "hit10": 0.52,
+        "mrr": 0.3326574917317146
+      },
+      {
+        "weight": 0.64,
+        "n": 500,
+        "hit1": 0.196,
+        "hit10": 0.432,
+        "mrr": 0.27848837208948457
+      }
+    ],
+    "recency": [
+      {
+        "weight": 0,
+        "n": 500,
+        "hit1": 0.312,
+        "hit10": 0.648,
+        "mrr": 0.4295380426647305
+      },
+      {
+        "weight": 0.02,
+        "n": 500,
+        "hit1": 0.324,
+        "hit10": 0.654,
+        "mrr": 0.43883264222519763
+      },
+      {
+        "weight": 0.04,
+        "n": 500,
+        "hit1": 0.328,
+        "hit10": 0.65,
+        "mrr": 0.4430843278296044
+      },
+      {
+        "weight": 0.06,
+        "n": 500,
+        "hit1": 0.322,
+        "hit10": 0.656,
+        "mrr": 0.4397304014476303
+      },
+      {
+        "weight": 0.08,
+        "n": 500,
+        "hit1": 0.316,
+        "hit10": 0.66,
+        "mrr": 0.4343419911874172
+      },
+      {
+        "weight": 0.1,
+        "n": 500,
+        "hit1": 0.312,
+        "hit10": 0.658,
+        "mrr": 0.4260113036935983
+      },
+      {
+        "weight": 0.12,
+        "n": 500,
+        "hit1": 0.302,
+        "hit10": 0.644,
+        "mrr": 0.41295762488134274
+      },
+      {
+        "weight": 0.16,
+        "n": 500,
+        "hit1": 0.292,
+        "hit10": 0.608,
+        "mrr": 0.3962370753352712
+      },
+      {
+        "weight": 0.24,
+        "n": 500,
+        "hit1": 0.246,
+        "hit10": 0.542,
+        "mrr": 0.3479014351842792
+      },
+      {
+        "weight": 0.32,
+        "n": 500,
+        "hit1": 0.2,
+        "hit10": 0.494,
+        "mrr": 0.29375451783558587
+      },
+      {
+        "weight": 0.64,
+        "n": 500,
+        "hit1": 0.114,
+        "hit10": 0.346,
+        "mrr": 0.1929380223658568
+      }
+    ]
+  },
+  "citation_weight_by_band": {
+    "cit-000": {
+      "n": 100,
+      "w_0": 0.5083,
+      "w_0_08": 0.3801,
+      "w_0_32": 0.029,
+      "w_0_64": 0.016
+    },
+    "cit-010": {
+      "n": 100,
+      "w_0": 0.4687,
+      "w_0_08": 0.4343,
+      "w_0_32": 0.1248,
+      "w_0_64": 0.0414
+    },
+    "cit-050": {
+      "n": 100,
+      "w_0": 0.3676,
+      "w_0_08": 0.4304,
+      "w_0_32": 0.3175,
+      "w_0_64": 0.1585
+    },
+    "cit-1000-up": {
+      "n": 100,
+      "w_0": 0.3149,
+      "w_0_08": 0.472,
+      "w_0_32": 0.6044,
+      "w_0_64": 0.6237
+    },
+    "cit-200": {
+      "n": 100,
+      "w_0": 0.3465,
+      "w_0_08": 0.4986,
+      "w_0_32": 0.5876,
+      "w_0_64": 0.5528
+    }
+  }
+}

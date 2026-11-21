@@ -1,0 +1,19 @@
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "rbai-scholar-key",
+      "description": "RBAi Scholar API key (rbai_sk_...)",
+      "password": true
+    }
+  ],
+  "servers": {
+    "rbai-scholar": {
+      "type": "http",
+      "url": "https://scholar.thedreamlabinnovations.com/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:rbai-scholar-key}"
+      }
+    }
+  }
+}

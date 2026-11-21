@@ -1,0 +1,149 @@
+{
+  "schema_version": "litsense-headtohead-analysis/1",
+  "run_at": "2026-09-22T18:10:51.875Z",
+  "design": "Paired re-analysis of litsense-headtohead.json against the semantic run already reported, on the identical 500 questions, keyed by target so the pairing cannot slip. Exact McNemar on the binary hit outcomes and a two-sided paired sign-flip permutation test on reciprocal rank, which are the same instruments used for every other paired comparison in the paper.",
+  "n": 500,
+  "cutoffs": {
+    "hit_at_1": {
+      "rbai": 0.328,
+      "litsense": 0.06,
+      "delta": 0.268,
+      "rbai_only_wins": 142,
+      "litsense_only_wins": 8,
+      "n_discordant": 150,
+      "mcnemar_p": 0
+    },
+    "hit_at_5": {
+      "rbai": 0.594,
+      "litsense": 0.128,
+      "delta": 0.466,
+      "rbai_only_wins": 237,
+      "litsense_only_wins": 4,
+      "n_discordant": 241,
+      "mcnemar_p": 0
+    },
+    "hit_at_10": {
+      "rbai": 0.65,
+      "litsense": 0.186,
+      "delta": 0.464,
+      "rbai_only_wins": 241,
+      "litsense_only_wins": 9,
+      "n_discordant": 250,
+      "mcnemar_p": 0
+    },
+    "hit_at_20": {
+      "rbai": 0.742,
+      "litsense": 0.22,
+      "delta": 0.522,
+      "rbai_only_wins": 267,
+      "litsense_only_wins": 6,
+      "n_discordant": 273,
+      "mcnemar_p": 0
+    },
+    "hit_at_50": {
+      "rbai": 0.812,
+      "litsense": 0.338,
+      "delta": 0.474,
+      "rbai_only_wins": 245,
+      "litsense_only_wins": 8,
+      "n_discordant": 253,
+      "mcnemar_p": 0
+    }
+  },
+  "mrr_at_50": {
+    "rbai": 0.4431,
+    "rbai_ci": [
+      0.4067,
+      0.4801
+    ],
+    "litsense": 0.0945,
+    "litsense_ci": [
+      0.0736,
+      0.117
+    ],
+    "delta": 0.3486,
+    "delta_ci": [
+      0.3134,
+      0.385
+    ],
+    "permutation_p": 0.00005,
+    "rbai_better": 366,
+    "litsense_better": 25,
+    "tied": 109
+  },
+  "by_half": {
+    "new_380": {
+      "n": 380,
+      "litsense_hit_at_10": 0.2079,
+      "rbai_hit_at_10": 0.6763,
+      "delta": 0.4684,
+      "litsense_ahead": false
+    },
+    "published_120": {
+      "n": 120,
+      "litsense_hit_at_10": 0.1167,
+      "rbai_hit_at_10": 0.5667,
+      "delta": 0.45,
+      "litsense_ahead": false
+    }
+  },
+  "by_stratum": {
+    "cit-000-009": {
+      "n": 100,
+      "litsense_hit_at_10": 0.21,
+      "rbai_hit_at_10": 0.54,
+      "delta": 0.33,
+      "litsense_ahead": false
+    },
+    "cit-010-049": {
+      "n": 100,
+      "litsense_hit_at_10": 0.24,
+      "rbai_hit_at_10": 0.63,
+      "delta": 0.39,
+      "litsense_ahead": false
+    },
+    "cit-050-199": {
+      "n": 100,
+      "litsense_hit_at_10": 0.15,
+      "rbai_hit_at_10": 0.65,
+      "delta": 0.5,
+      "litsense_ahead": false
+    },
+    "cit-1000-up": {
+      "n": 100,
+      "litsense_hit_at_10": 0.08,
+      "rbai_hit_at_10": 0.73,
+      "delta": 0.65,
+      "litsense_ahead": false
+    },
+    "cit-200-999": {
+      "n": 100,
+      "litsense_hit_at_10": 0.25,
+      "rbai_hit_at_10": 0.7,
+      "delta": 0.45,
+      "litsense_ahead": false
+    }
+  },
+  "litsense_ahead_in_any_stratum": false,
+  "their_operational_figures": {
+    "empty_responses": 0,
+    "errored": 0,
+    "mean_passages_returned": 100,
+    "mean_distinct_papers": 91.866,
+    "median_latency_ms": 5434
+  },
+  "positive_control": {
+    "n": 8,
+    "title_query_found_target": 8,
+    "title_query_rank_1": 5,
+    "paraphrase_query_found_target": 1,
+    "interpretation": "Every target is reachable in their index and our identifier mapping is correct, because the title query returns it. The paraphrase misses are therefore ranking failures and the head-to-head measures what it claims to."
+  },
+  "disclosures": [
+    "Known-item retrieval from a paraphrased question is the task this resource was built for and the task these questions were composed for. It is not neutral ground, and the comparison should be read as what a searcher who paraphrases can expect rather than as a general ranking of the two systems. LitSense 2.0 retrieves sentences and paragraphs, and its own paper reports its strengths on sentence-level evidence retrieval, which this design does not measure.",
+    "Their corpus is roughly three times larger, so it contains more distracting material for the same question. That works against them here and is not controlled for.",
+    "Presence of the target in their index was verified on a control sample rather than on all 500. In that sample every target was returned for its own title, so the misses measured are ranking failures; a full coverage verification was not run against their weekly snapshot.",
+    "Their passages endpoint returns at most 100 passages, a mean of 91.9 distinct papers here, so all cutoffs to 50 are inside the depth they offered."
+  ],
+  "verdict": "On 500 identical questions the semantic mode reaches Hit@10 0.65 against LitSense 2.0's 0.186 (241 wins, 9 losses, McNemar p = 0), and MRR@50 0.4431 against 0.0945 (difference 0.3486, CI [0.3134, 0.385], permutation p = 0.00005). The direction holds in every citation band and both halves of the target set. They returned results for every question — 0 empty of 500 — so the lexical gate described in their paper never engaged on these fluent questions."
+}

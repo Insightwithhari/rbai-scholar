@@ -1,0 +1,212 @@
+{
+  "schema_version": "junk-abstract-screen/1",
+  "screened_at": "2026-09-19T13:15:44.803Z",
+  "sets": [
+    {
+      "set": "new_380",
+      "source": "data\\targets-500.json",
+      "n": 380,
+      "counts": {
+        "junk": 3,
+        "suspect": 0,
+        "minor": 4,
+        "clean": 373
+      },
+      "junk": [
+        {
+          "severity": "junk",
+          "signals": [
+            {
+              "signal": "boilerplate",
+              "patterns": [
+                "/download citation file/i",
+                "/you do not currently have access/i",
+                "/this content is only available/i"
+              ]
+            }
+          ],
+          "chars": 1782,
+          "sentences": 8,
+          "lowercase_ratio": 0.799,
+          "title_coverage": 1,
+          "target_id": "cit-000-009-63",
+          "stratum": "cit-000-009",
+          "doi": "10.1042/bst020182s",
+          "journal": "Biochemical Society Transactions",
+          "year": "1992",
+          "title": "The mutation in the normal F variant of alpha-1-antitrypsin (Arg223 &amp;gt; Cys) determined by DNA amplification and direct sequencing"
+        },
+        {
+          "severity": "junk",
+          "signals": [
+            {
+              "signal": "boilerplate",
+              "patterns": [
+                "/return to issue/i",
+                "/get e-?alerts?/i",
+                "/altmetric/i",
+                "/article views?\\b.*\\bcitations?\\b/i"
+              ]
+            },
+            {
+              "signal": "nav",
+              "patterns": [
+                "/\\badvertisement\\b/i"
+              ]
+            }
+          ],
+          "chars": 1570,
+          "sentences": 7,
+          "lowercase_ratio": 0.885,
+          "title_coverage": 0.909,
+          "target_id": "cit-010-049-100",
+          "stratum": "cit-010-049",
+          "doi": "10.1021/bi00708a001",
+          "journal": "Biochemistry",
+          "year": "1974",
+          "title": "New cyclopentenyl fatty acids in Flacourtiaceae. Straight-chain fatty acids and cycloic fatty acids in lipids during maturation of the seeds"
+        },
+        {
+          "severity": "junk",
+          "signals": [
+            {
+              "signal": "boilerplate",
+              "patterns": [
+                "/return to issue/i",
+                "/get e-?alerts?/i",
+                "/altmetric/i",
+                "/article views?\\b.*\\bcitations?\\b/i"
+              ]
+            },
+            {
+              "signal": "nav",
+              "patterns": [
+                "/\\badvertisement\\b/i"
+              ]
+            }
+          ],
+          "chars": 1552,
+          "sentences": 15,
+          "lowercase_ratio": 0.868,
+          "title_coverage": 0.714,
+          "target_id": "cit-1000-up-46",
+          "stratum": "cit-1000-up",
+          "doi": "10.1021/es00005a014",
+          "journal": "Environmental Science & Technology",
+          "year": "1995",
+          "title": "Phytoextraction: The Use of Plants To Remove Heavy Metals from Soils"
+        }
+      ],
+      "suspect": [],
+      "minor": [
+        {
+          "target_id": "cit-000-009-82",
+          "signals": [
+            "fragment_few_sentences"
+          ]
+        },
+        {
+          "target_id": "cit-050-199-79",
+          "signals": [
+            "fragment_few_sentences"
+          ]
+        },
+        {
+          "target_id": "cit-200-999-37",
+          "signals": [
+            "fragment_few_sentences"
+          ]
+        },
+        {
+          "target_id": "cit-1000-up-99",
+          "signals": [
+            "ocr_damage"
+          ]
+        }
+      ]
+    },
+    {
+      "set": "published_120",
+      "source": "data\\targets-stratified.json",
+      "n": 120,
+      "counts": {
+        "junk": 2,
+        "suspect": 0,
+        "minor": 1,
+        "clean": 117
+      },
+      "junk": [
+        {
+          "severity": "junk",
+          "signals": [
+            {
+              "signal": "boilerplate",
+              "patterns": [
+                "/return to issue/i",
+                "/get e-?alerts?/i",
+                "/altmetric/i",
+                "/article views?\\b.*\\bcitations?\\b/i"
+              ]
+            },
+            {
+              "signal": "nav",
+              "patterns": [
+                "/\\badvertisement\\b/i"
+              ]
+            }
+          ],
+          "chars": 1520,
+          "sentences": 7,
+          "lowercase_ratio": 0.874,
+          "title_coverage": 0.889,
+          "target_id": "cit-010-049-06",
+          "stratum": "cit-010-049",
+          "doi": "10.1021/bi00888a020",
+          "journal": "Biochemistry",
+          "year": "1965",
+          "title": "Induction of Polymer Formation in Solutions of Bovine Pancreas Carboxypeptidase A by Aromatic Compounds<sup>*</sup>"
+        },
+        {
+          "severity": "junk",
+          "signals": [
+            {
+              "signal": "boilerplate",
+              "patterns": [
+                "/return to issue/i",
+                "/get e-?alerts?/i",
+                "/altmetric/i",
+                "/article views?\\b.*\\bcitations?\\b/i"
+              ]
+            },
+            {
+              "signal": "nav",
+              "patterns": [
+                "/\\badvertisement\\b/i"
+              ]
+            }
+          ],
+          "chars": 1804,
+          "sentences": 12,
+          "lowercase_ratio": 0.866,
+          "title_coverage": 1,
+          "target_id": "cit-200-999-06",
+          "stratum": "cit-200-999",
+          "doi": "10.1021/cr9001066",
+          "journal": "Chemical Reviews",
+          "year": "2009",
+          "title": "Platinum Drug Distribution in Cancer Cells and Tumors"
+        }
+      ],
+      "suspect": [],
+      "minor": [
+        {
+          "target_id": "cit-1000-up-23",
+          "signals": [
+            "truncated_start"
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "Released without each record's \"head\" field, which is the start of the stored abstract."
+}

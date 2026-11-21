@@ -1,0 +1,556 @@
+{
+  "schema_version": "litsense-hybrid-332/1",
+  "run_at": "2026-09-23T17:06:50.167Z",
+  "pilot": false,
+  "design": "LitSense 2.0 measured on the 332 term-constrained questions in two arms. Arm A restricts the already-published 500-question LitSense run to these 332 and re-scores the stored ranks, so it issues no request; it is LitSense on the plain question. Arm B re-queries the identical 332 sending embed_text, which is the same question with the marked term folded into the sentence and the quotation marks stripped, because the quotes are our own lexical-filter syntax and mean nothing to another system. Arm B therefore hands LitSense the same information our hybrid mode received. Our hybrid and semantic ranks are read from files already on disk; no retrieval was issued against our own stack.",
+  "comparator": {
+    "name": "LitSense 2.0",
+    "citation": "Yeganova, L. et al. Nucleic Acids Res. 53, W361-W368 (2025). doi:10.1093/nar/gkaf417",
+    "endpoint": "https://www.ncbi.nlm.nih.gov/research/litsense2-api/api/passages/",
+    "rerank": true,
+    "authentication": "none — unauthenticated public NIH service, contact User-Agent sent, matching the original harness",
+    "architecture": "Lexical first (BM25 for paragraphs, IDF for sentences), then MedCPT semantic re-ranking of the top 100 candidates. Dense scoring cannot reach a paper the lexical stage did not surface."
+  },
+  "sources": {
+    "litsense_500": "benchmarks/results-final/litsense-headtohead.json",
+    "hybrid_332": "benchmarks/results-final/hybrid-500.json",
+    "semantic_500": "benchmarks/results-final/retrieval-500-depth50.json",
+    "semantic_332_published": "benchmarks/results-final/hybrid-332-vs-semantic.json"
+  },
+  "reused_from": "benchmarks/scripts/run-litsense-headtohead.mjs — endpoint, URL construction, rerank flag, token bucket, three-attempt retry, 120 s timeout, User-Agent and passage-to-paper mapping are unchanged",
+  "endpoint_used": "passages",
+  "request_rate_per_second": 1,
+  "concurrency": 6,
+  "depth_note": "All cutoffs are at most 50. Our own runs are capped at depth 50 by construction; LitSense returns up to 100 passages collapsing to roughly 80 distinct papers, so no reported cutoff penalises LitSense for our cap. LitSense targets found beyond rank 50 are counted in found_beyond_50 rather than dropped without trace.",
+  "subset": {
+    "n_term_constrained_questions": 332,
+    "n_scored_here": 332,
+    "ok_by_arm": {
+      "litsense_plain_question": 332,
+      "litsense_marked_term": 332,
+      "rbai_hybrid": 328,
+      "rbai_semantic": 332
+    },
+    "n_common_subset": 328,
+    "excluded_from_paired_tests": [
+      {
+        "target_id": "cit-000-009-37",
+        "not_ok_in": [
+          "rbai_hybrid"
+        ],
+        "reason": "declined by our planner: The quoted term \"ARS\" appears in about 38,155 papers, so requiring it will not narrow your search and makes it slow. Quo"
+      },
+      {
+        "target_id": "cit-200-999-73",
+        "not_ok_in": [
+          "rbai_hybrid"
+        ],
+        "reason": "declined by our planner: The quoted term \"Nodal\" appears in about 24,188 papers, so requiring it will not narrow your search and makes it slow. Q"
+      },
+      {
+        "target_id": "cit-200-999-88",
+        "not_ok_in": [
+          "rbai_hybrid"
+        ],
+        "reason": "declined by our planner: The quoted term \"Electrospray\" appears in about 20,322 papers, so requiring it will not narrow your search and makes it "
+      },
+      {
+        "target_id": "cit-200-999-99",
+        "not_ok_in": [
+          "rbai_hybrid"
+        ],
+        "reason": "error: query embedding failed (HTTP 429): capacity temporarily exceeded, please try again"
+      }
+    ]
+  },
+  "harness_health": {
+    "arm_b": {
+      "arm": "litsense_marked_term (arm B, fresh requests)",
+      "n_queries": 332,
+      "queries_ok": 332,
+      "queries_errored": 0,
+      "error_rate": 0,
+      "empty_responses": 0,
+      "empty_rate": 0,
+      "mean_passages_returned": 100,
+      "mean_distinct_papers": 88.8193,
+      "median_latency_ms": 5675,
+      "errors": [],
+      "requests_issued": 324,
+      "served_from_cache": 8
+    },
+    "arm_a_reference": {
+      "arm": "litsense_plain_question (arm A, restricted from the stored run)",
+      "n_queries": 332,
+      "queries_ok": 332,
+      "queries_errored": 0,
+      "error_rate": 0,
+      "empty_responses": 0,
+      "empty_rate": 0,
+      "mean_passages_returned": 100,
+      "mean_distinct_papers": 91.5693,
+      "median_latency_ms": 5381,
+      "errors": []
+    }
+  },
+  "arms": {
+    "litsense_plain_question": {
+      "all_332_failures_as_misses": {
+        "n": 332,
+        "hit_at_1": 0.0753,
+        "hit_at_5": 0.1416,
+        "hit_at_10": 0.2139,
+        "hit_at_20": 0.253,
+        "hit_at_50": 0.3946,
+        "mrr_at_10": 0.107,
+        "mrr_at_50": 0.1138,
+        "found_beyond_50": 31,
+        "recovered_between_11_and_50": 60
+      },
+      "common_subset": {
+        "n": 328,
+        "hit_at_1": 0.0762,
+        "hit_at_5": 0.1433,
+        "hit_at_10": 0.2134,
+        "hit_at_20": 0.253,
+        "hit_at_50": 0.3963,
+        "mrr_at_10": 0.1079,
+        "mrr_at_50": 0.1148,
+        "found_beyond_50": 30,
+        "recovered_between_11_and_50": 60
+      }
+    },
+    "litsense_marked_term": {
+      "all_332_failures_as_misses": {
+        "n": 332,
+        "hit_at_1": 0.1747,
+        "hit_at_5": 0.3464,
+        "hit_at_10": 0.4217,
+        "hit_at_20": 0.512,
+        "hit_at_50": 0.6747,
+        "mrr_at_10": 0.2439,
+        "mrr_at_50": 0.2559,
+        "found_beyond_50": 35,
+        "recovered_between_11_and_50": 84
+      },
+      "common_subset": {
+        "n": 328,
+        "hit_at_1": 0.1738,
+        "hit_at_5": 0.3445,
+        "hit_at_10": 0.4207,
+        "hit_at_20": 0.5122,
+        "hit_at_50": 0.6768,
+        "mrr_at_10": 0.2423,
+        "mrr_at_50": 0.2544,
+        "found_beyond_50": 34,
+        "recovered_between_11_and_50": 84
+      }
+    },
+    "rbai_hybrid": {
+      "all_332_failures_as_misses": {
+        "n": 332,
+        "hit_at_1": 0.7018,
+        "hit_at_5": 0.8946,
+        "hit_at_10": 0.9277,
+        "hit_at_20": 0.9488,
+        "hit_at_50": 0.9669,
+        "mrr_at_10": 0.7808,
+        "mrr_at_50": 0.7827,
+        "found_beyond_50": 0,
+        "recovered_between_11_and_50": 13
+      },
+      "common_subset": {
+        "n": 328,
+        "hit_at_1": 0.7104,
+        "hit_at_5": 0.9055,
+        "hit_at_10": 0.939,
+        "hit_at_20": 0.9604,
+        "hit_at_50": 0.9787,
+        "mrr_at_10": 0.7903,
+        "mrr_at_50": 0.7923,
+        "found_beyond_50": 0,
+        "recovered_between_11_and_50": 13
+      }
+    },
+    "rbai_semantic": {
+      "all_332_failures_as_misses": {
+        "n": 332,
+        "hit_at_1": 0.3434,
+        "hit_at_5": 0.6114,
+        "hit_at_10": 0.6717,
+        "hit_at_20": 0.756,
+        "hit_at_50": 0.8283,
+        "mrr_at_10": 0.4511,
+        "mrr_at_50": 0.4594,
+        "found_beyond_50": 0,
+        "recovered_between_11_and_50": 52
+      },
+      "common_subset": {
+        "n": 328,
+        "hit_at_1": 0.3384,
+        "hit_at_5": 0.6098,
+        "hit_at_10": 0.6707,
+        "hit_at_20": 0.7561,
+        "hit_at_50": 0.8262,
+        "mrr_at_10": 0.4475,
+        "mrr_at_50": 0.4557,
+        "found_beyond_50": 0,
+        "recovered_between_11_and_50": 51
+      }
+    }
+  },
+  "comparisons": {
+    "litsense_plain_vs_litsense_marked": {
+      "label": "LitSense plain question (arm A) vs LitSense with the marked term folded in (arm B)",
+      "n": 328,
+      "arm_a": {
+        "name": "litsense_plain_question",
+        "n": 328,
+        "hit_at_1": 0.0762,
+        "hit_at_5": 0.1433,
+        "hit_at_10": 0.2134,
+        "hit_at_20": 0.253,
+        "hit_at_50": 0.3963,
+        "mrr_at_10": 0.1079,
+        "mrr_at_50": 0.1148,
+        "found_beyond_50": 30,
+        "recovered_between_11_and_50": 60
+      },
+      "arm_b": {
+        "name": "litsense_marked_term",
+        "n": 328,
+        "hit_at_1": 0.1738,
+        "hit_at_5": 0.3445,
+        "hit_at_10": 0.4207,
+        "hit_at_20": 0.5122,
+        "hit_at_50": 0.6768,
+        "mrr_at_10": 0.2423,
+        "mrr_at_50": 0.2544,
+        "found_beyond_50": 34,
+        "recovered_between_11_and_50": 84
+      },
+      "cutoffs": {
+        "hit_at_1": {
+          "litsense_plain_question": 0.0762,
+          "litsense_marked_term": 0.1738,
+          "delta_b_minus_a": 0.0976,
+          "a_only_wins": 12,
+          "b_only_wins": 44,
+          "n_discordant": 56,
+          "mcnemar_p": 0.000021,
+          "mcnemar_p_holm": 0.000021
+        },
+        "hit_at_5": {
+          "litsense_plain_question": 0.1433,
+          "litsense_marked_term": 0.3445,
+          "delta_b_minus_a": 0.2012,
+          "a_only_wins": 7,
+          "b_only_wins": 73,
+          "n_discordant": 80,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_10": {
+          "litsense_plain_question": 0.2134,
+          "litsense_marked_term": 0.4207,
+          "delta_b_minus_a": 0.2073,
+          "a_only_wins": 13,
+          "b_only_wins": 81,
+          "n_discordant": 94,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_20": {
+          "litsense_plain_question": 0.253,
+          "litsense_marked_term": 0.5122,
+          "delta_b_minus_a": 0.2592,
+          "a_only_wins": 8,
+          "b_only_wins": 93,
+          "n_discordant": 101,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_50": {
+          "litsense_plain_question": 0.3963,
+          "litsense_marked_term": 0.6768,
+          "delta_b_minus_a": 0.2805,
+          "a_only_wins": 6,
+          "b_only_wins": 98,
+          "n_discordant": 104,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        }
+      },
+      "mrr_at_50": {
+        "litsense_plain_question": 0.1148,
+        "litsense_plain_question_ci": [
+          0.0861,
+          0.1454
+        ],
+        "litsense_marked_term": 0.2544,
+        "litsense_marked_term_ci": [
+          0.215,
+          0.2946
+        ],
+        "delta_b_minus_a": 0.1397,
+        "delta_ci": [
+          0.1028,
+          0.1769
+        ],
+        "permutation_p": 0.00005,
+        "improved": 179,
+        "worsened": 35,
+        "unchanged": 114
+      },
+      "note": "Does handing LitSense the marked term help it? Both arms are the same system, same endpoint, same rerank setting, same questions; the only difference is the term."
+    },
+    "litsense_marked_vs_rbai_hybrid": {
+      "label": "LitSense with the marked term (arm B) vs our hybrid mode — the fair head-to-head",
+      "n": 328,
+      "arm_a": {
+        "name": "litsense_marked_term",
+        "n": 328,
+        "hit_at_1": 0.1738,
+        "hit_at_5": 0.3445,
+        "hit_at_10": 0.4207,
+        "hit_at_20": 0.5122,
+        "hit_at_50": 0.6768,
+        "mrr_at_10": 0.2423,
+        "mrr_at_50": 0.2544,
+        "found_beyond_50": 34,
+        "recovered_between_11_and_50": 84
+      },
+      "arm_b": {
+        "name": "rbai_hybrid",
+        "n": 328,
+        "hit_at_1": 0.7104,
+        "hit_at_5": 0.9055,
+        "hit_at_10": 0.939,
+        "hit_at_20": 0.9604,
+        "hit_at_50": 0.9787,
+        "mrr_at_10": 0.7903,
+        "mrr_at_50": 0.7923,
+        "found_beyond_50": 0,
+        "recovered_between_11_and_50": 13
+      },
+      "cutoffs": {
+        "hit_at_1": {
+          "litsense_marked_term": 0.1738,
+          "rbai_hybrid": 0.7104,
+          "delta_b_minus_a": 0.5366,
+          "a_only_wins": 9,
+          "b_only_wins": 185,
+          "n_discordant": 194,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_5": {
+          "litsense_marked_term": 0.3445,
+          "rbai_hybrid": 0.9055,
+          "delta_b_minus_a": 0.561,
+          "a_only_wins": 2,
+          "b_only_wins": 186,
+          "n_discordant": 188,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_10": {
+          "litsense_marked_term": 0.4207,
+          "rbai_hybrid": 0.939,
+          "delta_b_minus_a": 0.5183,
+          "a_only_wins": 2,
+          "b_only_wins": 172,
+          "n_discordant": 174,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_20": {
+          "litsense_marked_term": 0.5122,
+          "rbai_hybrid": 0.9604,
+          "delta_b_minus_a": 0.4482,
+          "a_only_wins": 1,
+          "b_only_wins": 148,
+          "n_discordant": 149,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_50": {
+          "litsense_marked_term": 0.6768,
+          "rbai_hybrid": 0.9787,
+          "delta_b_minus_a": 0.3019,
+          "a_only_wins": 1,
+          "b_only_wins": 100,
+          "n_discordant": 101,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        }
+      },
+      "mrr_at_50": {
+        "litsense_marked_term": 0.2544,
+        "litsense_marked_term_ci": [
+          0.215,
+          0.2946
+        ],
+        "rbai_hybrid": 0.7923,
+        "rbai_hybrid_ci": [
+          0.7551,
+          0.828
+        ],
+        "delta_b_minus_a": 0.5379,
+        "delta_ci": [
+          0.4899,
+          0.5846
+        ],
+        "permutation_p": 0.00005,
+        "improved": 258,
+        "worsened": 15,
+        "unchanged": 55
+      },
+      "note": "Both systems now receive the identical string of information, including the term chosen with the target paper in hand. This is the comparison that is not rigged."
+    },
+    "litsense_marked_vs_rbai_semantic": {
+      "label": "LitSense with the marked term (arm B) vs our semantic mode on the same 332",
+      "n": 328,
+      "arm_a": {
+        "name": "litsense_marked_term",
+        "n": 328,
+        "hit_at_1": 0.1738,
+        "hit_at_5": 0.3445,
+        "hit_at_10": 0.4207,
+        "hit_at_20": 0.5122,
+        "hit_at_50": 0.6768,
+        "mrr_at_10": 0.2423,
+        "mrr_at_50": 0.2544,
+        "found_beyond_50": 34,
+        "recovered_between_11_and_50": 84
+      },
+      "arm_b": {
+        "name": "rbai_semantic",
+        "n": 328,
+        "hit_at_1": 0.3384,
+        "hit_at_5": 0.6098,
+        "hit_at_10": 0.6707,
+        "hit_at_20": 0.7561,
+        "hit_at_50": 0.8262,
+        "mrr_at_10": 0.4475,
+        "mrr_at_50": 0.4557,
+        "found_beyond_50": 0,
+        "recovered_between_11_and_50": 51
+      },
+      "cutoffs": {
+        "hit_at_1": {
+          "litsense_marked_term": 0.1738,
+          "rbai_semantic": 0.3384,
+          "delta_b_minus_a": 0.1646,
+          "a_only_wins": 26,
+          "b_only_wins": 80,
+          "n_discordant": 106,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_5": {
+          "litsense_marked_term": 0.3445,
+          "rbai_semantic": 0.6098,
+          "delta_b_minus_a": 0.2653,
+          "a_only_wins": 29,
+          "b_only_wins": 116,
+          "n_discordant": 145,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_10": {
+          "litsense_marked_term": 0.4207,
+          "rbai_semantic": 0.6707,
+          "delta_b_minus_a": 0.25,
+          "a_only_wins": 31,
+          "b_only_wins": 113,
+          "n_discordant": 144,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_20": {
+          "litsense_marked_term": 0.5122,
+          "rbai_semantic": 0.7561,
+          "delta_b_minus_a": 0.2439,
+          "a_only_wins": 27,
+          "b_only_wins": 107,
+          "n_discordant": 134,
+          "mcnemar_p": 0,
+          "mcnemar_p_holm": 0
+        },
+        "hit_at_50": {
+          "litsense_marked_term": 0.6768,
+          "rbai_semantic": 0.8262,
+          "delta_b_minus_a": 0.1494,
+          "a_only_wins": 25,
+          "b_only_wins": 74,
+          "n_discordant": 99,
+          "mcnemar_p": 0.000001,
+          "mcnemar_p_holm": 0.000001
+        }
+      },
+      "mrr_at_50": {
+        "litsense_marked_term": 0.2544,
+        "litsense_marked_term_ci": [
+          0.215,
+          0.2946
+        ],
+        "rbai_semantic": 0.4557,
+        "rbai_semantic_ci": [
+          0.4106,
+          0.5011
+        ],
+        "delta_b_minus_a": 0.2013,
+        "delta_ci": [
+          0.1505,
+          0.2523
+        ],
+        "permutation_p": 0.00005,
+        "improved": 190,
+        "worsened": 70,
+        "unchanged": 68
+      },
+      "note": "Our semantic mode never sees the term, so here LitSense holds the information advantage."
+    }
+  },
+  "integrity": {
+    "all_332_present_in_litsense_500": true,
+    "all_332_present_in_semantic_500": true,
+    "arm_a_question_text_identical_to_hybrid_question": true,
+    "target_pmid_identical_across_sources": true,
+    "embed_text_is_marked_with_quotes_stripped": true,
+    "embed_text_contains_no_quote_characters": true,
+    "arm_b_query_identical_to_arm_a_count": 2,
+    "arm_b_query_identical_to_arm_a_ids": [
+      "cit-200-999-27",
+      "cit-200-999-83"
+    ],
+    "reproduces_hybrid_500_summary": true,
+    "reproduces_hybrid_332_vs_semantic_summary": true,
+    "reproduces_litsense_500_summary": true,
+    "litsense_500_recomputed": {
+      "n": 500,
+      "hit_at_1": 0.06,
+      "hit_at_5": 0.128,
+      "hit_at_10": 0.186,
+      "hit_at_20": 0.22,
+      "hit_at_50": 0.338,
+      "mrr_at_10": 0.0888,
+      "mrr_at_50": 0.0945,
+      "found_beyond_50": 42,
+      "recovered_between_11_and_50": 76
+    }
+  },
+  "disclosures": [
+    "THE MARKED TERM WAS SELECTED WITH ACCESS TO THE TARGET PAPER. Each term was drawn from the sought paper itself and inserted into the question by us. It is not information a user searching for an unknown paper would necessarily possess, and it is the single largest advantage our hybrid mode holds anywhere in this benchmark.",
+    "ARM B IS THE FAIR COMPARISON; ARM A IS NOT. Arm B hands LitSense that same term, so both systems receive identical information. Arm A gives LitSense only the plain question while our hybrid mode holds the term, and any figure quoting our hybrid score against Arm A is quoting an asymmetry, not a difference in retrieval quality.",
+    "THE 332 ARE SELF-SELECTED AND ARE NOT A RANDOM SUBSET OF THE 500. A question is here only because a qualifying term of sufficiently low document frequency could be found for its target. The remaining 168 have no such term. Nothing here estimates performance on a random question.",
+    "LITSENSE 2.0 IS DESIGNED TO FIND STATEMENTS IN FULL TEXT, WHICH THIS DOES NOT MEASURE. It returns sentences and paragraphs answering a question, over 38M abstracts and 6.6M PMC full texts. This measures only whether one specific known paper surfaces, so a low score here is not a statement about the task their system was built for.",
+    "The passages endpoint with rerank=true is used, as in the original harness, because a PubMed abstract is a paragraph and because that configuration switches their semantic stage on. A paper is credited at the best rank any of its passages reached, which is the generous reading.",
+    "Arm B sent the identical string to Arm A for 2 question(s), where the marked term already appeared in the question text and stripping the quotes left it unchanged. Those rows cannot be discordant between the two LitSense arms by construction.",
+    "An empty response is a miss and is counted separately. A transport error is retried three times and, if still failing, excluded from the paired tests rather than counted against any system.",
+    "Paired tests run on the 328 questions every arm returned for. Our hybrid mode declined 3 of the 332 because the marked term was too common to be worth requiring, and 1 failed on an embedding provider error; per-arm figures over all 332 with those scored as misses are reported alongside under all_332_failures_as_misses and reproduce the published summaries.",
+    "McNemar p-values are exact, two-sided as the doubled one-sided binomial tail, from benchmarks/scripts/stats.mjs. Holm step-down correction is applied within each comparison family of five cutoffs. Reciprocal-rank intervals are 10,000-resample percentile bootstraps and the permutation p-value is a 20,000-permutation paired sign-flip, both at the fixed seeds in that module.",
+    "Both systems index different corpora. Every target carries a PubMed identifier so is in principle reachable from a PubMed-derived index, but presence in their weekly snapshot was not verified and a miss cannot be fully separated from an absence."
+  ]
+}

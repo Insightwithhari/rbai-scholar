@@ -1,0 +1,33 @@
+{
+  "summary": {
+    "n_targets": 120,
+    "coverage": {
+      "openalex": {
+        "present": 120,
+        "absent": 0,
+        "unknown": 0,
+        "present_fraction": 1
+      },
+      "pubmed": {
+        "present": 120,
+        "absent": 0,
+        "unknown": 0,
+        "present_fraction": 1
+      },
+      "present_in_all_three": 120,
+      "present_in_all_three_fraction": 1,
+      "interpretation": "Targets are overwhelmingly present in the comparison indexes, so their misses are ranking failures rather than coverage gaps. The ranking-vs-coverage objection does not hold."
+    },
+    "informed_pubmed_baseline": {
+      "construction": "distinctive content words of the question, combined with AND; no MeSH expansion",
+      "mean_terms": 4,
+      "hit_at_1": 0,
+      "hit_at_10": 0.025,
+      "mrr_at_10": 0.0076,
+      "zero_result_responses": 34,
+      "hit_at_10_on_targets_pubmed_has": 0.025,
+      "n_targets_pubmed_has": 120
+    },
+    "probed_at": "2026-09-16T07:27:29.219Z"
+  }
+}

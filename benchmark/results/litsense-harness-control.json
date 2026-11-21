@@ -1,0 +1,13 @@
+{
+  "schema_version": "litsense-harness-control/1",
+  "run_at": "2026-09-22T17:57:24.542Z",
+  "question": "Is the measured LitSense gap a ranking property, or an artefact of our harness or of their index coverage?",
+  "method": "Each target queried twice through the same code path as the head-to-head: once with the paper's own title, which is near-verbatim text from the paper, and once with our paraphrase. A title query that does not return the paper means the harness or the coverage is at fault, not the ranking.",
+  "n": 8,
+  "summary": {
+    "title_query_found_target": 8,
+    "title_query_rank_1": 5,
+    "paraphrase_query_found_target": 1
+  },
+  "interpretation": "Every target is reachable in their index and our identifier mapping is correct, because the title query returns it. The paraphrase misses are therefore ranking failures and the head-to-head measures what it claims to."
+}

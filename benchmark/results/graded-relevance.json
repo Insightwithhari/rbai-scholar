@@ -1,0 +1,5529 @@
+{
+  "schema_version": "graded-relevance-final/1",
+  "scored_at": "2026-09-18T07:32:24.711Z",
+  "inputs": {
+    "retrieval": "results-final\\final-retrieval.json",
+    "pool": "results-final\\judging-pool.json",
+    "judgements": "results-final\\judgements"
+  },
+  "design": {
+    "n_questions": 86,
+    "top_k": 10,
+    "grading_scale": {
+      "0": "Not relevant. A different subject, or shares only generic vocabulary with the question.",
+      "1": "Marginally relevant. Same general subject area; useful background, but does not address what was asked.",
+      "2": "Substantially relevant. Addresses the question and supplies a real part of the answer, or answers it for a closely related system, organism or condition.",
+      "3": "Directly answers the question. The paper's own subject and findings address exactly what was asked."
+    },
+    "relevant_threshold": 2,
+    "gain_function": "2^grade - 1",
+    "discount_function": "1 / log2(rank + 1)",
+    "ideal_ranking": "best achievable DCG@10 from the judged pool for that question",
+    "judge": "blinded; question, title and abstract only, with no system, rank or identifier shown",
+    "bootstrap_resamples": 10000,
+    "permutations": 20000,
+    "seed": 20260908
+  },
+  "limitations": {
+    "pooling": "Only documents at least one system returned, plus each question's source paper, were judged. A relevant paper no system found cannot enter the ideal ranking, so every nDCG here is relative to the best of what was collectively retrieved. The effect is the same for every system compared.",
+    "oracles": "openalex_best_of_both and openalex_oracle_any are upper bounds, not usable systems. They select the better mode per question and per metric, which requires knowing the answer beforehand.",
+    "precision_denominator": "Precision@10 divides by 10 even when a system returned fewer than ten results, because empty slots are a cost to the reader. precision_of_returned is reported alongside it for anyone who prefers the other convention.",
+    "title_only_documents": "589 pooled documents had no abstract available and could only be judged on their title. These come overwhelmingly from records where OpenAlex holds no abstract text.",
+    "ungraded_returned_documents": "A returned document with no identifier of any kind cannot be matched to a judged pool entry and therefore contributes no gain. In this run exactly one such record occurred, an OpenAlex catalogue stub whose entire title is \"Open Access\", with no DOI, no PubMed identifier and no abstract. It was returned for one question by two OpenAlex arms. Treating it as contributing nothing is the correct outcome rather than a scoring gap, since the record carries no retrievable content."
+  },
+  "pool_stats": {
+    "queries": 86,
+    "pairs_to_judge": 4389,
+    "mean_pool_size": 51,
+    "min_pool_size": 20,
+    "max_pool_size": 75,
+    "title_only_items": 589,
+    "unidentifiable_hits_dropped": 2,
+    "hits_merged_via_identifier_aliasing": 48,
+    "source_paper_found_by_some_system": 84,
+    "documents_per_arm_contribution": {
+      "rbai_semantic": 852,
+      "rbai_keyword": 495,
+      "rbai_hybrid": 805,
+      "openalex_semantic": 844,
+      "openalex_keyword": 810,
+      "openalex_combined_semantic": 848,
+      "openalex_combined_keyword": 519,
+      "pubmed_keyword": 575
+    },
+    "theoretical_max_pairs": 6880
+  },
+  "arms": {
+    "rbai_semantic": {
+      "is_oracle": false,
+      "oracle_over": null,
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 10,
+      "hit_at_1": 0.2326,
+      "hit_at_10": 0.5581,
+      "hit_at_10_ci95": [
+        0.4535,
+        0.6628
+      ],
+      "mrr_at_10": 0.3339,
+      "precision_at_10": 0.5209,
+      "precision_at_10_ci95": [
+        0.4605,
+        0.5826
+      ],
+      "precision_of_returned": 0.5209,
+      "mean_relevant_in_top_10": 5.21,
+      "ndcg_at_10": 0.5851,
+      "ndcg_at_10_ci95": [
+        0.5452,
+        0.6262
+      ],
+      "ungraded_documents_in_top_k": 0
+    },
+    "rbai_keyword": {
+      "is_oracle": false,
+      "oracle_over": null,
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 5.83,
+      "hit_at_1": 0.4419,
+      "hit_at_10": 0.7907,
+      "hit_at_10_ci95": [
+        0.6977,
+        0.8721
+      ],
+      "mrr_at_10": 0.5406,
+      "precision_at_10": 0.2279,
+      "precision_at_10_ci95": [
+        0.1814,
+        0.2779
+      ],
+      "precision_of_returned": 0.5672,
+      "mean_relevant_in_top_10": 2.28,
+      "ndcg_at_10": 0.3541,
+      "ndcg_at_10_ci95": [
+        0.3179,
+        0.3909
+      ],
+      "ungraded_documents_in_top_k": 0
+    },
+    "rbai_hybrid": {
+      "is_oracle": false,
+      "oracle_over": null,
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 9.47,
+      "hit_at_1": 0.5,
+      "hit_at_10": 0.7674,
+      "hit_at_10_ci95": [
+        0.6744,
+        0.8488
+      ],
+      "mrr_at_10": 0.5921,
+      "precision_at_10": 0.3523,
+      "precision_at_10_ci95": [
+        0.2895,
+        0.4163
+      ],
+      "precision_of_returned": 0.3762,
+      "mean_relevant_in_top_10": 3.52,
+      "ndcg_at_10": 0.5054,
+      "ndcg_at_10_ci95": [
+        0.4606,
+        0.5498
+      ],
+      "ungraded_documents_in_top_k": 0
+    },
+    "openalex_semantic": {
+      "is_oracle": false,
+      "oracle_over": null,
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 10,
+      "hit_at_1": 0.093,
+      "hit_at_10": 0.2326,
+      "hit_at_10_ci95": [
+        0.1512,
+        0.3256
+      ],
+      "mrr_at_10": 0.1302,
+      "precision_at_10": 0.4895,
+      "precision_at_10_ci95": [
+        0.4244,
+        0.5535
+      ],
+      "precision_of_returned": 0.4895,
+      "mean_relevant_in_top_10": 4.9,
+      "ndcg_at_10": 0.5171,
+      "ndcg_at_10_ci95": [
+        0.4781,
+        0.5565
+      ],
+      "ungraded_documents_in_top_k": 1
+    },
+    "openalex_keyword": {
+      "is_oracle": false,
+      "oracle_over": null,
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 9.44,
+      "hit_at_1": 0.407,
+      "hit_at_10": 0.7442,
+      "hit_at_10_ci95": [
+        0.6512,
+        0.8372
+      ],
+      "mrr_at_10": 0.552,
+      "precision_at_10": 0.2384,
+      "precision_at_10_ci95": [
+        0.1919,
+        0.2884
+      ],
+      "precision_of_returned": 0.2841,
+      "mean_relevant_in_top_10": 2.38,
+      "ndcg_at_10": 0.3836,
+      "ndcg_at_10_ci95": [
+        0.3418,
+        0.4249
+      ],
+      "ungraded_documents_in_top_k": 0
+    },
+    "pubmed_keyword": {
+      "is_oracle": false,
+      "oracle_over": null,
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 6.71,
+      "hit_at_1": 0.4767,
+      "hit_at_10": 0.7674,
+      "hit_at_10_ci95": [
+        0.6744,
+        0.8488
+      ],
+      "mrr_at_10": 0.5787,
+      "precision_at_10": 0.236,
+      "precision_at_10_ci95": [
+        0.1872,
+        0.2884
+      ],
+      "precision_of_returned": 0.5116,
+      "mean_relevant_in_top_10": 2.36,
+      "ndcg_at_10": 0.3732,
+      "ndcg_at_10_ci95": [
+        0.3317,
+        0.4147
+      ],
+      "ungraded_documents_in_top_k": 0
+    },
+    "openalex_combined_semantic": {
+      "is_oracle": false,
+      "oracle_over": null,
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 10,
+      "hit_at_1": 0.1395,
+      "hit_at_10": 0.3256,
+      "hit_at_10_ci95": [
+        0.2326,
+        0.4302
+      ],
+      "mrr_at_10": 0.1932,
+      "precision_at_10": 0.5337,
+      "precision_at_10_ci95": [
+        0.4698,
+        0.5965
+      ],
+      "precision_of_returned": 0.5337,
+      "mean_relevant_in_top_10": 5.34,
+      "ndcg_at_10": 0.5501,
+      "ndcg_at_10_ci95": [
+        0.5124,
+        0.5879
+      ],
+      "ungraded_documents_in_top_k": 1
+    },
+    "openalex_combined_keyword": {
+      "is_oracle": false,
+      "oracle_over": null,
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 6.12,
+      "hit_at_1": 0.0581,
+      "hit_at_10": 0.0698,
+      "hit_at_10_ci95": [
+        0.0233,
+        0.1279
+      ],
+      "mrr_at_10": 0.064,
+      "precision_at_10": 0.1,
+      "precision_at_10_ci95": [
+        0.0674,
+        0.1349
+      ],
+      "precision_of_returned": 0.1184,
+      "mean_relevant_in_top_10": 1,
+      "ndcg_at_10": 0.1515,
+      "ndcg_at_10_ci95": [
+        0.118,
+        0.186
+      ],
+      "ungraded_documents_in_top_k": 0
+    },
+    "openalex_best_of_both": {
+      "is_oracle": true,
+      "oracle_over": [
+        "openalex_combined_semantic",
+        "openalex_combined_keyword"
+      ],
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 10,
+      "hit_at_1": 0.1744,
+      "hit_at_10": 0.3721,
+      "hit_at_10_ci95": [
+        0.2674,
+        0.4767
+      ],
+      "mrr_at_10": 0.2339,
+      "precision_at_10": 0.5407,
+      "precision_at_10_ci95": [
+        0.4791,
+        0.6012
+      ],
+      "precision_of_returned": 0.55,
+      "mean_relevant_in_top_10": 5.41,
+      "ndcg_at_10": 0.5569,
+      "ndcg_at_10_ci95": [
+        0.5198,
+        0.5933
+      ],
+      "ungraded_documents_in_top_k": 0
+    },
+    "openalex_oracle_any": {
+      "is_oracle": true,
+      "oracle_over": [
+        "openalex_combined_semantic",
+        "openalex_combined_keyword",
+        "openalex_keyword"
+      ],
+      "n_questions": 86,
+      "n_questions_with_ndcg": 86,
+      "mean_results_returned": 10,
+      "hit_at_1": 0.4767,
+      "hit_at_10": 0.7674,
+      "hit_at_10_ci95": [
+        0.6744,
+        0.8488
+      ],
+      "mrr_at_10": 0.5961,
+      "precision_at_10": 0.5767,
+      "precision_at_10_ci95": [
+        0.5186,
+        0.6326
+      ],
+      "precision_of_returned": 0.6128,
+      "mean_relevant_in_top_10": 5.77,
+      "ndcg_at_10": 0.6019,
+      "ndcg_at_10_ci95": [
+        0.5716,
+        0.6312
+      ],
+      "ungraded_documents_in_top_k": 0
+    }
+  },
+  "comparisons": {
+    "rbai_semantic__vs__openalex_semantic": {
+      "label": "meaning-based search, ours against OpenAlex",
+      "hit_at_10_mcnemar": {
+        "wins": 33,
+        "losses": 5,
+        "p": 0.00000426
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 52,
+        "losses": 33,
+        "ties": 1,
+        "mean_difference": 0.068,
+        "p": 0.00855
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 38,
+        "losses": 32,
+        "ties": 16,
+        "mean_difference": 0.0314,
+        "p": 0.363682
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 38,
+        "losses": 32,
+        "ties": 16,
+        "mean_difference": 0.0314,
+        "p": 0.363682
+      }
+    },
+    "rbai_semantic__vs__openalex_combined_semantic": {
+      "label": "meaning-based search, ours against the stronger OpenAlex semantic variant",
+      "hit_at_10_mcnemar": {
+        "wins": 25,
+        "losses": 5,
+        "p": 0.00032491
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 49,
+        "losses": 36,
+        "ties": 1,
+        "mean_difference": 0.035,
+        "p": 0.19619
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 35,
+        "losses": 37,
+        "ties": 14,
+        "mean_difference": -0.0128,
+        "p": 0.729414
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 35,
+        "losses": 37,
+        "ties": 14,
+        "mean_difference": -0.0128,
+        "p": 0.729414
+      }
+    },
+    "rbai_semantic__vs__openalex_oracle_any": {
+      "label": "meaning-based search against the most generous OpenAlex oracle",
+      "hit_at_10_mcnemar": {
+        "wins": 8,
+        "losses": 26,
+        "p": 0.00293506
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 41,
+        "losses": 44,
+        "ties": 1,
+        "mean_difference": -0.0168,
+        "p": 0.524174
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 30,
+        "losses": 42,
+        "ties": 14,
+        "mean_difference": -0.0558,
+        "p": 0.113544
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 29,
+        "losses": 45,
+        "ties": 12,
+        "mean_difference": -0.0919,
+        "p": 0.017549
+      }
+    },
+    "rbai_keyword__vs__openalex_keyword": {
+      "label": "keyword search, ours against OpenAlex",
+      "hit_at_10_mcnemar": {
+        "wins": 11,
+        "losses": 7,
+        "p": 0.48068237
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 31,
+        "losses": 51,
+        "ties": 4,
+        "mean_difference": -0.0294,
+        "p": 0.073746
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 28,
+        "losses": 30,
+        "ties": 28,
+        "mean_difference": -0.0105,
+        "p": 0.615269
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 64,
+        "losses": 13,
+        "ties": 9,
+        "mean_difference": 0.2831,
+        "p": 0.00005
+      }
+    },
+    "rbai_keyword__vs__pubmed_keyword": {
+      "label": "keyword search, ours against PubMed",
+      "hit_at_10_mcnemar": {
+        "wins": 7,
+        "losses": 5,
+        "p": 0.77441406
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 26,
+        "losses": 35,
+        "ties": 25,
+        "mean_difference": -0.019,
+        "p": 0.189391
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 18,
+        "losses": 21,
+        "ties": 47,
+        "mean_difference": -0.0081,
+        "p": 0.663117
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 32,
+        "losses": 16,
+        "ties": 38,
+        "mean_difference": 0.0556,
+        "p": 0.011449
+      }
+    },
+    "rbai_hybrid__vs__rbai_semantic": {
+      "label": "hybrid against our own meaning-based mode",
+      "hit_at_10_mcnemar": {
+        "wins": 22,
+        "losses": 4,
+        "p": 0.00053352
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 35,
+        "losses": 49,
+        "ties": 2,
+        "mean_difference": -0.0797,
+        "p": 0.011149
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 23,
+        "losses": 55,
+        "ties": 8,
+        "mean_difference": -0.1686,
+        "p": 0.00055
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 25,
+        "losses": 53,
+        "ties": 8,
+        "mean_difference": -0.1448,
+        "p": 0.0017
+      }
+    },
+    "rbai_hybrid__vs__rbai_keyword": {
+      "label": "hybrid against our own keyword mode",
+      "hit_at_10_mcnemar": {
+        "wins": 10,
+        "losses": 12,
+        "p": 0.8318119
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 66,
+        "losses": 16,
+        "ties": 4,
+        "mean_difference": 0.1513,
+        "p": 0.00005
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 45,
+        "losses": 13,
+        "ties": 28,
+        "mean_difference": 0.1244,
+        "p": 0.00005
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 27,
+        "losses": 46,
+        "ties": 13,
+        "mean_difference": -0.191,
+        "p": 0.0006
+      }
+    },
+    "rbai_hybrid__vs__openalex_best_of_both": {
+      "label": "hybrid against the OpenAlex two-mode oracle",
+      "hit_at_10_mcnemar": {
+        "wins": 34,
+        "losses": 0,
+        "p": 0
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 36,
+        "losses": 50,
+        "ties": 0,
+        "mean_difference": -0.0515,
+        "p": 0.063947
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 19,
+        "losses": 55,
+        "ties": 12,
+        "mean_difference": -0.1884,
+        "p": 0.00005
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 19,
+        "losses": 55,
+        "ties": 12,
+        "mean_difference": -0.1738,
+        "p": 0.0001
+      }
+    },
+    "rbai_hybrid__vs__openalex_oracle_any": {
+      "label": "hybrid against the most generous OpenAlex oracle",
+      "hit_at_10_mcnemar": {
+        "wins": 13,
+        "losses": 13,
+        "p": 1
+      },
+      "ndcg_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 30,
+        "losses": 56,
+        "ties": 0,
+        "mean_difference": -0.0965,
+        "p": 0.0004
+      },
+      "precision_at_10_permutation": {
+        "n_compared": 86,
+        "wins": 14,
+        "losses": 59,
+        "ties": 13,
+        "mean_difference": -0.2244,
+        "p": 0.00005
+      },
+      "precision_of_returned_permutation": {
+        "n_compared": 86,
+        "wins": 14,
+        "losses": 58,
+        "ties": 14,
+        "mean_difference": -0.2366,
+        "p": 0.00005
+      }
+    }
+  },
+  "per_question": [
+    {
+      "question_id": "cit-000-009-01",
+      "idcg_at_10": 16.1905,
+      "pool_size": 40,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4453
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4324
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4562
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3163
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3143
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4324
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2806
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2806
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3143
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-02",
+      "idcg_at_10": 18.3433,
+      "pool_size": 56,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4353
+        },
+        "rbai_keyword": {
+          "target_rank": 6,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2603
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1247
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2477
+        },
+        "openalex_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.704
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.7067
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2477
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2477
+        },
+        "openalex_oracle_any": {
+          "target_rank": 4,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.704
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-04",
+      "idcg_at_10": 30.6487,
+      "pool_size": 53,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.838
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2718
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7701
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "pubmed_keyword": {
+          "target_rank": 5,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.0884
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7701
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7701
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7701
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-05",
+      "idcg_at_10": 15.8196,
+      "pool_size": 53,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 9,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.6264
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0199
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2872
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3361
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0517
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3783
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3783
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3783
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-08",
+      "idcg_at_10": 17.6307,
+      "pool_size": 60,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5041
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1388
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6056
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6137
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6137
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6137
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-09",
+      "idcg_at_10": 20.1544,
+      "pool_size": 67,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4059
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "rbai_hybrid": {
+          "target_rank": 6,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3315
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3835
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.0744
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0149
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2939
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1852
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2939
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2939
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-11",
+      "idcg_at_10": 28.1827,
+      "pool_size": 53,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5578
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.3178
+        },
+        "rbai_hybrid": {
+          "target_rank": 3,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6599
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.5964
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.206
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1612
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5386
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5386
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5386
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-13",
+      "idcg_at_10": 17.6307,
+      "pool_size": 42,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4494
+        },
+        "rbai_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2505
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4215
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5925
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2505
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6253
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6253
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6253
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-14",
+      "idcg_at_10": 20.1544,
+      "pool_size": 43,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5447
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3115
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3498
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3498
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3498
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-15",
+      "idcg_at_10": 26.8493,
+      "pool_size": 45,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.4863
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2607
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2182
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4719
+        },
+        "openalex_keyword": {
+          "target_rank": 7,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.0869
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2607
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4609
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0607
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4609
+        },
+        "openalex_oracle_any": {
+          "target_rank": 7,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4609
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-17",
+      "idcg_at_10": 17.6307,
+      "pool_size": 43,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3862
+        },
+        "rbai_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3072
+        },
+        "rbai_hybrid": {
+          "target_rank": 5,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.588
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2413
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0747
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3293
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3293
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3293
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-19",
+      "idcg_at_10": 18.9742,
+      "pool_size": 41,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 1.0568
+        },
+        "rbai_keyword": {
+          "target_rank": 5,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5036
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.9484
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3392
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0784
+        },
+        "pubmed_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2404
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3392
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3392
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3392
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-20",
+      "idcg_at_10": 25.4245,
+      "pool_size": 44,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1787
+        },
+        "rbai_keyword": {
+          "target_rank": 8,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8423
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6164
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1787
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.4778
+        },
+        "pubmed_keyword": {
+          "target_rank": 6,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7749
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1673
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.449
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.449
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.4778
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-21",
+      "idcg_at_10": 20.1544,
+      "pool_size": 40,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5303
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.8417
+        },
+        "openalex_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6257
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3988
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4946
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0809
+        },
+        "openalex_best_of_both": {
+          "target_rank": 4,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4946
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4946
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-23",
+      "idcg_at_10": 31.8049,
+      "pool_size": 61,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5802
+        },
+        "rbai_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.107
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3315
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6242
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0099
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2201
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7099
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0226
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7099
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7099
+        }
+      }
+    },
+    {
+      "question_id": "cit-000-009-24",
+      "idcg_at_10": 31.8049,
+      "pool_size": 29,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.689
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2201
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4825
+        },
+        "openalex_semantic": {
+          "target_rank": 9,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.6956
+        },
+        "openalex_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.3752
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.359
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 9,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.6956
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": 9,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.6956
+        },
+        "openalex_oracle_any": {
+          "target_rank": 3,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.6956
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-01",
+      "idcg_at_10": 28.1827,
+      "pool_size": 52,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.5247
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1064
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1286
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4169
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2778
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3175
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5609
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5609
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5609
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-02",
+      "idcg_at_10": 18.3433,
+      "pool_size": 36,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6489
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3816
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.506
+        },
+        "openalex_semantic": {
+          "target_rank": 6,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6749
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.427
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3816
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.7778
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": 4,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.7778
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.7778
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-03",
+      "idcg_at_10": 31.8049,
+      "pool_size": 54,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8828
+        },
+        "rbai_keyword": {
+          "target_rank": 8,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7867
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7466
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7385
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.5929
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7385
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8264
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1329
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8264
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8264
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-04",
+      "idcg_at_10": 22.6969,
+      "pool_size": 20,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.955
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3084
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3084
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2002
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.546
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3084
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2002
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2002
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.546
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-05",
+      "idcg_at_10": 17.6307,
+      "pool_size": 61,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6217
+        },
+        "rbai_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.291
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.8156
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5014
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1668
+        },
+        "pubmed_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.35
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6654
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0358
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6654
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6654
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-07",
+      "idcg_at_10": 17.6307,
+      "pool_size": 28,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7403
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4211
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4546
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4612
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4546
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4546
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4612
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-08",
+      "idcg_at_10": 15.1529,
+      "pool_size": 24,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4669
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.462
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.462
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5268
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.462
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.462
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5489
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5489
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5489
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-09",
+      "idcg_at_10": 15.1529,
+      "pool_size": 48,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2998
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.462
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2998
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3415
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5069
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.6879
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3796
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1664
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3796
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5069
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-10",
+      "idcg_at_10": 20.1544,
+      "pool_size": 49,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.9191
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5962
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2751
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4114
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4882
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0248
+        },
+        "openalex_best_of_both": {
+          "target_rank": 4,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4882
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4882
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-11",
+      "idcg_at_10": 22.1544,
+      "pool_size": 49,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7935
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.316
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2051
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5415
+        },
+        "openalex_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.277
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.316
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5221
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2051
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5221
+        },
+        "openalex_oracle_any": {
+          "target_rank": 4,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5221
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-14",
+      "idcg_at_10": 17.6307,
+      "pool_size": 42,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3781
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1809
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7292
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4936
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7292
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7292
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7292
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-15",
+      "idcg_at_10": 17.6307,
+      "pool_size": 46,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5291
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4328
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6573
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2505
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6402
+        },
+        "openalex_combined_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5213
+        },
+        "openalex_best_of_both": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6402
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6402
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-16",
+      "idcg_at_10": 17.6307,
+      "pool_size": 47,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3987
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2718
+        },
+        "rbai_hybrid": {
+          "target_rank": 4,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4123
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3651
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3851
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.499
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3634
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1776
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3634
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3851
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-17",
+      "idcg_at_10": 17.6307,
+      "pool_size": 44,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.8825
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4328
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5306
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.6124
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4759
+        },
+        "openalex_combined_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4328
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4759
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6124
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-19",
+      "idcg_at_10": 17.3291,
+      "pool_size": 59,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3714
+        },
+        "rbai_keyword": {
+          "target_rank": 5,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1563
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4801
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2622
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3714
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3714
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3714
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-20",
+      "idcg_at_10": 23.8771,
+      "pool_size": 53,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7139
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2932
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3515
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5575
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3273
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2932
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5189
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0677
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5189
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5189
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-21",
+      "idcg_at_10": 16.4505,
+      "pool_size": 47,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4524
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4255
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.5136
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3912
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5406
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4255
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4447
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1434
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4447
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5406
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-23",
+      "idcg_at_10": 15.8196,
+      "pool_size": 33,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.7449
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4425
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.6292
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4237
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4425
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4425
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 9,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5009
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1031
+        },
+        "openalex_best_of_both": {
+          "target_rank": 9,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5009
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5009
+        }
+      }
+    },
+    {
+      "question_id": "cit-010-049-24",
+      "idcg_at_10": 13.6668,
+      "pool_size": 51,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.596
+        },
+        "rbai_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4352
+        },
+        "rbai_hybrid": {
+          "target_rank": 6,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5519
+        },
+        "openalex_semantic": {
+          "target_rank": 10,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5055
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3846
+        },
+        "pubmed_keyword": {
+          "target_rank": 8,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5055
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 8,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4709
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0732
+        },
+        "openalex_best_of_both": {
+          "target_rank": 8,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4709
+        },
+        "openalex_oracle_any": {
+          "target_rank": 8,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4709
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-01",
+      "idcg_at_10": 17.0525,
+      "pool_size": 62,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2186
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5555
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3858
+        },
+        "openalex_semantic": {
+          "target_rank": 7,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6263
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3837
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2664
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4899
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1337
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4899
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4899
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-02",
+      "idcg_at_10": 25.4245,
+      "pool_size": 67,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.6315
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3366
+        },
+        "openalex_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8382
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1934
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7723
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0393
+        },
+        "openalex_best_of_both": {
+          "target_rank": 2,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7723
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7723
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-03",
+      "idcg_at_10": 20.1544,
+      "pool_size": 38,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5991
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5289
+        },
+        "openalex_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7117
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3786
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3473
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6934
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6934
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6934
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-04",
+      "idcg_at_10": 17.6307,
+      "pool_size": 36,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.7999
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.397
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.7589
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.415
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4718
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4328
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6195
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": 3,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6195
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6195
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-06",
+      "idcg_at_10": 31.8049,
+      "pool_size": 48,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.624
+        },
+        "rbai_keyword": {
+          "target_rank": 5,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.662
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.7017
+        },
+        "openalex_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.8208
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.6178
+        },
+        "pubmed_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6044
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.8208
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.2554
+        },
+        "openalex_best_of_both": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.8208
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.8208
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-07",
+      "idcg_at_10": 28.1827,
+      "pool_size": 43,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.6909
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2484
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5146
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5776
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3055
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2484
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 10,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6857
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2495
+        },
+        "openalex_best_of_both": {
+          "target_rank": 10,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6857
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6857
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-09",
+      "idcg_at_10": 23.8771,
+      "pool_size": 63,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6853
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1903
+        },
+        "rbai_hybrid": {
+          "target_rank": 10,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7246
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5147
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2145
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2586
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7454
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2875
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7454
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7454
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-10",
+      "idcg_at_10": 15.8196,
+      "pool_size": 63,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.8007
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.5013
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.6819
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4967
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4615
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5584
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5932
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2145
+        },
+        "openalex_best_of_both": {
+          "target_rank": 3,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5932
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5932
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-11",
+      "idcg_at_10": 29.4445,
+      "pool_size": 51,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7434
+        },
+        "rbai_keyword": {
+          "target_rank": 6,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2527
+        },
+        "rbai_hybrid": {
+          "target_rank": 6,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2948
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4735
+        },
+        "openalex_keyword": {
+          "target_rank": 6,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.3108
+        },
+        "pubmed_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2421
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4986
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.1981
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4986
+        },
+        "openalex_oracle_any": {
+          "target_rank": 6,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4986
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-12",
+      "idcg_at_10": 17.6307,
+      "pool_size": 63,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4433
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4172
+        },
+        "rbai_hybrid": {
+          "target_rank": 3,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4767
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5338
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4139
+        },
+        "pubmed_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2711
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5858
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3104
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5858
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5858
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-13",
+      "idcg_at_10": 26.8493,
+      "pool_size": 56,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3566
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5423
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8083
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.289
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.4823
+        },
+        "pubmed_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5114
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.3321
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1692
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.3321
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.4823
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-16",
+      "idcg_at_10": 29.4445,
+      "pool_size": 56,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.414
+        },
+        "rbai_keyword": {
+          "target_rank": 6,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.6146
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.4286
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.468
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5063
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6674
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6555
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1436
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6555
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6555
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-20",
+      "idcg_at_10": 31.8049,
+      "pool_size": 51,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1764
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.505
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5075
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6366
+        },
+        "openalex_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6135
+        },
+        "pubmed_keyword": {
+          "target_rank": 9,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.5558
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7826
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.0984
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7826
+        },
+        "openalex_oracle_any": {
+          "target_rank": 4,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7826
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-21",
+      "idcg_at_10": 17.6307,
+      "pool_size": 56,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6471
+        },
+        "rbai_keyword": {
+          "target_rank": 9,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3602
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.7364
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6951
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2577
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2577
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4564
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2899
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4564
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4564
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-22",
+      "idcg_at_10": 30.6487,
+      "pool_size": 45,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5517
+        },
+        "rbai_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1767
+        },
+        "rbai_hybrid": {
+          "target_rank": 3,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5545
+        },
+        "openalex_semantic": {
+          "target_rank": 5,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5743
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1993
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2687
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.612
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1107
+        },
+        "openalex_best_of_both": {
+          "target_rank": 4,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.612
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.612
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-23",
+      "idcg_at_10": 17.0525,
+      "pool_size": 38,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.6574
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5215
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.7987
+        },
+        "openalex_semantic": {
+          "target_rank": 7,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.301
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.6441
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5215
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2967
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": 4,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2967
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.6441
+        }
+      }
+    },
+    {
+      "question_id": "cit-050-199-24",
+      "idcg_at_10": 20.1544,
+      "pool_size": 55,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 9,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.658
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.43
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5505
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6448
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4035
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0313
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.59
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.0641
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.59
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.59
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-01",
+      "idcg_at_10": 31.8049,
+      "pool_size": 51,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.591
+        },
+        "rbai_keyword": {
+          "target_rank": 7,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.543
+        },
+        "rbai_hybrid": {
+          "target_rank": 3,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8246
+        },
+        "openalex_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.4835
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5019
+        },
+        "pubmed_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7714
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6763
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.3974
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6763
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6763
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-03",
+      "idcg_at_10": 21.5763,
+      "pool_size": 25,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.732
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3244
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3244
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5185
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3537
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3244
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5645
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5645
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5645
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-04",
+      "idcg_at_10": 23.8771,
+      "pool_size": 43,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5657
+        },
+        "rbai_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2268
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3141
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5897
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3036
+        },
+        "pubmed_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2732
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7144
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7144
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7144
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-05",
+      "idcg_at_10": 22.066,
+      "pool_size": 60,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2512
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3172
+        },
+        "rbai_hybrid": {
+          "target_rank": 3,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3419
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2059
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4452
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4851
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2702
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2511
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2702
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4452
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-06",
+      "idcg_at_10": 31.8049,
+      "pool_size": 56,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.6345
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2201
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2358
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5362
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2761
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5483
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5907
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0339
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5907
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5907
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-07",
+      "idcg_at_10": 31.8049,
+      "pool_size": 75,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1429
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.225
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7905
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2057
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.287
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.2334
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7559
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.1999
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7559
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7559
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-08",
+      "idcg_at_10": 23.8771,
+      "pool_size": 52,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3159
+        },
+        "rbai_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.6253
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4326
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2264
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.8097
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6764
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5041
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1811
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5041
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.8097
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-09",
+      "idcg_at_10": 26.8493,
+      "pool_size": 65,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.2504
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3871
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.3623
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2156
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.645
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7449
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.4275
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.146
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.4275
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.645
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-10",
+      "idcg_at_10": 23.8771,
+      "pool_size": 40,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.4395
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4781
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.9726
+        },
+        "openalex_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.8456
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5794
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3196
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.8456
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.2938
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.8456
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.8456
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-11",
+      "idcg_at_10": 26.8493,
+      "pool_size": 42,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 5,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7322
+        },
+        "rbai_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2348
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5658
+        },
+        "openalex_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.573
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2857
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.359
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7316
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0372
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7316
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7316
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-13",
+      "idcg_at_10": 16.4505,
+      "pool_size": 50,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4816
+        },
+        "rbai_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4918
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5899
+        },
+        "openalex_semantic": {
+          "target_rank": 6,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4225
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4688
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.6761
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3906
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5319
+        },
+        "openalex_best_of_both": {
+          "target_rank": 4,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5319
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5319
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-14",
+      "idcg_at_10": 30.6487,
+      "pool_size": 55,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2359
+        },
+        "rbai_keyword": {
+          "target_rank": 7,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.2576
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.72
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.4804
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3496
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1354
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7887
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2387
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7887
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7887
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-16",
+      "idcg_at_10": 16.4505,
+      "pool_size": 65,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 10,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.6392
+        },
+        "rbai_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3251
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.6793
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2762
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5232
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.5213
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3934
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0758
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3934
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5232
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-17",
+      "idcg_at_10": 15.1529,
+      "pool_size": 71,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2998
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0874
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2998
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5965
+        },
+        "openalex_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4097
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.099
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2275
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.2124
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2275
+        },
+        "openalex_oracle_any": {
+          "target_rank": 4,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4097
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-18",
+      "idcg_at_10": 31.8049,
+      "pool_size": 62,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5891
+        },
+        "rbai_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.4096
+        },
+        "rbai_hybrid": {
+          "target_rank": 3,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8372
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8578
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.4671
+        },
+        "pubmed_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.3971
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8364
+        },
+        "openalex_combined_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4541
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8364
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8364
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-21",
+      "idcg_at_10": 19.6766,
+      "pool_size": 56,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.7588
+        },
+        "rbai_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2245
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.484
+        },
+        "openalex_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 1.0406
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.4257
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.753
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.753
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.753
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-22",
+      "idcg_at_10": 26.8493,
+      "pool_size": 37,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5044
+        },
+        "rbai_keyword": {
+          "target_rank": 5,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.4799
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6596
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.1613
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7982
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5163
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1302
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1302
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7982
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-23",
+      "idcg_at_10": 26.8493,
+      "pool_size": 60,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7749
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5175
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5805
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5114
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5711
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.522
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7688
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.282
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7688
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7688
+        }
+      }
+    },
+    {
+      "question_id": "cit-200-999-24",
+      "idcg_at_10": 26.8493,
+      "pool_size": 47,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5997
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4126
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7468
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4111
+        },
+        "pubmed_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3273
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.6077
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.1872
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.6077
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.6077
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-02",
+      "idcg_at_10": 24.8464,
+      "pool_size": 48,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.8007
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4595
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6805
+        },
+        "openalex_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4497
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5651
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4595
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4476
+        },
+        "openalex_combined_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3988
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4476
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5651
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-04",
+      "idcg_at_10": 26.8493,
+      "pool_size": 75,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 2,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.4808
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2013
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7758
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5038
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1908
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.1921
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.555
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.198
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.555
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.555
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-06",
+      "idcg_at_10": 31.8049,
+      "pool_size": 69,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8716
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.1222
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6078
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3629
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0933
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.063
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5405
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2127
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5405
+        },
+        "openalex_oracle_any": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5405
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-08",
+      "idcg_at_10": 28.1827,
+      "pool_size": 62,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7322
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.3504
+        },
+        "rbai_hybrid": {
+          "target_rank": 5,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.5386
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5362
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.3823
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5148
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5879
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5278
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5879
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5879
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-10",
+      "idcg_at_10": 25.4245,
+      "pool_size": 51,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.622
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3761
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5432
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6787
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4973
+        },
+        "pubmed_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6492
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7598
+        },
+        "openalex_combined_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.371
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7598
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7598
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-11",
+      "idcg_at_10": 31.8049,
+      "pool_size": 43,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.8124
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2796
+        },
+        "rbai_hybrid": {
+          "target_rank": 2,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.2804
+        },
+        "openalex_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.753
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.4737
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2796
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6064
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.0157
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6064
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6064
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-12",
+      "idcg_at_10": 20.1544,
+      "pool_size": 62,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7849
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.5231
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.8414
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4483
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5217
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5559
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5185
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4517
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5185
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.5217
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-13",
+      "idcg_at_10": 25.4245,
+      "pool_size": 67,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 9,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.5388
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1787
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.8781
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.3796
+        },
+        "openalex_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.2891
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.3723
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6551
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1451
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6551
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6551
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-14",
+      "idcg_at_10": 29.4445,
+      "pool_size": 60,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.8553
+        },
+        "rbai_keyword": {
+          "target_rank": 8,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.2485
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.337
+        },
+        "openalex_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.7301
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2622
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2329
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.2816
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.1583
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.2816
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.2816
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-17",
+      "idcg_at_10": 25.4245,
+      "pool_size": 54,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 4,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.6308
+        },
+        "rbai_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3194
+        },
+        "rbai_hybrid": {
+          "target_rank": 6,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.2818
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.6521
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.5159
+        },
+        "pubmed_keyword": {
+          "target_rank": 4,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2803
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.5992
+        },
+        "openalex_combined_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7584
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7584
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7584
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-18",
+      "idcg_at_10": 20.1544,
+      "pool_size": 59,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6508
+        },
+        "rbai_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.7404
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6941
+        },
+        "openalex_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.5702
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.6396
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.687
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.7495
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.2442
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.7495
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.7495
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-20",
+      "idcg_at_10": 31.8049,
+      "pool_size": 51,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 3,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.3879
+        },
+        "rbai_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6549
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.6152
+        },
+        "openalex_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6826
+        },
+        "openalex_keyword": {
+          "target_rank": 3,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.6485
+        },
+        "pubmed_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.617
+        },
+        "openalex_combined_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7916
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.2963
+        },
+        "openalex_best_of_both": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7916
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 0.7,
+          "ndcg_at_10": 0.7916
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-21",
+      "idcg_at_10": 29.4445,
+      "pool_size": 60,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.7105
+        },
+        "rbai_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.35
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.4565
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.7933
+        },
+        "openalex_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.1,
+          "ndcg_at_10": 0.3581
+        },
+        "pubmed_keyword": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3775
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.737
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0.1154
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.737
+        },
+        "openalex_oracle_any": {
+          "target_rank": 1,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.737
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-22",
+      "idcg_at_10": 31.8049,
+      "pool_size": 66,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8343
+        },
+        "rbai_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.3089
+        },
+        "rbai_hybrid": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 1,
+          "ndcg_at_10": 0.8297
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.8,
+          "ndcg_at_10": 0.67
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.5,
+          "ndcg_at_10": 0.2656
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.6064
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.1692
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.6064
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.9,
+          "ndcg_at_10": 0.67
+        }
+      }
+    },
+    {
+      "question_id": "cit-1000-up-23",
+      "idcg_at_10": 20.1544,
+      "pool_size": 46,
+      "arms": {
+        "rbai_semantic": {
+          "target_rank": 1,
+          "precision_at_10": 0.4,
+          "ndcg_at_10": 0.7346
+        },
+        "rbai_keyword": {
+          "target_rank": 6,
+          "precision_at_10": 0.3,
+          "ndcg_at_10": 0.5429
+        },
+        "rbai_hybrid": {
+          "target_rank": 1,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5935
+        },
+        "openalex_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.5578
+        },
+        "openalex_keyword": {
+          "target_rank": 2,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6928
+        },
+        "pubmed_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.3081
+        },
+        "openalex_combined_semantic": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4351
+        },
+        "openalex_combined_keyword": {
+          "target_rank": null,
+          "precision_at_10": 0,
+          "ndcg_at_10": 0
+        },
+        "openalex_best_of_both": {
+          "target_rank": null,
+          "precision_at_10": 0.2,
+          "ndcg_at_10": 0.4351
+        },
+        "openalex_oracle_any": {
+          "target_rank": 2,
+          "precision_at_10": 0.6,
+          "ndcg_at_10": 0.6928
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "experiment": "short identifier queries, keyword against meaning-based search, 86 queries (Fig. 2a, 2b)",
+  "sources": [
+    "data/identifier-86.jsonl",
+    "results/identifier-86.json"
+  ],
+  "ci_method": "percentile bootstrap over questions, 10,000 resamples, LCG seed 8191, interpolated quantiles (stats.mjs); the published intervals were drawn with Math.random and cannot be reproduced, so they are not used",
+  "arms": {
+    "lexical": {
+      "hit_at_1": {
+        "value": 0.4186,
+        "ci95": [
+          0.314,
+          0.5233
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.7093,
+        "ci95": [
+          0.6163,
+          0.8023
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.5053,
+        "ci95": [
+          0.4138,
+          0.5998
+        ]
+      }
+    },
+    "dense": {
+      "hit_at_1": {
+        "value": 0.0698,
+        "ci95": [
+          0.0233,
+          0.1279
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.1744,
+        "ci95": [
+          0.093,
+          0.2558
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.0973,
+        "ci95": [
+          0.0457,
+          0.1564
+        ]
+      }
+    },
+    "union_rrf": {
+      "hit_at_1": {
+        "value": 0.1512,
+        "ci95": [
+          0.0814,
+          0.2326
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.6977,
+        "ci95": [
+          0.6047,
+          0.7907
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.3554,
+        "ci95": [
+          0.2862,
+          0.427
+        ]
+      }
+    }
+  },
+  "found_only_by": {
+    "both": 12,
+    "dense_only": 3,
+    "lexical_only": 49,
+    "neither": 22
+  }
+}

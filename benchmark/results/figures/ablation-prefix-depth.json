@@ -1,0 +1,171 @@
+{
+  "experiment": "query instruction prefix and candidate depth, 120 questions (Fig. 2c)",
+  "sources": [
+    "results/ablation-prefix-depth.json"
+  ],
+  "ci_method": "as published: percentile bootstrap, 10,000 resamples, seed 8191 (stats.mjs); latency recorded, not recomputable",
+  "arms": {
+    "A_raw_k10": {
+      "label": "raw query, topK=10 (production baseline)",
+      "hit_at_1": {
+        "value": 0.1583,
+        "ci95": [
+          0.1,
+          0.225
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.4417,
+        "ci95": [
+          0.3583,
+          0.5333
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.2404,
+        "ci95": [
+          0.178,
+          0.3075
+        ]
+      },
+      "recorded_latency_ms": {
+        "p50": 3945,
+        "p95": 10135,
+        "max": 16110
+      }
+    },
+    "B_raw_k50": {
+      "label": "raw query, topK=50 (depth only)",
+      "hit_at_1": {
+        "value": 0.1417,
+        "ci95": [
+          0.0833,
+          0.2083
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.475,
+        "ci95": [
+          0.3833,
+          0.5667
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.2413,
+        "ci95": [
+          0.1819,
+          0.3056
+        ]
+      },
+      "recorded_latency_ms": {
+        "p50": 5316,
+        "p95": 14139,
+        "max": 19328
+      }
+    },
+    "C_prefix_k10": {
+      "label": "instruction-prefixed query, topK=10 (encoding only)",
+      "hit_at_1": {
+        "value": 0.2167,
+        "ci95": [
+          0.15,
+          0.2917
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.5833,
+        "ci95": [
+          0.4917,
+          0.675
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.3442,
+        "ci95": [
+          0.2753,
+          0.416
+        ]
+      },
+      "recorded_latency_ms": {
+        "p50": 2769,
+        "p95": 7654,
+        "max": 10289
+      }
+    },
+    "D_prefix_k50": {
+      "label": "prefixed + topK=50 (both changes)",
+      "hit_at_1": {
+        "value": 0.2333,
+        "ci95": [
+          0.1583,
+          0.3083
+        ]
+      },
+      "hit_at_10": {
+        "value": 0.6,
+        "ci95": [
+          0.5083,
+          0.6833
+        ]
+      },
+      "mrr_at_10": {
+        "value": 0.353,
+        "ci95": [
+          0.2831,
+          0.4258
+        ]
+      },
+      "recorded_latency_ms": {
+        "p50": 3981,
+        "p95": 10561,
+        "max": 18160
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "comparison": "B_raw_k50 vs A_raw_k10",
+      "isolates": "retrieval depth alone",
+      "delta_hit_at_1": -0.0167,
+      "delta_hit_at_10": 0.0333,
+      "delta_mrr": 0.0009,
+      "mcnemar_wins": "8-4",
+      "mcnemar_p": 0.387695,
+      "permutation_p_mrr": 0.971101,
+      "mcnemar_p_holm": 0.387695
+    },
+    {
+      "comparison": "C_prefix_k10 vs A_raw_k10",
+      "isolates": "query encoding alone",
+      "delta_hit_at_1": 0.0583,
+      "delta_hit_at_10": 0.1417,
+      "delta_mrr": 0.1038,
+      "mcnemar_wins": "19-2",
+      "mcnemar_p": 0.000221,
+      "permutation_p_mrr": 0.00075,
+      "mcnemar_p_holm": 0.000663
+    },
+    {
+      "comparison": "D_prefix_k50 vs A_raw_k10",
+      "isolates": "both changes vs baseline",
+      "delta_hit_at_1": 0.075,
+      "delta_hit_at_10": 0.1583,
+      "delta_mrr": 0.1126,
+      "mcnemar_wins": "21-2",
+      "mcnemar_p": 0.000066,
+      "permutation_p_mrr": 0.00025,
+      "mcnemar_p_holm": 0.000264
+    },
+    {
+      "comparison": "D_prefix_k50 vs B_raw_k50",
+      "isolates": "encoding on top of depth",
+      "delta_hit_at_1": 0.0917,
+      "delta_hit_at_10": 0.125,
+      "delta_mrr": 0.1117,
+      "mcnemar_wins": "17-2",
+      "mcnemar_p": 0.000729,
+      "permutation_p_mrr": 0.00005,
+      "mcnemar_p_holm": 0.001458
+    }
+  ]
+}

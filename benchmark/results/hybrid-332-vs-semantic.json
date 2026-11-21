@@ -1,0 +1,143 @@
+{
+  "schema_version": "hybrid-332-vs-semantic/1",
+  "run_at": "2026-09-19T18:30:50.666Z",
+  "design": "Pure re-analysis, no retrieval issued. The hybrid run over the 332 anchored targets is paired against the already-measured semantic run over the identical 332 targets, both at depth 50. Its purpose is to establish whether the anchored subset is simply the easier one.",
+  "sources": {
+    "hybrid": "benchmarks/results-final/hybrid-500.json",
+    "semantic": "benchmarks/results-final/retrieval-500-depth50.json"
+  },
+  "depth": 50,
+  "n_anchored": 332,
+  "n_unanchored": 168,
+  "extraction_reproduces_published_summaries": true,
+  "paired_on_anchored": {
+    "hybrid": {
+      "n": 332,
+      "hit_at_1": 0.7018,
+      "hit_at_5": 0.8946,
+      "hit_at_10": 0.9277,
+      "hit_at_20": 0.9488,
+      "hit_at_50": 0.9669,
+      "mrr_at_10": 0.7808,
+      "mrr_at_50": 0.7827
+    },
+    "semantic": {
+      "n": 332,
+      "hit_at_1": 0.3434,
+      "hit_at_5": 0.6114,
+      "hit_at_10": 0.6717,
+      "hit_at_20": 0.756,
+      "hit_at_50": 0.8283,
+      "mrr_at_10": 0.4511,
+      "mrr_at_50": 0.4594
+    },
+    "cutoffs": {
+      "hit_at_1": {
+        "hybrid": 0.7018,
+        "semantic": 0.3434,
+        "delta": 0.3584,
+        "hybrid_only_wins": 127,
+        "semantic_only_wins": 8,
+        "n_discordant": 135,
+        "mcnemar_p": 0
+      },
+      "hit_at_5": {
+        "hybrid": 0.8946,
+        "semantic": 0.6114,
+        "delta": 0.2831,
+        "hybrid_only_wins": 99,
+        "semantic_only_wins": 5,
+        "n_discordant": 104,
+        "mcnemar_p": 0
+      },
+      "hit_at_10": {
+        "hybrid": 0.9277,
+        "semantic": 0.6717,
+        "delta": 0.256,
+        "hybrid_only_wins": 88,
+        "semantic_only_wins": 3,
+        "n_discordant": 91,
+        "mcnemar_p": 0
+      },
+      "hit_at_20": {
+        "hybrid": 0.9488,
+        "semantic": 0.756,
+        "delta": 0.1928,
+        "hybrid_only_wins": 68,
+        "semantic_only_wins": 4,
+        "n_discordant": 72,
+        "mcnemar_p": 0
+      },
+      "hit_at_50": {
+        "hybrid": 0.9669,
+        "semantic": 0.8283,
+        "delta": 0.1386,
+        "hybrid_only_wins": 50,
+        "semantic_only_wins": 4,
+        "n_discordant": 54,
+        "mcnemar_p": 0
+      }
+    },
+    "mrr_at_50": {
+      "hybrid": 0.7827,
+      "hybrid_ci": [
+        0.7443,
+        0.8198
+      ],
+      "semantic": 0.4594,
+      "semantic_ci": [
+        0.4147,
+        0.5044
+      ],
+      "delta": 0.3234,
+      "delta_ci": [
+        0.2774,
+        0.3688
+      ],
+      "permutation_p": 0.00005,
+      "improved": 187,
+      "worsened": 21,
+      "unchanged": 124
+    }
+  },
+  "semantic_by_anchor_availability": {
+    "semantic_on_anchored": {
+      "n": 332,
+      "hit_at_1": 0.3434,
+      "hit_at_5": 0.6114,
+      "hit_at_10": 0.6717,
+      "hit_at_20": 0.756,
+      "hit_at_50": 0.8283,
+      "mrr_at_10": 0.4511,
+      "mrr_at_50": 0.4594
+    },
+    "semantic_on_unanchored": {
+      "n": 168,
+      "hit_at_1": 0.2976,
+      "hit_at_5": 0.5595,
+      "hit_at_10": 0.6071,
+      "hit_at_20": 0.7143,
+      "hit_at_50": 0.7798,
+      "mrr_at_10": 0.4014,
+      "mrr_at_50": 0.4109
+    },
+    "semantic_on_all_500": {
+      "n": 500,
+      "hit_at_1": 0.328,
+      "hit_at_5": 0.594,
+      "hit_at_10": 0.65,
+      "hit_at_20": 0.742,
+      "hit_at_50": 0.812,
+      "mrr_at_10": 0.4344,
+      "mrr_at_50": 0.4431
+    },
+    "hit_at_10_gap": 0.0646
+  },
+  "disclosures": [
+    "A declined hybrid query is scored as a complete miss, which is how declines are treated throughout this evaluation.",
+    "The 332 anchored targets are selected by the availability of a term meeting the anchor rule rather than at random, so the hybrid figure is conditional on that availability. The paired semantic column is what makes the subset auditable: it shows how the same targets behave for a mode that needs no anchor at all.",
+    "Both arms are drawn from runs already reported, and the extraction is asserted to reproduce both published summaries before any comparison is computed, so this file cannot disagree with them.",
+    "The two modes are not independent: the hybrid mode is the semantic mode with an additional set-membership predicate, so a paired test here measures what the predicate adds rather than comparing two unrelated systems."
+  ],
+  "verdict": "On the identical 332 targets the hybrid mode reaches Hit@10 0.9277 against the semantic mode's 0.6717 (88 wins, 3 losses). Anchor availability tracks semantic difficulty: semantic Hit@10 is 0.6717 on anchored targets against 0.6071 on unanchored ones, a gap of 0.0646."
+}

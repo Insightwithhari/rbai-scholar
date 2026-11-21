@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "rbai-scholar": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@0.14.3",
+        "https://scholar.thedreamlabinnovations.com/v1/mcp",
+        "--header",
+        "x-api-key:${RBAI_SCHOLAR_KEY}"
+      ],
+      "env": {
+        "RBAI_SCHOLAR_KEY": "rbai_sk_your_key_here"
+      }
+    }
+  }
+}

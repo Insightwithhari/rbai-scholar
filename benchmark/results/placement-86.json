@@ -1,0 +1,85 @@
+{
+  "probed_at": "2026-09-18T16:10:43.613Z",
+  "n_questions": 86,
+  "top_k": 10,
+  "placements": [
+    "end",
+    "mid",
+    "before_final_phrase",
+    "start"
+  ],
+  "note": "The lexical predicate is position-independent (to_tsquery set membership). The embedding is built from the query with quotation marks stripped and word order preserved, so placement changes the vector and therefore the candidate pool and ranking. This measures how much.",
+  "summary": {
+    "end": {
+      "ok": 84,
+      "declined": 2,
+      "errored": 0,
+      "hit_at_1": 0.5,
+      "hit_at_10": 0.7674,
+      "mrr_at_10": 0.5921,
+      "median_ms": 5742
+    },
+    "mid": {
+      "ok": 84,
+      "declined": 2,
+      "errored": 0,
+      "hit_at_1": 0.4767,
+      "hit_at_10": 0.7558,
+      "mrr_at_10": 0.5803,
+      "median_ms": 6044
+    },
+    "before_final_phrase": {
+      "ok": 84,
+      "declined": 2,
+      "errored": 0,
+      "hit_at_1": 0.5116,
+      "hit_at_10": 0.7674,
+      "mrr_at_10": 0.6006,
+      "median_ms": 6105
+    },
+    "start": {
+      "ok": 84,
+      "declined": 2,
+      "errored": 0,
+      "hit_at_1": 0.4767,
+      "hit_at_10": 0.7442,
+      "mrr_at_10": 0.5715,
+      "median_ms": 5960
+    },
+    "original_benchmark": {
+      "ok": 84,
+      "declined": 2,
+      "errored": 0,
+      "hit_at_1": 0.5,
+      "hit_at_10": 0.7674,
+      "mrr_at_10": 0.5921,
+      "median_ms": 5725
+    }
+  },
+  "vs_end": {
+    "mid": {
+      "mean_jaccard_of_returned_sets": 0.8443,
+      "questions_with_identical_sets": 34,
+      "questions_where_target_rank_changed": 14,
+      "questions_where_hit_at_10_flipped": 3
+    },
+    "before_final_phrase": {
+      "mean_jaccard_of_returned_sets": 0.8542,
+      "questions_with_identical_sets": 38,
+      "questions_where_target_rank_changed": 9,
+      "questions_where_hit_at_10_flipped": 2
+    },
+    "start": {
+      "mean_jaccard_of_returned_sets": 0.8488,
+      "questions_with_identical_sets": 32,
+      "questions_where_target_rank_changed": 13,
+      "questions_where_hit_at_10_flipped": 4
+    },
+    "original_benchmark": {
+      "mean_jaccard_of_returned_sets": 1,
+      "questions_with_identical_sets": 86,
+      "questions_where_target_rank_changed": 0,
+      "questions_where_hit_at_10_flipped": 0
+    }
+  }
+}

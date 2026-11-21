@@ -1,0 +1,268 @@
+{
+  "schema": "rbai-scholar/live-rerun@1",
+  "measured": {
+    "started": "2026-11-16T11:08:15.797Z",
+    "finished": "2026-11-16T11:39:02.994Z"
+  },
+  "service": "https://scholar.thedreamlabinnovations.com/v1/corpus/search (REST, edge deployment: Cloudflare Vectorize + D1)",
+  "corpus_records": 24610186,
+  "corpus_records_with_pmid": 20561335,
+  "tested_corpus": "14 Oct 2026 version: 11,257,530 records, 11,149,057 searchable",
+  "method": "The released query strings re-sent unchanged at their published depths, at 2 requests a second with at most 6 in flight. Same embedding model (Qwen3-Embedding-0.6B with its task instruction), ranking and weights as the tested configuration. Reference: the published run on the tested corpus (released ranks). Edge, tested corpus: the edge deployment on the tested corpus, 14 Oct 2026 (Supplementary Section S7; data/rerun-cloudflare.jsonl.gz). A declined or failed search counts as a miss. Paired changes: targets gained and lost by the 24.6M run, exact McNemar P.",
+  "matching": "Reference and 24.6M run: target matched by DOI or PubMed ID. October edge run: by DOI (its MCP records carry DOIs only).",
+  "requests": 1756,
+  "statuses": {
+    "200": 1756
+  },
+  "not_remeasured": [
+    "graded relevance (papers that entered the top ten have no grades)",
+    "the comparator systems (OpenAlex, PubMed, LitSense 2.0)",
+    "RELISH (a re-ranking of fixed candidates, independent of corpus size)"
+  ],
+  "notes": [
+    "Semantic search of unquoted identifier queries is the index-sensitive case of Section 3.7; on the edge deployment its value did not change with the corpus.",
+    "The October edge run answered quoted terms through the full-text path that preceded the exact quoted-term route of 14 Nov 2026, so its hybrid rows differ from today in route as well as corpus."
+  ],
+  "rows": [
+    {
+      "questions": "500 reworded questions",
+      "mode": "semantic",
+      "measure": "Hit@1",
+      "reference": {
+        "hits": 164,
+        "n": 500,
+        "rate": 0.328
+      },
+      "edge_tested_corpus": {
+        "hits": 165,
+        "n": 500,
+        "rate": 0.33
+      },
+      "live_24m": {
+        "hits": 152,
+        "n": 500,
+        "rate": 0.304
+      },
+      "vs_reference": {
+        "gained": 1,
+        "lost": 13,
+        "p_mcnemar": 0.0018
+      },
+      "vs_edge_tested_corpus": {
+        "gained": 1,
+        "lost": 14,
+        "p_mcnemar": 0.00098
+      }
+    },
+    {
+      "questions": "500 reworded questions",
+      "mode": "semantic",
+      "measure": "Hit@10",
+      "reference": {
+        "hits": 325,
+        "n": 500,
+        "rate": 0.65
+      },
+      "edge_tested_corpus": {
+        "hits": 330,
+        "n": 500,
+        "rate": 0.66
+      },
+      "live_24m": {
+        "hits": 319,
+        "n": 500,
+        "rate": 0.638
+      },
+      "vs_reference": {
+        "gained": 3,
+        "lost": 9,
+        "p_mcnemar": 0.15
+      },
+      "vs_edge_tested_corpus": {
+        "gained": 2,
+        "lost": 13,
+        "p_mcnemar": 0.0074
+      }
+    },
+    {
+      "questions": "500 reworded questions",
+      "mode": "semantic",
+      "measure": "Hit@50",
+      "reference": {
+        "hits": 406,
+        "n": 500,
+        "rate": 0.812
+      },
+      "edge_tested_corpus": {
+        "hits": 405,
+        "n": 500,
+        "rate": 0.81
+      },
+      "live_24m": {
+        "hits": 400,
+        "n": 500,
+        "rate": 0.8
+      },
+      "vs_reference": {
+        "gained": 5,
+        "lost": 11,
+        "p_mcnemar": 0.21
+      },
+      "vs_edge_tested_corpus": {
+        "gained": 5,
+        "lost": 10,
+        "p_mcnemar": 0.3
+      }
+    },
+    {
+      "questions": "380 held-out reworded questions",
+      "mode": "semantic",
+      "measure": "Hit@10",
+      "reference": {
+        "hits": 257,
+        "n": 380,
+        "rate": 0.6763
+      },
+      "edge_tested_corpus": {
+        "hits": 261,
+        "n": 380,
+        "rate": 0.6868
+      },
+      "live_24m": {
+        "hits": 253,
+        "n": 380,
+        "rate": 0.6658
+      },
+      "vs_reference": {
+        "gained": 2,
+        "lost": 6,
+        "p_mcnemar": 0.29
+      },
+      "vs_edge_tested_corpus": {
+        "gained": 1,
+        "lost": 9,
+        "p_mcnemar": 0.021
+      }
+    },
+    {
+      "questions": "328 held-out questions with a required term (served in the reference)",
+      "mode": "hybrid",
+      "measure": "Hit@10",
+      "reference": {
+        "hits": 308,
+        "n": 328,
+        "rate": 0.939
+      },
+      "edge_tested_corpus": {
+        "hits": 308,
+        "n": 328,
+        "rate": 0.939
+      },
+      "live_24m": {
+        "hits": 306,
+        "n": 328,
+        "rate": 0.9329
+      },
+      "vs_reference": {
+        "gained": 1,
+        "lost": 3,
+        "p_mcnemar": 0.63
+      },
+      "vs_edge_tested_corpus": {
+        "gained": 1,
+        "lost": 3,
+        "p_mcnemar": 0.63
+      }
+    },
+    {
+      "questions": "86 identifier queries",
+      "mode": "keyword",
+      "measure": "Hit@10",
+      "reference": {
+        "hits": 68,
+        "n": 86,
+        "rate": 0.7907
+      },
+      "edge_tested_corpus": {
+        "hits": 71,
+        "n": 86,
+        "rate": 0.8256
+      },
+      "live_24m": {
+        "hits": 67,
+        "n": 86,
+        "rate": 0.7791
+      },
+      "vs_reference": {
+        "gained": 3,
+        "lost": 4,
+        "p_mcnemar": 1
+      },
+      "vs_edge_tested_corpus": {
+        "gained": 0,
+        "lost": 4,
+        "p_mcnemar": 0.13
+      }
+    },
+    {
+      "questions": "86 identifier queries",
+      "mode": "semantic, no quotation marks",
+      "measure": "Hit@10",
+      "reference": {
+        "hits": 30,
+        "n": 86,
+        "rate": 0.3488
+      },
+      "edge_tested_corpus": {
+        "hits": 23,
+        "n": 86,
+        "rate": 0.2674
+      },
+      "live_24m": {
+        "hits": 23,
+        "n": 86,
+        "rate": 0.2674
+      },
+      "vs_reference": {
+        "gained": 1,
+        "lost": 8,
+        "p_mcnemar": 0.039
+      },
+      "vs_edge_tested_corpus": {
+        "gained": 4,
+        "lost": 4,
+        "p_mcnemar": 1
+      }
+    },
+    {
+      "questions": "86 identifier queries",
+      "mode": "hybrid, rarest term quoted",
+      "measure": "Hit@10",
+      "reference": {
+        "hits": 61,
+        "n": 86,
+        "rate": 0.7093
+      },
+      "edge_tested_corpus": {
+        "hits": 61,
+        "n": 86,
+        "rate": 0.7093
+      },
+      "live_24m": {
+        "hits": 56,
+        "n": 86,
+        "rate": 0.6512
+      },
+      "vs_reference": {
+        "gained": 2,
+        "lost": 7,
+        "p_mcnemar": 0.18
+      },
+      "vs_edge_tested_corpus": {
+        "gained": 2,
+        "lost": 7,
+        "p_mcnemar": 0.18
+      }
+    }
+  ]
+}

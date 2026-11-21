@@ -1,0 +1,837 @@
+{
+  "schema_version": "retrieval-500/1",
+  "run_at": "2026-09-19T14:38:14.425Z",
+  "design": "known-item retrieval: one composed question per target paper, scoring only whether that paper was returned. 500 targets: the 120 already published plus 380 newly sampled. All 500 run fresh in one pass, so the figure belongs to a single moment rather than splicing two measurement epochs.",
+  "arms": [
+    "rbai_semantic",
+    "openalex_semantic",
+    "pubmed_keyword"
+  ],
+  "top_k": 50,
+  "n_queries": 500,
+  "halves": {
+    "published_120": 120,
+    "new_380": 380
+  },
+  "openalex_calls": 500,
+  "spacing_ms": {
+    "openalex_semantic": 1150,
+    "openalex_keyword": 60,
+    "pubmed": 120
+  },
+  "ncbi_key_present": true,
+  "disclosures": [
+    "PubMed receives the question as typed, which is the naive baseline of Figure 1a. The informed baseline, the question's distinctive content words combined with AND, is measured separately by probe-coverage-and-fair-pubmed.mjs and is the fair comparison.",
+    "Arms are run as separate passes so each is paced by its own endpoint limit. Every arm sees the identical question set; only the wall-clock interleaving differs.",
+    "The 120-target subset is a re-measurement of already-published figures. Any difference is drift in the third-party indexes between runs, and is reported rather than reconciled.",
+    "5 targets store publisher page furniture instead of an abstract and cannot be retrieved from a paraphrase by meaning. They are retained so the two halves stay comparable, and a sensitivity analysis excluding them is reported alongside."
+  ],
+  "summary": {
+    "rbai_semantic": {
+      "queries_ok": 500,
+      "queries_declined": 0,
+      "queries_errored": 0,
+      "mean_results_returned": 50,
+      "documents_returned": 25000,
+      "documents_without_usable_abstract": 0,
+      "documents_missing_doi_and_pmid": 0,
+      "queries_neutralised_for_parser": 0,
+      "queries_returning_nothing": 0,
+      "hit_at_1": 0.328,
+      "hit_at_10": 0.65,
+      "mrr_at_10": 0.4344,
+      "n_queries": 500,
+      "hit_at_5": 0.594,
+      "hit_at_20": 0.742,
+      "hit_at_50": 0.812,
+      "mrr_at_50": 0.4431,
+      "recovered_between_11_and_50": 81,
+      "latency_ms": {
+        "p50": 4479,
+        "p90": 9847,
+        "max": 21817
+      }
+    },
+    "openalex_semantic": {
+      "queries_ok": 500,
+      "queries_declined": 0,
+      "queries_errored": 0,
+      "mean_results_returned": 45.91,
+      "documents_returned": 22954,
+      "documents_without_usable_abstract": 10421,
+      "documents_missing_doi_and_pmid": 5177,
+      "queries_neutralised_for_parser": 0,
+      "queries_returning_nothing": 0,
+      "hit_at_1": 0.09,
+      "hit_at_10": 0.278,
+      "mrr_at_10": 0.1393,
+      "n_queries": 500,
+      "hit_at_5": 0.202,
+      "hit_at_20": 0.334,
+      "hit_at_50": 0.364,
+      "mrr_at_50": 0.1447,
+      "recovered_between_11_and_50": 43,
+      "latency_ms": {
+        "p50": 1651,
+        "p90": 2400,
+        "max": 6946
+      }
+    },
+    "pubmed_keyword": {
+      "queries_ok": 500,
+      "queries_declined": 0,
+      "queries_errored": 0,
+      "mean_results_returned": 1.76,
+      "documents_returned": 880,
+      "documents_without_usable_abstract": 16,
+      "documents_missing_doi_and_pmid": 0,
+      "queries_neutralised_for_parser": 0,
+      "queries_returning_nothing": 466,
+      "hit_at_1": 0.006,
+      "hit_at_10": 0.008,
+      "mrr_at_10": 0.0065,
+      "n_queries": 500,
+      "hit_at_5": 0.008,
+      "hit_at_20": 0.01,
+      "hit_at_50": 0.01,
+      "mrr_at_50": 0.0067,
+      "recovered_between_11_and_50": 1,
+      "latency_ms": {
+        "p50": 1101,
+        "p90": 1446,
+        "max": 6644
+      }
+    }
+  },
+  "by_half": {
+    "published_120": {
+      "rbai_semantic": {
+        "queries_ok": 120,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 6000,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.25,
+        "hit_at_10": 0.5667,
+        "mrr_at_10": 0.3559,
+        "n_queries": 120,
+        "hit_at_5": 0.525,
+        "hit_at_20": 0.675,
+        "hit_at_50": 0.7333,
+        "mrr_at_50": 0.3658,
+        "recovered_between_11_and_50": 20,
+        "latency_ms": {
+          "p50": 4470,
+          "p90": 9976,
+          "max": 15662
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 120,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 46.23,
+        "documents_returned": 5547,
+        "documents_without_usable_abstract": 2651,
+        "documents_missing_doi_and_pmid": 1362,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.0917,
+        "hit_at_10": 0.2667,
+        "mrr_at_10": 0.1411,
+        "n_queries": 120,
+        "hit_at_5": 0.2,
+        "hit_at_20": 0.3083,
+        "hit_at_50": 0.325,
+        "mrr_at_50": 0.1446,
+        "recovered_between_11_and_50": 7,
+        "latency_ms": {
+          "p50": 1697,
+          "p90": 2512,
+          "max": 6946
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 120,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 1.57,
+        "documents_returned": 188,
+        "documents_without_usable_abstract": 1,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 104,
+        "hit_at_1": 0.0167,
+        "hit_at_10": 0.0167,
+        "mrr_at_10": 0.0167,
+        "n_queries": 120,
+        "hit_at_5": 0.0167,
+        "hit_at_20": 0.025,
+        "hit_at_50": 0.025,
+        "mrr_at_50": 0.0174,
+        "recovered_between_11_and_50": 1,
+        "latency_ms": {
+          "p50": 1080,
+          "p90": 2486,
+          "max": 6644
+        }
+      }
+    },
+    "new_380": {
+      "rbai_semantic": {
+        "queries_ok": 380,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 19000,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.3526,
+        "hit_at_10": 0.6763,
+        "mrr_at_10": 0.4592,
+        "n_queries": 380,
+        "hit_at_5": 0.6158,
+        "hit_at_20": 0.7632,
+        "hit_at_50": 0.8368,
+        "mrr_at_50": 0.4675,
+        "recovered_between_11_and_50": 61,
+        "latency_ms": {
+          "p50": 4486,
+          "p90": 9847,
+          "max": 21817
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 380,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 45.81,
+        "documents_returned": 17407,
+        "documents_without_usable_abstract": 7770,
+        "documents_missing_doi_and_pmid": 3815,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.0895,
+        "hit_at_10": 0.2816,
+        "mrr_at_10": 0.1387,
+        "n_queries": 380,
+        "hit_at_5": 0.2026,
+        "hit_at_20": 0.3421,
+        "hit_at_50": 0.3763,
+        "mrr_at_50": 0.1448,
+        "recovered_between_11_and_50": 36,
+        "latency_ms": {
+          "p50": 1643,
+          "p90": 2311,
+          "max": 6520
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 380,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 1.82,
+        "documents_returned": 692,
+        "documents_without_usable_abstract": 15,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 362,
+        "hit_at_1": 0.0026,
+        "hit_at_10": 0.0053,
+        "mrr_at_10": 0.0033,
+        "n_queries": 380,
+        "hit_at_5": 0.0053,
+        "hit_at_20": 0.0053,
+        "hit_at_50": 0.0053,
+        "mrr_at_50": 0.0033,
+        "recovered_between_11_and_50": 0,
+        "latency_ms": {
+          "p50": 1109,
+          "p90": 1358,
+          "max": 6423
+        }
+      }
+    }
+  },
+  "by_stratum": {
+    "cit-000-009": {
+      "rbai_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 5000,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.3,
+        "hit_at_10": 0.54,
+        "mrr_at_10": 0.3707,
+        "n_queries": 100,
+        "hit_at_5": 0.46,
+        "hit_at_20": 0.65,
+        "hit_at_50": 0.69,
+        "mrr_at_50": 0.3801,
+        "recovered_between_11_and_50": 15,
+        "latency_ms": {
+          "p50": 4595,
+          "p90": 10248,
+          "max": 15662
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 46.35,
+        "documents_returned": 4635,
+        "documents_without_usable_abstract": 1984,
+        "documents_missing_doi_and_pmid": 989,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0,
+        "hit_at_10": 0.12,
+        "mrr_at_10": 0.0189,
+        "n_queries": 100,
+        "hit_at_5": 0.03,
+        "hit_at_20": 0.23,
+        "hit_at_50": 0.37,
+        "mrr_at_50": 0.0322,
+        "recovered_between_11_and_50": 25,
+        "latency_ms": {
+          "p50": 1735,
+          "p90": 2680,
+          "max": 4572
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 0.51,
+        "documents_returned": 51,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 98,
+        "hit_at_1": 0,
+        "hit_at_10": 0,
+        "mrr_at_10": 0,
+        "n_queries": 100,
+        "hit_at_5": 0,
+        "hit_at_20": 0,
+        "hit_at_50": 0,
+        "mrr_at_50": 0,
+        "recovered_between_11_and_50": 0,
+        "latency_ms": {
+          "p50": 1117,
+          "p90": 1446,
+          "max": 5288
+        }
+      }
+    },
+    "cit-010-049": {
+      "rbai_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 5000,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.3,
+        "hit_at_10": 0.63,
+        "mrr_at_10": 0.4271,
+        "n_queries": 100,
+        "hit_at_5": 0.6,
+        "hit_at_20": 0.69,
+        "hit_at_50": 0.78,
+        "mrr_at_50": 0.4343,
+        "recovered_between_11_and_50": 15,
+        "latency_ms": {
+          "p50": 6688,
+          "p90": 10894,
+          "max": 21817
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 46.16,
+        "documents_returned": 4616,
+        "documents_without_usable_abstract": 2148,
+        "documents_missing_doi_and_pmid": 1043,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.01,
+        "hit_at_10": 0.3,
+        "mrr_at_10": 0.0647,
+        "n_queries": 100,
+        "hit_at_5": 0.14,
+        "hit_at_20": 0.41,
+        "hit_at_50": 0.42,
+        "mrr_at_50": 0.0734,
+        "recovered_between_11_and_50": 12,
+        "latency_ms": {
+          "p50": 1633,
+          "p90": 2288,
+          "max": 6375
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 2.66,
+        "documents_returned": 266,
+        "documents_without_usable_abstract": 6,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 91,
+        "hit_at_1": 0,
+        "hit_at_10": 0.01,
+        "mrr_at_10": 0.0025,
+        "n_queries": 100,
+        "hit_at_5": 0.01,
+        "hit_at_20": 0.01,
+        "hit_at_50": 0.01,
+        "mrr_at_50": 0.0025,
+        "recovered_between_11_and_50": 0,
+        "latency_ms": {
+          "p50": 1093,
+          "p90": 1358,
+          "max": 5742
+        }
+      }
+    },
+    "cit-050-199": {
+      "rbai_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 5000,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.32,
+        "hit_at_10": 0.65,
+        "mrr_at_10": 0.4218,
+        "n_queries": 100,
+        "hit_at_5": 0.59,
+        "hit_at_20": 0.72,
+        "hit_at_50": 0.83,
+        "mrr_at_50": 0.4304,
+        "recovered_between_11_and_50": 18,
+        "latency_ms": {
+          "p50": 3922,
+          "p90": 8608,
+          "max": 14757
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 46.21,
+        "documents_returned": 4621,
+        "documents_without_usable_abstract": 2267,
+        "documents_missing_doi_and_pmid": 1145,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.06,
+        "hit_at_10": 0.36,
+        "mrr_at_10": 0.1417,
+        "n_queries": 100,
+        "hit_at_5": 0.25,
+        "hit_at_20": 0.42,
+        "hit_at_50": 0.42,
+        "mrr_at_50": 0.147,
+        "recovered_between_11_and_50": 6,
+        "latency_ms": {
+          "p50": 1662,
+          "p90": 4183,
+          "max": 6946
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 1.67,
+        "documents_returned": 167,
+        "documents_without_usable_abstract": 4,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 94,
+        "hit_at_1": 0.01,
+        "hit_at_10": 0.01,
+        "mrr_at_10": 0.01,
+        "n_queries": 100,
+        "hit_at_5": 0.01,
+        "hit_at_20": 0.02,
+        "hit_at_50": 0.02,
+        "mrr_at_50": 0.0108,
+        "recovered_between_11_and_50": 1,
+        "latency_ms": {
+          "p50": 1084,
+          "p90": 1289,
+          "max": 6423
+        }
+      }
+    },
+    "cit-1000-up": {
+      "rbai_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 5000,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.34,
+        "hit_at_10": 0.73,
+        "mrr_at_10": 0.464,
+        "n_queries": 100,
+        "hit_at_5": 0.68,
+        "hit_at_20": 0.83,
+        "hit_at_50": 0.88,
+        "mrr_at_50": 0.472,
+        "recovered_between_11_and_50": 15,
+        "latency_ms": {
+          "p50": 4026,
+          "p90": 9233,
+          "max": 13437
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 44.94,
+        "documents_returned": 4494,
+        "documents_without_usable_abstract": 2009,
+        "documents_missing_doi_and_pmid": 992,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.22,
+        "hit_at_10": 0.27,
+        "mrr_at_10": 0.2433,
+        "n_queries": 100,
+        "hit_at_5": 0.27,
+        "hit_at_20": 0.27,
+        "hit_at_50": 0.27,
+        "mrr_at_50": 0.2433,
+        "recovered_between_11_and_50": 0,
+        "latency_ms": {
+          "p50": 1601,
+          "p90": 1923,
+          "max": 3872
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 2.22,
+        "documents_returned": 222,
+        "documents_without_usable_abstract": 4,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 88,
+        "hit_at_1": 0.02,
+        "hit_at_10": 0.02,
+        "mrr_at_10": 0.02,
+        "n_queries": 100,
+        "hit_at_5": 0.02,
+        "hit_at_20": 0.02,
+        "hit_at_50": 0.02,
+        "mrr_at_50": 0.02,
+        "recovered_between_11_and_50": 0,
+        "latency_ms": {
+          "p50": 1138,
+          "p90": 2486,
+          "max": 6644
+        }
+      }
+    },
+    "cit-200-999": {
+      "rbai_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 5000,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.38,
+        "hit_at_10": 0.7,
+        "mrr_at_10": 0.4883,
+        "n_queries": 100,
+        "hit_at_5": 0.64,
+        "hit_at_20": 0.82,
+        "hit_at_50": 0.88,
+        "mrr_at_50": 0.4986,
+        "recovered_between_11_and_50": 18,
+        "latency_ms": {
+          "p50": 4275,
+          "p90": 9362,
+          "max": 13612
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 45.88,
+        "documents_returned": 4588,
+        "documents_without_usable_abstract": 2013,
+        "documents_missing_doi_and_pmid": 1008,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.16,
+        "hit_at_10": 0.34,
+        "mrr_at_10": 0.2278,
+        "n_queries": 100,
+        "hit_at_5": 0.32,
+        "hit_at_20": 0.34,
+        "hit_at_50": 0.34,
+        "mrr_at_50": 0.2278,
+        "recovered_between_11_and_50": 0,
+        "latency_ms": {
+          "p50": 1663,
+          "p90": 2311,
+          "max": 6271
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 100,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 1.74,
+        "documents_returned": 174,
+        "documents_without_usable_abstract": 2,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 95,
+        "hit_at_1": 0,
+        "hit_at_10": 0,
+        "mrr_at_10": 0,
+        "n_queries": 100,
+        "hit_at_5": 0,
+        "hit_at_20": 0,
+        "hit_at_50": 0,
+        "mrr_at_50": 0,
+        "recovered_between_11_and_50": 0,
+        "latency_ms": {
+          "p50": 1100,
+          "p90": 1302,
+          "max": 4722
+        }
+      }
+    }
+  },
+  "sensitivity_excluding_absent_from_comparison_index": {
+    "coverage_sources": [
+      "results-final\\coverage-500-new.json",
+      "results-final\\coverage-and-fair-pubmed.json"
+    ],
+    "excluded_target_ids": [
+      "cit-000-009-50"
+    ],
+    "n_queries": 499,
+    "summary": {
+      "rbai_semantic": {
+        "queries_ok": 499,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 24950,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.3287,
+        "hit_at_10": 0.6513,
+        "mrr_at_10": 0.4353,
+        "n_queries": 499,
+        "hit_at_5": 0.5952,
+        "hit_at_20": 0.7435,
+        "hit_at_50": 0.8136,
+        "mrr_at_50": 0.444,
+        "recovered_between_11_and_50": 81,
+        "latency_ms": {
+          "p50": 4473,
+          "p90": 9847,
+          "max": 21817
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 499,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 45.9,
+        "documents_returned": 22906,
+        "documents_without_usable_abstract": 10384,
+        "documents_missing_doi_and_pmid": 5152,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.0902,
+        "hit_at_10": 0.2786,
+        "mrr_at_10": 0.1396,
+        "n_queries": 499,
+        "hit_at_5": 0.2024,
+        "hit_at_20": 0.3347,
+        "hit_at_50": 0.3647,
+        "mrr_at_50": 0.145,
+        "recovered_between_11_and_50": 43,
+        "latency_ms": {
+          "p50": 1651,
+          "p90": 2400,
+          "max": 6946
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 499,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 1.76,
+        "documents_returned": 880,
+        "documents_without_usable_abstract": 16,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 465,
+        "hit_at_1": 0.006,
+        "hit_at_10": 0.008,
+        "mrr_at_10": 0.0065,
+        "n_queries": 499,
+        "hit_at_5": 0.008,
+        "hit_at_20": 0.01,
+        "hit_at_50": 0.01,
+        "mrr_at_50": 0.0067,
+        "recovered_between_11_and_50": 1,
+        "latency_ms": {
+          "p50": 1101,
+          "p90": 1446,
+          "max": 6644
+        }
+      }
+    }
+  },
+  "sensitivity_excluding_junk_abstracts": {
+    "excluded_target_ids": [
+      "cit-000-009-63",
+      "cit-010-049-100",
+      "cit-1000-up-46",
+      "cit-010-049-06",
+      "cit-200-999-06"
+    ],
+    "n_queries": 495,
+    "summary": {
+      "rbai_semantic": {
+        "queries_ok": 495,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 50,
+        "documents_returned": 24750,
+        "documents_without_usable_abstract": 0,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.3293,
+        "hit_at_10": 0.6525,
+        "mrr_at_10": 0.4358,
+        "n_queries": 495,
+        "hit_at_5": 0.596,
+        "hit_at_20": 0.7455,
+        "hit_at_50": 0.8162,
+        "mrr_at_50": 0.4445,
+        "recovered_between_11_and_50": 81,
+        "latency_ms": {
+          "p50": 4479,
+          "p90": 9847,
+          "max": 21817
+        }
+      },
+      "openalex_semantic": {
+        "queries_ok": 495,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 45.9,
+        "documents_returned": 22719,
+        "documents_without_usable_abstract": 10291,
+        "documents_missing_doi_and_pmid": 5094,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 0,
+        "hit_at_1": 0.0909,
+        "hit_at_10": 0.2788,
+        "mrr_at_10": 0.1397,
+        "n_queries": 495,
+        "hit_at_5": 0.202,
+        "hit_at_20": 0.3354,
+        "hit_at_50": 0.3657,
+        "mrr_at_50": 0.1452,
+        "recovered_between_11_and_50": 43,
+        "latency_ms": {
+          "p50": 1650,
+          "p90": 2400,
+          "max": 6946
+        }
+      },
+      "pubmed_keyword": {
+        "queries_ok": 495,
+        "queries_declined": 0,
+        "queries_errored": 0,
+        "mean_results_returned": 1.78,
+        "documents_returned": 880,
+        "documents_without_usable_abstract": 16,
+        "documents_missing_doi_and_pmid": 0,
+        "queries_neutralised_for_parser": 0,
+        "queries_returning_nothing": 461,
+        "hit_at_1": 0.0061,
+        "hit_at_10": 0.0081,
+        "mrr_at_10": 0.0066,
+        "n_queries": 495,
+        "hit_at_5": 0.0081,
+        "hit_at_20": 0.0101,
+        "hit_at_50": 0.0101,
+        "mrr_at_50": 0.0067,
+        "recovered_between_11_and_50": 1,
+        "latency_ms": {
+          "p50": 1101,
+          "p90": 1446,
+          "max": 6644
+        }
+      }
+    }
+  },
+  "repairs": {
+    "repaired_at": "2026-09-19T14:52:02.086Z",
+    "attempted": 1,
+    "repaired": 1,
+    "still_failing": 0,
+    "detail": [
+      {
+        "arm": "rbai_semantic",
+        "target_id": "cit-010-049-43",
+        "previous_error": "query embedding failed (HTTP 429): capacity temporarily exceeded, please try again"
+      }
+    ],
+    "note": "Transient failures were re-issued rather than disclosed. Declines were not retried, because a decline is what a user receives. Every summary block above was recomputed from the patched rows."
+  }
+}

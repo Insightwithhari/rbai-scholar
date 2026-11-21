@@ -1,0 +1,2764 @@
+{
+ "schema": "rbai-scholar/openalex-rerun-scored@1",
+ "run": {
+  "started": "2026-11-17T06:03:33.202Z",
+  "finished": "2026-11-17T06:57:31.447Z",
+  "endpoint": "https://api.openalex.org/works?search.semantic=<question>&per-page=50",
+  "arm": "openalex_semantic (retrieval-arms.mjs, openalex-records.mjs)",
+  "spacing_ms": 1150,
+  "first_call": {
+   "http": 200
+  },
+  "statuses": {
+   "ok": 500
+  },
+  "answered_by_pass": {
+   "1": 362,
+   "2": 60,
+   "3": 78
+  },
+  "failures_by_http": {},
+  "failures_by_band": {},
+  "results_returned_mean": 50
+ },
+ "rule": "a failed or missing search counts as a miss (Section 2.7)",
+ "groups": {
+  "all 500": {
+   "openalex_2026_11_17": {
+    "n": 500,
+    "hit1": 83,
+    "hit5": 175,
+    "hit10": 229,
+    "hit20": 291,
+    "hit50": 321,
+    "mrr10": 0.2434,
+    "mrr50": 0.2543,
+    "hit1_rate": 0.166,
+    "hit5_rate": 0.35,
+    "hit10_rate": 0.458,
+    "hit20_rate": 0.582,
+    "hit50_rate": 0.642
+   },
+   "openalex_september_2026": {
+    "n": 500,
+    "hit1": 45,
+    "hit5": 101,
+    "hit10": 139,
+    "hit20": 167,
+    "hit50": 182,
+    "mrr10": 0.1393,
+    "mrr50": 0.1447,
+    "hit1_rate": 0.09,
+    "hit5_rate": 0.202,
+    "hit10_rate": 0.278,
+    "hit20_rate": 0.334,
+    "hit50_rate": 0.364
+   },
+   "rbai_reference": {
+    "n": 500,
+    "hit1": 164,
+    "hit5": 297,
+    "hit10": 325,
+    "hit20": 371,
+    "hit50": 406,
+    "mrr10": 0.4344,
+    "mrr50": 0.4431,
+    "hit1_rate": 0.328,
+    "hit5_rate": 0.594,
+    "hit10_rate": 0.65,
+    "hit20_rate": 0.742,
+    "hit50_rate": 0.812
+   },
+   "rbai_live_2026_11_17": {
+    "n": 500,
+    "hit1": 152,
+    "hit5": 281,
+    "hit10": 319,
+    "hit20": 358,
+    "hit50": 400,
+    "mrr10": 0.406,
+    "mrr50": 0.414,
+    "hit1_rate": 0.304,
+    "hit5_rate": 0.562,
+    "hit10_rate": 0.638,
+    "hit20_rate": 0.716,
+    "hit50_rate": 0.8
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 56,
+     "lost": 18,
+     "p_mcnemar": 0.000011
+    },
+    "hit5": {
+     "gained": 106,
+     "lost": 32,
+     "p_mcnemar": 1.9e-10
+    },
+    "hit10": {
+     "gained": 138,
+     "lost": 48,
+     "p_mcnemar": 2.8e-11
+    },
+    "hit20": {
+     "gained": 161,
+     "lost": 37,
+     "p_mcnemar": 1.2e-19
+    },
+    "hit50": {
+     "gained": 173,
+     "lost": 34,
+     "p_mcnemar": 1.3e-23
+    },
+    "mrr50": {
+     "difference": 0.1096,
+     "higher": 221,
+     "lower": 95,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 101,
+     "lost": 20,
+     "p_mcnemar": 3.3e-14
+    },
+    "hit5": {
+     "gained": 133,
+     "lost": 11,
+     "p_mcnemar": 9.1e-28
+    },
+    "hit10": {
+     "gained": 102,
+     "lost": 6,
+     "p_mcnemar": 1.3e-23
+    },
+    "hit20": {
+     "gained": 87,
+     "lost": 7,
+     "p_mcnemar": 1.1e-18
+    },
+    "hit50": {
+     "gained": 92,
+     "lost": 7,
+     "p_mcnemar": 5.1e-20
+    },
+    "mrr50": {
+     "difference": 0.1888,
+     "higher": 280,
+     "lower": 60,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 90,
+     "lost": 21,
+     "p_mcnemar": 2.3e-11
+    },
+    "hit5": {
+     "gained": 118,
+     "lost": 12,
+     "p_mcnemar": 4.7e-23
+    },
+    "hit10": {
+     "gained": 95,
+     "lost": 5,
+     "p_mcnemar": 1.3e-22
+    },
+    "hit20": {
+     "gained": 71,
+     "lost": 4,
+     "p_mcnemar": 6.8e-17
+    },
+    "hit50": {
+     "gained": 83,
+     "lost": 4,
+     "p_mcnemar": 3e-20
+    },
+    "mrr50": {
+     "difference": 0.1596,
+     "higher": 262,
+     "lower": 69,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "120 development": {
+   "openalex_2026_11_17": {
+    "n": 120,
+    "hit1": 19,
+    "hit5": 37,
+    "hit10": 46,
+    "hit20": 63,
+    "hit50": 70,
+    "mrr10": 0.2208,
+    "mrr50": 0.2325,
+    "hit1_rate": 0.158,
+    "hit5_rate": 0.308,
+    "hit10_rate": 0.383,
+    "hit20_rate": 0.525,
+    "hit50_rate": 0.583
+   },
+   "openalex_september_2026": {
+    "n": 120,
+    "hit1": 11,
+    "hit5": 24,
+    "hit10": 32,
+    "hit20": 37,
+    "hit50": 39,
+    "mrr10": 0.1411,
+    "mrr50": 0.1446,
+    "hit1_rate": 0.092,
+    "hit5_rate": 0.2,
+    "hit10_rate": 0.267,
+    "hit20_rate": 0.308,
+    "hit50_rate": 0.325
+   },
+   "rbai_reference": {
+    "n": 120,
+    "hit1": 30,
+    "hit5": 63,
+    "hit10": 68,
+    "hit20": 81,
+    "hit50": 88,
+    "mrr10": 0.3559,
+    "mrr50": 0.3658,
+    "hit1_rate": 0.25,
+    "hit5_rate": 0.525,
+    "hit10_rate": 0.567,
+    "hit20_rate": 0.675,
+    "hit50_rate": 0.733
+   },
+   "rbai_live_2026_11_17": {
+    "n": 120,
+    "hit1": 25,
+    "hit5": 61,
+    "hit10": 66,
+    "hit20": 78,
+    "hit50": 85,
+    "mrr10": 0.3204,
+    "mrr50": 0.329,
+    "hit1_rate": 0.208,
+    "hit5_rate": 0.508,
+    "hit10_rate": 0.55,
+    "hit20_rate": 0.65,
+    "hit50_rate": 0.708
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 13,
+     "lost": 5,
+     "p_mcnemar": 0.096
+    },
+    "hit5": {
+     "gained": 22,
+     "lost": 9,
+     "p_mcnemar": 0.029
+    },
+    "hit10": {
+     "gained": 27,
+     "lost": 13,
+     "p_mcnemar": 0.038
+    },
+    "hit20": {
+     "gained": 35,
+     "lost": 9,
+     "p_mcnemar": 0.00011
+    },
+    "hit50": {
+     "gained": 40,
+     "lost": 9,
+     "p_mcnemar": 0.0000093
+    },
+    "mrr50": {
+     "difference": 0.0879,
+     "higher": 46,
+     "lower": 24,
+     "p_permutation": 0.0093
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 18,
+     "lost": 7,
+     "p_mcnemar": 0.043
+    },
+    "hit5": {
+     "gained": 28,
+     "lost": 2,
+     "p_mcnemar": 8.7e-7
+    },
+    "hit10": {
+     "gained": 24,
+     "lost": 2,
+     "p_mcnemar": 0.00001
+    },
+    "hit20": {
+     "gained": 21,
+     "lost": 3,
+     "p_mcnemar": 0.00028
+    },
+    "hit50": {
+     "gained": 20,
+     "lost": 2,
+     "p_mcnemar": 0.00012
+    },
+    "mrr50": {
+     "difference": 0.1333,
+     "higher": 60,
+     "lower": 16,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 14,
+     "lost": 8,
+     "p_mcnemar": 0.29
+    },
+    "hit5": {
+     "gained": 26,
+     "lost": 2,
+     "p_mcnemar": 0.000003
+    },
+    "hit10": {
+     "gained": 22,
+     "lost": 2,
+     "p_mcnemar": 0.000036
+    },
+    "hit20": {
+     "gained": 17,
+     "lost": 2,
+     "p_mcnemar": 0.00073
+    },
+    "hit50": {
+     "gained": 16,
+     "lost": 1,
+     "p_mcnemar": 0.00027
+    },
+    "mrr50": {
+     "difference": 0.0965,
+     "higher": 54,
+     "lower": 18,
+     "p_permutation": 0.0009
+    }
+   }
+  },
+  "380 held-out": {
+   "openalex_2026_11_17": {
+    "n": 380,
+    "hit1": 64,
+    "hit5": 138,
+    "hit10": 183,
+    "hit20": 228,
+    "hit50": 251,
+    "mrr10": 0.2506,
+    "mrr50": 0.2612,
+    "hit1_rate": 0.168,
+    "hit5_rate": 0.363,
+    "hit10_rate": 0.482,
+    "hit20_rate": 0.6,
+    "hit50_rate": 0.661
+   },
+   "openalex_september_2026": {
+    "n": 380,
+    "hit1": 34,
+    "hit5": 77,
+    "hit10": 107,
+    "hit20": 130,
+    "hit50": 143,
+    "mrr10": 0.1387,
+    "mrr50": 0.1448,
+    "hit1_rate": 0.089,
+    "hit5_rate": 0.203,
+    "hit10_rate": 0.282,
+    "hit20_rate": 0.342,
+    "hit50_rate": 0.376
+   },
+   "rbai_reference": {
+    "n": 380,
+    "hit1": 134,
+    "hit5": 234,
+    "hit10": 257,
+    "hit20": 290,
+    "hit50": 318,
+    "mrr10": 0.4592,
+    "mrr50": 0.4675,
+    "hit1_rate": 0.353,
+    "hit5_rate": 0.616,
+    "hit10_rate": 0.676,
+    "hit20_rate": 0.763,
+    "hit50_rate": 0.837
+   },
+   "rbai_live_2026_11_17": {
+    "n": 380,
+    "hit1": 127,
+    "hit5": 220,
+    "hit10": 253,
+    "hit20": 280,
+    "hit50": 315,
+    "mrr10": 0.433,
+    "mrr50": 0.4408,
+    "hit1_rate": 0.334,
+    "hit5_rate": 0.579,
+    "hit10_rate": 0.666,
+    "hit20_rate": 0.737,
+    "hit50_rate": 0.829
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 43,
+     "lost": 13,
+     "p_mcnemar": 0.000073
+    },
+    "hit5": {
+     "gained": 84,
+     "lost": 23,
+     "p_mcnemar": 2.4e-9
+    },
+    "hit10": {
+     "gained": 111,
+     "lost": 35,
+     "p_mcnemar": 2.1e-10
+    },
+    "hit20": {
+     "gained": 126,
+     "lost": 28,
+     "p_mcnemar": 4.8e-16
+    },
+    "hit50": {
+     "gained": 133,
+     "lost": 25,
+     "p_mcnemar": 5.4e-19
+    },
+    "mrr50": {
+     "difference": 0.1164,
+     "higher": 175,
+     "lower": 71,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 83,
+     "lost": 13,
+     "p_mcnemar": 1.2e-13
+    },
+    "hit5": {
+     "gained": 105,
+     "lost": 9,
+     "p_mcnemar": 6.8e-22
+    },
+    "hit10": {
+     "gained": 78,
+     "lost": 4,
+     "p_mcnemar": 7.6e-19
+    },
+    "hit20": {
+     "gained": 66,
+     "lost": 4,
+     "p_mcnemar": 1.7e-15
+    },
+    "hit50": {
+     "gained": 72,
+     "lost": 5,
+     "p_mcnemar": 2.8e-16
+    },
+    "mrr50": {
+     "difference": 0.2063,
+     "higher": 220,
+     "lower": 44,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 76,
+     "lost": 13,
+     "p_mcnemar": 5.4e-12
+    },
+    "hit5": {
+     "gained": 92,
+     "lost": 10,
+     "p_mcnemar": 9.4e-18
+    },
+    "hit10": {
+     "gained": 73,
+     "lost": 3,
+     "p_mcnemar": 1.9e-18
+    },
+    "hit20": {
+     "gained": 54,
+     "lost": 2,
+     "p_mcnemar": 4.4e-14
+    },
+    "hit50": {
+     "gained": 67,
+     "lost": 3,
+     "p_mcnemar": 9.7e-17
+    },
+    "mrr50": {
+     "difference": 0.1796,
+     "higher": 208,
+     "lower": 51,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "all 500, one re-issue (Section S6)": {
+   "openalex_2026_11_17": {
+    "n": 500,
+    "hit1": 62,
+    "hit5": 131,
+    "hit10": 183,
+    "hit20": 245,
+    "hit50": 275,
+    "mrr10": 0.1835,
+    "mrr50": 0.1944,
+    "hit1_rate": 0.124,
+    "hit5_rate": 0.262,
+    "hit10_rate": 0.366,
+    "hit20_rate": 0.49,
+    "hit50_rate": 0.55
+   },
+   "openalex_september_2026": {
+    "n": 500,
+    "hit1": 45,
+    "hit5": 101,
+    "hit10": 139,
+    "hit20": 167,
+    "hit50": 182,
+    "mrr10": 0.1393,
+    "mrr50": 0.1447,
+    "hit1_rate": 0.09,
+    "hit5_rate": 0.202,
+    "hit10_rate": 0.278,
+    "hit20_rate": 0.334,
+    "hit50_rate": 0.364
+   },
+   "rbai_reference": {
+    "n": 500,
+    "hit1": 164,
+    "hit5": 297,
+    "hit10": 325,
+    "hit20": 371,
+    "hit50": 406,
+    "mrr10": 0.4344,
+    "mrr50": 0.4431,
+    "hit1_rate": 0.328,
+    "hit5_rate": 0.594,
+    "hit10_rate": 0.65,
+    "hit20_rate": 0.742,
+    "hit50_rate": 0.812
+   },
+   "rbai_live_2026_11_17": {
+    "n": 500,
+    "hit1": 152,
+    "hit5": 281,
+    "hit10": 319,
+    "hit20": 358,
+    "hit50": 400,
+    "mrr10": 0.406,
+    "mrr50": 0.414,
+    "hit1_rate": 0.304,
+    "hit5_rate": 0.562,
+    "hit10_rate": 0.638,
+    "hit20_rate": 0.716,
+    "hit50_rate": 0.8
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 38,
+     "lost": 21,
+     "p_mcnemar": 0.036
+    },
+    "hit5": {
+     "gained": 75,
+     "lost": 45,
+     "p_mcnemar": 0.0078
+    },
+    "hit10": {
+     "gained": 107,
+     "lost": 63,
+     "p_mcnemar": 0.00092
+    },
+    "hit20": {
+     "gained": 130,
+     "lost": 52,
+     "p_mcnemar": 6.8e-9
+    },
+    "hit50": {
+     "gained": 142,
+     "lost": 49,
+     "p_mcnemar": 1.1e-11
+    },
+    "mrr50": {
+     "difference": 0.0497,
+     "higher": 186,
+     "lower": 105,
+     "p_permutation": 0.0011
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 117,
+     "lost": 15,
+     "p_mcnemar": 9.1e-21
+    },
+    "hit5": {
+     "gained": 173,
+     "lost": 7,
+     "p_mcnemar": 1.5e-42
+    },
+    "hit10": {
+     "gained": 146,
+     "lost": 4,
+     "p_mcnemar": 2.9e-38
+    },
+    "hit20": {
+     "gained": 133,
+     "lost": 7,
+     "p_mcnemar": 2.7e-31
+    },
+    "hit50": {
+     "gained": 138,
+     "lost": 7,
+     "p_mcnemar": 1.1e-32
+    },
+    "mrr50": {
+     "difference": 0.2487,
+     "higher": 311,
+     "lower": 49,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 105,
+     "lost": 15,
+     "p_mcnemar": 8.3e-18
+    },
+    "hit5": {
+     "gained": 158,
+     "lost": 8,
+     "p_mcnemar": 2.7e-37
+    },
+    "hit10": {
+     "gained": 139,
+     "lost": 3,
+     "p_mcnemar": 1.7e-37
+    },
+    "hit20": {
+     "gained": 117,
+     "lost": 4,
+     "p_mcnemar": 6.6e-30
+    },
+    "hit50": {
+     "gained": 129,
+     "lost": 4,
+     "p_mcnemar": 2.4e-33
+    },
+    "mrr50": {
+     "difference": 0.2196,
+     "higher": 296,
+     "lower": 53,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "380 held-out, one re-issue (Section S6)": {
+   "openalex_2026_11_17": {
+    "n": 380,
+    "hit1": 44,
+    "hit5": 96,
+    "hit10": 139,
+    "hit20": 184,
+    "hit50": 207,
+    "mrr10": 0.1756,
+    "mrr50": 0.1863,
+    "hit1_rate": 0.116,
+    "hit5_rate": 0.253,
+    "hit10_rate": 0.366,
+    "hit20_rate": 0.484,
+    "hit50_rate": 0.545
+   },
+   "openalex_september_2026": {
+    "n": 380,
+    "hit1": 34,
+    "hit5": 77,
+    "hit10": 107,
+    "hit20": 130,
+    "hit50": 143,
+    "mrr10": 0.1387,
+    "mrr50": 0.1448,
+    "hit1_rate": 0.089,
+    "hit5_rate": 0.203,
+    "hit10_rate": 0.282,
+    "hit20_rate": 0.342,
+    "hit50_rate": 0.376
+   },
+   "rbai_reference": {
+    "n": 380,
+    "hit1": 134,
+    "hit5": 234,
+    "hit10": 257,
+    "hit20": 290,
+    "hit50": 318,
+    "mrr10": 0.4592,
+    "mrr50": 0.4675,
+    "hit1_rate": 0.353,
+    "hit5_rate": 0.616,
+    "hit10_rate": 0.676,
+    "hit20_rate": 0.763,
+    "hit50_rate": 0.837
+   },
+   "rbai_live_2026_11_17": {
+    "n": 380,
+    "hit1": 127,
+    "hit5": 220,
+    "hit10": 253,
+    "hit20": 280,
+    "hit50": 315,
+    "mrr10": 0.433,
+    "mrr50": 0.4408,
+    "hit1_rate": 0.334,
+    "hit5_rate": 0.579,
+    "hit10_rate": 0.666,
+    "hit20_rate": 0.737,
+    "hit50_rate": 0.829
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 26,
+     "lost": 16,
+     "p_mcnemar": 0.16
+    },
+    "hit5": {
+     "gained": 55,
+     "lost": 36,
+     "p_mcnemar": 0.059
+    },
+    "hit10": {
+     "gained": 82,
+     "lost": 50,
+     "p_mcnemar": 0.0067
+    },
+    "hit20": {
+     "gained": 97,
+     "lost": 43,
+     "p_mcnemar": 0.0000058
+    },
+    "hit50": {
+     "gained": 104,
+     "lost": 40,
+     "p_mcnemar": 9.5e-8
+    },
+    "mrr50": {
+     "difference": 0.0415,
+     "higher": 142,
+     "lower": 81,
+     "p_permutation": 0.017
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 98,
+     "lost": 8,
+     "p_mcnemar": 8.1e-21
+    },
+    "hit5": {
+     "gained": 143,
+     "lost": 5,
+     "p_mcnemar": 3.2e-36
+    },
+    "hit10": {
+     "gained": 120,
+     "lost": 2,
+     "p_mcnemar": 2.8e-33
+    },
+    "hit20": {
+     "gained": 110,
+     "lost": 4,
+     "p_mcnemar": 6.7e-28
+    },
+    "hit50": {
+     "gained": 116,
+     "lost": 5,
+     "p_mcnemar": 1.6e-28
+    },
+    "mrr50": {
+     "difference": 0.2812,
+     "higher": 249,
+     "lower": 34,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 91,
+     "lost": 8,
+     "p_mcnemar": 5.9e-19
+    },
+    "hit5": {
+     "gained": 130,
+     "lost": 6,
+     "p_mcnemar": 1.9e-31
+    },
+    "hit10": {
+     "gained": 115,
+     "lost": 1,
+     "p_mcnemar": 2.8e-33
+    },
+    "hit20": {
+     "gained": 98,
+     "lost": 2,
+     "p_mcnemar": 8e-27
+    },
+    "hit50": {
+     "gained": 111,
+     "lost": 3,
+     "p_mcnemar": 2.4e-29
+    },
+    "mrr50": {
+     "difference": 0.2545,
+     "higher": 240,
+     "lower": 37,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "answered today, of all 500": {
+   "openalex_2026_11_17": {
+    "n": 500,
+    "hit1": 83,
+    "hit5": 175,
+    "hit10": 229,
+    "hit20": 291,
+    "hit50": 321,
+    "mrr10": 0.2434,
+    "mrr50": 0.2543,
+    "hit1_rate": 0.166,
+    "hit5_rate": 0.35,
+    "hit10_rate": 0.458,
+    "hit20_rate": 0.582,
+    "hit50_rate": 0.642
+   },
+   "openalex_september_2026": {
+    "n": 500,
+    "hit1": 45,
+    "hit5": 101,
+    "hit10": 139,
+    "hit20": 167,
+    "hit50": 182,
+    "mrr10": 0.1393,
+    "mrr50": 0.1447,
+    "hit1_rate": 0.09,
+    "hit5_rate": 0.202,
+    "hit10_rate": 0.278,
+    "hit20_rate": 0.334,
+    "hit50_rate": 0.364
+   },
+   "rbai_reference": {
+    "n": 500,
+    "hit1": 164,
+    "hit5": 297,
+    "hit10": 325,
+    "hit20": 371,
+    "hit50": 406,
+    "mrr10": 0.4344,
+    "mrr50": 0.4431,
+    "hit1_rate": 0.328,
+    "hit5_rate": 0.594,
+    "hit10_rate": 0.65,
+    "hit20_rate": 0.742,
+    "hit50_rate": 0.812
+   },
+   "rbai_live_2026_11_17": {
+    "n": 500,
+    "hit1": 152,
+    "hit5": 281,
+    "hit10": 319,
+    "hit20": 358,
+    "hit50": 400,
+    "mrr10": 0.406,
+    "mrr50": 0.414,
+    "hit1_rate": 0.304,
+    "hit5_rate": 0.562,
+    "hit10_rate": 0.638,
+    "hit20_rate": 0.716,
+    "hit50_rate": 0.8
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 56,
+     "lost": 18,
+     "p_mcnemar": 0.000011
+    },
+    "hit5": {
+     "gained": 106,
+     "lost": 32,
+     "p_mcnemar": 1.9e-10
+    },
+    "hit10": {
+     "gained": 138,
+     "lost": 48,
+     "p_mcnemar": 2.8e-11
+    },
+    "hit20": {
+     "gained": 161,
+     "lost": 37,
+     "p_mcnemar": 1.2e-19
+    },
+    "hit50": {
+     "gained": 173,
+     "lost": 34,
+     "p_mcnemar": 1.3e-23
+    },
+    "mrr50": {
+     "difference": 0.1096,
+     "higher": 221,
+     "lower": 95,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 101,
+     "lost": 20,
+     "p_mcnemar": 3.3e-14
+    },
+    "hit5": {
+     "gained": 133,
+     "lost": 11,
+     "p_mcnemar": 9.1e-28
+    },
+    "hit10": {
+     "gained": 102,
+     "lost": 6,
+     "p_mcnemar": 1.3e-23
+    },
+    "hit20": {
+     "gained": 87,
+     "lost": 7,
+     "p_mcnemar": 1.1e-18
+    },
+    "hit50": {
+     "gained": 92,
+     "lost": 7,
+     "p_mcnemar": 5.1e-20
+    },
+    "mrr50": {
+     "difference": 0.1888,
+     "higher": 280,
+     "lower": 60,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 90,
+     "lost": 21,
+     "p_mcnemar": 2.3e-11
+    },
+    "hit5": {
+     "gained": 118,
+     "lost": 12,
+     "p_mcnemar": 4.7e-23
+    },
+    "hit10": {
+     "gained": 95,
+     "lost": 5,
+     "p_mcnemar": 1.3e-22
+    },
+    "hit20": {
+     "gained": 71,
+     "lost": 4,
+     "p_mcnemar": 6.8e-17
+    },
+    "hit50": {
+     "gained": 83,
+     "lost": 4,
+     "p_mcnemar": 3e-20
+    },
+    "mrr50": {
+     "difference": 0.1596,
+     "higher": 262,
+     "lower": 69,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "answered today, of the 380 held-out": {
+   "openalex_2026_11_17": {
+    "n": 380,
+    "hit1": 64,
+    "hit5": 138,
+    "hit10": 183,
+    "hit20": 228,
+    "hit50": 251,
+    "mrr10": 0.2506,
+    "mrr50": 0.2612,
+    "hit1_rate": 0.168,
+    "hit5_rate": 0.363,
+    "hit10_rate": 0.482,
+    "hit20_rate": 0.6,
+    "hit50_rate": 0.661
+   },
+   "openalex_september_2026": {
+    "n": 380,
+    "hit1": 34,
+    "hit5": 77,
+    "hit10": 107,
+    "hit20": 130,
+    "hit50": 143,
+    "mrr10": 0.1387,
+    "mrr50": 0.1448,
+    "hit1_rate": 0.089,
+    "hit5_rate": 0.203,
+    "hit10_rate": 0.282,
+    "hit20_rate": 0.342,
+    "hit50_rate": 0.376
+   },
+   "rbai_reference": {
+    "n": 380,
+    "hit1": 134,
+    "hit5": 234,
+    "hit10": 257,
+    "hit20": 290,
+    "hit50": 318,
+    "mrr10": 0.4592,
+    "mrr50": 0.4675,
+    "hit1_rate": 0.353,
+    "hit5_rate": 0.616,
+    "hit10_rate": 0.676,
+    "hit20_rate": 0.763,
+    "hit50_rate": 0.837
+   },
+   "rbai_live_2026_11_17": {
+    "n": 380,
+    "hit1": 127,
+    "hit5": 220,
+    "hit10": 253,
+    "hit20": 280,
+    "hit50": 315,
+    "mrr10": 0.433,
+    "mrr50": 0.4408,
+    "hit1_rate": 0.334,
+    "hit5_rate": 0.579,
+    "hit10_rate": 0.666,
+    "hit20_rate": 0.737,
+    "hit50_rate": 0.829
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 43,
+     "lost": 13,
+     "p_mcnemar": 0.000073
+    },
+    "hit5": {
+     "gained": 84,
+     "lost": 23,
+     "p_mcnemar": 2.4e-9
+    },
+    "hit10": {
+     "gained": 111,
+     "lost": 35,
+     "p_mcnemar": 2.1e-10
+    },
+    "hit20": {
+     "gained": 126,
+     "lost": 28,
+     "p_mcnemar": 4.8e-16
+    },
+    "hit50": {
+     "gained": 133,
+     "lost": 25,
+     "p_mcnemar": 5.4e-19
+    },
+    "mrr50": {
+     "difference": 0.1164,
+     "higher": 175,
+     "lower": 71,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 83,
+     "lost": 13,
+     "p_mcnemar": 1.2e-13
+    },
+    "hit5": {
+     "gained": 105,
+     "lost": 9,
+     "p_mcnemar": 6.8e-22
+    },
+    "hit10": {
+     "gained": 78,
+     "lost": 4,
+     "p_mcnemar": 7.6e-19
+    },
+    "hit20": {
+     "gained": 66,
+     "lost": 4,
+     "p_mcnemar": 1.7e-15
+    },
+    "hit50": {
+     "gained": 72,
+     "lost": 5,
+     "p_mcnemar": 2.8e-16
+    },
+    "mrr50": {
+     "difference": 0.2063,
+     "higher": 220,
+     "lower": 44,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 76,
+     "lost": 13,
+     "p_mcnemar": 5.4e-12
+    },
+    "hit5": {
+     "gained": 92,
+     "lost": 10,
+     "p_mcnemar": 9.4e-18
+    },
+    "hit10": {
+     "gained": 73,
+     "lost": 3,
+     "p_mcnemar": 1.9e-18
+    },
+    "hit20": {
+     "gained": 54,
+     "lost": 2,
+     "p_mcnemar": 4.4e-14
+    },
+    "hit50": {
+     "gained": 67,
+     "lost": 3,
+     "p_mcnemar": 9.7e-17
+    },
+    "mrr50": {
+     "difference": 0.1796,
+     "higher": 208,
+     "lower": 51,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "band cit-000-009": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 0,
+    "hit5": 5,
+    "hit10": 23,
+    "hit20": 44,
+    "hit50": 65,
+    "mrr10": 0.0373,
+    "mrr50": 0.0589,
+    "hit1_rate": 0,
+    "hit5_rate": 0.05,
+    "hit10_rate": 0.23,
+    "hit20_rate": 0.44,
+    "hit50_rate": 0.65
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 0,
+    "hit5": 3,
+    "hit10": 12,
+    "hit20": 23,
+    "hit50": 37,
+    "mrr10": 0.0189,
+    "mrr50": 0.0322,
+    "hit1_rate": 0,
+    "hit5_rate": 0.03,
+    "hit10_rate": 0.12,
+    "hit20_rate": 0.23,
+    "hit50_rate": 0.37
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 30,
+    "hit5": 46,
+    "hit10": 54,
+    "hit20": 65,
+    "hit50": 69,
+    "mrr10": 0.3707,
+    "mrr50": 0.3801,
+    "hit1_rate": 0.3,
+    "hit5_rate": 0.46,
+    "hit10_rate": 0.54,
+    "hit20_rate": 0.65,
+    "hit50_rate": 0.69
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 28,
+    "hit5": 43,
+    "hit10": 50,
+    "hit20": 60,
+    "hit50": 67,
+    "mrr10": 0.3419,
+    "mrr50": 0.3515,
+    "hit1_rate": 0.28,
+    "hit5_rate": 0.43,
+    "hit10_rate": 0.5,
+    "hit20_rate": 0.6,
+    "hit50_rate": 0.67
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 0,
+     "lost": 0,
+     "p_mcnemar": 1
+    },
+    "hit5": {
+     "gained": 4,
+     "lost": 2,
+     "p_mcnemar": 0.69
+    },
+    "hit10": {
+     "gained": 18,
+     "lost": 7,
+     "p_mcnemar": 0.043
+    },
+    "hit20": {
+     "gained": 26,
+     "lost": 5,
+     "p_mcnemar": 0.00019
+    },
+    "hit50": {
+     "gained": 33,
+     "lost": 5,
+     "p_mcnemar": 0.0000043
+    },
+    "mrr50": {
+     "difference": 0.0267,
+     "higher": 49,
+     "lower": 18,
+     "p_permutation": 0.00055
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 30,
+     "lost": 0,
+     "p_mcnemar": 1.9e-9
+    },
+    "hit5": {
+     "gained": 41,
+     "lost": 0,
+     "p_mcnemar": 9.1e-13
+    },
+    "hit10": {
+     "gained": 31,
+     "lost": 0,
+     "p_mcnemar": 9.3e-10
+    },
+    "hit20": {
+     "gained": 21,
+     "lost": 0,
+     "p_mcnemar": 9.5e-7
+    },
+    "hit50": {
+     "gained": 6,
+     "lost": 2,
+     "p_mcnemar": 0.29
+    },
+    "mrr50": {
+     "difference": 0.3212,
+     "higher": 66,
+     "lower": 4,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 28,
+     "lost": 0,
+     "p_mcnemar": 7.5e-9
+    },
+    "hit5": {
+     "gained": 38,
+     "lost": 0,
+     "p_mcnemar": 7.3e-12
+    },
+    "hit10": {
+     "gained": 27,
+     "lost": 0,
+     "p_mcnemar": 1.5e-8
+    },
+    "hit20": {
+     "gained": 17,
+     "lost": 1,
+     "p_mcnemar": 0.00014
+    },
+    "hit50": {
+     "gained": 4,
+     "lost": 2,
+     "p_mcnemar": 0.69
+    },
+    "mrr50": {
+     "difference": 0.2925,
+     "higher": 61,
+     "lower": 7,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "band cit-010-049": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 2,
+    "hit5": 13,
+    "hit10": 29,
+    "hit20": 60,
+    "hit50": 69,
+    "mrr10": 0.0769,
+    "mrr50": 0.1024,
+    "hit1_rate": 0.02,
+    "hit5_rate": 0.13,
+    "hit10_rate": 0.29,
+    "hit20_rate": 0.6,
+    "hit50_rate": 0.69
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 1,
+    "hit5": 14,
+    "hit10": 30,
+    "hit20": 41,
+    "hit50": 42,
+    "mrr10": 0.0647,
+    "mrr50": 0.0734,
+    "hit1_rate": 0.01,
+    "hit5_rate": 0.14,
+    "hit10_rate": 0.3,
+    "hit20_rate": 0.41,
+    "hit50_rate": 0.42
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 30,
+    "hit5": 60,
+    "hit10": 63,
+    "hit20": 69,
+    "hit50": 78,
+    "mrr10": 0.4271,
+    "mrr50": 0.4343,
+    "hit1_rate": 0.3,
+    "hit5_rate": 0.6,
+    "hit10_rate": 0.63,
+    "hit20_rate": 0.69,
+    "hit50_rate": 0.78
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 28,
+    "hit5": 55,
+    "hit10": 62,
+    "hit20": 69,
+    "hit50": 79,
+    "mrr10": 0.3947,
+    "mrr50": 0.4021,
+    "hit1_rate": 0.28,
+    "hit5_rate": 0.55,
+    "hit10_rate": 0.62,
+    "hit20_rate": 0.69,
+    "hit50_rate": 0.79
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 2,
+     "lost": 1,
+     "p_mcnemar": 1
+    },
+    "hit5": {
+     "gained": 7,
+     "lost": 8,
+     "p_mcnemar": 1
+    },
+    "hit10": {
+     "gained": 16,
+     "lost": 17,
+     "p_mcnemar": 1
+    },
+    "hit20": {
+     "gained": 27,
+     "lost": 8,
+     "p_mcnemar": 0.0019
+    },
+    "hit50": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "mrr50": {
+     "difference": 0.029,
+     "higher": 43,
+     "lower": 30,
+     "p_permutation": 0.071
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 28,
+     "lost": 0,
+     "p_mcnemar": 7.5e-9
+    },
+    "hit5": {
+     "gained": 47,
+     "lost": 0,
+     "p_mcnemar": 1.4e-14
+    },
+    "hit10": {
+     "gained": 34,
+     "lost": 0,
+     "p_mcnemar": 1.2e-10
+    },
+    "hit20": {
+     "gained": 13,
+     "lost": 4,
+     "p_mcnemar": 0.049
+    },
+    "hit50": {
+     "gained": 13,
+     "lost": 4,
+     "p_mcnemar": 0.049
+    },
+    "mrr50": {
+     "difference": 0.3319,
+     "higher": 70,
+     "lower": 8,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 26,
+     "lost": 0,
+     "p_mcnemar": 3e-8
+    },
+    "hit5": {
+     "gained": 42,
+     "lost": 0,
+     "p_mcnemar": 4.5e-13
+    },
+    "hit10": {
+     "gained": 33,
+     "lost": 0,
+     "p_mcnemar": 2.3e-10
+    },
+    "hit20": {
+     "gained": 11,
+     "lost": 2,
+     "p_mcnemar": 0.022
+    },
+    "hit50": {
+     "gained": 12,
+     "lost": 2,
+     "p_mcnemar": 0.013
+    },
+    "mrr50": {
+     "difference": 0.2997,
+     "higher": 70,
+     "lower": 8,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "band cit-050-199": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 6,
+    "hit5": 41,
+    "hit10": 58,
+    "hit20": 68,
+    "hit50": 68,
+    "mrr10": 0.1951,
+    "mrr50": 0.2026,
+    "hit1_rate": 0.06,
+    "hit5_rate": 0.41,
+    "hit10_rate": 0.58,
+    "hit20_rate": 0.68,
+    "hit50_rate": 0.68
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 6,
+    "hit5": 25,
+    "hit10": 36,
+    "hit20": 42,
+    "hit50": 42,
+    "mrr10": 0.1417,
+    "mrr50": 0.147,
+    "hit1_rate": 0.06,
+    "hit5_rate": 0.25,
+    "hit10_rate": 0.36,
+    "hit20_rate": 0.42,
+    "hit50_rate": 0.42
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 59,
+    "hit10": 65,
+    "hit20": 72,
+    "hit50": 83,
+    "mrr10": 0.4218,
+    "mrr50": 0.4304,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.59,
+    "hit10_rate": 0.65,
+    "hit20_rate": 0.72,
+    "hit50_rate": 0.83
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 59,
+    "hit10": 66,
+    "hit20": 73,
+    "hit50": 84,
+    "mrr10": 0.4165,
+    "mrr50": 0.4243,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.59,
+    "hit10_rate": 0.66,
+    "hit20_rate": 0.73,
+    "hit50_rate": 0.84
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 4,
+     "lost": 4,
+     "p_mcnemar": 1
+    },
+    "hit5": {
+     "gained": 24,
+     "lost": 8,
+     "p_mcnemar": 0.007
+    },
+    "hit10": {
+     "gained": 34,
+     "lost": 12,
+     "p_mcnemar": 0.0016
+    },
+    "hit20": {
+     "gained": 38,
+     "lost": 12,
+     "p_mcnemar": 0.00031
+    },
+    "hit50": {
+     "gained": 38,
+     "lost": 12,
+     "p_mcnemar": 0.00031
+    },
+    "mrr50": {
+     "difference": 0.0556,
+     "higher": 48,
+     "lower": 26,
+     "p_permutation": 0.053
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 26,
+     "lost": 0,
+     "p_mcnemar": 3e-8
+    },
+    "hit5": {
+     "gained": 20,
+     "lost": 2,
+     "p_mcnemar": 0.00012
+    },
+    "hit10": {
+     "gained": 10,
+     "lost": 3,
+     "p_mcnemar": 0.092
+    },
+    "hit20": {
+     "gained": 7,
+     "lost": 3,
+     "p_mcnemar": 0.34
+    },
+    "hit50": {
+     "gained": 16,
+     "lost": 1,
+     "p_mcnemar": 0.00027
+    },
+    "mrr50": {
+     "difference": 0.2278,
+     "higher": 64,
+     "lower": 13,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 26,
+     "lost": 0,
+     "p_mcnemar": 3e-8
+    },
+    "hit5": {
+     "gained": 19,
+     "lost": 1,
+     "p_mcnemar": 0.00004
+    },
+    "hit10": {
+     "gained": 10,
+     "lost": 2,
+     "p_mcnemar": 0.039
+    },
+    "hit20": {
+     "gained": 6,
+     "lost": 1,
+     "p_mcnemar": 0.13
+    },
+    "hit50": {
+     "gained": 16,
+     "lost": 0,
+     "p_mcnemar": 0.000031
+    },
+    "mrr50": {
+     "difference": 0.2217,
+     "higher": 61,
+     "lower": 13,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "band cit-1000-up": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 43,
+    "hit5": 54,
+    "hit10": 54,
+    "hit20": 54,
+    "hit50": 54,
+    "mrr10": 0.4733,
+    "mrr50": 0.4733,
+    "hit1_rate": 0.43,
+    "hit5_rate": 0.54,
+    "hit10_rate": 0.54,
+    "hit20_rate": 0.54,
+    "hit50_rate": 0.54
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 22,
+    "hit5": 27,
+    "hit10": 27,
+    "hit20": 27,
+    "hit50": 27,
+    "mrr10": 0.2433,
+    "mrr50": 0.2433,
+    "hit1_rate": 0.22,
+    "hit5_rate": 0.27,
+    "hit10_rate": 0.27,
+    "hit20_rate": 0.27,
+    "hit50_rate": 0.27
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 34,
+    "hit5": 68,
+    "hit10": 73,
+    "hit20": 83,
+    "hit50": 88,
+    "mrr10": 0.464,
+    "mrr50": 0.472,
+    "hit1_rate": 0.34,
+    "hit5_rate": 0.68,
+    "hit10_rate": 0.73,
+    "hit20_rate": 0.83,
+    "hit50_rate": 0.88
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 63,
+    "hit10": 73,
+    "hit20": 80,
+    "hit50": 85,
+    "mrr10": 0.4421,
+    "mrr50": 0.448,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.63,
+    "hit10_rate": 0.73,
+    "hit20_rate": 0.8,
+    "hit50_rate": 0.85
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 28,
+     "lost": 7,
+     "p_mcnemar": 0.00051
+    },
+    "hit5": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "hit10": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "hit20": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "hit50": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "mrr50": {
+     "difference": 0.23,
+     "higher": 36,
+     "lower": 7,
+     "p_permutation": 0.0001
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 5,
+     "lost": 14,
+     "p_mcnemar": 0.064
+    },
+    "hit5": {
+     "gained": 17,
+     "lost": 3,
+     "p_mcnemar": 0.0026
+    },
+    "hit10": {
+     "gained": 19,
+     "lost": 0,
+     "p_mcnemar": 0.0000038
+    },
+    "hit20": {
+     "gained": 29,
+     "lost": 0,
+     "p_mcnemar": 3.7e-9
+    },
+    "hit50": {
+     "gained": 34,
+     "lost": 0,
+     "p_mcnemar": 1.2e-10
+    },
+    "mrr50": {
+     "difference": -0.0014,
+     "higher": 37,
+     "lower": 21,
+     "p_permutation": 0.97
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 4,
+     "lost": 15,
+     "p_mcnemar": 0.019
+    },
+    "hit5": {
+     "gained": 14,
+     "lost": 5,
+     "p_mcnemar": 0.064
+    },
+    "hit10": {
+     "gained": 19,
+     "lost": 0,
+     "p_mcnemar": 0.0000038
+    },
+    "hit20": {
+     "gained": 26,
+     "lost": 0,
+     "p_mcnemar": 3e-8
+    },
+    "hit50": {
+     "gained": 31,
+     "lost": 0,
+     "p_mcnemar": 9.3e-10
+    },
+    "mrr50": {
+     "difference": -0.0253,
+     "higher": 34,
+     "lower": 22,
+     "p_permutation": 0.41
+    }
+   }
+  },
+  "band cit-200-999": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 62,
+    "hit10": 65,
+    "hit20": 65,
+    "hit50": 65,
+    "mrr10": 0.4344,
+    "mrr50": 0.4344,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.62,
+    "hit10_rate": 0.65,
+    "hit20_rate": 0.65,
+    "hit50_rate": 0.65
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 16,
+    "hit5": 32,
+    "hit10": 34,
+    "hit20": 34,
+    "hit50": 34,
+    "mrr10": 0.2278,
+    "mrr50": 0.2278,
+    "hit1_rate": 0.16,
+    "hit5_rate": 0.32,
+    "hit10_rate": 0.34,
+    "hit20_rate": 0.34,
+    "hit50_rate": 0.34
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 38,
+    "hit5": 64,
+    "hit10": 70,
+    "hit20": 82,
+    "hit50": 88,
+    "mrr10": 0.4883,
+    "mrr50": 0.4986,
+    "hit1_rate": 0.38,
+    "hit5_rate": 0.64,
+    "hit10_rate": 0.7,
+    "hit20_rate": 0.82,
+    "hit50_rate": 0.88
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 61,
+    "hit10": 68,
+    "hit20": 76,
+    "hit50": 85,
+    "mrr10": 0.4347,
+    "mrr50": 0.444,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.61,
+    "hit10_rate": 0.68,
+    "hit20_rate": 0.76,
+    "hit50_rate": 0.85
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 22,
+     "lost": 6,
+     "p_mcnemar": 0.0037
+    },
+    "hit5": {
+     "gained": 39,
+     "lost": 9,
+     "p_mcnemar": 0.000015
+    },
+    "hit10": {
+     "gained": 38,
+     "lost": 7,
+     "p_mcnemar": 0.0000031
+    },
+    "hit20": {
+     "gained": 38,
+     "lost": 7,
+     "p_mcnemar": 0.0000031
+    },
+    "hit50": {
+     "gained": 38,
+     "lost": 7,
+     "p_mcnemar": 0.0000031
+    },
+    "mrr50": {
+     "difference": 0.2066,
+     "higher": 45,
+     "lower": 14,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 12,
+     "lost": 6,
+     "p_mcnemar": 0.24
+    },
+    "hit5": {
+     "gained": 8,
+     "lost": 6,
+     "p_mcnemar": 0.79
+    },
+    "hit10": {
+     "gained": 8,
+     "lost": 3,
+     "p_mcnemar": 0.23
+    },
+    "hit20": {
+     "gained": 17,
+     "lost": 0,
+     "p_mcnemar": 0.000015
+    },
+    "hit50": {
+     "gained": 23,
+     "lost": 0,
+     "p_mcnemar": 2.4e-7
+    },
+    "mrr50": {
+     "difference": 0.0642,
+     "higher": 43,
+     "lower": 14,
+     "p_permutation": 0.045
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 6,
+     "lost": 6,
+     "p_mcnemar": 1
+    },
+    "hit5": {
+     "gained": 5,
+     "lost": 6,
+     "p_mcnemar": 1
+    },
+    "hit10": {
+     "gained": 6,
+     "lost": 3,
+     "p_mcnemar": 0.51
+    },
+    "hit20": {
+     "gained": 11,
+     "lost": 0,
+     "p_mcnemar": 0.00098
+    },
+    "hit50": {
+     "gained": 20,
+     "lost": 0,
+     "p_mcnemar": 0.0000019
+    },
+    "mrr50": {
+     "difference": 0.0096,
+     "higher": 36,
+     "lower": 19,
+     "p_permutation": 0.72
+    }
+   }
+  },
+  "answered today, band cit-000-009": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 0,
+    "hit5": 5,
+    "hit10": 23,
+    "hit20": 44,
+    "hit50": 65,
+    "mrr10": 0.0373,
+    "mrr50": 0.0589,
+    "hit1_rate": 0,
+    "hit5_rate": 0.05,
+    "hit10_rate": 0.23,
+    "hit20_rate": 0.44,
+    "hit50_rate": 0.65
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 0,
+    "hit5": 3,
+    "hit10": 12,
+    "hit20": 23,
+    "hit50": 37,
+    "mrr10": 0.0189,
+    "mrr50": 0.0322,
+    "hit1_rate": 0,
+    "hit5_rate": 0.03,
+    "hit10_rate": 0.12,
+    "hit20_rate": 0.23,
+    "hit50_rate": 0.37
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 30,
+    "hit5": 46,
+    "hit10": 54,
+    "hit20": 65,
+    "hit50": 69,
+    "mrr10": 0.3707,
+    "mrr50": 0.3801,
+    "hit1_rate": 0.3,
+    "hit5_rate": 0.46,
+    "hit10_rate": 0.54,
+    "hit20_rate": 0.65,
+    "hit50_rate": 0.69
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 28,
+    "hit5": 43,
+    "hit10": 50,
+    "hit20": 60,
+    "hit50": 67,
+    "mrr10": 0.3419,
+    "mrr50": 0.3515,
+    "hit1_rate": 0.28,
+    "hit5_rate": 0.43,
+    "hit10_rate": 0.5,
+    "hit20_rate": 0.6,
+    "hit50_rate": 0.67
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 0,
+     "lost": 0,
+     "p_mcnemar": 1
+    },
+    "hit5": {
+     "gained": 4,
+     "lost": 2,
+     "p_mcnemar": 0.69
+    },
+    "hit10": {
+     "gained": 18,
+     "lost": 7,
+     "p_mcnemar": 0.043
+    },
+    "hit20": {
+     "gained": 26,
+     "lost": 5,
+     "p_mcnemar": 0.00019
+    },
+    "hit50": {
+     "gained": 33,
+     "lost": 5,
+     "p_mcnemar": 0.0000043
+    },
+    "mrr50": {
+     "difference": 0.0267,
+     "higher": 49,
+     "lower": 18,
+     "p_permutation": 0.00055
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 30,
+     "lost": 0,
+     "p_mcnemar": 1.9e-9
+    },
+    "hit5": {
+     "gained": 41,
+     "lost": 0,
+     "p_mcnemar": 9.1e-13
+    },
+    "hit10": {
+     "gained": 31,
+     "lost": 0,
+     "p_mcnemar": 9.3e-10
+    },
+    "hit20": {
+     "gained": 21,
+     "lost": 0,
+     "p_mcnemar": 9.5e-7
+    },
+    "hit50": {
+     "gained": 6,
+     "lost": 2,
+     "p_mcnemar": 0.29
+    },
+    "mrr50": {
+     "difference": 0.3212,
+     "higher": 66,
+     "lower": 4,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 28,
+     "lost": 0,
+     "p_mcnemar": 7.5e-9
+    },
+    "hit5": {
+     "gained": 38,
+     "lost": 0,
+     "p_mcnemar": 7.3e-12
+    },
+    "hit10": {
+     "gained": 27,
+     "lost": 0,
+     "p_mcnemar": 1.5e-8
+    },
+    "hit20": {
+     "gained": 17,
+     "lost": 1,
+     "p_mcnemar": 0.00014
+    },
+    "hit50": {
+     "gained": 4,
+     "lost": 2,
+     "p_mcnemar": 0.69
+    },
+    "mrr50": {
+     "difference": 0.2925,
+     "higher": 61,
+     "lower": 7,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "answered today, band cit-010-049": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 2,
+    "hit5": 13,
+    "hit10": 29,
+    "hit20": 60,
+    "hit50": 69,
+    "mrr10": 0.0769,
+    "mrr50": 0.1024,
+    "hit1_rate": 0.02,
+    "hit5_rate": 0.13,
+    "hit10_rate": 0.29,
+    "hit20_rate": 0.6,
+    "hit50_rate": 0.69
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 1,
+    "hit5": 14,
+    "hit10": 30,
+    "hit20": 41,
+    "hit50": 42,
+    "mrr10": 0.0647,
+    "mrr50": 0.0734,
+    "hit1_rate": 0.01,
+    "hit5_rate": 0.14,
+    "hit10_rate": 0.3,
+    "hit20_rate": 0.41,
+    "hit50_rate": 0.42
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 30,
+    "hit5": 60,
+    "hit10": 63,
+    "hit20": 69,
+    "hit50": 78,
+    "mrr10": 0.4271,
+    "mrr50": 0.4343,
+    "hit1_rate": 0.3,
+    "hit5_rate": 0.6,
+    "hit10_rate": 0.63,
+    "hit20_rate": 0.69,
+    "hit50_rate": 0.78
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 28,
+    "hit5": 55,
+    "hit10": 62,
+    "hit20": 69,
+    "hit50": 79,
+    "mrr10": 0.3947,
+    "mrr50": 0.4021,
+    "hit1_rate": 0.28,
+    "hit5_rate": 0.55,
+    "hit10_rate": 0.62,
+    "hit20_rate": 0.69,
+    "hit50_rate": 0.79
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 2,
+     "lost": 1,
+     "p_mcnemar": 1
+    },
+    "hit5": {
+     "gained": 7,
+     "lost": 8,
+     "p_mcnemar": 1
+    },
+    "hit10": {
+     "gained": 16,
+     "lost": 17,
+     "p_mcnemar": 1
+    },
+    "hit20": {
+     "gained": 27,
+     "lost": 8,
+     "p_mcnemar": 0.0019
+    },
+    "hit50": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "mrr50": {
+     "difference": 0.029,
+     "higher": 43,
+     "lower": 30,
+     "p_permutation": 0.071
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 28,
+     "lost": 0,
+     "p_mcnemar": 7.5e-9
+    },
+    "hit5": {
+     "gained": 47,
+     "lost": 0,
+     "p_mcnemar": 1.4e-14
+    },
+    "hit10": {
+     "gained": 34,
+     "lost": 0,
+     "p_mcnemar": 1.2e-10
+    },
+    "hit20": {
+     "gained": 13,
+     "lost": 4,
+     "p_mcnemar": 0.049
+    },
+    "hit50": {
+     "gained": 13,
+     "lost": 4,
+     "p_mcnemar": 0.049
+    },
+    "mrr50": {
+     "difference": 0.3319,
+     "higher": 70,
+     "lower": 8,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 26,
+     "lost": 0,
+     "p_mcnemar": 3e-8
+    },
+    "hit5": {
+     "gained": 42,
+     "lost": 0,
+     "p_mcnemar": 4.5e-13
+    },
+    "hit10": {
+     "gained": 33,
+     "lost": 0,
+     "p_mcnemar": 2.3e-10
+    },
+    "hit20": {
+     "gained": 11,
+     "lost": 2,
+     "p_mcnemar": 0.022
+    },
+    "hit50": {
+     "gained": 12,
+     "lost": 2,
+     "p_mcnemar": 0.013
+    },
+    "mrr50": {
+     "difference": 0.2997,
+     "higher": 70,
+     "lower": 8,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "answered today, band cit-050-199": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 6,
+    "hit5": 41,
+    "hit10": 58,
+    "hit20": 68,
+    "hit50": 68,
+    "mrr10": 0.1951,
+    "mrr50": 0.2026,
+    "hit1_rate": 0.06,
+    "hit5_rate": 0.41,
+    "hit10_rate": 0.58,
+    "hit20_rate": 0.68,
+    "hit50_rate": 0.68
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 6,
+    "hit5": 25,
+    "hit10": 36,
+    "hit20": 42,
+    "hit50": 42,
+    "mrr10": 0.1417,
+    "mrr50": 0.147,
+    "hit1_rate": 0.06,
+    "hit5_rate": 0.25,
+    "hit10_rate": 0.36,
+    "hit20_rate": 0.42,
+    "hit50_rate": 0.42
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 59,
+    "hit10": 65,
+    "hit20": 72,
+    "hit50": 83,
+    "mrr10": 0.4218,
+    "mrr50": 0.4304,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.59,
+    "hit10_rate": 0.65,
+    "hit20_rate": 0.72,
+    "hit50_rate": 0.83
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 59,
+    "hit10": 66,
+    "hit20": 73,
+    "hit50": 84,
+    "mrr10": 0.4165,
+    "mrr50": 0.4243,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.59,
+    "hit10_rate": 0.66,
+    "hit20_rate": 0.73,
+    "hit50_rate": 0.84
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 4,
+     "lost": 4,
+     "p_mcnemar": 1
+    },
+    "hit5": {
+     "gained": 24,
+     "lost": 8,
+     "p_mcnemar": 0.007
+    },
+    "hit10": {
+     "gained": 34,
+     "lost": 12,
+     "p_mcnemar": 0.0016
+    },
+    "hit20": {
+     "gained": 38,
+     "lost": 12,
+     "p_mcnemar": 0.00031
+    },
+    "hit50": {
+     "gained": 38,
+     "lost": 12,
+     "p_mcnemar": 0.00031
+    },
+    "mrr50": {
+     "difference": 0.0556,
+     "higher": 48,
+     "lower": 26,
+     "p_permutation": 0.053
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 26,
+     "lost": 0,
+     "p_mcnemar": 3e-8
+    },
+    "hit5": {
+     "gained": 20,
+     "lost": 2,
+     "p_mcnemar": 0.00012
+    },
+    "hit10": {
+     "gained": 10,
+     "lost": 3,
+     "p_mcnemar": 0.092
+    },
+    "hit20": {
+     "gained": 7,
+     "lost": 3,
+     "p_mcnemar": 0.34
+    },
+    "hit50": {
+     "gained": 16,
+     "lost": 1,
+     "p_mcnemar": 0.00027
+    },
+    "mrr50": {
+     "difference": 0.2278,
+     "higher": 64,
+     "lower": 13,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 26,
+     "lost": 0,
+     "p_mcnemar": 3e-8
+    },
+    "hit5": {
+     "gained": 19,
+     "lost": 1,
+     "p_mcnemar": 0.00004
+    },
+    "hit10": {
+     "gained": 10,
+     "lost": 2,
+     "p_mcnemar": 0.039
+    },
+    "hit20": {
+     "gained": 6,
+     "lost": 1,
+     "p_mcnemar": 0.13
+    },
+    "hit50": {
+     "gained": 16,
+     "lost": 0,
+     "p_mcnemar": 0.000031
+    },
+    "mrr50": {
+     "difference": 0.2217,
+     "higher": 61,
+     "lower": 13,
+     "p_permutation": 0.00005
+    }
+   }
+  },
+  "answered today, band cit-1000-up": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 43,
+    "hit5": 54,
+    "hit10": 54,
+    "hit20": 54,
+    "hit50": 54,
+    "mrr10": 0.4733,
+    "mrr50": 0.4733,
+    "hit1_rate": 0.43,
+    "hit5_rate": 0.54,
+    "hit10_rate": 0.54,
+    "hit20_rate": 0.54,
+    "hit50_rate": 0.54
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 22,
+    "hit5": 27,
+    "hit10": 27,
+    "hit20": 27,
+    "hit50": 27,
+    "mrr10": 0.2433,
+    "mrr50": 0.2433,
+    "hit1_rate": 0.22,
+    "hit5_rate": 0.27,
+    "hit10_rate": 0.27,
+    "hit20_rate": 0.27,
+    "hit50_rate": 0.27
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 34,
+    "hit5": 68,
+    "hit10": 73,
+    "hit20": 83,
+    "hit50": 88,
+    "mrr10": 0.464,
+    "mrr50": 0.472,
+    "hit1_rate": 0.34,
+    "hit5_rate": 0.68,
+    "hit10_rate": 0.73,
+    "hit20_rate": 0.83,
+    "hit50_rate": 0.88
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 63,
+    "hit10": 73,
+    "hit20": 80,
+    "hit50": 85,
+    "mrr10": 0.4421,
+    "mrr50": 0.448,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.63,
+    "hit10_rate": 0.73,
+    "hit20_rate": 0.8,
+    "hit50_rate": 0.85
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 28,
+     "lost": 7,
+     "p_mcnemar": 0.00051
+    },
+    "hit5": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "hit10": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "hit20": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "hit50": {
+     "gained": 32,
+     "lost": 5,
+     "p_mcnemar": 0.0000074
+    },
+    "mrr50": {
+     "difference": 0.23,
+     "higher": 36,
+     "lower": 7,
+     "p_permutation": 0.0001
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 5,
+     "lost": 14,
+     "p_mcnemar": 0.064
+    },
+    "hit5": {
+     "gained": 17,
+     "lost": 3,
+     "p_mcnemar": 0.0026
+    },
+    "hit10": {
+     "gained": 19,
+     "lost": 0,
+     "p_mcnemar": 0.0000038
+    },
+    "hit20": {
+     "gained": 29,
+     "lost": 0,
+     "p_mcnemar": 3.7e-9
+    },
+    "hit50": {
+     "gained": 34,
+     "lost": 0,
+     "p_mcnemar": 1.2e-10
+    },
+    "mrr50": {
+     "difference": -0.0014,
+     "higher": 37,
+     "lower": 21,
+     "p_permutation": 0.97
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 4,
+     "lost": 15,
+     "p_mcnemar": 0.019
+    },
+    "hit5": {
+     "gained": 14,
+     "lost": 5,
+     "p_mcnemar": 0.064
+    },
+    "hit10": {
+     "gained": 19,
+     "lost": 0,
+     "p_mcnemar": 0.0000038
+    },
+    "hit20": {
+     "gained": 26,
+     "lost": 0,
+     "p_mcnemar": 3e-8
+    },
+    "hit50": {
+     "gained": 31,
+     "lost": 0,
+     "p_mcnemar": 9.3e-10
+    },
+    "mrr50": {
+     "difference": -0.0253,
+     "higher": 34,
+     "lower": 22,
+     "p_permutation": 0.41
+    }
+   }
+  },
+  "answered today, band cit-200-999": {
+   "openalex_2026_11_17": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 62,
+    "hit10": 65,
+    "hit20": 65,
+    "hit50": 65,
+    "mrr10": 0.4344,
+    "mrr50": 0.4344,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.62,
+    "hit10_rate": 0.65,
+    "hit20_rate": 0.65,
+    "hit50_rate": 0.65
+   },
+   "openalex_september_2026": {
+    "n": 100,
+    "hit1": 16,
+    "hit5": 32,
+    "hit10": 34,
+    "hit20": 34,
+    "hit50": 34,
+    "mrr10": 0.2278,
+    "mrr50": 0.2278,
+    "hit1_rate": 0.16,
+    "hit5_rate": 0.32,
+    "hit10_rate": 0.34,
+    "hit20_rate": 0.34,
+    "hit50_rate": 0.34
+   },
+   "rbai_reference": {
+    "n": 100,
+    "hit1": 38,
+    "hit5": 64,
+    "hit10": 70,
+    "hit20": 82,
+    "hit50": 88,
+    "mrr10": 0.4883,
+    "mrr50": 0.4986,
+    "hit1_rate": 0.38,
+    "hit5_rate": 0.64,
+    "hit10_rate": 0.7,
+    "hit20_rate": 0.82,
+    "hit50_rate": 0.88
+   },
+   "rbai_live_2026_11_17": {
+    "n": 100,
+    "hit1": 32,
+    "hit5": 61,
+    "hit10": 68,
+    "hit20": 76,
+    "hit50": 85,
+    "mrr10": 0.4347,
+    "mrr50": 0.444,
+    "hit1_rate": 0.32,
+    "hit5_rate": 0.61,
+    "hit10_rate": 0.68,
+    "hit20_rate": 0.76,
+    "hit50_rate": 0.85
+   },
+   "openalex_now_vs_september": {
+    "hit1": {
+     "gained": 22,
+     "lost": 6,
+     "p_mcnemar": 0.0037
+    },
+    "hit5": {
+     "gained": 39,
+     "lost": 9,
+     "p_mcnemar": 0.000015
+    },
+    "hit10": {
+     "gained": 38,
+     "lost": 7,
+     "p_mcnemar": 0.0000031
+    },
+    "hit20": {
+     "gained": 38,
+     "lost": 7,
+     "p_mcnemar": 0.0000031
+    },
+    "hit50": {
+     "gained": 38,
+     "lost": 7,
+     "p_mcnemar": 0.0000031
+    },
+    "mrr50": {
+     "difference": 0.2066,
+     "higher": 45,
+     "lower": 14,
+     "p_permutation": 0.00005
+    }
+   },
+   "rbai_reference_vs_openalex_now": {
+    "hit1": {
+     "gained": 12,
+     "lost": 6,
+     "p_mcnemar": 0.24
+    },
+    "hit5": {
+     "gained": 8,
+     "lost": 6,
+     "p_mcnemar": 0.79
+    },
+    "hit10": {
+     "gained": 8,
+     "lost": 3,
+     "p_mcnemar": 0.23
+    },
+    "hit20": {
+     "gained": 17,
+     "lost": 0,
+     "p_mcnemar": 0.000015
+    },
+    "hit50": {
+     "gained": 23,
+     "lost": 0,
+     "p_mcnemar": 2.4e-7
+    },
+    "mrr50": {
+     "difference": 0.0642,
+     "higher": 43,
+     "lower": 14,
+     "p_permutation": 0.045
+    }
+   },
+   "rbai_live_vs_openalex_now": {
+    "hit1": {
+     "gained": 6,
+     "lost": 6,
+     "p_mcnemar": 1
+    },
+    "hit5": {
+     "gained": 5,
+     "lost": 6,
+     "p_mcnemar": 1
+    },
+    "hit10": {
+     "gained": 6,
+     "lost": 3,
+     "p_mcnemar": 0.51
+    },
+    "hit20": {
+     "gained": 11,
+     "lost": 0,
+     "p_mcnemar": 0.00098
+    },
+    "hit50": {
+     "gained": 20,
+     "lost": 0,
+     "p_mcnemar": 0.0000019
+    },
+    "mrr50": {
+     "difference": 0.0096,
+     "higher": 36,
+     "lower": 19,
+     "p_permutation": 0.72
+    }
+   }
+  }
+ }
+}

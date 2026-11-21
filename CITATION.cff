@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: If you use this software or its benchmark data, please cite this repository as below.
+type: software
+title: "RBAi Scholar: API and MCP documentation, client configurations and benchmark"
+abstract: >-
+  Documentation of the RBAi Scholar REST API and MCP server, configuration
+  files for MCP clients, and the benchmark of its semantic, keyword and hybrid
+  search of biomedical abstracts: the questions, every system's rankings, the
+  blinded relevance grades and a scorer that recomputes every published
+  figure from the released data.
+authors:
+  - family-names: Chaudhary
+    given-names: Hariom
+    affiliation: The Dream Lab Innovations, Faridabad, India
+repository-code: "https://github.com/Insightwithhari/rbai-scholar"
+url: "https://thedreamlabinnovations.com/rbai-scholar"
+license:
+  - MIT
+  - CC-BY-4.0
+keywords:
+  - biomedical literature retrieval
+  - semantic search
+  - information retrieval benchmark
+  - Model Context Protocol

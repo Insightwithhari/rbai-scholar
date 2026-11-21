@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "rbai-scholar",
+  "version": "1.0.3",
+  "description": "Search over 24 million biomedical journal abstracts (20M+ in PubMed) by meaning or by exact terms.",
+  "author": {
+    "name": "The Dream Lab Innovations",
+    "url": "https://thedreamlabinnovations.com"
+  },
+  "homepage": "https://thedreamlabinnovations.com/rbai-scholar",
+  "repository": "https://github.com/Insightwithhari/rbai-scholar",
+  "license": "MIT",
+  "keywords": ["biomedical literature", "PubMed", "semantic search", "research"]
+}
