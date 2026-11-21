@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "rbai-scholar",
   "version": "1.0.4",
-  "description": "Search over 24 million biomedical journal abstracts (20M+ in PubMed) by meaning or by exact terms.",
+  "description": "Search over 24 million biomedical journal abstracts (20M+ in PubMed) by meaning, exact terms or both at once.",
   "author": {
     "name": "The Dream Lab Innovations",
     "url": "https://thedreamlabinnovations.com"

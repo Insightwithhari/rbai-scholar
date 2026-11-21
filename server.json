@@ -2,13 +2,13 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Insightwithhari/rbai-scholar",
   "title": "RBAi Scholar",
-  "description": "Search 24M+ biomedical journal abstracts (20M+ in PubMed) by meaning or by exact terms.",
+  "description": "Search 24M+ biomedical journal abstracts (20M+ in PubMed) by meaning, exact terms or both at once.",
   "repository": {
     "url": "https://github.com/Insightwithhari/rbai-scholar",
     "source": "github",
     "id": "1466839312"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "websiteUrl": "https://thedreamlabinnovations.com/rbai-scholar",
   "icons": [
     {

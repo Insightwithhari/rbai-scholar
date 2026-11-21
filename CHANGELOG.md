@@ -2,6 +2,10 @@
 
 What changed in RBAi Scholar and in this repository, newest first. All dates are in 2026.
 
+## 22 November
+
+- Descriptions now name all three ways to search: by meaning, by exact terms, or both at once.
+
 ## 21 November
 
 - First public release of this repository: the user guide, the REST API and MCP guides, client configurations,
