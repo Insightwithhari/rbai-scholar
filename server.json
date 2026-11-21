@@ -8,7 +8,7 @@
     "source": "github",
     "id": "1466839312"
   },
-  "version": "1.0.4",
+  "version": "1.0.5",
   "websiteUrl": "https://thedreamlabinnovations.com/rbai-scholar",
   "icons": [
     {
@@ -24,7 +24,7 @@
       "headers": [
         {
           "name": "x-api-key",
-          "description": "Your RBAi Scholar API key (rbai_sk_...), needed for searches. Free key: https://thedreamlabinnovations.com/rbai-scholar#quickstart",
+          "description": "Your RBAi Scholar API key (rbai_sk_...). Optional: ChatGPT, Claude and other apps that support sign-in connect with an email code instead. Free key: https://thedreamlabinnovations.com/rbai-scholar#quickstart",
           "isRequired": false,
           "isSecret": true
         }

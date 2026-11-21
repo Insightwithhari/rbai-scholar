@@ -7,7 +7,7 @@ What changed in RBAi Scholar and in this repository, newest first. All dates are
 - First public release of this repository: the user guide, the REST API and MCP guides, client configurations,
   examples, and the benchmark (data, results, figures and the scorer).
 - MCP Registry entry 1.0.4: links this repository, and the API key header is now optional, because ChatGPT and
-  Claude can sign in with an email code instead.
+  Claude can sign in with an email code instead. Entry 1.0.5 says the same in the header's description.
 - Sign-in: sending a form twice (a double click on Continue or Allow) no longer ends the sign-in.
 - The licence is now in two files: [LICENSE](LICENSE) (MIT, for the code) and [LICENSE-DATA.md](LICENSE-DATA.md)
   (CC BY 4.0, for the data and documentation).
