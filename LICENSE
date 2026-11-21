@@ -1,17 +1,3 @@
-This repository contains two kinds of material under two licences.
-
-1. Code: benchmark/score.mjs, benchmark/figures.mjs, examples/, mcp/, server.json, plugin.json, mcp.json,
-   package.json and .github/ are licensed under the MIT License, below.
-
-2. Data and documentation: benchmark/data/, benchmark/results/, benchmark/figures/, the Markdown documents and
-   CITATION.cff are licensed under the Creative Commons Attribution 4.0 International licence (CC BY 4.0),
-   https://creativecommons.org/licenses/by/4.0/. Attribute as given in CITATION.cff.
-
-   CC BY 4.0 covers what The Dream Lab Innovations made: the questions and queries, the relevance grades and
-   the judge's reasons, the recorded rankings and the analyses. The bibliographic metadata in the data files
-   (titles, DOIs, PubMed identifiers, years, journal names) comes from OpenAlex, which releases it under CC0,
-   and from PubMed; it is not ours to licence. No abstract text is included.
-
 MIT License
 
 Copyright (c) 2026 The Dream Lab Innovations

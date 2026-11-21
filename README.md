@@ -198,7 +198,9 @@ belong to their publishers and authors; it has DOIs, PubMed IDs, titles, years a
 If you use RBAi Scholar or its benchmark in your work, please cite this repository: [CITATION.cff](CITATION.cff)
 (GitHub's "Cite this repository" button gives ready formats). A paper describing the benchmark is in preparation.
 
-Code (the scorer, examples and configurations) is MIT. The benchmark data, results, figures and documentation
-are CC BY 4.0. Bibliographic metadata comes from OpenAlex (CC0) and PubMed. See [LICENSE](LICENSE).
+Code (the scorer, examples and configurations) is MIT ([LICENSE](LICENSE)). The benchmark data, results, figures
+and documentation are CC BY 4.0 ([LICENSE-DATA.md](LICENSE-DATA.md)). Bibliographic metadata comes from OpenAlex
+(CC0) and PubMed. What changed and when: [CHANGELOG.md](CHANGELOG.md). To report a problem or suggest a change, see
+[CONTRIBUTING.md](CONTRIBUTING.md); for anything security-related, [SECURITY.md](SECURITY.md).
 
 Made by [The Dream Lab Innovations](https://thedreamlabinnovations.com).
