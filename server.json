@@ -3,7 +3,12 @@
   "name": "io.github.Insightwithhari/rbai-scholar",
   "title": "RBAi Scholar",
   "description": "Search 24M+ biomedical journal abstracts (20M+ in PubMed) by meaning or by exact terms.",
-  "version": "1.0.3",
+  "repository": {
+    "url": "https://github.com/Insightwithhari/rbai-scholar",
+    "source": "github",
+    "id": "1466839312"
+  },
+  "version": "1.0.4",
   "websiteUrl": "https://thedreamlabinnovations.com/rbai-scholar",
   "icons": [
     {
@@ -20,7 +25,7 @@
         {
           "name": "x-api-key",
           "description": "Your RBAi Scholar API key (rbai_sk_...), needed for searches. Free key: https://thedreamlabinnovations.com/rbai-scholar#quickstart",
-          "isRequired": true,
+          "isRequired": false,
           "isSecret": true
         }
       ]
