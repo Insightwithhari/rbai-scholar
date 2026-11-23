@@ -11,10 +11,8 @@ abstract: >-
 authors:
   - family-names: Chaudhary
     given-names: Hariom
-    affiliation: The Dream Lab Innovations, Faridabad, India
   - family-names: Chowhan
     given-names: Rimpy Kaur
-    affiliation: Department of Biomedical Science, Acharya Narendra Dev College, University of Delhi, New Delhi, India; The Dream Lab Innovations, Faridabad, India
 repository-code: "https://github.com/Insightwithhari/rbai-scholar"
 url: "https://thedreamlabinnovations.com/rbai-scholar"
 license:
